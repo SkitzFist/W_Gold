@@ -28,6 +28,21 @@
     <Filter Include="UI">
       <UniqueIdentifier>{a357063a-dc7d-4315-850c-b4ec802dc5c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Raycasting">
+      <UniqueIdentifier>{9a0b7ffd-3d9a-4977-a805-68fc7895e454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{9e5e92e0-368d-43b5-afe6-ac2b6a7c7f6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tiles">
+      <UniqueIdentifier>{c9c43311-9682-445c-98cf-64213c1b24f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameState\SimonState">
+      <UniqueIdentifier>{6ee8407b-66a4-40e7-b19a-e5497152bad8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameState\JoelState">
+      <UniqueIdentifier>{61d80ac8-1602-405c-bb61-c55a9638baba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,6 +60,30 @@
     <ClCompile Include="PlayState.cpp">
       <Filter>GameState\PlayState</Filter>
     </ClCompile>
+    <ClCompile Include="DeltaTime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Line.cpp">
+      <Filter>Raycasting</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Raycasting</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="SimonState.cpp">
+      <Filter>GameState\SimonState</Filter>
+    </ClCompile>
+    <ClCompile Include="JoelState.cpp">
+      <Filter>GameState\JoelState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -58,6 +97,30 @@
     </ClInclude>
     <ClInclude Include="PlayState.h">
       <Filter>GameState\PlayState</Filter>
+    </ClInclude>
+    <ClInclude Include="Line.h">
+      <Filter>Raycasting</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Raycasting</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="DeltaTime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SimonState.h">
+      <Filter>GameState\SimonState</Filter>
+    </ClInclude>
+    <ClInclude Include="JoelState.h">
+      <Filter>GameState\JoelState</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
