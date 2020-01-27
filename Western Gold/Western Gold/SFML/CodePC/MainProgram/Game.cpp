@@ -35,8 +35,7 @@ void Game::handleEvent()
 		if (currentState != nullptr) {
 			currentState->handleEvent(event);
 		}	
-		if (event.type == sf::Event::Closed ||
-			event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape) {
+		if (event.type == sf::Event::Closed) {
 			window.close();
 		}
 	}
@@ -56,10 +55,8 @@ void Game::update()
 {
 	elapsedTimeSinceLastUpdate += clock.restart();
 	while(elapsedTimeSinceLastUpdate >= timePerFrame) {
-		sf::Time delta;
-		float dt = std::fmin(elapsedTimeSinceLastUpdate.asSeconds(), timePerFrame.asSeconds());
-		delta = sf::seconds(dt);
 
+		sf::Time delta = elapsedTimeSinceLastUpdate;
 		if(currentState != nullptr) {
 			currentState->update(delta);
 		}
