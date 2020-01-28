@@ -1,5 +1,6 @@
 #pragma once
 #include "GameState.h"
+#include "SoundManager.h"
 
 class SimonState : public GameState
 {
@@ -10,7 +11,7 @@ public:
 	virtual GameState* handleEvent(const sf::Event& event) override;
 	virtual GameState* update(DeltaTime time) override;
 	virtual void render(sf::RenderWindow& window) const override;
-
+	Sound test;
 private:
 	sf::Text text;
 	void setupText();
