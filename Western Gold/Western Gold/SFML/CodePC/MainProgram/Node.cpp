@@ -35,3 +35,8 @@ void Node::setSprite(sf::Texture* texture)
 {
 	sprite.setTexture(*texture);
 }
+
+int Node::getSCost() const
+{
+	return sCost;
+}
