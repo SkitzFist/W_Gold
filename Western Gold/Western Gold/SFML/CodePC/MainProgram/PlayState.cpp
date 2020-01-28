@@ -1,5 +1,5 @@
 #include "PlayState.h"
-
+#include <iostream>
 
 
 PlayState::PlayState(ResourceManager* rm):
@@ -25,11 +25,11 @@ GameState * PlayState::handleEvent(const sf::Event & event)
 	return getGameState();
 }
 
-GameState * PlayState::update(sf::Time delta)
+GameState * PlayState::update(DeltaTime time)
 {
 	setGameState(this);
-
-	text.setString(std::to_string(delta.asSeconds()));
+	std::cout << time.dt() << std::endl;
+	text.setString(std::to_string(time.dt()));
 
 	return getGameState();
 }

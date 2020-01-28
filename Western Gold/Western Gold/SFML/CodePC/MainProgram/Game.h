@@ -19,6 +19,7 @@ private:
 	sf::RenderWindow window;
 	ResourceManager* rm;
 	GameState* currentState;
+	DeltaTime time;
 
 private:
 	void update();

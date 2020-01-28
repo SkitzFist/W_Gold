@@ -17,7 +17,7 @@ GameState* JoelState::handleEvent(const sf::Event& event)
 	return getGameState();
 }
 
-GameState* JoelState::update(sf::Time delta)
+GameState* JoelState::update(DeltaTime time)
 {
 	setGameState(this);
 
