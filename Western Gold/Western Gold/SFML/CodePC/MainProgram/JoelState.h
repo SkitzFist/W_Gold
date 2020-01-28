@@ -1,5 +1,6 @@
 #pragma once
 #include "GameState.h"
+#include "Level.h"
 
 class JoelState : public GameState
 {
@@ -10,5 +11,8 @@ public:
 	virtual GameState* handleEvent(const sf::Event& event) override;
 	virtual GameState* update(sf::Time delta) override;
 	virtual void render(sf::RenderWindow& window) const override;
+
+private:
+	Level* level = nullptr;
 };
 

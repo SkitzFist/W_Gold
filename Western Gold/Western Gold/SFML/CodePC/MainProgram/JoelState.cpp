@@ -3,10 +3,12 @@
 JoelState::JoelState(ResourceManager* rm):
 	GameState(rm)
 {
+	level = new Level(rm, *rm->getLevel_test());
 }
 
 JoelState::~JoelState()
 {
+	delete level;
 }
 
 GameState* JoelState::handleEvent(const sf::Event& event)

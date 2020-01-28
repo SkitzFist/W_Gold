@@ -43,6 +43,15 @@
     <Filter Include="GameState\JoelState">
       <UniqueIdentifier>{61d80ac8-1602-405c-bb61-c55a9638baba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{6fa734f0-4f39-4bfe-b3c7-5977e55505dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level">
+      <UniqueIdentifier>{abf10f24-065a-4e4e-b7c1-9481d15da964}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\TileNodes">
+      <UniqueIdentifier>{dc7395f5-7426-4431-ad9c-7982030b36ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -84,6 +93,18 @@
     <ClCompile Include="JoelState.cpp">
       <Filter>GameState\JoelState</Filter>
     </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Level\TileNodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Level\TileNodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -121,6 +142,18 @@
     </ClInclude>
     <ClInclude Include="JoelState.h">
       <Filter>GameState\JoelState</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Level\TileNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Level\TileNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Level</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -173,29 +173,37 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="JoelState.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SimonState.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DeltaTime.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="JoelState.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Line.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SimonState.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
