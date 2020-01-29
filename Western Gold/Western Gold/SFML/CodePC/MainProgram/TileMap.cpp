@@ -5,6 +5,7 @@ void TileMap::setUpTiles(std::string TileSheet)
 	for (int row = 0; row < nrOfRows; row++) {
 		for (int col = 0; col < nrOfCols; col++) {
 			this->tiles[row][col] = new Tile(texture, (float)col * this->widthPerTile, (float)row * this->heightPerTile);
+			//how big each Tile should be
 			this->tiles[row][col]->setSpriteScale(0.3);
 		}
 	}

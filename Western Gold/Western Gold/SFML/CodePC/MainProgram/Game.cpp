@@ -2,6 +2,7 @@
 #include "PlayState.h"
 #include <thread>
 #include <chrono>
+#include "SimonState.h"
 
 Game::Game():
 	window(sf::VideoMode(WIDTH, HEIGHT), "Mall"),
@@ -15,7 +16,7 @@ Game::Game():
 	rm = new ResourceManager();
 	rm->windowSetup(WIDTH, HEIGHT);
 
-	currentState = new PlayState(rm);
+	currentState = new SimonState(rm);
 
 	//debug
 }
@@ -56,12 +57,11 @@ void Game::update()
 	elapsedTimeSinceLastUpdate += clock.restart();
 	while(elapsedTimeSinceLastUpdate >= timePerFrame) {
 
-		sf::Time delta = elapsedTimeSinceLastUpdate;
+		time.restartClock();
 		if(currentState != nullptr) {
-			currentState->update(delta);
+			currentState->update(time);
 		}
-
-		elapsedTimeSinceLastUpdate -= delta;
+		elapsedTimeSinceLastUpdate -= timePerFrame;
 	}
 }
 

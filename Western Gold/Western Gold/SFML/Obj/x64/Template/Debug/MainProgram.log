@@ -1,9 +1,0 @@
-﻿  Grid.cpp
-  JoelState.cpp
-  Level.cpp
-  Node.cpp
-  ResourceManager.cpp
-  Generating Code...
-Grid.obj : error LNK2019: unresolved external symbol "public: class Node * * __cdecl Utils::allocateTwoDimensionalArray<class Node>(int,int)" (??$allocateTwoDimensionalArray@VNode@@@Utils@@QEAAPEAPEAVNode@@HH@Z) referenced in function "public: __cdecl Grid::Grid(class ResourceManager *,class sf::Image)" (??0Grid@@QEAA@PEAVResourceManager@@VImage@sf@@@Z)
-Grid.obj : error LNK2019: unresolved external symbol "public: void __cdecl Utils::deallocateTwoDimensionalArray<class Node>(class Node * *)" (??$deallocateTwoDimensionalArray@VNode@@@Utils@@QEAAXPEAPEAVNode@@@Z) referenced in function "public: __cdecl Grid::~Grid(void)" (??1Grid@@QEAA@XZ)
-D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\..\Bin\x64\TemplateD.exe : fatal error LNK1120: 2 unresolved externals
