@@ -3,8 +3,9 @@
 #include <thread>
 #include <chrono>
 #include "SimonState.h"
+#include "JoelState.h"
 
-Game::Game():
+Game::Game() :
 	window(sf::VideoMode(WIDTH, HEIGHT), "Mall"),
 	timePerFrame(sf::seconds(1.0f / 60.0f)),
 	elapsedTimeSinceLastUpdate(sf::Time::Zero)
@@ -16,7 +17,7 @@ Game::Game():
 	rm = new ResourceManager();
 	rm->windowSetup(WIDTH, HEIGHT);
 
-	currentState = new SimonState(rm);
+	currentState = new JoelState(rm);
 
 	//debug
 }
@@ -35,7 +36,7 @@ void Game::handleEvent()
 
 		if (currentState != nullptr) {
 			currentState->handleEvent(event);
-		}	
+		}
 		if (event.type == sf::Event::Closed) {
 			window.close();
 		}
@@ -54,14 +55,8 @@ void Game::run()
 
 void Game::update()
 {
-	elapsedTimeSinceLastUpdate += clock.restart();
-	while(elapsedTimeSinceLastUpdate >= timePerFrame) {
-
-		time.restartClock();
-		if(currentState != nullptr) {
-			currentState->update(time);
-		}
-		elapsedTimeSinceLastUpdate -= timePerFrame;
+	if (currentState != nullptr) {
+		currentState->update(time);
 	}
 }
 

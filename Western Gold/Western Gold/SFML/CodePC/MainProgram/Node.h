@@ -11,10 +11,12 @@ public:
 	Node(sf::Vector2f worldPos, bool isWalkable);
 	~Node();
 	sf::Vector2f getWorldPos() const;
+	void setWorldPos(sf::Vector2f worldPos);
 	bool getIsWalkable() const;
+	void setIsWalkable(bool value);
 	sf::Sprite getSprite() const;
 	void setSprite(sf::Texture* texture);
-	int getSCost() const;
+	int getTCost() const;
 private:
 	sf::Vector2f worldPos;
 	bool isWalkable;
