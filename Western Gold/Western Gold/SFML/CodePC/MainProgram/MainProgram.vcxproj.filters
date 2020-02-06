@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="DeltaTime.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="JoelState.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Line.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="PlayState.cpp" />
+    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="SimonState.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DeltaTime.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="Grid.h" />
+    <ClInclude Include="JoelState.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="PlayState.h" />
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="SimonState.h" />
+    <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="Utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{7e5f2060-06e9-49ef-b4d3-9198e02a40c4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
