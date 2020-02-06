@@ -5,7 +5,7 @@
 class Grid
 {
 public:
-	Grid(ResourceManager* rm, const sf::Image level);
+	Grid(ResourceManager* rm, const sf::Image& level);
 	~Grid();
 
 	//debug
@@ -14,8 +14,9 @@ public:
 private:
 	Node** grid;
 	sf::Vector2u worldSize;
-	int nodeSize;
+	float nodeSize;
 
 private:
+	void initGrid(ResourceManager* rm, const sf::Image& level);
 };
 

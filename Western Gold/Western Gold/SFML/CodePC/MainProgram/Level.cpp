@@ -18,3 +18,9 @@ Grid* Level::getGrid() const
 {
 	return grid;
 }
+
+void Level::drawLevel(sf::RenderWindow& window) const
+{
+	grid->renderGrid(window);
+	//renderObjects(window);
+}

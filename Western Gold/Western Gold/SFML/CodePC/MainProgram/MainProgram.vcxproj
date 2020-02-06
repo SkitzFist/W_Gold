@@ -186,7 +186,6 @@
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileMap.cpp" />
-    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DeltaTime.h" />
