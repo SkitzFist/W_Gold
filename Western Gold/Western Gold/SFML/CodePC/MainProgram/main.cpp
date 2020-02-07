@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include <stdexcept>
+#include <Windows.h>
 
 #ifdef _DEBUG
 #pragma comment(lib, "sfml-window-d.lib")
@@ -17,6 +18,13 @@
 int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+#ifdef  _DEBUG
+	std::cout << "debug" << std::endl;
+#else
+	std::cout << "relase" << std::endl;
+#endif 
+
 
 	Game game;
 	try

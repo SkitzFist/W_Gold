@@ -72,12 +72,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Tiles</Filter>
-    </ClCompile>
-    <ClCompile Include="TileMap.cpp">
-      <Filter>Tiles</Filter>
-    </ClCompile>
     <ClCompile Include="SimonState.cpp">
       <Filter>GameState\SimonState</Filter>
     </ClCompile>
@@ -85,6 +79,9 @@
       <Filter>GameState\JoelState</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="testObj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,12 +107,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Tiles</Filter>
-    </ClInclude>
-    <ClInclude Include="TileMap.h">
-      <Filter>Tiles</Filter>
-    </ClInclude>
     <ClInclude Include="DeltaTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -127,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="SoundManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testObj.h">
+      <Filter>GameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

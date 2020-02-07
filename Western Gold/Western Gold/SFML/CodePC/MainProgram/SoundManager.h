@@ -11,11 +11,7 @@ private:
 public:
 	Sound();
 	virtual ~Sound();
-	//load and play sound
-	void LoadSound(std::string FileName, float volume = -1.0f);
-	void PlayLoadSound();
-	//play sound without loading it
-	void PlaySounds(std::string FileName, float volume = -1.0f);
+	void PlaySounds(sf::SoundBuffer * File, float volume = -1.0f);
 	//playMusic
 	void PlayMusic(std::string FileName, float volume = -1.0f);
 	void StopMusic();
