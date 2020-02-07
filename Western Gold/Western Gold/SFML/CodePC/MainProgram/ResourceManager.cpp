@@ -1,8 +1,6 @@
 #include "ResourceManager.h"
 #include <iostream>
 
-/* Gör ett test med git för o se vad som händer om vi har lagt till olika resurser
-	Blir det en konflikt eller inte?*/
 
 ResourceManager::ResourceManager()
 {
@@ -18,11 +16,6 @@ ResourceManager::ResourceManager()
 ResourceManager::~ResourceManager()
 {
 	delete basicFont;
-	
-	//debug
-	delete level_test;
-	delete tile_blue;
-	delete tile_green;
 }
 
 void ResourceManager::windowSetup(int width, int height)
@@ -44,22 +37,17 @@ int ResourceManager::getWindowHeight() const
 void ResourceManager::basicSetup()
 {
 	basicFont = new sf::Font();
+	ass = new sf::SoundBuffer();
+	tex = new sf::Texture();
+	if (!tex->loadFromFile("../Textures/SandBig.jpg")) {
+		cantLoad(L"tex");
+	}
+	if (!ass->loadFromFile("../Sound/THX_Sound_Effect.wav")){
+		cantLoad(L"ass");
+	}
 	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
-		std::cerr << "Could not load font segoui.ttf" << std::endl;
-	}
-
-	//debug
-	level_test = new sf::Image();
-	if (!level_test->loadFromFile("../Levels/level_test.png")) {
-		std::cerr << "Could not load level_test.png" << std::endl;
-	}
-	tile_blue = new sf::Texture();
-	if (!tile_blue->loadFromFile("../Sprites/tile_blue.png")) {
-		std::cerr << "Could not load tile_blue.png" << std::endl;
-	}
-	tile_green = new sf::Texture();
-	if (!tile_green->loadFromFile("../Sprites/tile_green.png")) {
-		std::cerr << "Could not load tile_green.png" << std::endl;
+		//std::cerr << "Could not load font segoui.ttf" << std::endl;
+		cantLoad(L"Font");
 	}
 }
 
@@ -68,17 +56,17 @@ sf::Font * ResourceManager::getBasicFont()
 	return basicFont;
 }
 
-sf::Image* ResourceManager::getLevel_test()
+sf::SoundBuffer * ResourceManager::getass()
 {
-	return level_test;
+	return ass;
 }
 
-sf::Texture* ResourceManager::getTile_blue()
+sf::Texture* ResourceManager::gettex()
 {
-	return tile_blue;
+	return tex;
 }
 
-sf::Texture* ResourceManager::getTile_green()
+void ResourceManager::cantLoad(LPCWSTR theerror)
 {
-	return tile_green;
+	MessageBox(nullptr, theerror, L"ERROR", MB_ICONWARNING | MB_OK);
 }

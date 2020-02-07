@@ -1,11 +1,11 @@
 #include "SimonState.h"
 
 SimonState::SimonState(ResourceManager* rm):
-	GameState(rm)
+	GameState(rm),
+	Test(rm)
 {
 	setupText();
 	setGameState(this);
-	test.LoadSound("../../Bin/Sound/test.wav", 5);
 }
 
 SimonState::~SimonState()
@@ -25,9 +25,7 @@ GameState* SimonState::update(DeltaTime time)
 	setGameState(this);
 
 	text.setString(std::to_string(time.dt()));
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)&&test.IfSoundStopped()) {
-		test.PlayLoadSound();
-	}
+	Test.update(time);
 
 	return getGameState();
 }

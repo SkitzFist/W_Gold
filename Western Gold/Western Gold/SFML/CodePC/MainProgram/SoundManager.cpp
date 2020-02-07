@@ -1,45 +1,67 @@
 #include "SoundManager.h"
+#include <iostream>
 
 
 Sound::Sound()
 {
 	//this->volume = SettingsVolume();
-	this->volume = 1;
+	this->volume = 10;
 	sound.setVolume(volume);
 	music.setVolume(volume);
-	
+	//buffer.loadFromFile("../Sound/test.wav");
+	//this->sound.setBuffer(buffer);
 }
 Sound::~Sound()
 {
 }
-void Sound::LoadSound(std::string FileName, float volume)
+//void Sound::LoadSound(std::string FileName, float volume)
+//{
+//	if (volume != -1.0f) {
+//		sound.setVolume(volume * this->volume);
+//	}
+//	buffer.loadFromFile("../../Bin/Sound/" + FileName);
+//	this->sound.setBuffer(buffer);
+//	
+//	
+//}
+void Sound::LoadSound(sf::SoundBuffer File, float volume)
 {
 	if (volume != -1.0f) {
 		sound.setVolume(volume * this->volume);
 	}
-	buffer.loadFromFile("../../Bin/Sound/" + FileName);
-	this->sound.setBuffer(buffer);
-	
-	
+	this->sound.setBuffer(File);
 }
 void Sound::PlayLoadSound()
 {
+	std::cout << "penis" << std::endl;
 	this->sound.play();
 }
 
-void Sound::PlaySounds(std::string FileName, float volume)
+//void Sound::PlaySounds(std::string FileName, float volume)
+//{
+//	if (volume != -1.0f) {
+//		sound.setVolume(volume * this->volume);
+//	}
+//	if (buffer.loadFromFile("../../Bin/Sound/" + FileName)) {
+//		this->sound.setBuffer(buffer);
+//		this->sound.play();
+//	}
+//	else {
+//
+//	}
+//	
+//}
+
+void Sound::PlaySounds(sf::SoundBuffer *File, float volume)
 {
 	if (volume != -1.0f) {
 		sound.setVolume(volume * this->volume);
 	}
-	if (buffer.loadFromFile("../../Bin/Sound/" + FileName)) {
-		this->sound.setBuffer(buffer);
-		this->sound.play();
-	}
-	else {
-
-	}
-	
+	std::cout << "penis" << std::endl;
+	this->sound.setBuffer(*File);
+	this->sound.play();
+			
+			
 }
 
 void Sound::PlayMusic(std::string FileName, float volume)

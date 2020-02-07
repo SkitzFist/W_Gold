@@ -12,9 +12,6 @@ public:
 	virtual GameState * update(DeltaTime time) override;
 	virtual void render(sf::RenderWindow& window) const override;
 
-	//debug
 
-	void setupText();
-	sf::Text text;
 };
 

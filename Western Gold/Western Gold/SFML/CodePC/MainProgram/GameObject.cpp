@@ -2,16 +2,9 @@
 
 const float PI = 3.14159f;
 
-GameObject::GameObject(sf::Texture* texture)
+GameObject::GameObject(sf::Texture* texture, ResourceManager* rm, int spriteColumns, int spriteRows)
 {
-	sprite = new sf::Sprite();
-	sprite->setTexture(*texture);
-	spriteColumns = NULL;
-	spriteRows = NULL;
-}
-
-GameObject::GameObject(sf::Texture* texture, int spriteColumns, int spriteRows)
-{
+	this->rm = rm;
 	sprite = new sf::Sprite();
 	sprite->setTexture(*texture);
 	this->spriteColumns = spriteColumns;
@@ -67,6 +60,11 @@ void GameObject::centerOrigin()
 		centerY = sprite->getGlobalBounds().height / 2.f;
 	}
 	sprite->setOrigin(centerX, centerY);
+}
+
+ResourceManager* GameObject::getRm()
+{
+	return this->rm;
 }
 
 void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
