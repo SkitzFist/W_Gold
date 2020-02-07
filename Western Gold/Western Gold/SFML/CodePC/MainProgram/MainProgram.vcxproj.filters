@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="DeltaTime.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -50,8 +48,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Tile.h" />
-    <ClInclude Include="TileMap.h" />
     <ClInclude Include="DeltaTime.h">
       <Filter>Header</Filter>
     </ClInclude>

@@ -1,10 +1,4 @@
 #pragma once
-class Utils
-{
-public:
-	Utils() {};
-	~Utils() {};
-
 	template<typename T>
 	T** allocateTwoDimensionalArray(int x, int y) {
 		T** arr = new T * [x];
@@ -21,5 +15,3 @@ public:
 		}
 		delete[] arr;
 	}
-private:
-};

@@ -13,16 +13,14 @@ Grid::Grid(ResourceManager* rm, const sf::Image& level)
 
 	//Setup
 	worldSize = {level.getSize().x, level.getSize().y};
-	Utils util;
-	grid = util.allocateTwoDimensionalArray<Node>(worldSize.x, worldSize.y);
+	grid = allocateTwoDimensionalArray<Node>(worldSize.x, worldSize.y);
 	initGrid(rm,level);
 	//Debug
 }
 
 Grid::~Grid()
 {
-	Utils util;
-	util.deallocateTwoDimensionalArray(grid, worldSize.x);
+	deallocateTwoDimensionalArray(grid, worldSize.x);
 }
 
 //debug
