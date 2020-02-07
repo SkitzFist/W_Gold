@@ -184,8 +184,6 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SimonState.cpp" />
     <ClCompile Include="SoundManager.cpp" />
-    <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DeltaTime.h" />
@@ -202,8 +200,6 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SimonState.h" />
     <ClInclude Include="SoundManager.h" />
-    <ClInclude Include="Tile.h" />
-    <ClInclude Include="TileMap.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
