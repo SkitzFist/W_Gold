@@ -1,5 +1,5 @@
 #include "PlayState.h"
-#include <iostream>
+
 
 
 PlayState::PlayState(ResourceManager* rm):
@@ -10,6 +10,7 @@ PlayState::PlayState(ResourceManager* rm):
 	//setup
 
 	//debug
+	setupText();
 }
 
 
@@ -24,10 +25,11 @@ GameState * PlayState::handleEvent(const sf::Event & event)
 	return getGameState();
 }
 
-GameState * PlayState::update(DeltaTime time)
+GameState * PlayState::update(DeltaTime delta)
 {
 	setGameState(this);
-	std::cout << time.dt() << std::endl;
+
+	text.setString(std::to_string(delta.dt()));
 
 	return getGameState();
 }
@@ -35,7 +37,16 @@ GameState * PlayState::update(DeltaTime time)
 void PlayState::render(sf::RenderWindow&  window) const
 {
 
-
+	//debug
+	window.draw(text);
 }
 
-
+void PlayState::setupText()
+{
+	text.setFont(*getRm()->getBasicFont());
+	sf::Vector2f pos{
+		getRm()->getWindowWidth() / 2.f,
+		getRm()->getWindowHeight() / 2.f
+	};
+	text.setPosition(pos);
+}

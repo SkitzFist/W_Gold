@@ -1,12 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "ResourceManager.h"
-#include "SoundManager.h"
 #include "DeltaTime.h"
 class GameObject : public sf::Drawable
 {
 public:
-	GameObject(sf::Texture* texture, ResourceManager *rm, int spriteColumns = NULL, int spriteRows = NULL);
+	GameObject(sf::Texture* texture, ResourceManager* rm, int spriteColumns = NULL, int spriteRows = NULL);
 	~GameObject();
 	virtual void update(DeltaTime delta) = 0;
 	void setPosition(sf::Vector2f pos);
@@ -30,4 +29,3 @@ private:
 	int spriteColumns;
 	int spriteRows;
 };
-

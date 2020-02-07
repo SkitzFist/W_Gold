@@ -4,7 +4,6 @@ SimonState::SimonState(ResourceManager* rm):
 	GameState(rm),
 	Test(rm)
 {
-	setupText();
 	setGameState(this);
 }
 
@@ -20,29 +19,14 @@ GameState* SimonState::handleEvent(const sf::Event& event)
 	return getGameState();
 }
 
-GameState* SimonState::update(DeltaTime time)
+GameState* SimonState::update(DeltaTime delta)
 {
 	setGameState(this);
-
-	text.setString(std::to_string(time.dt()));
-	Test.update(time);
+	Test.update(delta);
 
 	return getGameState();
 }
 
 void SimonState::render(sf::RenderWindow& window) const
 {
-
-	window.draw(this->text);
-
-}
-
-void SimonState::setupText()
-{
-	text.setFont(*getRm()->getBasicFont());
-	sf::Vector2f pos{
-		getRm()->getWindowWidth() / 2.f,
-		getRm()->getWindowHeight() / 2.f
-	};
-	text.setPosition(pos);
 }

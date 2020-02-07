@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include "SoundManager.h"
 class ResourceManager
 {
 public:
@@ -14,6 +14,7 @@ public:
 
 	void basicSetup();
 
+	//debug
 	sf::Font* getBasicFont();
 	sf::SoundBuffer* getass();
 	sf::Texture* gettex();
@@ -23,9 +24,9 @@ private:
 	int windowWidth;
 	int windowHeight;
 
+	//debug
 	sf::SoundBuffer* ass;
 	sf::Texture* tex;
 
 	sf::Font* basicFont;
 };
-

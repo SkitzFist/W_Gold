@@ -8,49 +8,11 @@ Sound::Sound()
 	this->volume = 10;
 	sound.setVolume(volume);
 	music.setVolume(volume);
-	//buffer.loadFromFile("../Sound/test.wav");
-	//this->sound.setBuffer(buffer);
+
 }
 Sound::~Sound()
 {
 }
-//void Sound::LoadSound(std::string FileName, float volume)
-//{
-//	if (volume != -1.0f) {
-//		sound.setVolume(volume * this->volume);
-//	}
-//	buffer.loadFromFile("../../Bin/Sound/" + FileName);
-//	this->sound.setBuffer(buffer);
-//	
-//	
-//}
-void Sound::LoadSound(sf::SoundBuffer File, float volume)
-{
-	if (volume != -1.0f) {
-		sound.setVolume(volume * this->volume);
-	}
-	this->sound.setBuffer(File);
-}
-void Sound::PlayLoadSound()
-{
-	std::cout << "penis" << std::endl;
-	this->sound.play();
-}
-
-//void Sound::PlaySounds(std::string FileName, float volume)
-//{
-//	if (volume != -1.0f) {
-//		sound.setVolume(volume * this->volume);
-//	}
-//	if (buffer.loadFromFile("../../Bin/Sound/" + FileName)) {
-//		this->sound.setBuffer(buffer);
-//		this->sound.play();
-//	}
-//	else {
-//
-//	}
-//	
-//}
 
 void Sound::PlaySounds(sf::SoundBuffer *File, float volume)
 {

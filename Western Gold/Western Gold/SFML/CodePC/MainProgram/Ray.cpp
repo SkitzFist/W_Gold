@@ -63,6 +63,7 @@ void Ray::getWall(Line line)
 	}
 	else {
 		std::cout << den << std::endl;
+		//std::cout << "fuck" << std::endl;
 	}
 }
 

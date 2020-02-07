@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "ResourceManager.h"
-#include "DeltaTime.h"
+#include "SoundManager.h"
 
 class test : public GameObject{
 private:

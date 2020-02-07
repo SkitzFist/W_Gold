@@ -4,7 +4,7 @@
 #include <chrono>
 #include "SimonState.h"
 
-Game::Game():
+Game::Game() :
 	window(sf::VideoMode(WIDTH, HEIGHT), "Mall"),
 	timePerFrame(sf::seconds(1.0f / 60.0f)),
 	elapsedTimeSinceLastUpdate(sf::Time::Zero)
@@ -35,7 +35,7 @@ void Game::handleEvent()
 
 		if (currentState != nullptr) {
 			currentState->handleEvent(event);
-		}	
+		}
 		if (event.type == sf::Event::Closed) {
 			window.close();
 		}
@@ -55,10 +55,10 @@ void Game::run()
 void Game::update()
 {
 	elapsedTimeSinceLastUpdate += clock.restart();
-	while(elapsedTimeSinceLastUpdate >= timePerFrame) {
+	while (elapsedTimeSinceLastUpdate >= timePerFrame) {
 
-		time.restartClock();
-		if(currentState != nullptr) {
+		this->time.restartClock();
+		if (currentState != nullptr) {
 			currentState->update(time);
 		}
 		elapsedTimeSinceLastUpdate -= timePerFrame;
@@ -74,3 +74,4 @@ void Game::render()
 	}
 	window.display();
 }
+

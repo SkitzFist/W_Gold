@@ -16,6 +16,8 @@ ResourceManager::ResourceManager()
 ResourceManager::~ResourceManager()
 {
 	delete basicFont;
+	delete tex;
+	delete ass;
 }
 
 void ResourceManager::windowSetup(int width, int height)
@@ -39,10 +41,10 @@ void ResourceManager::basicSetup()
 	basicFont = new sf::Font();
 	ass = new sf::SoundBuffer();
 	tex = new sf::Texture();
-	if (!tex->loadFromFile("../Textures/SandBig.jpg")) {
+	if (!tex->loadFromFile("../Textures/Untitled.png")) {
 		cantLoad(L"tex");
 	}
-	if (!ass->loadFromFile("../Sound/THX_Sound_Effect.wav")){
+	if (!ass->loadFromFile("../Sound/THX_Sound_Effect.wav")) {
 		cantLoad(L"ass");
 	}
 	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
@@ -51,12 +53,12 @@ void ResourceManager::basicSetup()
 	}
 }
 
-sf::Font * ResourceManager::getBasicFont()
+sf::Font* ResourceManager::getBasicFont()
 {
 	return basicFont;
 }
 
-sf::SoundBuffer * ResourceManager::getass()
+sf::SoundBuffer* ResourceManager::getass()
 {
 	return ass;
 }
