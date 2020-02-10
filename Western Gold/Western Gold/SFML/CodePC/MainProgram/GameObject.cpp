@@ -36,15 +36,62 @@ sf::FloatRect GameObject::getBounds() const
 	return sprite->getGlobalBounds();
 }
 
+float GameObject::getLeft() const
+{
+	return sprite->getGlobalBounds().left;
+}
+
+float GameObject::getRight() const
+{
+	return sprite->getGlobalBounds().left + sprite->getGlobalBounds().width;
+}
+
+float GameObject::getBot() const
+{
+	return sprite->getGlobalBounds().top + sprite->getGlobalBounds().height;
+}
+
+float GameObject::getTop() const
+{
+	return sprite->getGlobalBounds().top;
+}
+
+float GameObject::getWidth()
+{
+	return sprite->getGlobalBounds().width;
+}
+
+float GameObject::getHeight()
+{
+	return sprite->getGlobalBounds().height;
+}
+
 void GameObject::rotateSprite(float angle)
 {
 	sprite->setRotation((angle * 180) / PI + 90);
+}
+
+void GameObject::addRotationSprite(float angle)
+{
+	sprite->setRotation(sprite->getRotation()+ angle);
 }
 
 void GameObject::setSpriteScale(float scale)
 {
 	sprite->setScale(scale, scale);
 }
+
+void GameObject::setSpriteScalePx(float sizeX, float sizeY)
+{
+	sizeX = sizeX / sprite->getGlobalBounds().width;
+	sizeY = sizeY / sprite->getGlobalBounds().height;
+	sprite->setScale(sizeX, sizeY);
+}
+
+sf::Vector2f GameObject::getCenterOfSprite() const
+{
+	return sf::Vector2f(sprite->getGlobalBounds().width / 2.f, sprite->getGlobalBounds().height / 2.f);
+}						
 
 void GameObject::centerOrigin()
 {

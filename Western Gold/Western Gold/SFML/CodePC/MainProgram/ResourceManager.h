@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include "SoundManager.h"
 class ResourceManager
 {
 public:
@@ -14,28 +14,19 @@ public:
 
 	void basicSetup();
 
+	//debug
 	sf::Font* getBasicFont();
 	sf::SoundBuffer* getass();
 	sf::Texture* gettex();
-
-	//debug
-	sf::Image* getLevel_test();
-	sf::Texture* getTile_blue();
-	sf::Texture* getTile_green();
 
 private:
 	void cantLoad(LPCWSTR theerror);
 	int windowWidth;
 	int windowHeight;
 
+	//debug
 	sf::SoundBuffer* ass;
 	sf::Texture* tex;
 
 	sf::Font* basicFont;
-
-	//debug
-	sf::Image* level_test;
-	sf::Texture* tile_blue;
-	sf::Texture* tile_green;
 };
-

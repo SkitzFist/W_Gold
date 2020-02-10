@@ -1,138 +1,135 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="DeltaTime.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Game States</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Game Object</Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\ResourceManager">
+      <UniqueIdentifier>{5ae1bce6-2144-4366-83f8-3bf8a65be256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameState">
+      <UniqueIdentifier>{9b4b4c74-399d-4749-9a1a-ac739597157c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects">
+      <UniqueIdentifier>{9e5e92e0-368d-43b5-afe6-ac2b6a7c7f6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tiles">
+      <UniqueIdentifier>{c9c43311-9682-445c-98cf-64213c1b24f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{a357063a-dc7d-4315-850c-b4ec802dc5c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OtherFunctions">
+      <UniqueIdentifier>{dfbd65ff-2e42-48a2-bc53-2734fd821039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects">
+      <UniqueIdentifier>{d2e2aca3-4efc-497d-8610-3407d453b778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameState">
+      <UniqueIdentifier>{f1ff67f1-5554-4799-9db2-4a2a28eacd59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OtherFunctions">
+      <UniqueIdentifier>{c087cc3f-73de-4c02-b6c5-c248851df1cd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Level</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Line.cpp">
-      <Filter>Ray casting</Filter>
-    </ClCompile>
-    <ClCompile Include="Ray.cpp">
-      <Filter>Ray casting</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Resource Manager</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>Level</Filter>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
-      <Filter>Sound Manager</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlayState.cpp">
-      <Filter>Game States\Playstate</Filter>
+    <ClCompile Include="DeltaTime.cpp">
+      <Filter>Source Files\OtherFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Source Files\GameState</Filter>
     </ClCompile>
     <ClCompile Include="JoelState.cpp">
-      <Filter>Game States\Joel State</Filter>
+      <Filter>Source Files\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayState.cpp">
+      <Filter>Source Files\GameState</Filter>
     </ClCompile>
     <ClCompile Include="SimonState.cpp">
-      <Filter>Game States\Simon State</Filter>
+      <Filter>Source Files\GameState</Filter>
     </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>Level\Tiles</Filter>
+    <ClCompile Include="Line.cpp">
+      <Filter>Source Files\OtherFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="testObj.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DeltaTime.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Game States</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Game Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Line.h">
-      <Filter>Ray casting</Filter>
-    </ClInclude>
     <ClInclude Include="Ray.h">
-      <Filter>Ray casting</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Resource Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Grid.h">
-      <Filter>Level</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
-      <Filter>Sound Manager</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeltaTime.h">
+      <Filter>Header Files\OtherFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="Line.h">
+      <Filter>Header Files\OtherFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="testObj.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files\GameState</Filter>
     </ClInclude>
     <ClInclude Include="PlayState.h">
-      <Filter>Game States\Playstate</Filter>
-    </ClInclude>
-    <ClInclude Include="JoelState.h">
-      <Filter>Game States\Joel State</Filter>
+      <Filter>Header Files\GameState</Filter>
     </ClInclude>
     <ClInclude Include="SimonState.h">
-      <Filter>Game States\Simon State</Filter>
+      <Filter>Header Files\GameState</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Level\Tiles</Filter>
+    <ClInclude Include="JoelState.h">
+      <Filter>Header Files\GameState</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Source">
-      <UniqueIdentifier>{91769c6e-a8a3-485b-90d0-fd21530e785c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header">
-      <UniqueIdentifier>{44ddce77-722d-4d01-b6ba-cd06ad7f30f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game States">
-      <UniqueIdentifier>{f799755d-4b89-4e76-b15c-9185d0a7d143}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level">
-      <UniqueIdentifier>{7199da79-3a41-4904-b38a-7c3bde2df1f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game Object">
-      <UniqueIdentifier>{160d6db3-8d68-4b0c-a4ed-bf2ad147325c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Ray casting">
-      <UniqueIdentifier>{941ec006-e233-4dca-8f0b-daa7d352caa9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Manager">
-      <UniqueIdentifier>{ed3bbbac-1af1-4a99-9a9d-f19beb1e782c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utils">
-      <UniqueIdentifier>{6a3d56d1-279f-4589-a4c6-f000947227dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sound Manager">
-      <UniqueIdentifier>{c39a8773-fac6-481a-856c-c4648a0206e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game States\Playstate">
-      <UniqueIdentifier>{cfcd0050-cf10-4201-84ca-3068b95d5cc9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game States\Joel State">
-      <UniqueIdentifier>{420171bf-966e-4937-935c-342f279c22f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game States\Simon State">
-      <UniqueIdentifier>{65dc97a7-2f67-4e91-938c-34f9ec34892e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\Tiles">
-      <UniqueIdentifier>{0e280a81-8fd0-4ad7-801b-b86e30c7cb3b}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
