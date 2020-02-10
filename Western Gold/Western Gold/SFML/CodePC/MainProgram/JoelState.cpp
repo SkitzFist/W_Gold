@@ -3,7 +3,8 @@
 JoelState::JoelState(ResourceManager* rm):
 	GameState(rm)
 {
-	level = new Level(rm, *rm->getLevel_test());
+	level = new Level(rm, rm->getLevel_Test());
+
 }
 
 JoelState::~JoelState()

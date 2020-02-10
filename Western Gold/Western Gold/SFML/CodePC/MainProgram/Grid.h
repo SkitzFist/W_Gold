@@ -1,22 +1,23 @@
 #pragma once
-#include "Node.h"
+#include "tile.h"
 #include "ResourceManager.h"
+#include <wincrypt.h>
 
 class Grid
 {
 public:
-	Grid(ResourceManager* rm, const sf::Image& level);
+	Grid(ResourceManager* rm, sf::Image* level);
 	~Grid();
 
 	//debug
 	void renderGrid(sf::RenderWindow& window) const;
-
 private:
-	Node** grid;
+	tile** grid;
 	sf::Vector2u worldSize;
 	float nodeSize;
 
 private:
-	void initGrid(ResourceManager* rm, const sf::Image& level);
+	void initGrid(ResourceManager* rm, sf::Image* level);
+	void setTileSize(ResourceManager* rm);
 };
 

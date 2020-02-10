@@ -3,6 +3,7 @@
 #include <thread>
 #include <chrono>
 #include "SimonState.h"
+#include "JoelState.h"
 
 Game::Game() :
 	window(sf::VideoMode(WIDTH, HEIGHT), "Mall"),
@@ -16,7 +17,7 @@ Game::Game() :
 	rm = new ResourceManager();
 	rm->windowSetup(WIDTH, HEIGHT);
 
-	currentState = new SimonState(rm);
+	currentState = new JoelState(rm);
 
 	//debug
 }

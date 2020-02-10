@@ -174,7 +174,9 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="JoelState.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -184,6 +186,7 @@
     <ClCompile Include="SimonState.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="testObj.cpp" />
+    <ClCompile Include="tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DeltaTime.h" />
@@ -191,7 +194,9 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="JoelState.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
@@ -200,6 +205,8 @@
     <ClInclude Include="SimonState.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="testObj.h" />
+    <ClInclude Include="tile.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

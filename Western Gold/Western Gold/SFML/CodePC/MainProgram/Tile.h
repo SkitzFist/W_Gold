@@ -1,13 +1,29 @@
 #pragma once
-#include "GameObject.h"
 #include "Ray.h"
-
-class Tile : public GameObject{
-private:
-	bool collide;
-	Ray rayCast;
+class tile
+{
 public:
-	Tile(sf::Texture* texture, ResourceManager * rm, float xPos, float yPos);
-	//Have Player in class
-	void update(DeltaTime time);
+	tile();
+	tile(sf::Vector2f worldPos, bool isWalkable);
+	~tile();
+
+	sf::Vector2f getWorldPos() const;
+	void setWorldPos(sf::Vector2f pos);
+	bool getIsWalkable() const;
+	void setIsWalkable(bool value);
+	sf::Sprite* getSprite() const;
+	void setSprite(sf::Texture* texture);
+	int getTCost();
+
+private:
+	sf::Vector2f worldPos;
+	bool isWalkable;
+	sf::Sprite* sprite;
+	
+	int sCost;
+	int eCost;
+
+private:
+	void centerOrigin();
 };
+
