@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "Level.h"
+#include "tile.h"
 
 class JoelState : public GameState
 {
@@ -15,4 +16,3 @@ public:
 private:
 	Level* level = nullptr;
 };
-

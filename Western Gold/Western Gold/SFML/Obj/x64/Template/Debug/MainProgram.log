@@ -1,5 +1,2 @@
-﻿  Player.cpp
-C:\Users\etta1\OneDrive\Dokument\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Player.cpp(26,16): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\etta1\OneDrive\Dokument\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Player.cpp(30,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\etta1\OneDrive\Dokument\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Player.cpp(30,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  MainProgram.vcxproj -> C:\Users\etta1\OneDrive\Dokument\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe
+﻿  Game.cpp
+  MainProgram.vcxproj -> C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

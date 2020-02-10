@@ -1,6 +1,6 @@
 #include "Level.h"
 
-Level::Level(ResourceManager* rm, const sf::Image level)
+Level::Level(ResourceManager* rm, sf::Image* level)
 {
 	//config
 
