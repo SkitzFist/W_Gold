@@ -41,7 +41,7 @@ void ResourceManager::basicSetup()
 	basicFont = new sf::Font();
 	ass = new sf::SoundBuffer();
 	tex = new sf::Texture();
-	if (!tex->loadFromFile("../Textures/Untitled.png")) {
+	if (!tex->loadFromFile("../Textures/hat.png")) {
 		cantLoad(L"tex");
 	}
 	if (!ass->loadFromFile("../Sound/THX_Sound_Effect.wav")) {
