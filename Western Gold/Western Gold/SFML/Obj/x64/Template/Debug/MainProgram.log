@@ -1,7 +1,4 @@
-﻿  Game.cpp
-  Grid.cpp
-  JoelState.cpp
-  Level.cpp
-  tile.cpp
-  Generating Code...
-  MainProgram.vcxproj -> C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe
+﻿  Player.cpp
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Player.cpp(30,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Player.cpp(30,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  MainProgram.vcxproj -> C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

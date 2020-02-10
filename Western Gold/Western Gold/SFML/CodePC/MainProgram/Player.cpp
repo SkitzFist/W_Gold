@@ -23,11 +23,11 @@ void Player::move(DeltaTime time)
 	}
 	//If player as two keys down move half speed
 	if (movementKeys > 0) {
-		int nowSpeed = speed;
+		float nowSpeed = speed;
 		if (movementKeys >= 2) {
 			nowSpeed /= 2;
 		}
-		this->moveSprite(time.dt() * speed * xDir, time.dt() * speed * yDir);
+		this->moveSprite((float)time.dt() * speed * xDir, (float)time.dt() * speed * yDir);
 	}
 }
 
@@ -37,6 +37,7 @@ void Player::shoot()
 
 void Player::rotation()
 {
+	
 }
 
 Player::Player(sf::Texture* tex, ResourceManager* rm):
@@ -52,4 +53,5 @@ Player::Player(sf::Texture* tex, ResourceManager* rm):
 void Player::update(DeltaTime time)
 {
 	move(time);
+	rotation();
 }
