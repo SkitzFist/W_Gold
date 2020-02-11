@@ -164,5 +164,8 @@
     <ClInclude Include="Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GetDistance.h">
+      <Filter>Header Files\OtherFunctions</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
