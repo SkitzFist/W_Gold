@@ -37,7 +37,9 @@ void Player::shoot()
 
 void Player::rotation()
 {
-	
+	sf::Vector2i mPos = sf::Mouse::getPosition();
+	float v = (mPos.y - this->getTop()) / (mPos.x - this->getLeft());
+	this->rotateSprite(v);
 }
 
 Player::Player(sf::Texture* tex, ResourceManager* rm):

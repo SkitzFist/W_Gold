@@ -17,7 +17,7 @@ Game::Game() :
 	rm = new ResourceManager();
 	rm->windowSetup(WIDTH, HEIGHT);
 
-	currentState = new JoelState(rm);
+	currentState = new SimonState(rm);
 
 	//debug
 }
