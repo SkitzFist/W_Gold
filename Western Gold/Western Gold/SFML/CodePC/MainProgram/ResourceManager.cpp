@@ -106,11 +106,11 @@ void ResourceManager::cantLoad(LPCWSTR theerror)
 void ResourceManager::debugSetup()
 {
 	tile_white = new sf::Texture();
-	if (!tile_white->loadFromFile("../Sprites/tile_white.png")) {
+	if (!tile_white->loadFromFile("../Textures/tile_white.png")) {
 		cantLoad(L"white_tile.png");
 	}
 	tile_black = new sf::Texture();
-	if (!tile_black->loadFromFile("../Sprites/tile_black.png")) {
+	if (!tile_black->loadFromFile("../Textures/tile_black.png")) {
 		cantLoad(L"black_tile.png");
 	}
 	level_test = new sf::Image();
