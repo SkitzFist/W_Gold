@@ -23,10 +23,16 @@ ResourceManager::~ResourceManager()
 	delete level_test;
 }
 
-void ResourceManager::windowSetup(int width, int height)
+void ResourceManager::windowSetup(sf::RenderWindow* window)
 {
-	windowWidth = width;
-	windowHeight = height;
+	this->window = window;
+	windowWidth = window->getSize().x;
+	windowHeight = window->getSize().y;
+}
+
+sf::RenderWindow* ResourceManager::getWindow()
+{
+	return window;
 }
 
 int ResourceManager::getWindowWidth() const
@@ -47,7 +53,7 @@ void ResourceManager::basicSetup()
 		cantLoad(L"Font");
 	}
 
-	
+
 	tex = new sf::Texture();
 	if (!tex->loadFromFile("../Textures/hat.png")) {
 		cantLoad(L"tex");
