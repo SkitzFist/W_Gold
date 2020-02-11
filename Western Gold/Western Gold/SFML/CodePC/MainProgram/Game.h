@@ -16,7 +16,7 @@ private:
 	sf::Clock clock;
 	sf::Time elapsedTimeSinceLastUpdate;
 	sf::Time timePerFrame;
-	sf::RenderWindow window;
+	sf::RenderWindow* window;
 	ResourceManager* rm;
 	GameState* currentState;
 	DeltaTime time;
