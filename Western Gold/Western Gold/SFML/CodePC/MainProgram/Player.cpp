@@ -50,9 +50,9 @@ Player::Player(sf::Texture* tex, ResourceManager* rm):
 	speed = 100;
 }
 
-//Player::~Player()
-//{
-//}
+Player::~Player()
+{
+}
 
 void Player::update(DeltaTime time)
 {
