@@ -8,11 +8,12 @@ class Grid
 public:
 	Grid(ResourceManager* rm, sf::Image* level);
 	~Grid();
-
+	tile** getTiles() const;
+	tile* getTileFromWorldPos(sf::Vector2i pos);
 	//debug
 	void renderGrid(sf::RenderWindow& window) const;
 private:
-	tile** grid;
+	tile** tiles;
 	sf::Vector2u worldSize;
 	float nodeSize;
 

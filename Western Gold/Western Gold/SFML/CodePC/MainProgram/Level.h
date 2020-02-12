@@ -9,6 +9,7 @@ public:
 	Level(ResourceManager* rm, sf::Image* level);
 	~Level();
 	Grid* getGrid() const;
+	tile** getTiles() const;
 	void drawLevel(sf::RenderWindow &window) const;
 private:
 	Grid* grid;

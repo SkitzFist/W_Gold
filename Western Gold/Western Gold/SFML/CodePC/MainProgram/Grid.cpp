@@ -11,14 +11,31 @@ Grid::Grid(ResourceManager* rm, sf::Image*level)
 
 	//Setup
 	worldSize = {level->getSize().x, level->getSize().y};
-	grid = allocateTwoDimensionalArray<tile>(worldSize.x, worldSize.y);
+	tiles = allocateTwoDimensionalArray<tile>(worldSize.x, worldSize.y);
 	initGrid(rm,level);
 	//Debug
 }
 
 Grid::~Grid()
 {
-	deallocateTwoDimensionalArray(grid, worldSize.x);
+	deallocateTwoDimensionalArray(tiles, worldSize.x);
+}
+
+tile** Grid::getTiles() const
+{
+	return tiles;
+}
+
+tile* Grid::getTileFromWorldPos(sf::Vector2i pos)
+{
+	float percentX = (pos.x + worldSize.x / 2.f) / worldSize.x;
+	float percentY = (pos.y + worldSize.y / 2.f) / worldSize.y;
+	//if not working clamp between 0-1
+
+	int x = static_cast<int>( std::round(worldSize.x - 1) * percentX);
+	int y = static_cast<int>(std::round(worldSize.y - 1) * percentY);
+
+	return &tiles[x][y];
 }
 
 //debug
@@ -28,7 +45,7 @@ void Grid::renderGrid(sf::RenderWindow& window) const
 	for (unsigned int x = 0; x < worldSize.x; ++x) {
 		for (unsigned int y = 0; y < worldSize.y; ++y) {
 
-			window.draw(*grid[y][x].getSprite());
+			window.draw(*tiles[y][x].getSprite());
 		}
 	}
 }
@@ -48,14 +65,14 @@ void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 			sf::Color pixelInlevel = level->getPixel(x, y);
 			if (pixelInlevel == whiteTile) {
 				
-				grid[y][x].setSprite(rm->getTile_White());
-				grid[y][x].setWorldPos(pos);
-				grid[y][x].setIsWalkable(true);
+				tiles[y][x].setSprite(rm->getTile_White());
+				tiles[y][x].setWorldPos(pos);
+				tiles[y][x].setIsWalkable(true);
 			}
 			else if (pixelInlevel == blackTile) {
-				grid[y][x].setSprite(rm->getTile_Black());
-				grid[y][x].setWorldPos(pos);
-				grid[y][x].setIsWalkable(true);
+				tiles[y][x].setSprite(rm->getTile_Black());
+				tiles[y][x].setWorldPos(pos);
+				tiles[y][x].setIsWalkable(true);
 			}
 		}
 	}
