@@ -1,6 +1,22 @@
 ﻿  Collision.cpp
+  DeltaTime.cpp
+  Entity.cpp
   Game.cpp
+  GameObject.cpp
+  GameState.cpp
+  Grid.cpp
+  JoelState.cpp
+  Level.cpp
+  Line.cpp
+  PlayState.cpp
   Player.cpp
+  Ray.cpp
+  ResourceManager.cpp
   SimonState.cpp
+  SoundManager.cpp
+  main.cpp
+  testObj.cpp
+  tile.cpp
   Generating Code...
+  LINK : C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\..\Bin\x64\TemplateD.exe not found or not built by the last incremental link; performing full link
   MainProgram.vcxproj -> C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe
