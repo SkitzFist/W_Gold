@@ -30,14 +30,11 @@ GameState* JoelState::update(DeltaTime time)
 	timer += time.dt();
 	
 	if (timer > 2.0) {
-		sf::Vector2i mousePos = sf::Mouse::getPosition(*getRm()->getWindow());
-		tile* t = level->getGrid()->getTileFromWorldPos(mousePos);
-		if (t->getIsWalkable()) {
-			std::cout << "walkable" << std::endl;
-		}
-		else {
-			std::cout << "not walkable" << std::endl;
-		}
+		
+		
+		
+
+		timer = 0;
 	}
 
 	return getGameState();
@@ -46,4 +43,5 @@ GameState* JoelState::update(DeltaTime time)
 void JoelState::render(sf::RenderWindow& window) const
 {
 	level->drawLevel(window);
+
 }

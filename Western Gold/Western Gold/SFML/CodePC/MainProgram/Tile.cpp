@@ -3,13 +3,13 @@
 tile::tile()
 {
 	sprite = nullptr;
-	worldPos = { 0.f,0.f };
+	worldPos = { 0,0 };
 	isWalkable = false;
 	eCost = NULL;
 	sCost = NULL;
 }
 
-tile::tile(sf::Vector2f worldPos, bool isWalkable)
+tile::tile(sf::Vector2u worldPos, bool isWalkable)
 {
 	this->worldPos = worldPos;
 	this->isWalkable = isWalkable;
@@ -23,14 +23,14 @@ tile::~tile()
 	delete sprite;
 }
 
-sf::Vector2f tile::getWorldPos() const
+sf::Vector2u tile::getWorldPos() const
 {
 	return worldPos;
 }
 
 void tile::setWorldPos(sf::Vector2f pos)
 {
-	this->worldPos = pos;
+	this->worldPos = static_cast<sf::Vector2u>(pos);
 	sprite->setPosition(pos);
 }
 

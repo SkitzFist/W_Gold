@@ -1,4 +1,7 @@
-﻿  Game.cpp
-  JoelState.cpp
+﻿  JoelState.cpp
+  Level.cpp
+D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Level.cpp(42,20): warning C4018: '<': signed/unsigned mismatch
+D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Level.cpp(43,21): warning C4018: '<': signed/unsigned mismatch
+D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Level.cpp(39,8): warning C4101: 'tiles': unreferenced local variable
   Generating Code...
-  MainProgram.vcxproj -> C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe
+  MainProgram.vcxproj -> D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

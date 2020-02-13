@@ -10,15 +10,16 @@ public:
 	~Grid();
 	tile** getTiles() const;
 	tile* getTileFromWorldPos(sf::Vector2i pos);
+	sf::Vector2u getGridSize() const;
 	//debug
 	void renderGrid(sf::RenderWindow& window) const;
 private:
 	tile** tiles;
+	sf::Vector2u gridSize;
 	sf::Vector2u worldSize;
-	float nodeSize;
+	float tileSize;
 
 private:
 	void initGrid(ResourceManager* rm, sf::Image* level);
-	void setTileSize(ResourceManager* rm);
 };
 

@@ -11,7 +11,9 @@ public:
 	Grid* getGrid() const;
 	tile** getTiles() const;
 	void drawLevel(sf::RenderWindow &window) const;
+	tile* getTilesOnScreen();
 private:
 	Grid* grid;
+	ResourceManager* rm;
 };
 
