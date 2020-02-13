@@ -44,7 +44,7 @@ void Player::rotation()
 }
 
 Player::Player(sf::Texture* tex, ResourceManager* rm):
-	Entity(tex,rm/*add col and row later*/)
+	Entity(tex,rm/*add col and row later*/,1)
 {
 	this->window = rm->getWindow();
 	speed = 100;
@@ -58,4 +58,5 @@ void Player::update(DeltaTime time)
 {
 	move(time);
 	rotation();
+	Entity::update(time);
 }

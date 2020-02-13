@@ -16,7 +16,7 @@ ResourceManager::ResourceManager()
 ResourceManager::~ResourceManager()
 {
 	delete basicFont;
-	delete tex;
+	delete character;
 	delete ass;
 	delete tile_black;
 	delete tile_white;
@@ -54,8 +54,8 @@ void ResourceManager::basicSetup()
 	}
 
 
-	tex = new sf::Texture();
-	if (!tex->loadFromFile("../Textures/hat.png")) {
+	character = new sf::Texture();
+	if (!character->loadFromFile("../Textures/hat.png")) {
 		cantLoad(L"tex");
 	}
 
@@ -93,9 +93,14 @@ sf::SoundBuffer* ResourceManager::getass()
 	return ass;
 }
 
-sf::Texture* ResourceManager::gettex()
+sf::Texture* ResourceManager::getCharacter()
 {
-	return tex;
+	return character;
+}
+
+sf::Texture* ResourceManager::getBullet()
+{
+	return this->bullet;
 }
 
 void ResourceManager::cantLoad(LPCWSTR theerror)

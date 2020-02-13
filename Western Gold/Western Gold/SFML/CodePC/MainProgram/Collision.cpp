@@ -1,10 +1,12 @@
 #include "Collision.h"
 #include <iostream>
+#include <math.h>
 
 void Collision::checkCollision()
 {
-	if (tiles->getIsWalkable()) {
-		while (tiles->getSprite()->getGlobalBounds().intersects(gameObjects->getBounds())) {
+	for (int i = 0; i < nrOfTiles; i++) {
+		if (tiles->getIsWalkable()) {
+			while (tiles->getSprite()->getGlobalBounds().intersects(gameObjects->getBounds())) {
 				if (rightSide(gameObjects, tiles)) {
 					gameObjects->moveSprite(1, 0);
 				}
@@ -18,9 +20,20 @@ void Collision::checkCollision()
 					gameObjects->moveSprite(0, 1);
 				}
 				else {
+					std::cout << "error" << std::endl;
 					//debug
-					MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
+					//MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
 				}
+
+			}
+		}
+	}
+}
+
+void Collision::checkCollisionRays(Ray raycast[], int nrOfRays)
+{
+	for (int r = 0; r < nrOfRays; r++) {
+		for (int t = 0; t < nrOfTiles; t++) {
 			
 		}
 	}
@@ -41,12 +54,12 @@ bool Collision::rightSide(GameObject* gameObject, tile* tiles)
 			theReturn = true;
 		}
 		else if (gameObject->getTop() < cTile.top) {
-			if (cTile.top - gameObject->getTop() < gameObject->getRight() - (cTile.left + cTile.width)) {
+			if (cTile.top - gameObject->getTop() <= gameObject->getRight() - (cTile.left + cTile.width)) {
 				theReturn = true;
 			}
 		}
 		else {
-			if (gameObject->getBot() - (cTile.top + cTile.height) < gameObject->getRight() - (cTile.left + cTile.width)) {
+			if (gameObject->getBot() - (cTile.top + cTile.height) <= gameObject->getRight() - (cTile.left + cTile.width)) {
 				theReturn = true;
 			}
 		}
@@ -67,11 +80,11 @@ bool Collision::leftSide(GameObject* gameObject, tile* tiles)
 			theReturn = true;
 		}
 		else if (gameObject->getTop() < cTile.top){
-			if (cTile.top - gameObject->getTop() < cTile.left - gameObject->getLeft()) {
+			if (cTile.top - gameObject->getTop() <= cTile.left - gameObject->getLeft()) {
 				theReturn = true;
 			}
 		}
-		else if (gameObject->getBot() - (cTile.top + cTile.height) < cTile.left - gameObject->getLeft()) {
+		else if (gameObject->getBot() - (cTile.top + cTile.height) <= cTile.left - gameObject->getLeft()) {
 				theReturn = true;
 		}
 			
@@ -93,12 +106,12 @@ bool Collision::topSide(GameObject* gameObject, tile* tiles)
 			theReturn = true;
 		}
 		else if (gameObject->getLeft() < cTile.left) {
-			if (cTile.left - gameObject->getLeft() < (cTile.top) - gameObject->getTop()) {
+			if (cTile.left - gameObject->getLeft() <= (cTile.top) - gameObject->getTop()) {
 				theReturn = true;
 			}
 		}
 		else {
-			if (gameObject->getRight() - (cTile.left + cTile.width) < (cTile.top) - gameObject->getTop()) {
+			if (gameObject->getRight() - (cTile.left + cTile.width) <= (cTile.top) - gameObject->getTop()) {
 				theReturn = true;
 			}
 		}
@@ -120,12 +133,12 @@ bool Collision::botSide(GameObject* gameObject, tile* tiles)
 			theReturn = true;
 		}
 		else if (gameObject->getLeft() < cTile.left) {
-			if (cTile.left - gameObject->getLeft() < gameObject->getBot()- (cTile.top + cTile.height)) {
+			if (cTile.left - gameObject->getLeft() <= gameObject->getBot() - (cTile.top + cTile.height)) {
 				theReturn = true;
 			}
 		}
 		else {
-			if (gameObject->getRight() - (cTile.left + cTile.width) < gameObject->getBot() - (cTile.top + cTile.height)) {
+			if (gameObject->getRight() - (cTile.left + cTile.width) <= gameObject->getBot() - (cTile.top + cTile.height)) {
 				theReturn = true;
 			}
 		}
@@ -133,20 +146,32 @@ bool Collision::botSide(GameObject* gameObject, tile* tiles)
 	return theReturn;
 }
 
+
 Collision::Collision()
 {
 	tiles = nullptr;
 	gameObjects = nullptr;
+	this->nrOfTiles = 0;
 }
 
-void Collision::setUpCollision(GameObject* player, tile* tiles)
+Collision::~Collision()
+{
+	delete this->gameObjects;
+	delete this->tiles;
+}
+
+void Collision::setUpCollision(GameObject* player, tile* tiles, int nrOfTiles)
 {
 	gameObjects = player;
 	this->tiles = tiles;
+	this->nrOfTiles = nrOfTiles;
 }
 
-void Collision::update(Ray raycast[])
+void Collision::update(Ray raycast[], int nrOfRays)
 {
 	//check collision
 	checkCollision();
+	//if (raycast != nullptr) {
+	//	checkCollisionRays(raycast, nrOfRays);
+	//}
 }
