@@ -3,12 +3,12 @@
 SimonState::SimonState(ResourceManager* rm):
 	GameState(rm)
 {
-	p = new Player(rm->gettex(), rm);
+	p = new Player(rm->getCharacter(), rm);
 	testT = new tile(sf::Vector2i(200, 200), true);
-	collision.setUpCollision(p, testT);
+	collision.setUpCollision(p, testT,1);
 
 	setGameState(this);
-	testT->setSprite(rm->gettex());
+	testT->setSprite(rm->getCharacter());
 	testT->setWorldPos(sf::Vector2f(200, 200));
 }
 

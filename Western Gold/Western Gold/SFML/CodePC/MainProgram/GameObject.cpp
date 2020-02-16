@@ -67,6 +67,11 @@ float GameObject::getHeight()
 	return sprite->getGlobalBounds().height;
 }
 
+float GameObject::getRotation()
+{
+	return sprite->getRotation();
+}
+
 void GameObject::rotateSprite(float angle)
 {
 	sprite->setRotation((angle * 180) / PI + 90);

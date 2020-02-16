@@ -3,6 +3,7 @@
 #include "Line.h"
 #include "DeltaTime.h"
 
+class Entity;
 class Ray : public sf::Drawable{
 private:
 	float dir;
@@ -11,8 +12,8 @@ private:
 	Line line;
 	void setRotation(float dir);
 public:
-	Ray();
-	void updateRay(DeltaTime &Time);
+	Ray(float dir);
+	void updateRay(DeltaTime Time, Entity* entity);
 	//get wall it should check collision with
 	void getWall(Line line);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

@@ -1,6 +1,8 @@
-﻿  Collision.cpp
+﻿  Bullet.cpp
+  Collision.cpp
   DeltaTime.cpp
   Entity.cpp
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Entity.cpp(9,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Game.cpp
   GameObject.cpp
   GameState.cpp
@@ -12,10 +14,11 @@
   Player.cpp
   PlayState.cpp
   Ray.cpp
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Ray.cpp(27,51): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Ray.cpp(28,51): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   ResourceManager.cpp
   SimonState.cpp
   SoundManager.cpp
-  testObj.cpp
   tile.cpp
   Generating Code...
   MainProgram.vcxproj -> C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

@@ -1,12 +1,13 @@
 #include "Ray.h"
 #include <iostream>
+#include "Entity.h"
 
 void Ray::setRotation(float dir)
 {
 
 }
 
-Ray::Ray():
+Ray::Ray(float dir):
 	line(0,0,0,0)
 {
 	this->dir = 0;
@@ -15,21 +16,18 @@ Ray::Ray():
 	this->pos.setRadius(3);
 }
 
-void Ray::updateRay(DeltaTime &Time)
+void Ray::updateRay(DeltaTime Time, Entity* entity)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		dir += static_cast<float>( 0.5f * Time.dt() * 100.f);
-		std::cout << Time.dt() << std::endl;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		dir -= 0.5f;
-	}
-		if (dir > 360) {
-			dir = dir - 360;
-		}
-		if (dir < 0) {
-			dir += 360;
-		}
+	const float PI = 3.14159f;
+
+	dir = entity->getRotation();
+	this->line.x1 = entity->getPosition().x;
+	this->line.y1 = entity->getPosition().y;
+	
+	this->line.x2 = 700 * cos(dir * PI / 180 - 1.57) + line.x1;
+	this->line.y2 = 700 * sin(dir * PI / 180 - 1.57) + line.y1;
+	this->line.changeLine();
+	
 	
 }
 
