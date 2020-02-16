@@ -2,6 +2,7 @@
 
 //debug
 #include <iostream>
+#include <vector>
 
 JoelState::JoelState(ResourceManager* rm):
 	GameState(rm)
@@ -31,15 +32,16 @@ GameState* JoelState::update(DeltaTime time)
 	
 	if (timer > 2.0) {
 		
-		sf::Vector2i mousePos = sf::Mouse::getPosition(*getRm()->getWindow());
-		
+		/*sf::Vector2i mousePos = sf::Mouse::getPosition(*getRm()->getWindow());
 		tile* t = level->getGrid()->getTileFromWorldPos(mousePos);
-		
 		if (t != nullptr) {
 			t->setSprite(getRm()->getTile_Ok());
-		}
+		}*/
 
-		timer = 2;
+		std::vector<tile*> tiles = level->getTilesOnScreen();
+		std::cout << tiles.size();
+
+		timer = -500;
 	}
 
 	return getGameState();
