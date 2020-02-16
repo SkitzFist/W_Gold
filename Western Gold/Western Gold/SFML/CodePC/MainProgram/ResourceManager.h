@@ -20,6 +20,7 @@ public:
 #pragma region Tiles
 	sf::Texture* getTile_White();
 	sf::Texture* getTile_Black();
+	sf::Texture* getTile_Ok();
 #pragma endregion
 
 #pragma region Levels
@@ -27,7 +28,7 @@ public:
 #pragma endregion
 
 	//debug
-	
+
 	sf::SoundBuffer* getass();
 	sf::Texture* gettex();
 
@@ -35,7 +36,7 @@ private:
 	int windowWidth;
 	int windowHeight;
 	sf::RenderWindow* window;
-	
+
 #pragma region Fonts
 	sf::Font* basicFont;
 #pragma endregion
@@ -43,6 +44,7 @@ private:
 #pragma region Tiles
 	sf::Texture* tile_white;
 	sf::Texture* tile_black;
+	sf::Texture* tile_ok;
 #pragma endregion 
 
 #pragma region Levels

@@ -1,11 +1,15 @@
 #include "SimonState.h"
 
 SimonState::SimonState(ResourceManager* rm):
-	GameState(rm),
-	Test(rm),
-	p(rm->gettex(),rm)
+	GameState(rm)
 {
+	p = new Player(rm->gettex(), rm);
+	testT = new tile(sf::Vector2i(200, 200), true);
+	collision.setUpCollision(p, testT);
+
 	setGameState(this);
+	testT->setSprite(rm->gettex());
+	testT->setWorldPos(sf::Vector2f(200, 200));
 }
 
 SimonState::~SimonState()
@@ -23,8 +27,9 @@ GameState* SimonState::handleEvent(const sf::Event& event)
 GameState* SimonState::update(DeltaTime delta)
 {
 	setGameState(this);
-	//Test.update(delta);
-	p.update(delta);
+
+	p->update(delta);
+	collision.update();
 
 	return getGameState();
 }
@@ -32,5 +37,6 @@ GameState* SimonState::update(DeltaTime delta)
 void SimonState::render(sf::RenderWindow& window) const
 {
 	//window.draw(this->Test);
-	window.draw(this->p);
+	window.draw(*this->p);
+	window.draw(*this->testT->getSprite());
 }

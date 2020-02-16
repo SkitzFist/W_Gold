@@ -7,8 +7,9 @@ private:
 	void shoot();
 	void rotation();
 	float speed;
+	sf::RenderWindow* window;
 public:
 	Player(sf::Texture* tex, ResourceManager* rm);
-	//virtual~Player();
+	virtual~Player();
 	void update(DeltaTime time);
 };

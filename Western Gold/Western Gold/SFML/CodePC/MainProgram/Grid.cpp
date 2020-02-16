@@ -7,28 +7,69 @@
 Grid::Grid(ResourceManager* rm, sf::Image*level)
 {
 	//Config
-	setTileSize(rm);
-
+	tileSize = static_cast<float>(rm->getTile_White()->getSize().x);
 	//Setup
-	worldSize = {level->getSize().x, level->getSize().y};
-	grid = allocateTwoDimensionalArray<tile>(worldSize.x, worldSize.y);
+	gridSize = {level->getSize().x, level->getSize().y};
+	worldSize = {
+		static_cast<int>(tileSize) * gridSize.x,
+		static_cast<int>(tileSize) * gridSize.y
+	};
+
+	tiles = allocateTwoDimensionalArray<tile>(gridSize.x, gridSize.y);
 	initGrid(rm,level);
 	//Debug
+	
 }
 
 Grid::~Grid()
 {
-	deallocateTwoDimensionalArray(grid, worldSize.x);
+	deallocateTwoDimensionalArray(tiles, gridSize.x);
+}
+
+tile** Grid::getTiles() const
+{
+	return tiles;
+}
+
+tile* Grid::getTileFromWorldPos(sf::Vector2i pos)
+{
+	tile* t = nullptr;
+	if (isInsideWorld(pos)) {	
+
+		float posX = pos.x * 10.f;
+		float posY = pos.y * 10.f;
+		float worldSizeX = worldSize.x * 10.f;
+		float worldSizeY = worldSize.y * 10.f;
+		double percentX = posX / worldSizeX;
+		double percentY = posY / worldSizeY;
+		
+		int x = static_cast<int>(gridSize.x * percentX);
+		int y = static_cast<int>(gridSize.y * percentY);
+
+		if (x >= 0 
+            && x < (int)gridSize.x
+			&& y >= 0
+			&& y < (int)gridSize.y) {
+			t = &tiles[y][x];
+		}
+	}
+	return t;
+}
+
+sf::Vector2u Grid::getGridSize() const
+{
+	return gridSize;
 }
 
 //debug
 
+
 void Grid::renderGrid(sf::RenderWindow& window) const
 {
-	for (unsigned int x = 0; x < worldSize.x; ++x) {
-		for (unsigned int y = 0; y < worldSize.y; ++y) {
+	for (unsigned int x = 0; x < gridSize.x; ++x) {
+		for (unsigned int y = 0; y < gridSize.y; ++y) {
 
-			window.draw(*grid[y][x].getSprite());
+			window.draw(*tiles[y][x].getSprite());
 		}
 	}
 }
@@ -37,33 +78,42 @@ void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 {
 	sf::Color whiteTile = { 255,255,255 };
 	sf::Color blackTile = { 0,0,0 };
-	sf::Vector2f pos = {-nodeSize , -nodeSize};
+
+	sf::Vector2f pos = {-tileSize /2 , -tileSize /2};
 	
-	for (unsigned int x = 0; x < worldSize.x; ++x) {
-		pos.x += nodeSize;
-		pos.y = -nodeSize;
-		for (unsigned int y = 0; y < worldSize.y; ++y) {
-			pos.y += nodeSize;
+	for (unsigned int x = 0; x < gridSize.x; ++x) {
+		pos.x += tileSize;
+		pos.y = -tileSize /2;
+		for (unsigned int y = 0; y < gridSize.y; ++y) {
+			pos.y += tileSize;
 
 			sf::Color pixelInlevel = level->getPixel(x, y);
 			if (pixelInlevel == whiteTile) {
 				
-				grid[y][x].setSprite(rm->getTile_White());
-				grid[y][x].setWorldPos(pos);
-				grid[y][x].setIsWalkable(true);
+				tiles[y][x].setSprite(rm->getTile_White());
+				tiles[y][x].setWorldPos(pos);
+				tiles[y][x].setIsWalkable(true);
 			}
 			else if (pixelInlevel == blackTile) {
-				grid[y][x].setSprite(rm->getTile_Black());
-				grid[y][x].setWorldPos(pos);
-				grid[y][x].setIsWalkable(true);
+				tiles[y][x].setSprite(rm->getTile_Black());
+				tiles[y][x].setWorldPos(pos);
+				tiles[y][x].setIsWalkable(false);
 			}
 		}
 	}
+	
 }
 
-void Grid::setTileSize(ResourceManager* rm)
+bool Grid::isInsideWorld(sf::Vector2i pos)
 {
-	sf::Sprite sprite;
-	sprite.setTexture(*rm->getTile_White());
-	nodeSize = sprite.getGlobalBounds().width;
+	bool isInside = false;
+
+	if (pos.x > 0
+		&& pos.x < static_cast<int>(worldSize.x)
+		&& pos.y > 0
+		&& pos.y < static_cast<int>(worldSize.y)) {
+		isInside = true;
+	}
+
+	return isInside;
 }
