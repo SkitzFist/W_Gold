@@ -3,19 +3,21 @@
 tile::tile()
 {
 	sprite = nullptr;
-	worldPos = { 0.f,0.f };
+	worldPos = {0,0};
 	isWalkable = false;
 	eCost = NULL;
 	sCost = NULL;
+	sprite = new sf::Sprite();
 }
 
-tile::tile(sf::Vector2f worldPos, bool isWalkable)
+tile::tile(sf::Vector2i worldPos, bool isWalkable)
 {
 	this->worldPos = worldPos;
 	this->isWalkable = isWalkable;
 	sprite = nullptr;
 	eCost = NULL;
 	sCost = NULL;
+	sprite = new sf::Sprite();
 }
 
 tile::~tile()
@@ -23,14 +25,14 @@ tile::~tile()
 	delete sprite;
 }
 
-sf::Vector2f tile::getWorldPos() const
+sf::Vector2i tile::getWorldPos() const
 {
 	return worldPos;
 }
 
 void tile::setWorldPos(sf::Vector2f pos)
 {
-	this->worldPos = pos;
+	this->worldPos = static_cast<sf::Vector2i>(pos);
 	sprite->setPosition(pos);
 }
 
@@ -51,7 +53,6 @@ sf::Sprite* tile::getSprite() const
 
 void tile::setSprite(sf::Texture* texture)
 {
-	sprite = new sf::Sprite();
 	sprite->setTexture(*texture);
 	centerOrigin();
 }
