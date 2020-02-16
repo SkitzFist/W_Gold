@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <iostream>
 
 void Player::move(DeltaTime time)
 {
@@ -37,19 +38,24 @@ void Player::shoot()
 
 void Player::rotation()
 {
+	sf::Vector2i mPos = sf::Mouse::getPosition(*this->window);
+	float tanv = atan2f((mPos.y - this->getPosition().y) , (mPos.x - this->getPosition().x));
+	this->rotateSprite(tanv);
 }
 
 Player::Player(sf::Texture* tex, ResourceManager* rm):
 	Entity(tex,rm/*add col and row later*/)
 {
+	this->window = rm->getWindow();
 	speed = 100;
 }
 
-//Player::~Player()
-//{
-//}
+Player::~Player()
+{
+}
 
 void Player::update(DeltaTime time)
 {
 	move(time);
+	rotation();
 }

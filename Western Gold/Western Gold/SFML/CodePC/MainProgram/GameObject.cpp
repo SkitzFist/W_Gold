@@ -7,6 +7,7 @@ GameObject::GameObject(sf::Texture* texture, ResourceManager* rm, int spriteColu
 	this->rm = rm;
 	sprite = new sf::Sprite();
 	sprite->setTexture(*texture);
+	centerOrigin();
 	this->spriteColumns = spriteColumns;
 	this->spriteRows = spriteRows;
 }

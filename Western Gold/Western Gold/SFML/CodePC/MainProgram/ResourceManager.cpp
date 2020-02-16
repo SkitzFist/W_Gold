@@ -20,7 +20,9 @@ ResourceManager::~ResourceManager()
 	delete ass;
 	delete tile_black;
 	delete tile_white;
+	delete tile_ok;
 	delete level_test;
+	
 }
 
 void ResourceManager::windowSetup(sf::RenderWindow* window)
@@ -53,7 +55,7 @@ void ResourceManager::basicSetup()
 		cantLoad(L"Font");
 	}
 
-	
+
 	tex = new sf::Texture();
 	if (!tex->loadFromFile("../Textures/hat.png")) {
 		cantLoad(L"tex");
@@ -81,6 +83,11 @@ sf::Texture* ResourceManager::getTile_White()
 sf::Texture* ResourceManager::getTile_Black()
 {
 	return tile_black;
+}
+
+sf::Texture* ResourceManager::getTile_Ok()
+{
+	return tile_ok;
 }
 
 sf::Image* ResourceManager::getLevel_Test()
@@ -112,6 +119,10 @@ void ResourceManager::debugSetup()
 	tile_black = new sf::Texture();
 	if (!tile_black->loadFromFile("../Textures/tile_black.png")) {
 		cantLoad(L"black_tile.png");
+	}
+	tile_ok = new sf::Texture();
+	if (!tile_ok->loadFromFile("../Textures/tile_ok.png")) {
+		cantLoad(L"tile_ok.png");
 	}
 	level_test = new sf::Image();
 	if (!level_test->loadFromFile("../Levels/level_test.png")) {
