@@ -15,5 +15,6 @@ public:
 private:
 	Grid* grid;
 	ResourceManager* rm;
+
 };
 

@@ -4,10 +4,10 @@ class tile
 {
 public:
 	tile();
-	tile(sf::Vector2u worldPos, bool isWalkable);
+	tile(sf::Vector2i worldPos, bool isWalkable);
 	~tile();
 
-	sf::Vector2u getWorldPos() const;
+	sf::Vector2i getWorldPos() const;
 	void setWorldPos(sf::Vector2f pos);
 	bool getIsWalkable() const;
 	void setIsWalkable(bool value);
@@ -16,7 +16,7 @@ public:
 	int getTCost();
 
 private:
-	sf::Vector2u worldPos;
+	sf::Vector2i worldPos;
 	bool isWalkable;
 	sf::Sprite* sprite;
 	

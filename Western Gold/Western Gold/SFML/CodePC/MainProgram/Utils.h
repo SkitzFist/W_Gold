@@ -1,4 +1,5 @@
 #pragma once
+
 	template<typename T>
 	T** allocateTwoDimensionalArray(int x, int y) {
 		T** arr = new T * [x];

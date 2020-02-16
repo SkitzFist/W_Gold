@@ -34,16 +34,25 @@ tile** Grid::getTiles() const
 tile* Grid::getTileFromWorldPos(sf::Vector2i pos)
 {
 	tile* t = nullptr;
-	float percentX = (pos.x + worldSize.x / 2.f) / worldSize.x;
-	float percentY = (pos.y + worldSize.y / 2.f) / worldSize.y;
-	
-	int x = static_cast<int>( std::round(gridSize.x - 1) * percentX);
-	int y = static_cast<int>(std::round(gridSize.y - 1) * percentY);
+	if (isInsideWorld(pos)) {	
 
-	if (&tiles[y][x] != nullptr) {
-		t = &tiles[y][x];
+		float posX = pos.x * 10.f;
+		float posY = pos.y * 10.f;
+		float worldSizeX = worldSize.x * 10.f;
+		float worldSizeY = worldSize.y * 10.f;
+		double percentX = posX / worldSizeX;
+		double percentY = posY / worldSizeY;
+		
+		int x = static_cast<int>(gridSize.x * percentX);
+		int y = static_cast<int>(gridSize.y * percentY);
+
+		if (x >= 0 
+            && x < (int)gridSize.x
+			&& y >= 0
+			&& y < (int)gridSize.y) {
+			t = &tiles[y][x];
+		}
 	}
-
 	return t;
 }
 
@@ -92,4 +101,19 @@ void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 			}
 		}
 	}
+	
+}
+
+bool Grid::isInsideWorld(sf::Vector2i pos)
+{
+	bool isInside = false;
+
+	if (pos.x > 0
+		&& pos.x < static_cast<int>(worldSize.x)
+		&& pos.y > 0
+		&& pos.y < static_cast<int>(worldSize.y)) {
+		isInside = true;
+	}
+
+	return isInside;
 }

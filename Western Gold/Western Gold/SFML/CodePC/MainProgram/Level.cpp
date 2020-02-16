@@ -36,13 +36,13 @@ void Level::drawLevel(sf::RenderWindow& window) const
 
 tile* Level::getTilesOnScreen()
 {
-	tile* tiles;
+	tile* tiles = nullptr;
 	int nrOf = -1;
 	static int count = 0;
-	for (int x = 0; x < grid->getGridSize().x; ++x) {
-		for (int y = 0; y < grid->getGridSize().y; ++y) {
-			tile* tile = &grid->getTiles()[y][x];
-			if (tile->getSprite()->getGlobalBounds().intersects(rm->getWindow()->getView().getViewport())) {
+	for (unsigned int x = 0; x < grid->getGridSize().x; ++x) {
+		for (unsigned int y = 0; y < grid->getGridSize().y; ++y) {
+			tiles = &grid->getTiles()[y][x];
+			if (tiles->getSprite()->getGlobalBounds().intersects(rm->getWindow()->getView().getViewport())) {
 				std::cout << "hello" << std::endl;
 			}
 			
@@ -50,5 +50,5 @@ tile* Level::getTilesOnScreen()
 	}
 	std::cout << count << std::endl;
 
-	return nullptr;
+	return tiles;
 }

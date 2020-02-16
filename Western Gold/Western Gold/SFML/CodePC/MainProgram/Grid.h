@@ -19,7 +19,7 @@ private:
 	sf::Vector2u worldSize;
 	float tileSize;
 
-private:
 	void initGrid(ResourceManager* rm, sf::Image* level);
+	bool isInsideWorld(sf::Vector2i pos);
 };
 
