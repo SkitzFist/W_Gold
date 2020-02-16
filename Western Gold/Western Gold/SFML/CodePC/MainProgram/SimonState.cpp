@@ -4,7 +4,7 @@ SimonState::SimonState(ResourceManager* rm):
 	GameState(rm)
 {
 	p = new Player(rm->gettex(), rm);
-	testT = new tile(sf::Vector2f(200, 200), true);
+	testT = new tile(sf::Vector2i(200, 200), true);
 	collision.setUpCollision(p, testT);
 
 	setGameState(this);
