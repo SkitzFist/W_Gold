@@ -53,7 +53,7 @@ void ResourceManager::basicSetup()
 		cantLoad(L"Font");
 	}
 
-	
+
 	tex = new sf::Texture();
 	if (!tex->loadFromFile("../Textures/hat.png")) {
 		cantLoad(L"tex");

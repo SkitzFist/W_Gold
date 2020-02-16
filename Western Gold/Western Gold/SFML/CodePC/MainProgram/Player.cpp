@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <iostream>
 
 void Player::move(DeltaTime time)
 {
@@ -23,11 +24,11 @@ void Player::move(DeltaTime time)
 	}
 	//If player as two keys down move half speed
 	if (movementKeys > 0) {
-		int nowSpeed = speed;
+		float nowSpeed = speed;
 		if (movementKeys >= 2) {
 			nowSpeed /= 2;
 		}
-		this->moveSprite(time.dt() * speed * xDir, time.dt() * speed * yDir);
+		this->moveSprite((float)time.dt() * speed * xDir, (float)time.dt() * speed * yDir);
 	}
 }
 
@@ -37,19 +38,24 @@ void Player::shoot()
 
 void Player::rotation()
 {
+	sf::Vector2i mPos = sf::Mouse::getPosition(*this->window);
+	float tanv = atan2f((mPos.y - this->getPosition().y) , (mPos.x - this->getPosition().x));
+	this->rotateSprite(tanv);
 }
 
 Player::Player(sf::Texture* tex, ResourceManager* rm):
 	Entity(tex,rm/*add col and row later*/)
 {
+	this->window = rm->getWindow();
 	speed = 100;
 }
 
-//Player::~Player()
-//{
-//}
+Player::~Player()
+{
+}
 
 void Player::update(DeltaTime time)
 {
 	move(time);
+	rotation();
 }

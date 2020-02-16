@@ -102,6 +102,9 @@
     <ClCompile Include="tile.cpp">
       <Filter>Source Files\Level</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -157,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="tile.h">
       <Filter>Header Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GetDistance.h">
+      <Filter>Header Files\OtherFunctions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

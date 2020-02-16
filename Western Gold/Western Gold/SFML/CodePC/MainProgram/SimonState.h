@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "testObj.h"
 #include "Player.h"
+#include "Collision.h"
 
 class SimonState : public GameState
 {
@@ -14,7 +15,9 @@ public:
 	virtual void render(sf::RenderWindow& window) const override;
 	
 private:
-	test Test;
-	Player p;
+	Player *p;
+	tile *testT;
+
+	Collision collision;
 };
 

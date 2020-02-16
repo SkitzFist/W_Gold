@@ -27,7 +27,7 @@ public:
 #pragma endregion
 
 	//debug
-	
+
 	sf::SoundBuffer* getass();
 	sf::Texture* gettex();
 
@@ -35,7 +35,7 @@ private:
 	int windowWidth;
 	int windowHeight;
 	sf::RenderWindow* window;
-	
+
 #pragma region Fonts
 	sf::Font* basicFont;
 #pragma endregion
