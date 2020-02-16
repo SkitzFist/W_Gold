@@ -20,6 +20,7 @@ public:
 #pragma region Tiles
 	sf::Texture* getTile_White();
 	sf::Texture* getTile_Black();
+	sf::Texture* getTile_Ok();
 #pragma endregion
 
 #pragma region Levels
@@ -46,6 +47,7 @@ private:
 #pragma region Tiles
 	sf::Texture* tile_white;
 	sf::Texture* tile_black;
+	sf::Texture* tile_ok;
 #pragma endregion 
 
 #pragma region Levels
