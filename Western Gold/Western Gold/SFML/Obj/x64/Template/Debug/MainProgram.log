@@ -1,12 +1,2 @@
-﻿  Enemy.cpp
-  Entity.cpp
-D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Entity.cpp(9,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Game.cpp
-  JoelState.cpp
-  PatrolState.cpp
-D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Enemy.h(15,12): error C2143: syntax error: missing ';' before '*'
-D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Enemy.h(15,12): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Enemy.h(15,36): error C2238: unexpected token(s) preceding ';'
-  Player.cpp
-  tile.cpp
-  Generating Code...
+﻿  JoelState.cpp
+  MainProgram.vcxproj -> C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

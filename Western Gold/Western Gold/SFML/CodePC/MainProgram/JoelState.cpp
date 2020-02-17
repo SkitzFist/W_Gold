@@ -8,12 +8,17 @@
 JoelState::JoelState(ResourceManager* rm):
 	GameState(rm)
 {
+	level = new Level(rm, rm->getLevel_Test());
+
 	enemy = new Enemy(getRm()->getCharacter(), getRm(), 1);
+	enemy->setPosition(48.f, 48.f);
+	std::cout << getRm()->getCharacter()->getSize().x;
 }
 
 JoelState::~JoelState()
 {
 	delete enemy;
+	delete level;
 }
 
 GameState* JoelState::handleEvent(const sf::Event& event)
@@ -42,6 +47,6 @@ GameState* JoelState::update(DeltaTime time)
 
 void JoelState::render(sf::RenderWindow& window) const
 {
-	
-
+	level->drawLevel(window);
+	window.draw(*enemy);
 }

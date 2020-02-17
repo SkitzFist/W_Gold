@@ -1,6 +1,6 @@
 #pragma once
 #include "DeltaTime.h"
-#include "Enemy.h"
+
 
 class EnemyState
 {

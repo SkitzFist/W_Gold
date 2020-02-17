@@ -8,6 +8,8 @@ tile::tile()
 	eCost = NULL;
 	sCost = NULL;
 	sprite = new sf::Sprite();
+	ray = nullptr;
+	
 }
 
 tile::tile(sf::Vector2i worldPos, bool isWalkable)
@@ -18,6 +20,7 @@ tile::tile(sf::Vector2i worldPos, bool isWalkable)
 	eCost = NULL;
 	sCost = NULL;
 	sprite = new sf::Sprite();
+	ray = nullptr;
 }
 
 tile::~tile()
@@ -60,6 +63,11 @@ void tile::setSprite(sf::Texture* texture)
 int tile::getTCost()
 {
 	return sCost + eCost;
+}
+
+Ray* tile::getRay()
+{
+	return nullptr;
 }
 
 void tile::centerOrigin()

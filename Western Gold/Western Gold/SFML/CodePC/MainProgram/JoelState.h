@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "Enemy.h"
+#include "Level.h"
 
 class JoelState : public GameState
 {
@@ -14,5 +15,5 @@ public:
 
 private:
 	Enemy* enemy;
-
+	Level* level;
 };
