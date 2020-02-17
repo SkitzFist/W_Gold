@@ -6,10 +6,15 @@ Entity::Entity(sf::Texture *tex, ResourceManager *rm, int nrOfRays):
 	this->Dead = false;
 	this->raycast = new Ray * [nrOfRays];
 	for(int i = 0; i < nrOfRays; i++){
-		this->raycast[i] = new Ray(i);
+		this->raycast[i] = new Ray((float)i);
 	}
 	this->nrOfRays = nrOfRays;
 	
+}
+
+Ray* Entity::getRays()
+{
+	return *this->raycast;
 }
 
 

@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "Player.h"
 #include "Collision.h"
+#include "Line.h"
 
 class SimonState : public GameState
 {

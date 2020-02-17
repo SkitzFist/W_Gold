@@ -177,7 +177,9 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Grid.cpp" />
-    <ClCompile Include="JoelState.cpp" />
+    <ClCompile Include="JoelState.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
@@ -199,7 +201,9 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GetDistance.h" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="JoelState.h" />
+    <ClInclude Include="JoelState.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Level.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Player.h" />

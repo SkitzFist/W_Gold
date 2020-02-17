@@ -9,6 +9,7 @@ private:
 	int nrOfRays;
 public:
 	Entity(sf::Texture *tex, ResourceManager *rm , int nrOfRays);
+	Ray *getRays();
 	void takeDamage();
 	bool isDead()const;
 	void update(DeltaTime &time);

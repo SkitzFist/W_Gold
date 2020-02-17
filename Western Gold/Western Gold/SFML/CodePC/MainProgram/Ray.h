@@ -2,19 +2,21 @@
 #include <SFML/Graphics.hpp>
 #include "Line.h"
 #include "DeltaTime.h"
+#include "GameObject.h"
 
 class Entity;
+class tile;
 class Ray : public sf::Drawable{
 private:
 	float dir;
-	sf::CircleShape pt;
-	sf::CircleShape pos;
 	Line line;
 	void setRotation(float dir);
+	bool check(float T, float R, float B, float L);
 public:
 	Ray(float dir);
 	void updateRay(DeltaTime Time, Entity* entity);
-	//get wall it should check collision with
-	void getWall(Line line);
+
+	bool rayHitGameObject(GameObject* gameObj);
+	bool rayHitTile(tile *Tile);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

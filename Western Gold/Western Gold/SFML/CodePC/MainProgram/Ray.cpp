@@ -1,19 +1,38 @@
 #include "Ray.h"
 #include <iostream>
+
 #include "Entity.h"
+#include "Tile.h"
 
 void Ray::setRotation(float dir)
 {
 
 }
 
+bool Ray::check(float T, float R, float B, float L)
+{
+	float k = (float)((this->line.y1 - this->line.y2) / (this->line.x1 - this->line.x2));
+	float m = (float)(this->line.y1 - (k * this->line.x1));
+	bool theReturn = false;
+	if ((B - m) / k >= L && (B - m) / k <= R) {
+		theReturn = true;
+	}
+	if ((T - m) / k >= L && (T - m) / k <= R) {
+		theReturn = true;
+	}
+	if ((R * k + m) <= B && (R * k + m) >= T) {
+		theReturn = true;
+	}
+	if ((L * k + m) <= B && (L * k + m) >= T) {
+		theReturn = true;
+	}
+	return theReturn;
+}
+
 Ray::Ray(float dir):
 	line(0,0,0,0)
 {
 	this->dir = 0;
-	this->pos.setFillColor(sf::Color::Yellow);
-	this->pos.setPosition(0, 20);
-	this->pos.setRadius(3);
 }
 
 void Ray::updateRay(DeltaTime Time, Entity* entity)
@@ -24,49 +43,60 @@ void Ray::updateRay(DeltaTime Time, Entity* entity)
 	this->line.x1 = entity->getPosition().x;
 	this->line.y1 = entity->getPosition().y;
 	
-	this->line.x2 = 700 * cos(dir * PI / 180 - 1.57) + line.x1;
-	this->line.y2 = 700 * sin(dir * PI / 180 - 1.57) + line.y1;
+	this->line.x2 = (float)(700 * cos(dir * PI / 180 - 1.57) + line.x1);
+	this->line.y2 = (float)(700 * sin(dir * PI / 180 - 1.57) + line.y1);
 	this->line.changeLine();
 	
 	
 }
 
-void Ray::getWall(Line line)
+
+bool Ray::rayHitGameObject(GameObject* gameObj)
 {
-	float radias = (float)((3.14159265359 / 180)*(this->dir - 90));
-	 
-	float x1 = 200;
-	float y1 = 100;
-	float x2 = cos(radias) * 200 + x1;
-	float y2 = sin(radias) * 200 + y1;
+	bool theReturn = false;
 
-	this->line.x1 = x1;
-	this->line.y1 = y1;
-	this->line.x2 = x2;
-	this->line.y2 = y2;
-	this->line.changeLine();
-	
+	if (dir > 270 && (gameObj->getBot() < this->line.y1) && gameObj->getRight() < this->line.x1) {
+		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
+	}
+	else if (dir > 180 && gameObj->getTop() >= this->line.y1 && gameObj->getRight() <= this->line.x1) {
+		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
+	}
+	else if (dir > 90 && (gameObj->getBot() >= this->line.y1) && gameObj->getLeft() >= this->line.x1) {
+		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
+	}
+	else if (gameObj->getBot() <= this->line.y1 && gameObj->getLeft() >= this->line.x1) {
+		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
+	}
 
+	return theReturn;
+}
+
+bool Ray::rayHitTile(tile *Tile)
+{
+	bool theReturn = false;
 	
-	float den = (line.x1 - line.x2)*(y1 - y2) - (line.y1 - line.y2)*(x1 - x2);
-	if (den != 0) {
-		float t = ((line.x1 - x1)*(y1 - y2) - (line.y1 - y1)*(x1 - x2)) / den;
-		float u = -((line.x1 - line.x2)*(line.y1 - y1) - (line.y1 - line.y2)*(line.x1 - x1)) / den;
-		if (t > 0 && t < 1 && u > 0) {
-			std::cout << "hit" << std::endl;
-			this->line.x2 = (x1+u*(x2-x1));
-			this->line.y2 = (y1+u*(y2-y1));
-			this->line.changeLine();
-		}
+	float tileBot = Tile->getSprite()->getGlobalBounds().top + Tile->getSprite()->getGlobalBounds().height;
+	float tileTop = Tile->getSprite()->getGlobalBounds().top;
+	float tileLeft = Tile->getSprite()->getGlobalBounds().left;
+	float tileRight = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width;
+
+	if (dir > 270 && (tileBot < this->line.y1) && tileRight < this->line.x1) {
+		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
-	else {
-		std::cout << den << std::endl;
-		//std::cout << "fuck" << std::endl;
+	else if (dir > 180 && tileTop >= this->line.y1 && tileRight <= this->line.x1) {
+		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
+	else if (dir > 90 && (tileBot >= this->line.y1) && tileLeft >= this->line.x1) {
+		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
+	}
+	else if(tileBot <= this->line.y1 && tileLeft >= this->line.x1){
+		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
+	}
+
+	return theReturn;
 }
 
 void Ray::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(this->line);
-	target.draw(this->pos);
 }
