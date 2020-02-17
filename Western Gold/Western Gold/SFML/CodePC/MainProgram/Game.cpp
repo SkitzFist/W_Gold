@@ -35,7 +35,7 @@ void Game::handleEvent()
 	while (window->pollEvent(event)) {
 
 		if (currentState != nullptr) {
-			currentState->handleEvent(event);
+			currentState = currentState->handleEvent(event);
 		}
 		if (event.type == sf::Event::Closed) {
 			window->close();
@@ -60,7 +60,7 @@ void Game::update()
 
 		this->time.restartClock();
 		if (currentState != nullptr) {
-			currentState->update(time);
+			currentState = currentState->update(time);
 		}
 		elapsedTimeSinceLastUpdate -= timePerFrame;
 	}

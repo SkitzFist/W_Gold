@@ -1,7 +1,6 @@
 #pragma once
 #include "GameState.h"
-#include "Level.h"
-#include "tile.h"
+#include "Enemy.h"
 
 class JoelState : public GameState
 {
@@ -14,5 +13,6 @@ public:
 	virtual void render(sf::RenderWindow& window) const override;
 
 private:
-	Level* level = nullptr;
+	Enemy* enemy;
+
 };

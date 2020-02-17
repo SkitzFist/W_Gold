@@ -3,52 +3,45 @@
 //debug
 #include <iostream>
 #include <vector>
+#include "PlayState.h"
 
 JoelState::JoelState(ResourceManager* rm):
 	GameState(rm)
 {
-	level = new Level(rm, rm->getLevel_Test());
+	enemy = new Enemy(getRm()->getCharacter(), getRm(), 1);
 }
 
 JoelState::~JoelState()
 {
-	delete level;
+	delete enemy;
 }
 
 GameState* JoelState::handleEvent(const sf::Event& event)
 {
 	setGameState(this);
 
+	if (event.type == sf::Event::KeyPressed) {
+
+		if (event.key.code == sf::Keyboard::Space) {
+			
+		}
+	}
 
 	return getGameState();
 }
 
 GameState* JoelState::update(DeltaTime time)
 {
-	setGameState(this);
-
-	static double timer;
-	timer += time.dt();
+	//setGameState(this);
+	GameState* state = this;
 	
-	if (timer > 2.0) {
-		
-		/*sf::Vector2i mousePos = sf::Mouse::getPosition(*getRm()->getWindow());
-		tile* t = level->getGrid()->getTileFromWorldPos(mousePos);
-		if (t != nullptr) {
-			t->setSprite(getRm()->getTile_Ok());
-		}*/
+	enemy->update(time);
 
-		std::vector<tile*> tiles = level->getTilesOnScreen();
-		std::cout << tiles.size();
-
-		timer = -500;
-	}
-
-	return getGameState();
+	return state;
 }
 
 void JoelState::render(sf::RenderWindow& window) const
 {
-	level->drawLevel(window);
+	
 
 }
