@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h"
 
-class Player :public Entity{
+class Player : public Entity{
 private:
 	void move(DeltaTime time);
 	void shoot();
