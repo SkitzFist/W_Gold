@@ -13,7 +13,7 @@ private:
 	void setRotation(float dir);
 	bool check(float T, float R, float B, float L);
 public:
-	Ray(float dir);
+	Ray(float dir = NULL);
 	void updateRay(DeltaTime Time, Entity* entity);
 
 	bool rayHitGameObject(GameObject* gameObj);

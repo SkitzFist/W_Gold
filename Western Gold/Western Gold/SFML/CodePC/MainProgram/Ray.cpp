@@ -19,13 +19,19 @@ bool Ray::check(float T, float R, float B, float L)
 	}
 	if ((T - m) / k >= L && (T - m) / k <= R) {
 		theReturn = true;
+		this->line.y2 = T;
 	}
 	if ((R * k + m) <= B && (R * k + m) >= T) {
 		theReturn = true;
+		this->line.x2 = R;
 	}
 	if ((L * k + m) <= B && (L * k + m) >= T) {
 		theReturn = true;
+		this->line.x2 = L;
 	}
+	
+
+
 	return theReturn;
 }
 
@@ -92,6 +98,7 @@ bool Ray::rayHitTile(tile *Tile)
 	else if(tileBot <= this->line.y1 && tileLeft >= this->line.x1){
 		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
+
 
 	return theReturn;
 }
