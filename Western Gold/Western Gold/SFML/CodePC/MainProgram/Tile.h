@@ -15,10 +15,14 @@ public:
 	void setSprite(sf::Texture* texture);
 	int getTCost();
 
+	Ray* getRay();
+
 private:
 	sf::Vector2i worldPos;
 	bool isWalkable;
 	sf::Sprite* sprite;
+
+	Ray* ray;
 	
 	int sCost;
 	int eCost;

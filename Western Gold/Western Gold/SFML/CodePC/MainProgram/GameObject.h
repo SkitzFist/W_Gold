@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "ResourceManager.h"
 #include "DeltaTime.h"
+
 class GameObject : public sf::Drawable
 {
 public:
@@ -19,6 +20,7 @@ public:
 	float getTop()const;
 	float getWidth();
 	float getHeight();
+	float getRotation();
 	void setSpriteScale(float scale);
 	void setSpriteScalePx(float sizeX, float sizeY);
 	sf::Vector2f getCenterOfSprite()const;
@@ -32,11 +34,12 @@ protected:
 	void rotateSprite(float angle);
 	void addRotationSprite(float angle);
 	//centerOrigin private
-	void centerOrigin();
+	
 
 
 	ResourceManager* getRm();
 private:
+	void centerOrigin();
 	ResourceManager* rm;
 	sf::Sprite* sprite;
 	int spriteColumns;
