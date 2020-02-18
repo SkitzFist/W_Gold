@@ -8,7 +8,7 @@ tile::tile()
 	eCost = NULL;
 	sCost = NULL;
 	sprite = new sf::Sprite();
-	ray = nullptr;
+	ray = new Ray(NULL);
 	
 }
 
