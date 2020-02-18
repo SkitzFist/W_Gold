@@ -146,6 +146,21 @@ bool Collision::botSide(GameObject* gameObject, tile* tiles)
 	return theReturn;
 }
 
+bool Collision::tileVisibility(tile** tiles)
+{
+
+	
+
+
+	return false;
+}
+
+bool Collision::shootCollider(Entity* player, Entity* enemies)
+{
+	return player->getRays()->rayHitGameObject(enemies);;
+}
+
+
 
 Collision::Collision()
 {

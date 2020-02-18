@@ -16,11 +16,10 @@ private:
 	bool leftSide(GameObject*	gameObject, tile* tiles);
 	bool topSide(GameObject*	gameObject, tile* tiles);
 	bool botSide(GameObject*	gameObject, tile* tiles);
-	//when joel is done with tiles
-	//bool rLeft(	Entity* player, tile Tile);
-	//bool rRight(Entity* player, tile Tile);
-	//bool rTop(	Entity* player, tile Tile);
-	//bool rBot(	Entity* player, tile Tile);
+	//from tile to player
+	bool tileVisibility(tile** tiles);
+	//if player shoot/enemy shoot player
+	bool shootCollider(Entity *player, Entity* enemies);
 public:
 	Collision();
 	virtual ~Collision();

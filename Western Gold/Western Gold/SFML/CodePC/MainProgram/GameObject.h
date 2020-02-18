@@ -34,11 +34,12 @@ protected:
 	void rotateSprite(float angle);
 	void addRotationSprite(float angle);
 	//centerOrigin private
-	void centerOrigin();
+	
 
 
 	ResourceManager* getRm();
 private:
+	void centerOrigin();
 	ResourceManager* rm;
 	sf::Sprite* sprite;
 	int spriteColumns;
