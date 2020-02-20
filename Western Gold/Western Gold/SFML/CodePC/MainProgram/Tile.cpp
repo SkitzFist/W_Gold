@@ -65,6 +65,26 @@ int tile::getTCost()
 	return sCost + eCost;
 }
 
+int tile::getSCost() const
+{
+	return sCost;
+}
+
+void tile::setSCost(int value)
+{
+	sCost = value;
+}
+
+int tile::getECost() const
+{
+	return eCost;
+}
+
+void tile::setECost(int value)
+{
+	eCost = value;
+}
+
 Ray* tile::getRay()
 {
 	return nullptr;

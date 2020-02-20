@@ -184,6 +184,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pathfinding.cpp" />
     <ClCompile Include="PatrolState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
@@ -210,6 +211,7 @@
     </ClInclude>
     <ClInclude Include="Level.h" />
     <ClInclude Include="Line.h" />
+    <ClInclude Include="Pathfinding.h" />
     <ClInclude Include="PatrolState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />

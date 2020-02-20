@@ -14,7 +14,10 @@ public:
 	sf::Sprite* getSprite() const;
 	void setSprite(sf::Texture* texture);
 	int getTCost();
-
+	int getSCost() const;
+	void setSCost(int value);
+	int getECost() const;
+	void setECost(int value);
 	Ray* getRay();
 
 private:
