@@ -14,16 +14,25 @@ public:
 	sf::Sprite* getSprite() const;
 	void setSprite(sf::Texture* texture);
 	int getTCost();
-	Ray *getRay();
+	int getSCost() const;
+	void setSCost(int value);
+	int getECost() const;
+	void setECost(int value);
+	Ray* getRay();
+	bool getWannaDraw() const;
+	void setWannaDraw(bool value);
+
 
 private:
 	sf::Vector2i worldPos;
 	bool isWalkable;
 	sf::Sprite* sprite;
+
+	bool wannaDraw;
+	Ray* ray;
 	
 	int sCost;
 	int eCost;
-	Ray *ray;
 
 private:
 	void centerOrigin();

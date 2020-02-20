@@ -1,4 +1,5 @@
 #include "Level.h"
+#include <vector>
 
 //debug
 #include <iostream>
@@ -34,16 +35,23 @@ void Level::drawLevel(sf::RenderWindow& window) const
 	//renderObjects(window);
 }
 
-tile* Level::getTilesOnScreen()
+std::vector<tile*> Level::getTilesOnScreen()
 {
-	tile* tiles = nullptr;
-	int nrOf = -1;
+	std::vector<tile*> tiles;
+	int nrOf = 0;
 	static int count = 0;
 	for (unsigned int x = 0; x < grid->getGridSize().x; ++x) {
 		for (unsigned int y = 0; y < grid->getGridSize().y; ++y) {
-			tiles = &grid->getTiles()[y][x];
-			if (tiles->getSprite()->getGlobalBounds().intersects(rm->getWindow()->getView().getViewport())) {
-				std::cout << "hello" << std::endl;
+
+			/*if (rm->getWindow()->getView().getViewport().contains(
+				static_cast<sf::Vector2f>(grid->getTiles()[y][x].getWorldPos()))) {
+				tiles.push_back(&grid->getTiles()[y][x]);
+				++count;
+			}*/
+
+			if (grid->getTiles()[y][x].getSprite()->getGlobalBounds().intersects(
+				rm->getWindow()->getView().getViewport())) {
+				++count;
 			}
 			
 		}
