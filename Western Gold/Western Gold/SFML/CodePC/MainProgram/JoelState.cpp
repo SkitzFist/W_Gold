@@ -12,13 +12,16 @@ JoelState::JoelState(ResourceManager* rm):
 
 	enemy = new Enemy(getRm()->getCharacter(), getRm(), 1);
 	enemy->setPosition(48.f, 48.f);
-	std::cout << getRm()->getCharacter()->getSize().x;
+	
+	path = new Pathfinding(level->getGrid());
+	
 }
 
 JoelState::~JoelState()
 {
 	delete enemy;
 	delete level;
+	delete path;
 }
 
 GameState* JoelState::handleEvent(const sf::Event& event)

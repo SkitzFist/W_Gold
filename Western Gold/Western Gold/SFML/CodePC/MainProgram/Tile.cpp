@@ -8,21 +8,25 @@ tile::tile()
 	eCost = NULL;
 	sCost = NULL;
 	sprite = new sf::Sprite();
+
 	ray = new Ray(NULL);
 	wannaDraw = true;
-	
+	gridPos = { NULL, NULL };
 }
 
-tile::tile(sf::Vector2i worldPos, bool isWalkable)
+tile::tile(sf::Vector2i worldPos, bool isWalkable, sf::Vector2i gridPos, sf::Texture* texture)
 {
 	this->worldPos = worldPos;
 	this->isWalkable = isWalkable;
-	sprite = nullptr;
 	eCost = NULL;
 	sCost = NULL;
 	sprite = new sf::Sprite();
+	setSprite(texture);
+	setWorldPos(static_cast<sf::Vector2f>(worldPos));
+
 	ray = nullptr;
 	wannaDraw = true;
+	this->gridPos = gridPos;
 }
 
 tile::~tile()
@@ -62,6 +66,11 @@ void tile::setSprite(sf::Texture* texture)
 	centerOrigin();
 }
 
+void tile::setGridPos(sf::Vector2i gridPos)
+{
+	this->gridPos = gridPos;
+}
+
 int tile::getTCost()
 {
 	return sCost + eCost;
@@ -89,7 +98,7 @@ void tile::setECost(int value)
 
 Ray* tile::getRay()
 {
-	return nullptr;
+	return ray;
 }
 
 bool tile::getWannaDraw() const
@@ -100,6 +109,11 @@ bool tile::getWannaDraw() const
 void tile::setWannaDraw(bool value)
 {
 	wannaDraw = value;
+}
+
+sf::Vector2i tile::getGridPos() const
+{
+	return gridPos;
 }
 
 void tile::centerOrigin()

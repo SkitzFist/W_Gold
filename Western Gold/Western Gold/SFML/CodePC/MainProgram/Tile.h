@@ -4,7 +4,7 @@ class tile
 {
 public:
 	tile();
-	tile(sf::Vector2i worldPos, bool isWalkable);
+	tile(sf::Vector2i worldPos, bool isWalkable, sf::Vector2i gridPos, sf::Texture* texture);
 	~tile();
 
 	sf::Vector2i getWorldPos() const;
@@ -13,6 +13,7 @@ public:
 	void setIsWalkable(bool value);
 	sf::Sprite* getSprite() const;
 	void setSprite(sf::Texture* texture);
+	void setGridPos(sf::Vector2i gridPos);
 	int getTCost();
 	int getSCost() const;
 	void setSCost(int value);
@@ -22,18 +23,20 @@ public:
 	bool getWannaDraw() const;
 	void setWannaDraw(bool value);
 
+	sf::Vector2i getGridPos() const;
 
 private:
+
 	sf::Vector2i worldPos;
 	bool isWalkable;
 	sf::Sprite* sprite;
+	sf::Vector2i gridPos;
 
 	bool wannaDraw;
 	Ray* ray;
 	
 	int sCost;
 	int eCost;
-
 private:
 	void centerOrigin();
 };

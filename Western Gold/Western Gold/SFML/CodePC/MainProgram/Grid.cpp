@@ -74,12 +74,35 @@ void Grid::renderGrid(sf::RenderWindow& window) const
 	}
 }
 
+std::vector<tile*> Grid::getSurroundingTiles(tile* t)
+{
+	std::vector<tile*> tiles;
+
+	for (int x = -1; x <= 1; ++x) {
+		for (int y = -1; y <= 1; ++y) {
+			if (x == 0 && y == 0) {
+				continue;
+			}
+
+			int checkX = t->getGridPos().x + x;
+			int checkY = t->getGridPos().y + y;
+
+			if (checkX >= 0 && checkX < (int)gridSize.x
+				&& checkY >= 0 && checkY <(int) gridSize.y) {
+				tiles.push_back(&tiles[checkY][checkX]);
+			}
+		}
+	}
+
+	return tiles;
+}
+
 void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 {
 	sf::Color whiteTile = { 255,255,255 };
 	sf::Color blackTile = { 0,0,0 };
 
-	sf::Vector2f pos = {-tileSize /2 , -tileSize /2};
+	sf::Vector2f pos = {-tileSize /2 ,-tileSize /2};
 	
 	for (unsigned int x = 0; x < gridSize.x; ++x) {
 		pos.x += tileSize;
@@ -93,11 +116,13 @@ void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 				tiles[y][x].setSprite(rm->getTile_White());
 				tiles[y][x].setWorldPos(pos);
 				tiles[y][x].setIsWalkable(true);
+				tiles[y][x].setGridPos(sf::Vector2i(x, y));
 			}
 			else if (pixelInlevel == blackTile) {
 				tiles[y][x].setSprite(rm->getTile_Black());
 				tiles[y][x].setWorldPos(pos);
 				tiles[y][x].setIsWalkable(false);
+				tiles[y][x].setGridPos(sf::Vector2i(x, y));
 			}
 		}
 	}

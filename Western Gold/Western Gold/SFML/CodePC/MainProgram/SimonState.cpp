@@ -15,12 +15,12 @@ SimonState::SimonState(ResourceManager* rm):
 
 	setGameState(this);
 
-	testT = new tile * [nrOfTiles];
-	for (int i = 0; i < nrOfTiles; i++) {
-		testT[i] = new tile(sf::Vector2i(200, 200), true);
-		testT[i]->setSprite(rm->getCharacter());
-		testT[i]->setWorldPos(sf::Vector2f(100 * ((float)i + 1), 200));
-	}
+	//testT = new tile * [nrOfTiles];
+	//for (int i = 0; i < nrOfTiles; i++) {
+	//	testT[i] = new tile(sf::Vector2i(200, 200), true, sf::Vector2i(0, 0), rm->);
+	//	testT[i]->setSprite(rm->getCharacter());
+	//	testT[i]->setWorldPos(sf::Vector2f(100 * ((float)i + 1), 200));
+	//}
 	collision.setUpCollision(p, testT, nrOfTiles);
 }
 
