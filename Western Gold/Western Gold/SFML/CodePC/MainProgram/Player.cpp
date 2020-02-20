@@ -32,8 +32,9 @@ void Player::move(DeltaTime time)
 	}
 }
 
-void Player::shoot()
+bool Player::shoot()
 {
+	return sf::Keyboard::isKeyPressed(sf::Keyboard::H);
 }
 
 void Player::rotation()

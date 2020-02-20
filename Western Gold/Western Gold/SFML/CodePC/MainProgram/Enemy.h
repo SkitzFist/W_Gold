@@ -12,6 +12,6 @@ public:
 	virtual void update(DeltaTime delta) override;
 
 private:
-	EnemyState* currentState = nullptr;
+	
 };
 

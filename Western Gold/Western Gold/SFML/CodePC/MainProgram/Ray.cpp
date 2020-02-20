@@ -1,7 +1,7 @@
 #include "Ray.h"
 #include <iostream>
 
-#include "Entity.h"
+#include "Player.h"
 #include "Tile.h"
 
 void Ray::setRotation(float dir)
@@ -41,7 +41,11 @@ Ray::Ray(float dir):
 	this->dir = 0;
 }
 
-void Ray::updateRay(DeltaTime Time, Entity* entity)
+Ray::~Ray()
+{
+}
+
+void Ray::updateRay(Entity* entity)
 {
 	const float PI = 3.14159f;
 
@@ -56,21 +60,32 @@ void Ray::updateRay(DeltaTime Time, Entity* entity)
 	
 }
 
+void Ray::updateRay(Player *player, tile *Tile)
+{
+
+	this->line.x1 = player->getPosition().x;
+	this->line.y1 = player->getPosition().y;
+
+	this->line.x2 = Tile->getSprite()->getPosition().x;
+	this->line.y2 = Tile->getSprite()->getPosition().y;
+	this->line.changeLine();
+}
 
 bool Ray::rayHitGameObject(GameObject* gameObj)
 {
 	bool theReturn = false;
+	std::cout << dir << std::endl;
 
-	if (dir > 270 && (gameObj->getBot() < this->line.y1) && gameObj->getRight() < this->line.x1) {
+	if (dir > 270 && (gameObj->getTop() < this->line.y1)) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-	else if (dir > 180 && gameObj->getTop() >= this->line.y1 && gameObj->getRight() <= this->line.x1) {
+	else if (dir > 180 && gameObj->getBot() >= this->line.y1 ) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-	else if (dir > 90 && (gameObj->getBot() >= this->line.y1) && gameObj->getLeft() >= this->line.x1) {
+	else if (dir > 90 && (gameObj->getBot() >= this->line.y1) ) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-	else if (gameObj->getBot() <= this->line.y1 && gameObj->getLeft() >= this->line.x1) {
+	else if (gameObj->getTop() <= this->line.y1 ) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
 
@@ -86,16 +101,16 @@ bool Ray::rayHitTile(tile *Tile)
 	float tileLeft = Tile->getSprite()->getGlobalBounds().left;
 	float tileRight = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width;
 
-	if (dir > 270 && (tileBot < this->line.y1) && tileRight < this->line.x1) {
+	if (dir > 270 && (tileTop < this->line.y1)) {
 		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
-	else if (dir > 180 && tileTop >= this->line.y1 && tileRight <= this->line.x1) {
+	else if (dir > 180 && tileBot >= this->line.y1 ) {
 		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
-	else if (dir > 90 && (tileBot >= this->line.y1) && tileLeft >= this->line.x1) {
+	else if (dir > 90 && (tileBot >= this->line.y1) ) {
 		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
-	else if(tileBot <= this->line.y1 && tileLeft >= this->line.x1){
+	else if(tileTop<= this->line.y1){
 		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
 

@@ -5,18 +5,18 @@
 void Collision::checkCollision()
 {
 	for (int i = 0; i < nrOfTiles; i++) {
-		if (tiles->getIsWalkable()) {
-			while (tiles->getSprite()->getGlobalBounds().intersects(gameObjects->getBounds())) {
-				if (rightSide(gameObjects, tiles)) {
+		if (tiles[i]->getIsWalkable()) {
+			while (tiles[i]->getSprite()->getGlobalBounds().intersects(gameObjects->getBounds())) {
+				if (rightSide(gameObjects, tiles[i])) {
 					gameObjects->moveSprite(1, 0);
 				}
-				else if (leftSide(gameObjects, tiles)) {
+				else if (leftSide(gameObjects, tiles[i])) {
 					gameObjects->moveSprite(-1, 0);
 				}
-				else if (topSide(gameObjects, tiles)) {
+				else if (topSide(gameObjects, tiles[i])) {
 					gameObjects->moveSprite(0, -1);
 				}
-				else if (botSide(gameObjects, tiles)) {
+				else if (botSide(gameObjects, tiles[i])) {
 					gameObjects->moveSprite(0, 1);
 				}
 				else {
@@ -146,9 +146,20 @@ bool Collision::botSide(GameObject* gameObject, tile* tiles)
 	return theReturn;
 }
 
-bool Collision::tileVisibility(tile** tiles)
+bool Collision::tileVisibility()
 {
-
+	for (int x = 0; x < nrOfTiles; x++) {
+		for (int y = x; y < nrOfTiles; y++) {
+			if (x != y) {
+				if (tiles[x]->getRay()->rayHitTile(tiles[y])) {
+					tiles[x]->getSprite()->setScale(0, 0);
+				}
+				else {
+					tiles[x]->getSprite()->setScale(1, 1);
+				}
+			}
+		}
+	}
 	
 
 
@@ -175,7 +186,7 @@ Collision::~Collision()
 	delete this->tiles;
 }
 
-void Collision::setUpCollision(GameObject* player, tile* tiles, int nrOfTiles)
+void Collision::setUpCollision(GameObject* player, tile** tiles, int nrOfTiles)
 {
 	gameObjects = player;
 	this->tiles = tiles;
@@ -186,6 +197,7 @@ void Collision::update(Ray raycast[], int nrOfRays)
 {
 	//check collision
 	checkCollision();
+	tileVisibility();
 	//if (raycast != nullptr) {
 	//	checkCollisionRays(raycast, nrOfRays);
 	//}

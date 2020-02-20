@@ -51,19 +51,20 @@ void ResourceManager::basicSetup()
 {
 	basicFont = new sf::Font();
 	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
-		//std::cerr << "Could not load font segoui.ttf" << std::endl;
 		cantLoad(L"Font");
 	}
 
-
 	character = new sf::Texture();
 	if (!character->loadFromFile("../Textures/hat.png")) {
-		cantLoad(L"tex");
+		cantLoad(L"hat");
 	}
-
+	bullet = new sf::Texture();
+	if (!bullet->loadFromFile("../Textures/Bullet.png")) {
+		cantLoad(L"bullet");
+	}
 	ass = new sf::SoundBuffer();
 	if (!ass->loadFromFile("../Sound/THX_Sound_Effect.wav")) {
-		cantLoad(L"ass");
+		cantLoad(L"soundeffect");
 	}
 
 

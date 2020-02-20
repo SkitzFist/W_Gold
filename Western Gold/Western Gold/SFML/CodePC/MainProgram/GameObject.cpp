@@ -72,6 +72,11 @@ float GameObject::getRotation()
 	return sprite->getRotation();
 }
 
+void GameObject::setRotatioSprite(float angle)
+{
+	sprite->setRotation(angle);
+}
+
 void GameObject::rotateSprite(float angle)
 {
 	sprite->setRotation((angle * 180) / PI + 90);
