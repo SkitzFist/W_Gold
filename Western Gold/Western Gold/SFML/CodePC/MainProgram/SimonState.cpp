@@ -3,7 +3,8 @@
 #include "Line.h"
 
 SimonState::SimonState(ResourceManager* rm):
-	GameState(rm)
+	GameState(rm),
+	bull(rm)
 	
 {
 	p = new Player(rm->getCharacter(), rm);
@@ -32,10 +33,14 @@ GameState* SimonState::update(DeltaTime delta)
 	setGameState(this);
 
 	p->update(delta);
-	
+	bull.update(delta);
 	collision.update();
+	//testing for throwing;
+	if (p->shoot()) {
+		bull.throwBullet(delta, *p);
+	}
 	if (p->getRays()->rayHitTile(testT)) {
-		std::cout << "Hit" << std::endl;
+		
 	}
 
 	return getGameState();
@@ -46,4 +51,5 @@ void SimonState::render(sf::RenderWindow& window) const
 	//window.draw(this->Test);
 	window.draw(*this->p);
 	window.draw(*this->testT->getSprite());
+	window.draw(this->bull);
 }

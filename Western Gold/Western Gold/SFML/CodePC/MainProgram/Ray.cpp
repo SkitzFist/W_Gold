@@ -56,21 +56,21 @@ void Ray::updateRay(DeltaTime Time, Entity* entity)
 	
 }
 
-
 bool Ray::rayHitGameObject(GameObject* gameObj)
 {
 	bool theReturn = false;
+	std::cout << dir << std::endl;
 
-	if (dir > 270 && (gameObj->getBot() < this->line.y1) && gameObj->getRight() < this->line.x1) {
+	if (dir > 270 && (gameObj->getTop() < this->line.y1)) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-	else if (dir > 180 && gameObj->getTop() >= this->line.y1 && gameObj->getRight() <= this->line.x1) {
+	else if (dir > 180 && gameObj->getBot() >= this->line.y1 ) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-	else if (dir > 90 && (gameObj->getBot() >= this->line.y1) && gameObj->getLeft() >= this->line.x1) {
+	else if (dir > 90 && (gameObj->getBot() >= this->line.y1) ) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-	else if (gameObj->getBot() <= this->line.y1 && gameObj->getLeft() >= this->line.x1) {
+	else if (gameObj->getTop() <= this->line.y1 ) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
 
@@ -86,16 +86,16 @@ bool Ray::rayHitTile(tile *Tile)
 	float tileLeft = Tile->getSprite()->getGlobalBounds().left;
 	float tileRight = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width;
 
-	if (dir > 270 && (tileBot < this->line.y1) && tileRight < this->line.x1) {
+	if (dir > 270 && (tileTop < this->line.y1)) {
 		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
-	else if (dir > 180 && tileTop >= this->line.y1 && tileRight <= this->line.x1) {
+	else if (dir > 180 && tileBot >= this->line.y1 ) {
 		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
-	else if (dir > 90 && (tileBot >= this->line.y1) && tileLeft >= this->line.x1) {
+	else if (dir > 90 && (tileBot >= this->line.y1) ) {
 		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
-	else if(tileBot <= this->line.y1 && tileLeft >= this->line.x1){
+	else if(tileTop<= this->line.y1){
 		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
 

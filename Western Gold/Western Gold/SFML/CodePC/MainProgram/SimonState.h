@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Collision.h"
 #include "Line.h"
+#include "Bullet.h"
 
 class SimonState : public GameState
 {
@@ -17,6 +18,7 @@ public:
 private:
 	Player *p;
 	tile *testT;
+	Bullet bull;
 
 	Collision collision;
 };

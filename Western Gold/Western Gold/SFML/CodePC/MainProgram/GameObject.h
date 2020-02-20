@@ -31,6 +31,7 @@ protected:
 	//why protected?
 	void moveSprite(sf::Vector2f dir, float speed);
 	
+	void setRotatioSprite(float angle);
 	void rotateSprite(float angle);
 	void addRotationSprite(float angle);
 	//centerOrigin private
