@@ -9,7 +9,7 @@ SimonState::SimonState(ResourceManager* rm):
 {
 	nrOfTiles = 8;
 	
-	p = new Player(rm->getCharacter(), rm);
+	p = new Player(rm->getCharacter(), rm, 5);
 	
 
 
@@ -19,7 +19,7 @@ SimonState::SimonState(ResourceManager* rm):
 	for (int i = 0; i < nrOfTiles; i++) {
 		testT[i] = new tile(sf::Vector2i(200, 200), true);
 		testT[i]->setSprite(rm->getCharacter());
-		testT[i]->setWorldPos(sf::Vector2f(100 * ((float)i + 1), 200));
+		testT[i]->setWorldPos(sf::Vector2f(100 * ((float)i + 1), 200.0f+(float)i*5.0f));
 	}
 	collision.setUpCollision(p, testT, nrOfTiles);
 }
@@ -41,6 +41,9 @@ GameState* SimonState::update(DeltaTime delta)
 	setGameState(this);
 
 	p->update(delta);
+	for (int i = 0; i < nrOfTiles; i++) {
+		testT[i]->setWannaDraw(true);
+	}
 	bull.update(delta);
 	collision.update();
 	//testing for throwing;
@@ -59,7 +62,9 @@ void SimonState::render(sf::RenderWindow& window) const
 {
 	window.draw(*this->p);
 	for (int i = 0; i < nrOfTiles; i++) {
-		window.draw(*this->testT[i]->getSprite());
+		if (this->testT[i]->getWannaDraw()) {
+			window.draw(*this->testT[i]->getSprite());
+		}
 		window.draw(*this->testT[i]->getRay());
 	}
 	

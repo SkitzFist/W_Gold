@@ -2,27 +2,26 @@
 
 tile::tile()
 {
+	this->wannaDraw = true;
+	this->ray = new Ray();
 	sprite = nullptr;
-	worldPos = {0,0};
+	worldPos = { 0,0 };
 	isWalkable = false;
 	eCost = NULL;
 	sCost = NULL;
 	sprite = new sf::Sprite();
-	ray = new Ray(NULL);
-	wannaDraw = true;
-	
 }
 
 tile::tile(sf::Vector2i worldPos, bool isWalkable)
 {
+	this->wannaDraw = true;
+	this->ray = new Ray();
 	this->worldPos = worldPos;
 	this->isWalkable = isWalkable;
 	sprite = nullptr;
 	eCost = NULL;
 	sCost = NULL;
 	sprite = new sf::Sprite();
-	ray = nullptr;
-	wannaDraw = true;
 }
 
 tile::~tile()
@@ -89,17 +88,17 @@ void tile::setECost(int value)
 
 Ray* tile::getRay()
 {
-	return nullptr;
+	return ray;
 }
 
 bool tile::getWannaDraw() const
 {
-	return wannaDraw;
+	return this->wannaDraw;
 }
 
 void tile::setWannaDraw(bool value)
 {
-	wannaDraw = value;
+	this->wannaDraw = value;
 }
 
 void tile::centerOrigin()

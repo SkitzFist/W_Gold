@@ -6,7 +6,7 @@
 
 void Ray::setRotation(float dir)
 {
-
+	this->dir = dir;
 }
 
 bool Ray::check(float T, float R, float B, float L)
@@ -33,6 +33,12 @@ bool Ray::check(float T, float R, float B, float L)
 
 
 	return theReturn;
+}
+
+void Ray::calcRotation()
+{
+	this->dir = (atan2f((line.y1 - line.y2), (line.x1 - line.x2) * 180) / 3.14 + 90);
+	
 }
 
 Ray::Ray(float dir):
@@ -63,11 +69,12 @@ void Ray::updateRay(Entity* entity)
 void Ray::updateRay(Player *player, tile *Tile)
 {
 
-	this->line.x1 = player->getPosition().x;
-	this->line.y1 = player->getPosition().y;
+	this->line.x2 = player->getPosition().x;
+	this->line.y2 = player->getPosition().y;
 
-	this->line.x2 = Tile->getSprite()->getPosition().x;
-	this->line.y2 = Tile->getSprite()->getPosition().y;
+	this->line.x1 = Tile->getSprite()->getPosition().x;
+	this->line.y1 = Tile->getSprite()->getPosition().y;
+	calcRotation();
 	this->line.changeLine();
 }
 
@@ -95,7 +102,9 @@ bool Ray::rayHitGameObject(GameObject* gameObj)
 bool Ray::rayHitTile(tile *Tile)
 {
 	bool theReturn = false;
-	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		std::cout << "stop" << std::endl;
+	}
 	float tileBot = Tile->getSprite()->getGlobalBounds().top + Tile->getSprite()->getGlobalBounds().height;
 	float tileTop = Tile->getSprite()->getGlobalBounds().top;
 	float tileLeft = Tile->getSprite()->getGlobalBounds().left;
@@ -110,10 +119,9 @@ bool Ray::rayHitTile(tile *Tile)
 	else if (dir > 90 && (tileBot >= this->line.y1) ) {
 		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
-	else if(tileTop<= this->line.y1){
+	else if(tileTop <= this->line.y1){
 		theReturn = check(tileTop, tileRight, tileBot, tileLeft);
 	}
-
 
 	return theReturn;
 }

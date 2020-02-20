@@ -44,9 +44,10 @@ void Player::rotation()
 	this->rotateSprite(tanv);
 }
 
-Player::Player(sf::Texture* tex, ResourceManager* rm):
+Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles):
 	Entity(tex,rm/*add col and row later*/,1)
 {
+	rayTile = new Ray * [nrOfTiles];
 	this->window = rm->getWindow();
 	speed = 100;
 }

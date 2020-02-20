@@ -14,6 +14,7 @@ private:
 	Line line;
 	void setRotation(float dir);
 	bool check(float T, float R, float B, float L);
+	void calcRotation();
 public:
 	Ray(float dir = NULL);
 	virtual ~Ray();

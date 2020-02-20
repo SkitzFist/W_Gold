@@ -149,13 +149,11 @@ bool Collision::botSide(GameObject* gameObject, tile* tiles)
 bool Collision::tileVisibility()
 {
 	for (int x = 0; x < nrOfTiles; x++) {
-		for (int y = x; y < nrOfTiles; y++) {
+		for (int y = 0; y < nrOfTiles; y++) {
 			if (x != y) {
+				//must check who is the nerest
 				if (tiles[x]->getRay()->rayHitTile(tiles[y])) {
-					tiles[x]->getSprite()->setScale(0, 0);
-				}
-				else {
-					tiles[x]->getSprite()->setScale(1, 1);
+					tiles[x]->setWannaDraw(false);
 				}
 			}
 		}
