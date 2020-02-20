@@ -7,13 +7,21 @@ SimonState::SimonState(ResourceManager* rm):
 	bull(rm)
 	
 {
+	nrOfTiles = 8;
+	
 	p = new Player(rm->getCharacter(), rm);
-	testT = new tile(sf::Vector2i(200, 200), true);
-	collision.setUpCollision(p, testT,1);
+	
+
 
 	setGameState(this);
-	testT->setSprite(rm->getCharacter());
-	testT->setWorldPos(sf::Vector2f(200, 200));
+
+	testT = new tile * [nrOfTiles];
+	for (int i = 0; i < nrOfTiles; i++) {
+		testT[i] = new tile(sf::Vector2i(200, 200), true);
+		testT[i]->setSprite(rm->getCharacter());
+		testT[i]->setWorldPos(sf::Vector2f(100 * ((float)i + 1), 200));
+	}
+	collision.setUpCollision(p, testT, nrOfTiles);
 }
 
 SimonState::~SimonState()
@@ -39,17 +47,22 @@ GameState* SimonState::update(DeltaTime delta)
 	if (p->shoot()) {
 		bull.throwBullet(delta, *p);
 	}
-	if (p->getRays()->rayHitTile(testT)) {
-		
+	for (int i = 0; i < nrOfTiles; i++) {
+		testT[i]->getRay()->updateRay(p, testT[i]);
 	}
+	
 
 	return getGameState();
 }
 
 void SimonState::render(sf::RenderWindow& window) const
 {
-	//window.draw(this->Test);
 	window.draw(*this->p);
-	window.draw(*this->testT->getSprite());
+	for (int i = 0; i < nrOfTiles; i++) {
+		window.draw(*this->testT[i]->getSprite());
+		window.draw(*this->testT[i]->getRay());
+	}
+	
 	window.draw(this->bull);
+	
 }

@@ -74,7 +74,6 @@ float GameObject::getRotation()
 
 void GameObject::setRotatioSprite(float angle)
 {
-	//no angle*180 shit
 	sprite->setRotation(angle);
 }
 

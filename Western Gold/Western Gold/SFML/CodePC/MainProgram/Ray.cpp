@@ -1,7 +1,7 @@
 #include "Ray.h"
 #include <iostream>
 
-#include "Entity.h"
+#include "Player.h"
 #include "Tile.h"
 
 void Ray::setRotation(float dir)
@@ -41,7 +41,11 @@ Ray::Ray(float dir):
 	this->dir = 0;
 }
 
-void Ray::updateRay(DeltaTime Time, Entity* entity)
+Ray::~Ray()
+{
+}
+
+void Ray::updateRay(Entity* entity)
 {
 	const float PI = 3.14159f;
 
@@ -54,6 +58,17 @@ void Ray::updateRay(DeltaTime Time, Entity* entity)
 	this->line.changeLine();
 	
 	
+}
+
+void Ray::updateRay(Player *player, tile *Tile)
+{
+
+	this->line.x1 = player->getPosition().x;
+	this->line.y1 = player->getPosition().y;
+
+	this->line.x2 = Tile->getSprite()->getPosition().x;
+	this->line.y2 = Tile->getSprite()->getPosition().y;
+	this->line.changeLine();
 }
 
 bool Ray::rayHitGameObject(GameObject* gameObj)

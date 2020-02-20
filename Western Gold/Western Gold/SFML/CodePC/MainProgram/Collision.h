@@ -7,7 +7,7 @@
 class Collision {
 private:
 	GameObject* gameObjects;
-	tile* tiles;
+	tile** tiles;
 	int nrOfTiles;
 	void checkCollision();
 	void checkCollisionRays(Ray raycast[], int nrOfRays = 0);
@@ -17,12 +17,12 @@ private:
 	bool topSide(GameObject*	gameObject, tile* tiles);
 	bool botSide(GameObject*	gameObject, tile* tiles);
 	//from tile to player
-	bool tileVisibility(tile** tiles);
+	bool tileVisibility();
 	//if player shoot/enemy shoot player
 	bool shootCollider(Entity *player, Entity* enemies);
 public:
 	Collision();
 	virtual ~Collision();
-	void setUpCollision(GameObject* player, tile* tiles, int nrOfTiles);
+	void setUpCollision(GameObject* player, tile** tiles, int nrOfTiles);
 	void update(Ray raycast[] = nullptr, int nrOfRays = 0);
 };

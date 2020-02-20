@@ -31,7 +31,7 @@ bool Entity::isDead() const
 void Entity::update(DeltaTime& time)
 {
 	for (int i = 0; i < nrOfRays; i++) {
-		raycast[i]->updateRay(time, this);
+		raycast[i]->updateRay(this);
 	}
 }
 

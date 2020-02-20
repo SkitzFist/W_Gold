@@ -2,6 +2,7 @@
 
 tile::tile()
 {
+	this->ray = new Ray();
 	sprite = nullptr;
 	worldPos = {0,0};
 	isWalkable = false;
@@ -12,6 +13,7 @@ tile::tile()
 
 tile::tile(sf::Vector2i worldPos, bool isWalkable)
 {
+	this->ray = new Ray();
 	this->worldPos = worldPos;
 	this->isWalkable = isWalkable;
 	sprite = nullptr;
@@ -60,6 +62,11 @@ void tile::setSprite(sf::Texture* texture)
 int tile::getTCost()
 {
 	return sCost + eCost;
+}
+
+Ray* tile::getRay()
+{
+	return ray;
 }
 
 void tile::centerOrigin()

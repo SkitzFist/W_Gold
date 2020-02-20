@@ -33,7 +33,7 @@ void Bullet::moveDir(DeltaTime time)
 }
 
 Bullet::Bullet(ResourceManager* rm):
-	GameObject(rm->getCharacter(),rm)
+	GameObject(rm->getBullet(),rm)
 {
 	bulletAt = bulletState::PLAYER;
 	this->flytime = 2.0f;

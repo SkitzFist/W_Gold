@@ -14,16 +14,18 @@ Line::Line(float x1, float y1, float x2, float y2)
 
 Line::~Line()
 {
-	delete line;
+	if (this->line != nullptr) {
+		delete line;
+	}
 }
 
 void Line::changeLine()
 {
-	delete this->line;
-	this->line = new sf::Vertex[2]{
-		sf::Vertex(sf::Vector2f(x1,y1)),
-		sf::Vertex(sf::Vector2f(x2, y2))
-	};
+		delete this->line;
+		this->line = new sf::Vertex[2]{
+			sf::Vertex(sf::Vector2f(x1,y1)),
+			sf::Vertex(sf::Vector2f(x2, y2))
+		};
 }
 
 void Line::draw(sf::RenderTarget & target, sf::RenderStates states) const

@@ -14,6 +14,7 @@ public:
 	sf::Sprite* getSprite() const;
 	void setSprite(sf::Texture* texture);
 	int getTCost();
+	Ray *getRay();
 
 private:
 	sf::Vector2i worldPos;
@@ -22,6 +23,7 @@ private:
 	
 	int sCost;
 	int eCost;
+	Ray *ray;
 
 private:
 	void centerOrigin();

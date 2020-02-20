@@ -17,7 +17,8 @@ public:
 	
 private:
 	Player *p;
-	tile *testT;
+	int nrOfTiles;
+	tile** testT;
 	Bullet bull;
 
 	Collision collision;
