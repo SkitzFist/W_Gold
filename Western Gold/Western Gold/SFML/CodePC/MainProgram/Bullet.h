@@ -6,13 +6,19 @@ class Bullet :public GameObject{
 private:
 	enum class bulletState
 	{
-		PLAYER, FLYING, GROUND
+		PLAYER, THROW ,FLYING, GROUND
 	}; 
 	bulletState bulletAt;
-	void throwBullet(DeltaTime time, Player player);
+	float flytime;
+	float currentflytime;
+	float speed;
+	
+	void fly(DeltaTime time);
+	void moveDir(DeltaTime time);
 public:
+	void throwBullet(DeltaTime time, Player &player);
 	Bullet(ResourceManager* rm);
 	virtual ~Bullet();
 	int getBulletState();
-	void update(DeltaTime time, Player player);
+	void update(DeltaTime time);
 };

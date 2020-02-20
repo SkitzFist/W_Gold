@@ -4,8 +4,10 @@
 #include "DeltaTime.h"
 #include "GameObject.h"
 
+
 class Entity;
 class tile;
+class Player;
 class Ray : public sf::Drawable{
 private:
 	float dir;
@@ -14,8 +16,9 @@ private:
 	bool check(float T, float R, float B, float L);
 public:
 	Ray(float dir = NULL);
-	void updateRay(DeltaTime Time, Entity* entity);
-
+	virtual ~Ray();
+	void updateRay(Entity* entity);
+	void updateRay(Player *player, tile *Tile);
 	bool rayHitGameObject(GameObject* gameObj);
 	bool rayHitTile(tile *Tile);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
