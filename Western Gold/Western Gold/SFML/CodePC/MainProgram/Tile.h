@@ -18,7 +18,7 @@ public:
 	void setSCost(int value);
 	int getECost() const;
 	void setECost(int value);
-	Ray* getRay();
+	//Ray* getRay();
 	bool getWannaDraw() const;
 	void setWannaDraw(bool value);
 
@@ -29,7 +29,7 @@ private:
 	sf::Sprite* sprite;
 
 	bool wannaDraw;
-	Ray* ray;
+	//Ray* ray;
 	
 	int sCost;
 	int eCost;

@@ -12,6 +12,14 @@ Entity::Entity(sf::Texture *tex, ResourceManager *rm, int nrOfRays):
 	
 }
 
+Entity::~Entity()
+{
+	for (int i = 0; i < nrOfRays; i++) {
+		delete raycast[i];
+	}
+	delete[] raycast;
+}
+
 Ray* Entity::getRays()
 {
 	return *this->raycast;

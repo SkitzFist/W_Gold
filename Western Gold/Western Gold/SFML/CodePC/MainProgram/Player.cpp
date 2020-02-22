@@ -32,9 +32,55 @@ void Player::move(DeltaTime time)
 	}
 }
 
+void Player::updateRays(int nrOfTiles)
+{
+}
+
 bool Player::shoot()
 {
-	return sf::Keyboard::isKeyPressed(sf::Keyboard::H);
+	bool theReturn = false;;
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !shooting) {
+		shooting = true;
+		if (nrOfShoots > 0) {
+			nrOfShoots--;
+			//shoot
+			theReturn = true;
+			this->sound.PlaySounds(getRm()->getGunShot());
+		}
+		else {
+			//klick
+		}
+		
+	}
+	if (!(sf::Mouse::isButtonPressed(sf::Mouse::Left))) {
+		shooting = false;
+		theReturn = false;
+	}
+	return theReturn;
+}
+
+bool Player::tossBullet()
+{
+	bool theReturn = false;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::H) && !tossing) {
+		tossing = true;
+		if (nrOfShoots > 0) {
+			nrOfShoots--;
+			//shoot
+			theReturn = true;
+		}
+	}
+	if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::H))) {
+		tossing = false;
+		theReturn = false;
+	}
+	
+	return theReturn;
+}
+
+Ray* Player::getRay(int nr)
+{
+	return rayTile[nr];
 }
 
 void Player::rotation()
@@ -44,21 +90,45 @@ void Player::rotation()
 	this->rotateSprite(tanv);
 }
 
-Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles):
+Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, tile** tiles):
 	Entity(tex,rm/*add col and row later*/,1)
 {
+	nrOfShoots = 6;
+	shooting = false;
+	tossing = false;
+
 	rayTile = new Ray * [nrOfTiles];
+	for (int i = 0; i < nrOfTiles; i++) {
+		rayTile[i] = new Ray();
+	}
+	this->tiles = tiles;
+	this->nrOfTiles = nrOfTiles;
+
 	this->window = rm->getWindow();
 	speed = 100;
 }
 
 Player::~Player()
 {
+	for (int i = 0; i < nrOfTiles; i++) {
+		delete rayTile[i];
+	}
+	delete[] rayTile;
 }
 
 void Player::update(DeltaTime time)
 {
 	move(time);
 	rotation();
+	this->updateRays();
 	Entity::update(time);
+}
+
+void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	Entity::draw(target, states);
+	//debug
+	for (int i = 0; i < nrOfTiles; i++) {
+		target.draw(*this->rayTile[i]);
+	}
 }

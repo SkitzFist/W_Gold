@@ -12,6 +12,11 @@ Enemy::~Enemy()
 	//delete currentState;
 }
 
+bool Enemy::shoot()
+{
+	return false;
+}
+
 void Enemy::update(DeltaTime delta)
 {
 	//currentState = currentState->update(delta);

@@ -9,7 +9,7 @@ SimonState::SimonState(ResourceManager* rm):
 {
 	nrOfTiles = 8;
 	
-	p = new Player(rm->getCharacter(), rm, 5);
+	p = new Player(rm->getCharacter(), rm, nrOfTiles, testT);
 	
 
 
@@ -19,13 +19,19 @@ SimonState::SimonState(ResourceManager* rm):
 	for (int i = 0; i < nrOfTiles; i++) {
 		testT[i] = new tile(sf::Vector2i(200, 200), true);
 		testT[i]->setSprite(rm->getCharacter());
-		testT[i]->setWorldPos(sf::Vector2f(100 * ((float)i + 1), 200.0f+(float)i*5.0f));
+		testT[i]->setWorldPos(sf::Vector2f(100 * ((float)i + 1), 200.0f+(float)i*(5.0f)*(sin(i) + 1) * 5));
 	}
 	collision.setUpCollision(p, testT, nrOfTiles);
 }
 
 SimonState::~SimonState()
 {
+	for (int i = 0; i < nrOfTiles; i++) {
+		delete testT[i];
+	}
+	delete[] testT;
+	delete p;
+	
 }
 
 GameState* SimonState::handleEvent(const sf::Event& event)
@@ -44,14 +50,26 @@ GameState* SimonState::update(DeltaTime delta)
 	for (int i = 0; i < nrOfTiles; i++) {
 		testT[i]->setWannaDraw(true);
 	}
+
 	bull.update(delta);
 	collision.update();
 	//testing for throwing;
-	if (p->shoot()) {
-		bull.throwBullet(delta, *p);
+	if (p->tossBullet()) {
+		bool gotaBullet = false;
+		for (int i = 0; i < 6 && !gotaBullet; i++) {
+			if (bull.getBulletState() == 0) {
+				bull.throwBullet(delta, *p);
+				gotaBullet = true;
+			}
+		}
 	}
+	if (p->shoot()) {
+		//check what he shot
+		std::cout << "shoot" << std::endl;
+	}
+
 	for (int i = 0; i < nrOfTiles; i++) {
-		testT[i]->getRay()->updateRay(p, testT[i]);
+		p->getRay(i)->updateRay(p, testT[i]);
 	}
 	
 
@@ -65,7 +83,6 @@ void SimonState::render(sf::RenderWindow& window) const
 		if (this->testT[i]->getWannaDraw()) {
 			window.draw(*this->testT[i]->getSprite());
 		}
-		window.draw(*this->testT[i]->getRay());
 	}
 	
 	window.draw(this->bull);

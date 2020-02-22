@@ -26,9 +26,14 @@ public:
 #pragma region Levels
 	sf::Image* getLevel_Test();
 #pragma endregion
+
 #pragma region character stuff
 	sf::Texture* getCharacter();
 	sf::Texture* getBullet();
+#pragma endregion
+
+#pragma region Sound
+	sf::SoundBuffer* getGunShot();
 #pragma endregion
 	//debug
 
@@ -61,6 +66,9 @@ private:
 #pragma region character stuff
 	sf::Texture* character;
 	sf::Texture* bullet;
+#pragma endregion
+#pragma region Sound
+	sf::SoundBuffer* gunShot;
 #pragma endregion
 
 	//debug

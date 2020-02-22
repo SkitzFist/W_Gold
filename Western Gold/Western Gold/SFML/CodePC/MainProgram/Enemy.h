@@ -8,6 +8,7 @@ class Enemy :
 public:
 	Enemy(sf::Texture* tex, ResourceManager* rm, int nrOfRays);
 	~Enemy();
+	bool shoot();
 	// Inherited via Entity
 	virtual void update(DeltaTime delta) override;
 

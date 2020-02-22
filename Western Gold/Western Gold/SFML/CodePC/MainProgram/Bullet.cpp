@@ -19,6 +19,8 @@ void Bullet::fly(DeltaTime time)
 		}
 		else {
 			currentflytime = 0;
+			//bullet hit ground sound
+
 			bulletAt = bulletState::GROUND;
 		}
 		

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "ResourceManager.h"
+#include "SoundManager.h"
 #include "DeltaTime.h"
 
 class GameObject : public sf::Drawable
@@ -35,8 +36,7 @@ protected:
 	void rotateSprite(float angle);
 	void addRotationSprite(float angle);
 	//centerOrigin private
-	
-
+	Sound sound;
 
 	ResourceManager* getRm();
 private:

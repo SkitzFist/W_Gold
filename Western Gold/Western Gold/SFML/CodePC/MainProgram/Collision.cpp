@@ -6,18 +6,18 @@ void Collision::checkCollision()
 {
 	for (int i = 0; i < nrOfTiles; i++) {
 		if (tiles[i]->getIsWalkable()) {
-			while (tiles[i]->getSprite()->getGlobalBounds().intersects(gameObjects->getBounds())) {
-				if (rightSide(gameObjects, tiles[i])) {
-					gameObjects->moveSprite(1, 0);
+			while (tiles[i]->getSprite()->getGlobalBounds().intersects(player->getBounds())) {
+				if (rightSide(player, tiles[i])) {
+					player->moveSprite(1, 0);
 				}
-				else if (leftSide(gameObjects, tiles[i])) {
-					gameObjects->moveSprite(-1, 0);
+				else if (leftSide(player, tiles[i])) {
+					player->moveSprite(-1, 0);
 				}
-				else if (topSide(gameObjects, tiles[i])) {
-					gameObjects->moveSprite(0, -1);
+				else if (topSide(player, tiles[i])) {
+					player->moveSprite(0, -1);
 				}
-				else if (botSide(gameObjects, tiles[i])) {
-					gameObjects->moveSprite(0, 1);
+				else if (botSide(player, tiles[i])) {
+					player->moveSprite(0, 1);
 				}
 				else {
 					std::cout << "error" << std::endl;
@@ -146,14 +146,35 @@ bool Collision::botSide(GameObject* gameObject, tile* tiles)
 	return theReturn;
 }
 
-bool Collision::tileVisibility()
+/*bool Collision::tileVisibility()
 {
 	for (int x = 0; x < nrOfTiles; x++) {
 		for (int y = 0; y < nrOfTiles; y++) {
 			if (x != y) {
+				
 				//must check who is the nerest
 				if (tiles[x]->getRay()->rayHitTile(tiles[y])) {
-					tiles[x]->setWannaDraw(false);
+					float xToP = getDistance(
+						(float)tiles[x]->getWorldPos().x, (float)tiles[x]->getWorldPos().y,
+						gameObjects->getPosition().x, gameObjects->getPosition().y
+					);
+					float yToP = getDistance(
+						(float)tiles[y]->getWorldPos().x, (float)tiles[y]->getWorldPos().y,
+						gameObjects->getPosition().x, gameObjects->getPosition().y
+					);
+					float XToY = getDistance(
+						(float)tiles[y]->getWorldPos().x, (float)tiles[y]->getWorldPos().y,
+						(float)tiles[x]->getWorldPos().x, (float)tiles[x]->getWorldPos().y
+						);
+					//jag e närmare spelaren
+					if (xToP > yToP) {
+						//jag nuddade spelaren först
+						if (XToY < xToP) {
+							tiles[x]->setWannaDraw(false);
+						}
+						
+					}
+					
 				}
 			}
 		}
@@ -161,6 +182,44 @@ bool Collision::tileVisibility()
 	
 
 
+	return false;
+}
+*/
+bool Collision::tileVisibility() {
+	for (int x = 0; x < nrOfTiles; x++) {
+		for (int i = 0; i < nrOfTiles; i++) {
+			if (x != i) {
+				if (player->getRay(x)->rayHitTile(tiles[i])) {
+					if (getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[i]->getSprite()->getPosition().x, (float)tiles[i]->getSprite()->getPosition().x)
+						<
+						getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[x]->getSprite()->getPosition().x, (float)tiles[x]->getSprite()->getPosition().x)) 
+					{
+						tiles[x]->setWannaDraw(false);
+					}
+				}
+			}
+		}
+	}
+	
+	//for (int x = 0; x < 2; x++) {
+	//	for (int i = 0; i < 2; i++) {
+	//		if (x != i) {
+	//			if (player->getRay(x)->rayHitTile(tiles[i])) {
+	//				if (getDistance(
+	//					(float)tiles[x]->getWorldPos().x, (float)tiles[x]->getWorldPos().y,
+	//					player->getPosition().x, player->getPosition().y
+	//				)
+	//				>
+	//					getDistance(
+	//					(float)tiles[i]->getWorldPos().x, (float)tiles[i]->getWorldPos().y,
+	//						player->getPosition().x, player->getPosition().y
+	//					)) {
+	//					tiles[x]->setWannaDraw(false);
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
 	return false;
 }
 
@@ -174,19 +233,20 @@ bool Collision::shootCollider(Entity* player, Entity* enemies)
 Collision::Collision()
 {
 	tiles = nullptr;
-	gameObjects = nullptr;
+	player = nullptr;
 	this->nrOfTiles = 0;
 }
 
 Collision::~Collision()
 {
-	delete this->gameObjects;
-	delete this->tiles;
+
+	//delete this->player;
+	//delete this->tiles;
 }
 
-void Collision::setUpCollision(GameObject* player, tile** tiles, int nrOfTiles)
+void Collision::setUpCollision(Player* player, tile** tiles, int nrOfTiles)
 {
-	gameObjects = player;
+	this->player = player;
 	this->tiles = tiles;
 	this->nrOfTiles = nrOfTiles;
 }

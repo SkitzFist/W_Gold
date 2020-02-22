@@ -6,7 +6,8 @@
 
 class Collision {
 private:
-	GameObject* gameObjects;
+	Player* player;
+	//add a gameObject
 	tile** tiles;
 	int nrOfTiles;
 	void checkCollision();
@@ -23,6 +24,6 @@ private:
 public:
 	Collision();
 	virtual ~Collision();
-	void setUpCollision(GameObject* player, tile** tiles, int nrOfTiles);
+	void setUpCollision(Player* player, tile** tiles, int nrOfTiles);
 	void update(Ray raycast[] = nullptr, int nrOfRays = 0);
 };

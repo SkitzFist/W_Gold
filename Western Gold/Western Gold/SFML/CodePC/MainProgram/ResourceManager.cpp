@@ -17,6 +17,7 @@ ResourceManager::~ResourceManager()
 {
 	delete basicFont;
 	delete character;
+	delete bullet;
 	delete ass;
 	delete tile_black;
 	delete tile_white;
@@ -66,6 +67,10 @@ void ResourceManager::basicSetup()
 	if (!ass->loadFromFile("../Sound/THX_Sound_Effect.wav")) {
 		cantLoad(L"soundeffect");
 	}
+	gunShot = new sf::SoundBuffer();
+	if (!gunShot->loadFromFile("../Sound/GunShot.wav")) {
+		cantLoad(L"Sound gunShoot");
+	}
 
 
 	debugSetup();
@@ -109,6 +114,11 @@ sf::Texture* ResourceManager::getCharacter()
 sf::Texture* ResourceManager::getBullet()
 {
 	return this->bullet;
+}
+
+sf::SoundBuffer* ResourceManager::getGunShot()
+{
+	return this->gunShot;
 }
 
 void ResourceManager::cantLoad(LPCWSTR theerror)
