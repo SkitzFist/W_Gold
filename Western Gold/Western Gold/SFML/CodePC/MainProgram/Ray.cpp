@@ -12,23 +12,20 @@ void Ray::setRotation(float dir)
 
 bool Ray::check(float T, float R, float B, float L)
 {
-	float k = (float)((this->line.y1 - this->line.y2) / (this->line.x1 - this->line.x2));
-	float m = (float)(this->line.y1 - (k * this->line.x1));
+	float k = (float)((this->line.getLineY1() - this->line.getLineY2()) / (this->line.getLineX1() - this->line.getLineX2()));
+	float m = (float)(this->line.getLineY1() - (k * this->line.getLineX1()));
 	bool theReturn = false;
 	if ((B - m) / k >= L && (B - m) / k <= R) {
 		theReturn = true;
 	}
 	if ((T - m) / k >= L && (T - m) / k <= R) {
 		theReturn = true;
-		this->line.y2 = T;
 	}
 	if ((R * k + m) <= B && (R * k + m) >= T) {
 		theReturn = true;
-		this->line.x2 = R;
 	}
 	if ((L * k + m) <= B && (L * k + m) >= T) {
 		theReturn = true;
-		this->line.x2 = L;
 	}
 	
 
@@ -38,7 +35,7 @@ bool Ray::check(float T, float R, float B, float L)
 
 void Ray::calcRotation()
 {
-	this->dir = (atan2f((line.y1 - line.y2), (line.x1- line.x2)) * 180.0f) / 3.1416f + 90.0f;
+	this->dir = (atan2f((line.getLineY1() - line.getLineY2()), (line.getLineX1()- line.getLineX2())) * 180.0f) / 3.1416f + 90.0f;
 	dir = ((float)((int)(dir * 10) % 3600)) / 10;
 	while (dir < 0) {
 		dir = 360 - dir;
@@ -62,11 +59,11 @@ void Ray::updateRay(Entity* entity)
 	const float PI = 3.14159f;
 
 	dir = entity->getRotation();
-	this->line.x1 = entity->getPosition().x;
-	this->line.y1 = entity->getPosition().y;
+	this->line.setLineX1(entity->getPosition().x);
+	this->line.setLineY1(entity->getPosition().y);
 
-	this->line.x2 = (float)(700 * cos(dir * PI / 180 - 1.57) + line.x1);
-	this->line.y2 = (float)(700 * sin(dir * PI / 180 - 1.57) + line.y1);
+	this->line.setLineX2((float)(700 * cos(dir * PI / 180 - 1.57) + line.getLineX1()));
+	this->line.setLineY2((float)(700 * sin(dir * PI / 180 - 1.57) + line.getLineY1()));
 	this->line.changeLine();
 
 
@@ -75,11 +72,11 @@ void Ray::updateRay(Entity* entity)
 void Ray::updateRay(Player* player, tile* Tile)
 {
 
-	this->line.x1 = player->getPosition().x;
-	this->line.y1 = player->getPosition().y;
+	this->line.setLineX1(player->getPosition().x);
+	this->line.setLineY1(player->getPosition().y);
 
-	this->line.x2 = Tile->getSprite()->getPosition().x;
-	this->line.y2 = Tile->getSprite()->getPosition().y;
+	this->line.setLineX2(Tile->getSprite()->getPosition().x);
+	this->line.setLineY2(Tile->getSprite()->getPosition().y);
 
 
 	calcRotation();
@@ -91,16 +88,16 @@ bool Ray::rayHitGameObject(GameObject* gameObj)
 	bool theReturn = false;
 	std::cout << dir << std::endl;
 
-	if (dir > 270 && (gameObj->getTop() < this->line.y1)) {
+	if (dir > 270 && (gameObj->getTop() < this->line.getLineY1())) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-	else if (dir > 180 && gameObj->getBot() >= this->line.y1) {
+	else if (dir > 180 && gameObj->getBot() >= this->line.getLineY1()) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-	else if (dir > 90 && (gameObj->getBot() >= this->line.y1)) {
+	else if (dir > 90 && (gameObj->getBot() >= this->line.getLineY1())) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-	else if (gameObj->getTop() <= this->line.y1) {
+	else if (gameObj->getTop() <= this->line.getLineY1()) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
 
@@ -115,69 +112,28 @@ bool Ray::rayHitTile(tile* Tile)
 	float L = Tile->getSprite()->getGlobalBounds().left;
 	float R = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width;
 
-	float k = (float)((this->line.y1 - this->line.y2) / (this->line.x1 - this->line.x2));
-	float m = (float)(this->line.y1 - (k * this->line.x1));
+	float k = (float)((this->line.getLineY1() - this->line.getLineY2()) / (this->line.getLineX1() - this->line.getLineX2()));
+	float m = (float)(this->line.getLineY1() - (k * this->line.getLineX1()));
 
 	if ((B - m) / k >= L && (B - m) / k <= R) {
-		if ((line.y2 < B) && (line.y1 > B)) {
+		if ((line.getLineY2() < B) && (line.getLineY1() > B)) {
 			theReturn = true;
-			this->line.y2 = B;
 		}
 	}
 	if ((T - m) / k >= L && (T - m) / k <= R) {
-		if (line.y2 > T&& line.y1 < T)
+		if (line.getLineY2() > T&& line.getLineY1() < T)
 		{
 			theReturn = true;
-			this->line.y2 = T;
 		}
 	}
-	if ((R * k + m) <= B && (R * k + m) >= T && (line.x2 < R && line.x1 > R)) {
-		if (line.x2 < R && line.x1 > R) {
+	if ((R * k + m) <= B && (R * k + m) >= T && (line.getLineX2() < R && line.getLineX1() > R)) {
+		if (line.getLineX2() < R && line.getLineX1() > R) {
 			theReturn = true;
-			this->line.x2 = R;
 		}
 	}
 	if ((L * k + m) <= B && (L * k + m) >= T) {
-		if (line.x2 > L&& line.x1 < L) {
+		if (line.getLineX2() > L&& line.getLineX1() < L) {
 			theReturn = true;
-			this->line.x2 = L;
-		}
-	}
-	return theReturn;
-}
-bool Ray::rayHitTile2(tile* Tile) {
-	bool theReturn = false;
-	float B = Tile->getSprite()->getGlobalBounds().top + Tile->getSprite()->getGlobalBounds().height;
-	float T = Tile->getSprite()->getGlobalBounds().top;
-	float L = Tile->getSprite()->getGlobalBounds().left;
-	float R = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width;
-
-	float k = (float)((this->line.y1 - this->line.y2) / (this->line.x1 - this->line.x2));
-	float m = (float)(this->line.y1 - (k * this->line.x1));
-
-	if ((B - m) / k >= L && (B - m) / k <= R) {
-		if ((line.y2 < B) && (line.y1 > B)){
-			theReturn = true;
-			this->line.y2 = B;
-		}
-	}
-	if ((T - m) / k >= L && (T - m) / k <= R) {
-		if (line.y2 > T&& line.y1 < T)
-		{
-			theReturn = true;
-			this->line.y2 = T;
-		}
-	}
-	if ((R * k + m) <= B && (R * k + m) >= T && (line.x2 < R && line.x1 > R)) {
-		if (line.x2 < R && line.x1 > R) {
-			theReturn = true;
-			this->line.x2 = R;
-		}
-	}
-	if ((L * k + m) <= B && (L * k + m) >= T) {
-		if (line.x2 > L&& line.x1 < L) {
-			theReturn = true;
-			this->line.x2 = L;
 		}
 	}
 	return theReturn;

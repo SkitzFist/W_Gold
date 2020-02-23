@@ -146,82 +146,17 @@ bool Collision::botSide(GameObject* gameObject, tile* tiles)
 	return theReturn;
 }
 
-/*bool Collision::tileVisibility()
-{
-	for (int x = 0; x < nrOfTiles; x++) {
-		for (int y = 0; y < nrOfTiles; y++) {
-			if (x != y) {
-				
-				//must check who is the nerest
-				if (tiles[x]->getRay()->rayHitTile(tiles[y])) {
-					float xToP = getDistance(
-						(float)tiles[x]->getWorldPos().x, (float)tiles[x]->getWorldPos().y,
-						gameObjects->getPosition().x, gameObjects->getPosition().y
-					);
-					float yToP = getDistance(
-						(float)tiles[y]->getWorldPos().x, (float)tiles[y]->getWorldPos().y,
-						gameObjects->getPosition().x, gameObjects->getPosition().y
-					);
-					float XToY = getDistance(
-						(float)tiles[y]->getWorldPos().x, (float)tiles[y]->getWorldPos().y,
-						(float)tiles[x]->getWorldPos().x, (float)tiles[x]->getWorldPos().y
-						);
-					//jag e närmare spelaren
-					if (xToP > yToP) {
-						//jag nuddade spelaren först
-						if (XToY < xToP) {
-							tiles[x]->setWannaDraw(false);
-						}
-						
-					}
-					
-				}
-			}
-		}
-	}
-	
-
-
-	return false;
-}
-*/
 bool Collision::tileVisibility() {
 	for (int x = 0; x < nrOfTiles; x++) {
 		for (int i = 0; i < nrOfTiles; i++) {
 			if (x != i) {
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-					if (x == 3 && i == 4) {
-						std::cout << "stop";
-					}
-				}
-				if (player->getRay(x)->rayHitTile2(tiles[i])) {
-					
-						tiles[x]->setWannaDraw(false);
-					
+				if (player->getRay(x)->rayHitTile(tiles[i])) {
+					tiles[x]->setWannaDraw(false);
 				}
 			}
 		}
 	}
 	
-	//for (int x = 0; x < 2; x++) {
-	//	for (int i = 0; i < 2; i++) {
-	//		if (x != i) {
-	//			if (player->getRay(x)->rayHitTile(tiles[i])) {
-	//				if (getDistance(
-	//					(float)tiles[x]->getWorldPos().x, (float)tiles[x]->getWorldPos().y,
-	//					player->getPosition().x, player->getPosition().y
-	//				)
-	//				>
-	//					getDistance(
-	//					(float)tiles[i]->getWorldPos().x, (float)tiles[i]->getWorldPos().y,
-	//						player->getPosition().x, player->getPosition().y
-	//					)) {
-	//					tiles[x]->setWannaDraw(false);
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
 	return false;
 }
 
@@ -241,7 +176,6 @@ Collision::Collision()
 
 Collision::~Collision()
 {
-
 	//delete this->player;
 	//delete this->tiles;
 }
@@ -258,7 +192,5 @@ void Collision::update(Ray raycast[], int nrOfRays)
 	//check collision
 	checkCollision();
 	tileVisibility();
-	//if (raycast != nullptr) {
-	//	checkCollisionRays(raycast, nrOfRays);
-	//}
+
 }
