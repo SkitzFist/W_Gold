@@ -22,6 +22,8 @@ Entity::~Entity()
 
 Ray* Entity::getRays()
 {
+	//debug
+	//return this->raycast[0];
 	return *this->raycast;
 }
 

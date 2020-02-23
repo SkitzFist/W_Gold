@@ -22,6 +22,7 @@ public:
 	void updateRay(Player *player, tile *Tile);
 	bool rayHitGameObject(GameObject* gameObj);
 	bool rayHitTile(tile *Tile);
+	bool rayHitTile2(tile* Tile);
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

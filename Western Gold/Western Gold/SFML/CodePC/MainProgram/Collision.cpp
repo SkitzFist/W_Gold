@@ -189,13 +189,15 @@ bool Collision::tileVisibility() {
 	for (int x = 0; x < nrOfTiles; x++) {
 		for (int i = 0; i < nrOfTiles; i++) {
 			if (x != i) {
-				if (player->getRay(x)->rayHitTile(tiles[i])) {
-					if (getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[i]->getSprite()->getPosition().x, (float)tiles[i]->getSprite()->getPosition().x)
-						<
-						getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[x]->getSprite()->getPosition().x, (float)tiles[x]->getSprite()->getPosition().x)) 
-					{
-						tiles[x]->setWannaDraw(false);
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+					if (x == 3 && i == 4) {
+						std::cout << "stop";
 					}
+				}
+				if (player->getRay(x)->rayHitTile2(tiles[i])) {
+					
+						tiles[x]->setWannaDraw(false);
+					
 				}
 			}
 		}

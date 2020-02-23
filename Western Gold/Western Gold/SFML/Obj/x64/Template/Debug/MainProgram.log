@@ -1,7 +1,2 @@
-﻿  SimonState.cpp
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(22,66): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
+﻿  Ray.cpp
   MainProgram.vcxproj -> C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

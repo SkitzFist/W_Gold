@@ -67,7 +67,6 @@ GameState* SimonState::update(DeltaTime delta)
 		//check what he shot
 		std::cout << "shoot" << std::endl;
 	}
-
 	for (int i = 0; i < nrOfTiles; i++) {
 		p->getRay(i)->updateRay(p, testT[i]);
 	}
