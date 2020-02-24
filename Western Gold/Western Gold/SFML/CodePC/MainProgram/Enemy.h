@@ -21,8 +21,9 @@ public:
 private:
 	Pathfinding* pathfinding;
 	tile* nextTile;
+	Grid* grid;
 	sf::Vector2f getDir();
-	bool isAtTile();
+	bool hasReachedTargetTile();
 	
 };
 

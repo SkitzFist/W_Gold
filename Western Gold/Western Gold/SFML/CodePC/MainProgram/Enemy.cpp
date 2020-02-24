@@ -10,27 +10,27 @@ Entity(tex, rm, nrOfRays)
 	//config
 
 	//setup
-	
+	this->grid = grid;
 	//debug
-	pathfinding = nullptr;
+	pathfinding = new Pathfinding(grid);
 }
 
 Enemy::~Enemy()
 {
-	//delete pathfinding;
+	delete pathfinding;
 }
 
 void Enemy::update(DeltaTime delta)
 {
-	//if (isAtTile()) {
-	//	if (pathfinding->getNextTile() != nullptr) {
-	//		nextTile = pathfinding->getNextTile();
-	//	}
-	//}
-	//if (nextTile != nullptr) {
-	//	float speed = 10.f;
-	//	moveSprite(getDir(), speed * delta.dt());
-	//}
+	if (hasReachedTargetTile()) {
+		if (pathfinding->getNextTile() != nullptr) {
+			nextTile = pathfinding->getNextTile();
+		}
+	}
+	if (nextTile != nullptr) {
+		float speed = 100.f;
+		moveSprite(getDir(), speed * delta.dt());
+	}
 	
 }
 
@@ -54,14 +54,16 @@ sf::Vector2f Enemy::getDir()
 	return dir;
 }
 
-bool Enemy::isAtTile()
+bool Enemy::hasReachedTargetTile()
 {
 	bool isThere = false;
 	if (nextTile == nullptr) {
 		isThere = true;
 	}
 	else {
-		if (getPosition() == static_cast<sf::Vector2f>(nextTile->getWorldPos())) {
+		tile* currentTile = grid->getTileFromWorldPos(static_cast<sf::Vector2i>(getPosition()));
+		
+		if (currentTile == nextTile) {
 			isThere = true;
 		}
 	}
