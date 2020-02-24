@@ -76,7 +76,7 @@ void Grid::renderGrid(sf::RenderWindow& window) const
 
 std::vector<tile*> Grid::getSurroundingTiles(tile* t)
 {
-	std::vector<tile*> tiles;
+	std::vector<tile*> neighbours;
 
 	for (int x = -1; x <= 1; ++x) {
 		for (int y = -1; y <= 1; ++y) {
@@ -89,12 +89,14 @@ std::vector<tile*> Grid::getSurroundingTiles(tile* t)
 
 			if (checkX >= 0 && checkX < (int)gridSize.x
 				&& checkY >= 0 && checkY <(int) gridSize.y) {
-				tiles.push_back(&tiles[checkY][checkX]);
+				if (tiles[checkY][checkX].getIsWalkable()) {
+					neighbours.push_back(&tiles[checkY][checkX]);
+				}
 			}
 		}
 	}
 
-	return tiles;
+	return neighbours;
 }
 
 void Grid::initGrid(ResourceManager* rm,sf::Image* level)

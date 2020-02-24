@@ -8,12 +8,17 @@
 Pathfinding::Pathfinding(Grid* grid) {
 	this->grid = grid;
 
-	int dst = getDistance(&grid->getTiles()[0][0], &grid->getTiles()[4][6]);
-	std::cout << dst;
+	std::vector<tile*> vec;
+	for (int i = 0; i < 5; ++i) {
+		tile* t = new tile();
+		t->setECost(i);
+		vec.push_back(t);
+	}
 }
 
 Pathfinding::~Pathfinding()
 {
+	path.clear();
 }
 
 void Pathfinding::findPath(sf::Vector2i start, sf::Vector2i end)
@@ -23,6 +28,10 @@ void Pathfinding::findPath(sf::Vector2i start, sf::Vector2i end)
 
 	tile* startTile = grid->getTileFromWorldPos(start);
 	tile* endTile = grid->getTileFromWorldPos(end);
+
+	if (endTile == nullptr) {
+		std::cout << "NULL" << std::endl;
+	}
 
 	open.push_back(startTile);
 
@@ -40,18 +49,59 @@ void Pathfinding::findPath(sf::Vector2i start, sf::Vector2i end)
 		removeElementFromVector(open, currentTile);
 		closed.push_back(currentTile);
 		if (currentTile == endTile) {
-			return; //come back to this later
+			retracePath(startTile, endTile);
+			break;
 		}
 
 		std::vector<tile*> surroundingTiles = grid->getSurroundingTiles(currentTile);
+
 
 		for (int i = 0; i < surroundingTiles.size(); ++i) {
 			if(!(surroundingTiles[i]->getIsWalkable())
 				|| isInVector(closed, surroundingTiles[i])) {
 				continue;
 			}
+
+			int newMovementCostToNeighbour = currentTile->getSCost() + getDistance(currentTile, surroundingTiles[i]);
+			if (newMovementCostToNeighbour < surroundingTiles[i]->getSCost()
+				|| !(isInVector(open, surroundingTiles[i]))) {
+				surroundingTiles[i]->setSCost(newMovementCostToNeighbour);
+				surroundingTiles[i]->setECost(getDistance(surroundingTiles[i], endTile));
+				surroundingTiles[i]->setParent(currentTile);
+
+				if (!(isInVector(open, surroundingTiles[i]))) {
+					open.push_back(surroundingTiles[i]);
+				}
+			}
 		}
+		surroundingTiles.clear();
 	}
+	open.clear();
+	closed.clear();
+}
+
+tile* Pathfinding::getNextTile()
+{
+	tile* t = nullptr;
+	if (path.size() > 0) {
+		size_t index = (path.size() - 1);
+		t = path[index];
+		path.pop_back();		
+	}
+	return t;
+}
+
+void Pathfinding::retracePath(tile* startTile, tile* endTile) {
+	path.clear();
+	tile* currentTile = endTile;
+	sf::Texture* texture = new sf::Texture();
+	texture->loadFromFile("../Textures/tile_ok.png");
+	while (currentTile != startTile) {
+		path.push_back(currentTile);
+		currentTile->setSprite(texture);
+		currentTile = currentTile->getParent();
+	}
+	//reverseVector(path);
 }
 
 void Pathfinding::removeElementFromVector(std::vector<tile*>& vec, tile* t)
@@ -75,20 +125,21 @@ bool Pathfinding::isInVector(std::vector<tile*>& vec, tile* t)
 			isInVector = true;
 		}
 	}
-	return false;
+	return isInVector;
 }
 
 int Pathfinding::getDistance(tile* t1, tile* t2) const
 {
 	int rv = 0;
-	int dstX = abs(t1->getGridPos().x - t2->getGridPos().x);
-	int dstY = abs(t1->getGridPos().y - t2->getGridPos().y);
 
-	if (dstX > dstY) {
-		rv = 14 * dstY + 10 * (dstX - dstY);
+	int dstx = abs(t1->getGridPos().x - t2->getGridPos().x);
+	int dsty = abs(t1->getGridPos().y - t2->getGridPos().y);
+
+	if (dstx > dsty) {
+		rv = 14 * dsty + 10 * (dstx - dsty);
 	}
 	else{
-		rv = 14 * dstX + 10 * (dstY - dstX);
+		rv = 14 * dstx + 10 * (dsty - dstx);
 	}
 
 	return rv;

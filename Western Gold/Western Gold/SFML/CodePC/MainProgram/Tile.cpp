@@ -1,5 +1,8 @@
 #include "tile.h"
 
+//debug
+#include <iostream>
+
 tile::tile()
 {
 	sprite = nullptr;
@@ -109,6 +112,16 @@ bool tile::getWannaDraw() const
 void tile::setWannaDraw(bool value)
 {
 	wannaDraw = value;
+}
+
+tile* tile::getParent() const
+{
+	return parent;
+}
+
+void tile::setParent(tile* parent)
+{
+	this->parent = parent;
 }
 
 sf::Vector2i tile::getGridPos() const

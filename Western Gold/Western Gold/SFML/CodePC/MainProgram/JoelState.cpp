@@ -8,34 +8,29 @@
 JoelState::JoelState(ResourceManager* rm):
 	GameState(rm)
 {
-	level = new Level(rm, rm->getLevel_Test());
+//	level = new Level(rm, rm->getLevel_Test());
+//
+//	enemy = new Enemy(getRm()->getCharacter(), getRm(), 1, level->getGrid());
+//	enemy->setPosition(48.f, 48.f);
 
-	enemy = new Enemy(getRm()->getCharacter(), getRm(), 1);
-	enemy->setPosition(48.f, 48.f);
-	
-	path = new Pathfinding(level->getGrid());
-	
 }
 
 JoelState::~JoelState()
 {
-	delete enemy;
-	delete level;
-	delete path;
+	//delete enemy;
+	//delete level;
 }
 
 GameState* JoelState::handleEvent(const sf::Event& event)
 {
-	setGameState(this);
+	GameState* state = this;
 
-	if (event.type == sf::Event::KeyPressed) {
-
-		if (event.key.code == sf::Keyboard::Space) {
-			
-		}
+	if (event.type == sf::Event::MouseButtonPressed) {
+		sf::Vector2i mousePos = sf::Mouse::getPosition(*getRm()->getWindow());
+		/*enemy->getPathfinding()->findPath(static_cast<sf::Vector2i>(enemy->getPosition()), mousePos);*/
 	}
 
-	return getGameState();
+	return state;
 }
 
 GameState* JoelState::update(DeltaTime time)
@@ -43,13 +38,13 @@ GameState* JoelState::update(DeltaTime time)
 	//setGameState(this);
 	GameState* state = this;
 	
-	enemy->update(time);
+	/*enemy->update(time);*/
 
 	return state;
 }
 
 void JoelState::render(sf::RenderWindow& window) const
 {
-	level->drawLevel(window);
-	window.draw(*enemy);
+	//level->drawLevel(window);
+	//window.draw(*enemy);
 }

@@ -13,7 +13,7 @@ SimonState::SimonState(ResourceManager* rm):
 	
 
 
-	setGameState(this);
+	
 
 	//testT = new tile * [nrOfTiles];
 	//for (int i = 0; i < nrOfTiles; i++) {
@@ -30,15 +30,15 @@ SimonState::~SimonState()
 
 GameState* SimonState::handleEvent(const sf::Event& event)
 {
-	setGameState(this);
+	GameState* state = this;
 
 
-	return getGameState();
+	return state;
 }
 
 GameState* SimonState::update(DeltaTime delta)
 {
-	setGameState(this);
+	GameState* state = this;
 
 	p->update(delta);
 	bull.update(delta);
@@ -52,7 +52,7 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 	
 
-	return getGameState();
+	return state;
 }
 
 void SimonState::render(sf::RenderWindow& window) const

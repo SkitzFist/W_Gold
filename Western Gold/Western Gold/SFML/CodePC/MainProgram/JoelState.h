@@ -15,7 +15,6 @@ public:
 	virtual void render(sf::RenderWindow& window) const override;
 
 private:
-	Enemy* enemy;
-	Level* level;
-	Pathfinding* path = nullptr;
+	//Enemy* enemy;
+	//Level* level;
 };
