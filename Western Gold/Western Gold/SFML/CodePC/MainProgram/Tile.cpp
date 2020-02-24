@@ -35,6 +35,7 @@ tile::tile(sf::Vector2i worldPos, bool isWalkable, sf::Vector2i gridPos, sf::Tex
 tile::~tile()
 {
 	delete sprite;
+	delete ray;
 }
 
 sf::Vector2i tile::getWorldPos() const

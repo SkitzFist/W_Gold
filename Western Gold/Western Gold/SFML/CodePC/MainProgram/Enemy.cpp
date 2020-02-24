@@ -12,25 +12,25 @@ Entity(tex, rm, nrOfRays)
 	//setup
 	
 	//debug
-	pathfinding = new Pathfinding(grid);
+	pathfinding = nullptr;
 }
 
 Enemy::~Enemy()
 {
-	delete pathfinding;
+	//delete pathfinding;
 }
 
 void Enemy::update(DeltaTime delta)
 {
-	if (isAtTile()) {
-		if (pathfinding->getNextTile() != nullptr) {
-			nextTile = pathfinding->getNextTile();
-		}
-	}
-	if (nextTile != nullptr) {
-		float speed = 10.f;
-		moveSprite(getDir(), speed * delta.dt());
-	}
+	//if (isAtTile()) {
+	//	if (pathfinding->getNextTile() != nullptr) {
+	//		nextTile = pathfinding->getNextTile();
+	//	}
+	//}
+	//if (nextTile != nullptr) {
+	//	float speed = 10.f;
+	//	moveSprite(getDir(), speed * delta.dt());
+	//}
 	
 }
 

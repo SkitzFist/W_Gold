@@ -61,9 +61,6 @@ sf::Vector2u Grid::getGridSize() const
 	return gridSize;
 }
 
-//debug
-
-
 void Grid::renderGrid(sf::RenderWindow& window) const
 {
 	for (unsigned int x = 0; x < gridSize.x; ++x) {

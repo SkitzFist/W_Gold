@@ -15,6 +15,6 @@ public:
 	virtual void render(sf::RenderWindow& window) const override;
 
 private:
-	//Enemy* enemy;
-	//Level* level;
+	Enemy* enemy;
+	Level* level;
 };
