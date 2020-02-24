@@ -10,8 +10,9 @@ SimonState::SimonState(ResourceManager* rm):
 	nrOfTiles = 8;
 	
 	p = new Player(rm->getCharacter(), rm, nrOfTiles, testT);
-	
-
+	enemytest = new Enemy*[1];
+	enemytest[0] = new Enemy(getRm()->getEnemy(), getRm(), 1);
+	enemytest[0]->setPosition(500, 50);
 
 	setGameState(this);
 
@@ -19,9 +20,9 @@ SimonState::SimonState(ResourceManager* rm):
 	for (int i = 0; i < nrOfTiles; i++) {
 		testT[i] = new tile(sf::Vector2i(200, 200), true);
 		testT[i]->setSprite(rm->getCharacter());
-		testT[i]->setWorldPos(sf::Vector2f(100 * ((float)i + 1), 200.0f+(float)i*(5.0f)*(sin(i) + 1) * 5));
+		testT[i]->setWorldPos(sf::Vector2f(100.0f * ((float)i + 1), 200.0f + i * 25.0f * (float)(sin(i) + 1)));
 	}
-	collision.setUpCollision(p, testT, nrOfTiles);
+	collision.setUpCollision(p, testT, enemytest, nrOfTiles, 1);
 }
 
 SimonState::~SimonState()
@@ -31,7 +32,7 @@ SimonState::~SimonState()
 	}
 	delete[] testT;
 	delete p;
-	
+	delete enemytest;
 }
 
 GameState* SimonState::handleEvent(const sf::Event& event)
@@ -65,7 +66,9 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 	if (p->shoot()) {
 		//check what he shot
-		std::cout << "shoot" << std::endl;
+		if (collision.shootCollider(p)) {
+			std::cout << "shoot an enemy" << std::endl;
+		}
 	}
 	for (int i = 0; i < nrOfTiles; i++) {
 		p->getRay(i)->updateRay(p, testT[i]);
@@ -83,6 +86,7 @@ void SimonState::render(sf::RenderWindow& window) const
 			window.draw(*this->testT[i]->getSprite());
 		}
 	}
+	window.draw(*this->enemytest[0]);
 	
 	window.draw(this->bull);
 	

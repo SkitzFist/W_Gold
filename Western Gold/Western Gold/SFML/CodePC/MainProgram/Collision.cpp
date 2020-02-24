@@ -29,7 +29,7 @@ void Collision::checkCollision()
 		}
 	}
 }
-
+//nope
 void Collision::checkCollisionRays(Ray raycast[], int nrOfRays)
 {
 	for (int r = 0; r < nrOfRays; r++) {
@@ -147,22 +147,46 @@ bool Collision::botSide(GameObject* gameObject, tile* tiles)
 }
 
 bool Collision::tileVisibility() {
+	bool theReturn = true;
 	for (int x = 0; x < nrOfTiles; x++) {
 		for (int i = 0; i < nrOfTiles; i++) {
 			if (x != i) {
 				if (player->getRay(x)->rayHitTile(tiles[i])) {
 					tiles[x]->setWannaDraw(false);
+					theReturn = false;
 				}
 			}
 		}
 	}
 	
-	return false;
+	return theReturn;
 }
 
-bool Collision::shootCollider(Entity* player, Entity* enemies)
+bool Collision::shootCollider(Entity* whatEntityShooting)
 {
-	return player->getRays()->rayHitGameObject(enemies);;
+	bool theReturn = false;
+	if (dynamic_cast<Enemy*>(whatEntityShooting) != nullptr) 
+	{
+			if (!player->isDead() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
+				player->takeDamage();
+				theReturn = true;
+			}
+	}
+	else if (dynamic_cast<Player*>(whatEntityShooting) != nullptr) 
+	{
+		for (int i = 0; i < nrOfEnemies; i++) {
+			if (!enemies[i]->isDead() && player->getShootRay()->rayHitGameObject(enemies[i])) {
+				enemies[i]->takeDamage();
+				theReturn = true;
+			}
+		}
+	}
+	else {
+		std::cout << "error" << std::endl;
+	}
+	
+
+	return theReturn;
 }
 
 
@@ -171,23 +195,54 @@ Collision::Collision()
 {
 	tiles = nullptr;
 	player = nullptr;
+	enemies = nullptr;
+	this->nrOfEnemies = 0;
 	this->nrOfTiles = 0;
 }
 
 Collision::~Collision()
 {
-	//delete this->player;
-	//delete this->tiles;
+
 }
 
-void Collision::setUpCollision(Player* player, tile** tiles, int nrOfTiles)
+bool Collision::enemySeeCollider()
+{
+	bool theReturn = false;
+	//i = enemies, r = enemy rays, t = tiles;
+	//see first if enemys ray hit player, then see if there is a wall beetween
+	for (int i = 0; i < nrOfEnemies; i++) {
+		for (int r = 0; r < enemies[i]->getNrOfRays(); r++) {
+			if (enemies[i]->getRays()[r]->rayHitGameObject(player)) {
+				//check so enemies dont see to far?
+				for (int t = 0; t < nrOfTiles; t++) {
+					if (enemies[i]->getRays()[r]->rayHitTile2(tiles[t])) {
+						//if (getDistance(player, enemies[i]) < 
+						//	getDistance(enemies[i]->getPosition().x, enemies[i]->getPosition().y, tiles[i]->getSprite()->getPosition().x, tiles[i]->getSprite()->getPosition().y)) 
+						//{
+							theReturn = true;
+							//enemy.seePlayer(true);
+						//}
+					}
+					else {
+						theReturn = true;
+					}
+				}
+			}
+		}
+	}
+	return theReturn;
+}
+
+void Collision::setUpCollision(Player* player, tile** tiles, Enemy** enemies, int nrOfTiles, int nrOfEnemies)
 {
 	this->player = player;
 	this->tiles = tiles;
+	this->enemies = enemies;
+	this->nrOfEnemies = nrOfEnemies;
 	this->nrOfTiles = nrOfTiles;
 }
 
-void Collision::update(Ray raycast[], int nrOfRays)
+void Collision::update()
 {
 	//check collision
 	checkCollision();

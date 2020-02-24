@@ -15,6 +15,7 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager()
 {
+	delete enemy;
 	delete basicFont;
 	delete character;
 	delete bullet;
@@ -51,6 +52,10 @@ int ResourceManager::getWindowHeight() const
 
 void ResourceManager::basicSetup()
 {
+	enemy = new sf::Texture();
+	if (!enemy->loadFromFile("../Textures/hat2.png")) {
+		cantLoad(L"Enemy");
+	}
 	basicFont = new sf::Font();
 	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
 		cantLoad(L"Font");
@@ -100,6 +105,11 @@ sf::Texture* ResourceManager::getTile_Ok()
 sf::Image* ResourceManager::getLevel_Test()
 {
 	return level_test;
+}
+
+sf::Texture* ResourceManager::getEnemy()
+{
+	return this->enemy;
 }
 
 sf::SoundBuffer* ResourceManager::getass()

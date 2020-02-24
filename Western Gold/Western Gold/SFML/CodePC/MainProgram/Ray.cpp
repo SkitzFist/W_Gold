@@ -1,9 +1,8 @@
 #include "Ray.h"
 #include <iostream>
-#include "GetDistance.h"
-
 #include "Player.h"
 #include "Tile.h"
+#include "Enemy.h"
 
 void Ray::setRotation(float dir)
 {
@@ -57,7 +56,9 @@ Ray::~Ray()
 void Ray::updateRay(Entity* entity)
 {
 	const float PI = 3.14159f;
-
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		std::cout << "stop" << std::endl;
+	}
 	dir = entity->getRotation();
 	this->line.setLineX1(entity->getPosition().x);
 	this->line.setLineY1(entity->getPosition().y);
@@ -79,28 +80,27 @@ void Ray::updateRay(Player* player, tile* Tile)
 	this->line.setLineY2(Tile->getSprite()->getPosition().y);
 
 
-	calcRotation();
+	//calcRotation();
 	this->line.changeLine();
 }
 
 bool Ray::rayHitGameObject(GameObject* gameObj)
 {
 	bool theReturn = false;
+	//why cant I do this???
 	std::cout << dir << std::endl;
-
 	if (dir > 270 && (gameObj->getTop() < this->line.getLineY1())) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-	else if (dir > 180 && gameObj->getBot() >= this->line.getLineY1()) {
+	else if (dir > 180 && dir < 270 && (gameObj->getBot() >= this->line.getLineY1())) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-	else if (dir > 90 && (gameObj->getBot() >= this->line.getLineY1())) {
+	else if (dir > 90 && dir < 180 && (gameObj->getBot() >= this->line.getLineY1())) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-	else if (gameObj->getTop() <= this->line.getLineY1()) {
+	else if (dir >= 0 && dir < 90 && gameObj->getTop() <= this->line.getLineY1()) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
-
 	return theReturn;
 }
 
@@ -135,6 +135,29 @@ bool Ray::rayHitTile(tile* Tile)
 		if (line.getLineX2() > L&& line.getLineX1() < L) {
 			theReturn = true;
 		}
+	}
+	return theReturn;
+}
+
+bool Ray::rayHitTile2(tile* Tile)
+{
+	bool theReturn = false;
+	float B = Tile->getSprite()->getGlobalBounds().top + Tile->getSprite()->getGlobalBounds().height;
+	float T = Tile->getSprite()->getGlobalBounds().top;
+	float L = Tile->getSprite()->getGlobalBounds().left;
+	float R = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width;
+	std::cout << dir << std::endl;
+	if (dir > 270 && (T < this->line.getLineY1())) {
+		theReturn = check(T, R, B, L);
+	}
+	else if (dir > 180 && dir < 270 && (B >= this->line.getLineY1())) {
+		theReturn = check(T, R, B, L);
+	}
+	else if (dir > 90 && dir < 180 && (B >= this->line.getLineY1())) {
+		theReturn = check(T, R, B, L);
+	}
+	else if (dir >= 0 && dir < 90 && T <= this->line.getLineY1()) {
+		theReturn = check(T, R, B, L);
 	}
 	return theReturn;
 }

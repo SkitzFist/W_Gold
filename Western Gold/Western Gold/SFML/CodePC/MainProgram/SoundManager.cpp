@@ -19,7 +19,6 @@ void Sound::PlaySounds(sf::SoundBuffer *File, float volume)
 	if (volume != -1.0f) {
 		sound.setVolume(volume * this->volume);
 	}
-	std::cout << "penis" << std::endl;
 	this->sound.setBuffer(*File);
 	this->sound.play();
 			

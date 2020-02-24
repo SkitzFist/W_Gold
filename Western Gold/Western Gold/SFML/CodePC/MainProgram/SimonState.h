@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Collision.h"
 #include "Line.h"
 #include "Bullet.h"
@@ -16,6 +17,7 @@ public:
 	virtual void render(sf::RenderWindow& window) const override;
 	
 private:
+	Enemy** enemytest;
 	Player *p;
 	int nrOfTiles;
 	tile** testT;

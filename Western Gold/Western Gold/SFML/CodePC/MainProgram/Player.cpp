@@ -120,7 +120,7 @@ void Player::update(DeltaTime time)
 {
 	move(time);
 	rotation();
-	this->updateRays();
+	//this->updateRays();
 	Entity::update(time);
 }
 

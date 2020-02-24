@@ -6,11 +6,16 @@ class Entity : public GameObject{
 private:
 	bool Dead;
 	Ray **raycast;
+	Ray* ShootRay;
 	int nrOfRays;
 public:
 	Entity(sf::Texture *tex, ResourceManager *rm , int nrOfRays);
 	virtual ~Entity();
-	Ray *getRays();
+
+	Ray **getRays();
+	Ray* getShootRay();
+	int getNrOfRays()const;
+
 	void takeDamage();
 	bool isDead()const;
 	void update(DeltaTime &time);

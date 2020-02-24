@@ -36,7 +36,7 @@ public:
 	sf::SoundBuffer* getGunShot();
 #pragma endregion
 	//debug
-
+	sf::Texture* getEnemy();
 	sf::SoundBuffer* getass();
 	
 
@@ -73,7 +73,7 @@ private:
 
 	//debug
 	sf::SoundBuffer* ass;
-	
+	sf::Texture* enemy;
 
 
 private:

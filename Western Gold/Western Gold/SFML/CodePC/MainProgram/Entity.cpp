@@ -8,6 +8,7 @@ Entity::Entity(sf::Texture *tex, ResourceManager *rm, int nrOfRays):
 	for(int i = 0; i < nrOfRays; i++){
 		this->raycast[i] = new Ray((float)i);
 	}
+	this->ShootRay = new Ray(this->getRotation());
 	this->nrOfRays = nrOfRays;
 	
 }
@@ -20,11 +21,19 @@ Entity::~Entity()
 	delete[] raycast;
 }
 
-Ray* Entity::getRays()
+Ray** Entity::getRays()
 {
-	//debug
-	//return this->raycast[0];
-	return *this->raycast;
+	return this->raycast;
+}
+
+Ray* Entity::getShootRay()
+{
+	return this->ShootRay;
+}
+
+int Entity::getNrOfRays() const
+{
+	return this->nrOfRays;
 }
 
 
@@ -43,6 +52,7 @@ void Entity::update(DeltaTime& time)
 	for (int i = 0; i < nrOfRays; i++) {
 		raycast[i]->updateRay(this);
 	}
+	ShootRay->updateRay(this);
 }
 
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -50,5 +60,7 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	for (int i = 0; i < nrOfRays; i++) {
 		target.draw(*raycast[i]);
 	}
-	GameObject::draw(target, states);
+	if (!isDead()) {
+		GameObject::draw(target, states);
+	}
 }
