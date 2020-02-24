@@ -13,7 +13,6 @@ SimonState::SimonState(ResourceManager* rm):
 	enemytest = new Enemy*[1];
 	enemytest[0] = new Enemy(getRm()->getEnemy(), getRm(), 1);
 	enemytest[0]->setPosition(500, 50);
-
 	setGameState(this);
 
 	testT = new tile * [nrOfTiles];
@@ -31,8 +30,12 @@ SimonState::~SimonState()
 		delete testT[i];
 	}
 	delete[] testT;
+
 	delete p;
-	delete enemytest;
+	for (int i = 0; i < 1; i++) {/*nrofEnemies*/
+		delete enemytest[i];
+	}
+	delete[] enemytest;
 }
 
 GameState* SimonState::handleEvent(const sf::Event& event)

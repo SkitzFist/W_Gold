@@ -19,6 +19,7 @@ Entity::~Entity()
 		delete raycast[i];
 	}
 	delete[] raycast;
+	delete ShootRay;
 }
 
 Ray** Entity::getRays()
