@@ -4,23 +4,25 @@
 
 SimonState::SimonState(ResourceManager* rm):
 	GameState(rm),
-	bull(rm)
+	bull(rm),
+	lvl(rm, rm->getLevel_Test())
 	
 {
-	//nrOfTiles = 8;
-	//
-	//p = new Player(rm->getCharacter(), rm, nrOfTiles, testT);
-	//enemytest = new Enemy*[1];
-	//enemytest[0] = new Enemy(getRm()->getEnemy(), getRm(), 1);
-	//enemytest[0]->setPosition(500, 50);
+	nrOfTiles = 8;
+	nrOfEnemies = 4;
+	p = new Player(rm->getAnimationTest(), rm, nrOfTiles, testT);
+	enemytest = new Enemy*[nrOfEnemies];
+	for (int i = 0; i < nrOfEnemies; i++) {
+		enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 1, lvl.getGrid());
+		enemytest[i]->setPosition(150 * i, 50);
+	}
 
-	//testT = new tile * [nrOfTiles];
-	//for (int i = 0; i < nrOfTiles; i++) {
-	//	testT[i] = new tile(sf::Vector2i(200, 200), true);
-	//	testT[i]->setSprite(rm->getCharacter());
-	//	testT[i]->setWorldPos(sf::Vector2f(100.0f * ((float)i + 1), 200.0f + i * 25.0f * (float)(sin(i) + 1)));
-	//}
-	//collision.setUpCollision(p, testT, enemytest, nrOfTiles, 1);
+
+	testT = new tile * [nrOfTiles];
+	for (int i = 0; i < nrOfTiles; i++) {
+		testT[i] = new tile(sf::Vector2i(100 * (i + 1), 200 + i * 25.0f * (float)(sin(i) + 1)), true,sf::Vector2i(10,10), rm->getCharacter());
+	}
+	collision.setUpCollision(p, testT, enemytest, nrOfTiles, nrOfEnemies);
 }
 
 SimonState::~SimonState()
@@ -31,7 +33,7 @@ SimonState::~SimonState()
 	delete[] testT;
 
 	delete p;
-	for (int i = 0; i < 1; i++) {/*nrofEnemies*/
+	for (int i = 0; i < nrOfEnemies; i++) {/*nrofEnemies*/
 		delete enemytest[i];
 	}
 	delete[] enemytest;
@@ -40,6 +42,7 @@ SimonState::~SimonState()
 GameState* SimonState::handleEvent(const sf::Event& event)
 {
 	GameState* state = this;
+
 
 	return state;
 }
@@ -74,6 +77,9 @@ GameState* SimonState::update(DeltaTime delta)
 	for (int i = 0; i < nrOfTiles; i++) {
 		p->getRay(i)->updateRay(p, testT[i]);
 	}
+	for (int i = 0; i < nrOfEnemies; i++) {
+		enemytest[i]->update(delta);
+	}
 	
 
 	return state;
@@ -87,7 +93,9 @@ void SimonState::render(sf::RenderWindow& window) const
 			window.draw(*this->testT[i]->getSprite());
 		}
 	}
-	window.draw(*this->enemytest[0]);
+	for (int i = 0; i < nrOfEnemies; i++) {
+		window.draw(*this->enemytest[i]);
+	}
 	
 	window.draw(this->bull);
 	

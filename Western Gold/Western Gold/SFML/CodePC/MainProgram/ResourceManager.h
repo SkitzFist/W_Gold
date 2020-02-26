@@ -38,6 +38,7 @@ public:
 	//debug
 	sf::Texture* getEnemy();
 	sf::SoundBuffer* getass();
+	sf::Texture* getAnimationTest();
 	
 
 private:
@@ -71,6 +72,7 @@ private:
 	//debug
 	sf::SoundBuffer* ass;
 	sf::Texture* enemy;
+	sf::Texture* AnimationTest;
 
 
 private:

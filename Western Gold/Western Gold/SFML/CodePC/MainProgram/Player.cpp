@@ -38,7 +38,7 @@ void Player::updateRays(int nrOfTiles)
 
 bool Player::shoot()
 {
-	bool theReturn = false;;
+	bool theReturn = false;
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !shooting) {
 		shooting = true;
 		if (nrOfShoots > 0) {
@@ -106,6 +106,8 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, tile** tile
 
 	this->window = rm->getWindow();
 	speed = 100;
+
+	this->setanimation(0.05f, 24, 1, 0);
 }
 
 Player::~Player()
@@ -121,6 +123,7 @@ void Player::update(DeltaTime time)
 	move(time);
 	rotation();
 	//this->updateRays();
+	animator.updateAnimator(time);
 	Entity::update(time);
 }
 
