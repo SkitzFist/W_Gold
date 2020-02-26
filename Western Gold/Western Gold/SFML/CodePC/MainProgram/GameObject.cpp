@@ -144,4 +144,7 @@ void GameObject::moveSprite(float velX, float velY)
 void GameObject::setanimation(float timeBetween, int nrofCol, int nrOfRows, int whatRow)
 {
 	animator.setAnimation(this->sprite, timeBetween, nrofCol, nrOfRows, whatRow);
+	this->spriteColumns = nrofCol;
+	this->spriteRows = nrOfRows;
+	centerOrigin();
 }

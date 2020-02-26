@@ -1,4 +1,5 @@
 #include "Animator.h"
+#include <iostream>
 
 Animator::Animator()
 {
@@ -24,15 +25,16 @@ void Animator::setAnimation(sf::Sprite* sprite, float timeBetween, int nrOfCol, 
 void Animator::updateAnimator(DeltaTime time)
 {
 	if (nrOfCol > 1) {
-		timeToNextFrame -= time.dt();
-		while (timeToNextFrame <= 0) {
-			timeToNextFrame += timeBetween;
+		timeToNextFrame += time.dt();
+		while (timeToNextFrame >= timeBetween) {
+			timeToNextFrame -= timeBetween;
 			//animate
-			rect.left += (rect.left + rect.width) % ((int)(this->sprite->getTexture()->getSize().x));
+			std::cout << "animate" << std::endl;
+			rect.left += (32) % ((int)(this->sprite->getTexture()->getSize().x));
 			if (rect.width * nrOfCol <= rect.left) {
 				rect.left = 0;
 			}
-			sprite->setTextureRect(rect);
+			this->sprite->setTextureRect(rect);
 		}
 	}
 }

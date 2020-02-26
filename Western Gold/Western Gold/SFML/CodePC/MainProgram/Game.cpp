@@ -69,7 +69,7 @@ void Game::update()
 
 void Game::render()
 {
-	window->clear();
+	window->clear(sf::Color::Blue);
 	if (currentState != nullptr) {
 		currentState->render(*window);
 	}
