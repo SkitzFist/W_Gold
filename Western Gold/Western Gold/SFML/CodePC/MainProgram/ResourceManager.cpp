@@ -22,6 +22,7 @@ ResourceManager::~ResourceManager()
 	delete tile_white;
 	delete tile_ok;
 	delete level_test;
+	delete bullet;
 	
 }
 

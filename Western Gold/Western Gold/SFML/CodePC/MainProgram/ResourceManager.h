@@ -26,12 +26,17 @@ public:
 #pragma region Levels
 	sf::Image* getLevel_Test();
 #pragma endregion
+
 #pragma region character stuff
 	sf::Texture* getCharacter();
 	sf::Texture* getBullet();
 #pragma endregion
-	//debug
 
+#pragma region Sound
+	sf::SoundBuffer* getGunShot();
+#pragma endregion
+	//debug
+	sf::Texture* getEnemy();
 	sf::SoundBuffer* getass();
 	
 
@@ -54,18 +59,18 @@ private:
 	sf::Image* level_test;
 #pragma endregion
 
-#pragma region Sounds
-
-#pragma endregion
-
 #pragma region character stuff
 	sf::Texture* character;
 	sf::Texture* bullet;
 #pragma endregion
 
+#pragma region Sound
+	sf::SoundBuffer* gunShot;
+#pragma endregion
+
 	//debug
 	sf::SoundBuffer* ass;
-	
+	sf::Texture* enemy;
 
 
 private:

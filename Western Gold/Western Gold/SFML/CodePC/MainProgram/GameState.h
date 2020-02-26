@@ -12,11 +12,8 @@ public:
 	virtual void render(sf::RenderWindow& window) const = 0;
 
 protected:
-	void setGameState(GameState* state);
-	GameState* getGameState() const;
 	ResourceManager* getRm() const;
 private:
-	GameState* state;
 	ResourceManager* rm;
 };
 

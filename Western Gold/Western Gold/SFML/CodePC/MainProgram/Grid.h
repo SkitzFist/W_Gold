@@ -1,7 +1,10 @@
 #pragma once
 #include "tile.h"
 #include "ResourceManager.h"
+#include <vector>
+//?
 #include <wincrypt.h>
+
 
 class Grid
 {
@@ -13,6 +16,8 @@ public:
 	sf::Vector2u getGridSize() const;
 	//debug
 	void renderGrid(sf::RenderWindow& window) const;
+	std::vector<tile*> getSurroundingTiles(tile* t);
+
 private:
 	tile** tiles;
 	sf::Vector2u gridSize;

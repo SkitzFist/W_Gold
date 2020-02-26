@@ -6,13 +6,20 @@ class Entity : public GameObject{
 private:
 	bool Dead;
 	Ray **raycast;
+	Ray* ShootRay;
 	int nrOfRays;
 public:
 	Entity(sf::Texture *tex, ResourceManager *rm , int nrOfRays);
-	Ray *getRays();
+	virtual ~Entity();
+
+	Ray **getRays();
+	Ray* getShootRay();
+	int getNrOfRays()const;
+
 	void takeDamage();
 	bool isDead()const;
 	void update(DeltaTime &time);
+	virtual bool shoot() = 0;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	
 };

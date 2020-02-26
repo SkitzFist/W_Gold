@@ -1,5 +1,8 @@
 #include "tile.h"
 
+//debug
+#include <iostream>
+
 tile::tile()
 {
 	sprite = nullptr;
@@ -8,26 +11,31 @@ tile::tile()
 	eCost = NULL;
 	sCost = NULL;
 	sprite = new sf::Sprite();
+
 	ray = new Ray(NULL);
 	wannaDraw = true;
-	
+	gridPos = { NULL, NULL };
 }
 
-tile::tile(sf::Vector2i worldPos, bool isWalkable)
+tile::tile(sf::Vector2i worldPos, bool isWalkable, sf::Vector2i gridPos, sf::Texture* texture)
 {
 	this->worldPos = worldPos;
 	this->isWalkable = isWalkable;
-	sprite = nullptr;
 	eCost = NULL;
 	sCost = NULL;
 	sprite = new sf::Sprite();
+	setSprite(texture);
+	setWorldPos(static_cast<sf::Vector2f>(worldPos));
+
 	ray = nullptr;
 	wannaDraw = true;
+	this->gridPos = gridPos;
 }
 
 tile::~tile()
 {
 	delete sprite;
+	delete ray;
 }
 
 sf::Vector2i tile::getWorldPos() const
@@ -62,6 +70,11 @@ void tile::setSprite(sf::Texture* texture)
 	centerOrigin();
 }
 
+void tile::setGridPos(sf::Vector2i gridPos)
+{
+	this->gridPos = gridPos;
+}
+
 int tile::getTCost()
 {
 	return sCost + eCost;
@@ -89,7 +102,7 @@ void tile::setECost(int value)
 
 Ray* tile::getRay()
 {
-	return nullptr;
+	return ray;
 }
 
 bool tile::getWannaDraw() const
@@ -100,6 +113,21 @@ bool tile::getWannaDraw() const
 void tile::setWannaDraw(bool value)
 {
 	wannaDraw = value;
+}
+
+tile* tile::getParent() const
+{
+	return parent;
+}
+
+void tile::setParent(tile* parent)
+{
+	this->parent = parent;
+}
+
+sf::Vector2i tile::getGridPos() const
+{
+	return gridPos;
 }
 
 void tile::centerOrigin()
