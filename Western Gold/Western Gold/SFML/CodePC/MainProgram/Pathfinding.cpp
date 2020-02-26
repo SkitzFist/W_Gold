@@ -8,12 +8,6 @@
 Pathfinding::Pathfinding(Grid* grid) {
 	this->grid = grid;
 
-	std::vector<tile*> vec;
-	for (int i = 0; i < 5; ++i) {
-		tile* t = new tile();
-		t->setECost(i);
-		vec.push_back(t);
-	}
 }
 
 Pathfinding::~Pathfinding()

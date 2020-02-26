@@ -15,7 +15,7 @@ Grid::Grid(ResourceManager* rm, sf::Image*level)
 		static_cast<int>(tileSize) * gridSize.y
 	};
 
-	tiles = allocateTwoDimensionalArray<tile>(gridSize.x, gridSize.y);
+	tiles = allocateTwoDimensionalArray<tile>(gridSize.x, gridSize.x);
 	initGrid(rm,level);
 	//Debug
 	
@@ -39,7 +39,7 @@ tile* Grid::getTileFromWorldPos(sf::Vector2i pos)
 		float posX = pos.x * 10.f;
 		float posY = pos.y * 10.f;
 		float worldSizeX = worldSize.x * 10.f;
-		float worldSizeY = worldSize.y * 10.f;
+		float worldSizeY = worldSize.x * 10.f;
 		double percentX = posX / worldSizeX;
 		double percentY = posY / worldSizeY;
 		
@@ -64,7 +64,7 @@ sf::Vector2u Grid::getGridSize() const
 void Grid::renderGrid(sf::RenderWindow& window) const
 {
 	for (unsigned int x = 0; x < gridSize.x; ++x) {
-		for (unsigned int y = 0; y < gridSize.y; ++y) {
+		for (unsigned int y = 0; y < gridSize.x; ++y) {
 
 			window.draw(*tiles[y][x].getSprite());
 		}

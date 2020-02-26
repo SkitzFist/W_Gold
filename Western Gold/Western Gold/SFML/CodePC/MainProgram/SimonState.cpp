@@ -7,21 +7,20 @@ SimonState::SimonState(ResourceManager* rm):
 	bull(rm)
 	
 {
-	nrOfTiles = 8;
-	
-	p = new Player(rm->getCharacter(), rm, nrOfTiles, testT);
-	enemytest = new Enemy*[1];
-	enemytest[0] = new Enemy(getRm()->getEnemy(), getRm(), 1);
-	enemytest[0]->setPosition(500, 50);
-	setGameState(this);
+	//nrOfTiles = 8;
+	//
+	//p = new Player(rm->getCharacter(), rm, nrOfTiles, testT);
+	//enemytest = new Enemy*[1];
+	//enemytest[0] = new Enemy(getRm()->getEnemy(), getRm(), 1);
+	//enemytest[0]->setPosition(500, 50);
 
-	testT = new tile * [nrOfTiles];
-	for (int i = 0; i < nrOfTiles; i++) {
-		testT[i] = new tile(sf::Vector2i(200, 200), true);
-		testT[i]->setSprite(rm->getCharacter());
-		testT[i]->setWorldPos(sf::Vector2f(100.0f * ((float)i + 1), 200.0f + i * 25.0f * (float)(sin(i) + 1)));
-	}
-	collision.setUpCollision(p, testT, enemytest, nrOfTiles, 1);
+	//testT = new tile * [nrOfTiles];
+	//for (int i = 0; i < nrOfTiles; i++) {
+	//	testT[i] = new tile(sf::Vector2i(200, 200), true);
+	//	testT[i]->setSprite(rm->getCharacter());
+	//	testT[i]->setWorldPos(sf::Vector2f(100.0f * ((float)i + 1), 200.0f + i * 25.0f * (float)(sin(i) + 1)));
+	//}
+	//collision.setUpCollision(p, testT, enemytest, nrOfTiles, 1);
 }
 
 SimonState::~SimonState()
@@ -40,15 +39,14 @@ SimonState::~SimonState()
 
 GameState* SimonState::handleEvent(const sf::Event& event)
 {
-	setGameState(this);
+	GameState* state = this;
 
-
-	return getGameState();
+	return state;
 }
 
 GameState* SimonState::update(DeltaTime delta)
 {
-	setGameState(this);
+	GameState* state = this;
 
 	p->update(delta);
 	for (int i = 0; i < nrOfTiles; i++) {
@@ -78,7 +76,7 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 	
 
-	return getGameState();
+	return state;
 }
 
 void SimonState::render(sf::RenderWindow& window) const
