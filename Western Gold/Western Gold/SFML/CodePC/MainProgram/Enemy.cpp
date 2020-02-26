@@ -33,8 +33,8 @@ void Enemy::update(DeltaTime delta)
 		}
 	}
 	if (nextTile != nullptr) {
-		float speed = 100.f;
-		moveSprite(getDir(), speed * delta.dt());
+		float speed = 2.f;
+		moveSprite(getDir(), speed);
 	}
 	
 }

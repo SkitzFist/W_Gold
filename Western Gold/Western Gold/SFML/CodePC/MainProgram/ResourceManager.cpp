@@ -23,6 +23,7 @@ ResourceManager::~ResourceManager()
 	delete tile_ok;
 	delete level_test;
 	delete bullet;
+	delete gunShot;
 	
 }
 
@@ -67,6 +68,10 @@ void ResourceManager::basicSetup()
 	if (!ass->loadFromFile("../Sound/THX_Sound_Effect.wav")) {
 		cantLoad(L"soundeffect");
 	}
+	gunShot = new sf::SoundBuffer();
+	if (!gunShot->loadFromFile("../Sound/GunShot.wav")) {
+		cantLoad(L"Sound gunShoot");
+	}
 
 
 	debugSetup();
@@ -97,6 +102,11 @@ sf::Image* ResourceManager::getLevel_Test()
 	return level_test;
 }
 
+sf::Texture* ResourceManager::getEnemy()
+{
+	return enemy;
+}
+
 sf::SoundBuffer* ResourceManager::getass()
 {
 	return ass;
@@ -110,6 +120,11 @@ sf::Texture* ResourceManager::getCharacter()
 sf::Texture* ResourceManager::getBullet()
 {
 	return this->bullet;
+}
+
+sf::SoundBuffer* ResourceManager::getGunShot()
+{
+	return gunShot;
 }
 
 void ResourceManager::cantLoad(LPCWSTR theerror)
