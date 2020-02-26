@@ -27,7 +27,7 @@ public:
 	void setSpriteScalePx(float sizeX, float sizeY);
 	sf::Vector2f getCenterOfSprite()const;
 	void moveSprite(float velX, float velY);
-	void setanimation(float timeBetween, int nrofCol, int nrOfRows, int whatRow);
+	
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 protected:
@@ -37,7 +37,6 @@ protected:
 	void setRotatioSprite(float angle);
 	void rotateSprite(float angle);
 	void addRotationSprite(float angle);
-	//centerOrigin private
 	Sound sound;
 	Animator animator;
 	ResourceManager* getRm();
@@ -47,4 +46,9 @@ private:
 	sf::Sprite* sprite;
 	int spriteColumns;
 	int spriteRows;
+public:
+	void setanimation(float timeBetween, int nrofCol, int nrOfRows, int whatRow);
+	void changeTimeBetween(float time);
+	void changeNrOfCol(int col);
+	void changeWhatRow(int row);
 };

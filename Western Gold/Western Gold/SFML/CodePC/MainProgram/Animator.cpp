@@ -8,6 +8,7 @@ Animator::Animator()
 	timeToNextFrame = 0;
 	timeBetween = 1;
 	this->nrOfRows = 1;
+	sprite = nullptr;
 }
 
 void Animator::setAnimation(sf::Sprite* sprite, float timeBetween, int nrOfCol, int nrOfRows, int whatRow)
@@ -29,14 +30,18 @@ void Animator::updateAnimator(DeltaTime time)
 		while (timeToNextFrame >= timeBetween) {
 			timeToNextFrame -= timeBetween;
 			//animate
-			std::cout << "animate" << std::endl;
-			rect.left += (32) % ((int)(this->sprite->getTexture()->getSize().x));
+			rect.left += (rect.width) % ((int)(this->sprite->getTexture()->getSize().x));
 			if (rect.width * nrOfCol <= rect.left) {
 				rect.left = 0;
 			}
 			this->sprite->setTextureRect(rect);
 		}
 	}
+}
+
+void Animator::changeTimeBetween(float time)
+{
+	this->timeBetween = time;
 }
 
 void Animator::changeRow(int whatRow)
@@ -48,4 +53,24 @@ void Animator::changeRow(int whatRow)
 void Animator::changeNrOfCols(int nrOfCols)
 {
 	this->nrOfCol = nrOfCols;
+}
+
+int Animator::getNrOfCol() const
+{
+	return this->nrOfCol;
+}
+
+int Animator::getNrOfRow() const
+{
+	return this->nrOfRows;
+}
+
+int Animator::getWhatRow() const
+{
+	return whatRow;
+}
+
+float Animator::getTimeBetween() const
+{
+	return timeBetween;
 }

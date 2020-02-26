@@ -148,3 +148,18 @@ void GameObject::setanimation(float timeBetween, int nrofCol, int nrOfRows, int 
 	this->spriteRows = nrOfRows;
 	centerOrigin();
 }
+
+void GameObject::changeTimeBetween(float time)
+{
+	animator.changeTimeBetween(time);
+}
+
+void GameObject::changeNrOfCol(int col)
+{
+	animator.changeNrOfCols(col);
+}
+
+void GameObject::changeWhatRow(int row)
+{
+	animator.changeRow(row);
+}

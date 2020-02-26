@@ -15,6 +15,11 @@ public:
 	Animator();
 	void setAnimation(sf::Sprite* sprite, float timeBetween, int nrOfCol, int nrOfRows, int whatRow);
 	void updateAnimator(DeltaTime time);
+	void changeTimeBetween(float time);
 	void changeRow(int whatRow);
 	void changeNrOfCols(int nrOfCols);
+	int getNrOfCol() const;
+	int getNrOfRow() const;
+	int getWhatRow() const;
+	float getTimeBetween()const;
 };
