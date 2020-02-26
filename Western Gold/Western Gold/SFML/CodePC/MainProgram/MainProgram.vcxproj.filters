@@ -129,6 +129,9 @@
     <ClCompile Include="GetDistance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -202,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="Pathfinding.h">
       <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Header Files\OtherFunctions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

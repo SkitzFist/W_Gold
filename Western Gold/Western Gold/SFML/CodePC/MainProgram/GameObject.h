@@ -3,6 +3,7 @@
 #include "ResourceManager.h"
 #include "SoundManager.h"
 #include "DeltaTime.h"
+#include "Animator.h"
 
 class GameObject : public sf::Drawable
 {
@@ -26,6 +27,7 @@ public:
 	void setSpriteScalePx(float sizeX, float sizeY);
 	sf::Vector2f getCenterOfSprite()const;
 	void moveSprite(float velX, float velY);
+	void setanimation(float timeBetween, int nrofCol, int nrOfRows, int whatRow);
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 protected:
@@ -37,7 +39,7 @@ protected:
 	void addRotationSprite(float angle);
 	//centerOrigin private
 	Sound sound;
-
+	Animator animator;
 	ResourceManager* getRm();
 private:
 	void centerOrigin();

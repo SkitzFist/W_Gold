@@ -1,8 +1,10 @@
-﻿  SimonState.cpp
+﻿  Animator.cpp
+  SimonState.cpp
 C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(17,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(23,55): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
           with
           [
               T=int
           ]
+  Generating Code...
   MainProgram.vcxproj -> C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe
