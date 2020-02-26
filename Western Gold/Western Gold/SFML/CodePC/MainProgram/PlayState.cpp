@@ -20,18 +20,16 @@ PlayState::~PlayState()
 
 GameState * PlayState::handleEvent(const sf::Event & event)
 {
-	setGameState(this);
+	GameState* state = this;
 
-	return getGameState();
+	return state;
 }
 
 GameState * PlayState::update(DeltaTime delta)
 {
-	setGameState(this);
+	GameState* state = this;
 
-	text.setString(std::to_string(delta.dt()));
-
-	return getGameState();
+	return state;
 }
 
 void PlayState::render(sf::RenderWindow&  window) const

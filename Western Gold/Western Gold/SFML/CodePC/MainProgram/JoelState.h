@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "Enemy.h"
 #include "Level.h"
+#include "Pathfinding.h"
 
 class JoelState : public GameState
 {

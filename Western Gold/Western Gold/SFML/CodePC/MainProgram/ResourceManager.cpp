@@ -15,16 +15,16 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager()
 {
-	delete enemy;
 	delete basicFont;
 	delete character;
-	delete bullet;
 	delete ass;
 	delete tile_black;
 	delete tile_white;
 	delete tile_ok;
 	delete level_test;
+	delete bullet;
 	delete gunShot;
+	delete enemy;
 	
 }
 
@@ -52,15 +52,14 @@ int ResourceManager::getWindowHeight() const
 
 void ResourceManager::basicSetup()
 {
-	enemy = new sf::Texture();
-	if (!enemy->loadFromFile("../Textures/hat2.png")) {
-		cantLoad(L"Enemy");
-	}
 	basicFont = new sf::Font();
 	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
 		cantLoad(L"Font");
 	}
-
+	gunShot = new sf::SoundBuffer();
+	if (!gunShot->loadFromFile("../Sound/GunShot.wav")) {
+		cantLoad(L"gun sound");
+	}
 	character = new sf::Texture();
 	if (!character->loadFromFile("../Textures/hat.png")) {
 		cantLoad(L"hat");
@@ -72,12 +71,11 @@ void ResourceManager::basicSetup()
 	ass = new sf::SoundBuffer();
 	if (!ass->loadFromFile("../Sound/THX_Sound_Effect.wav")) {
 		cantLoad(L"soundeffect");
+	} 
+	enemy = new sf::Texture();
+	if (!enemy->loadFromFile("../Textures/hat2.png")) {
+		cantLoad(L"enemy");
 	}
-	gunShot = new sf::SoundBuffer();
-	if (!gunShot->loadFromFile("../Sound/GunShot.wav")) {
-		cantLoad(L"Sound gunShoot");
-	}
-
 
 	debugSetup();
 }
@@ -107,9 +105,14 @@ sf::Image* ResourceManager::getLevel_Test()
 	return level_test;
 }
 
+sf::SoundBuffer* ResourceManager::getGunShot()
+{
+	return this->gunShot;
+}
+
 sf::Texture* ResourceManager::getEnemy()
 {
-	return this->enemy;
+	return enemy;
 }
 
 sf::SoundBuffer* ResourceManager::getass()
@@ -125,11 +128,6 @@ sf::Texture* ResourceManager::getCharacter()
 sf::Texture* ResourceManager::getBullet()
 {
 	return this->bullet;
-}
-
-sf::SoundBuffer* ResourceManager::getGunShot()
-{
-	return this->gunShot;
 }
 
 void ResourceManager::cantLoad(LPCWSTR theerror)
