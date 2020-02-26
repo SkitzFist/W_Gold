@@ -23,6 +23,8 @@ ResourceManager::~ResourceManager()
 	delete tile_ok;
 	delete level_test;
 	delete bullet;
+	delete gunShot;
+	delete enemy;
 	
 }
 
@@ -54,7 +56,10 @@ void ResourceManager::basicSetup()
 	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
 		cantLoad(L"Font");
 	}
-
+	gunShot = new sf::SoundBuffer();
+	if (!gunShot->loadFromFile("../Sound/GunShot.wav")) {
+		cantLoad(L"gun sound");
+	}
 	character = new sf::Texture();
 	if (!character->loadFromFile("../Textures/hat.png")) {
 		cantLoad(L"hat");
@@ -66,8 +71,11 @@ void ResourceManager::basicSetup()
 	ass = new sf::SoundBuffer();
 	if (!ass->loadFromFile("../Sound/THX_Sound_Effect.wav")) {
 		cantLoad(L"soundeffect");
+	} 
+	enemy = new sf::Texture();
+	if (!enemy->loadFromFile("../Textures/hat2.png")) {
+		cantLoad(L"enemy");
 	}
-
 
 	debugSetup();
 }
@@ -95,6 +103,16 @@ sf::Texture* ResourceManager::getTile_Ok()
 sf::Image* ResourceManager::getLevel_Test()
 {
 	return level_test;
+}
+
+sf::SoundBuffer* ResourceManager::getGunShot()
+{
+	return this->gunShot;
+}
+
+sf::Texture* ResourceManager::getEnemy()
+{
+	return enemy;
 }
 
 sf::SoundBuffer* ResourceManager::getass()

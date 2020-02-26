@@ -5,6 +5,7 @@
 #include "Collision.h"
 #include "Line.h"
 #include "Bullet.h"
+#include "Level.h"
 
 class SimonState : public GameState
 {
@@ -17,12 +18,14 @@ public:
 	virtual void render(sf::RenderWindow& window) const override;
 	
 private:
+	int nrOfEnemies;
 	Enemy** enemytest;
 	Player *p;
 	int nrOfTiles;
 	tile** testT;
 	Bullet bull;
 
+	Level lvl;
 	Collision collision;
 };
 
