@@ -10,6 +10,8 @@ public:
 	void findPath(sf::Vector2i start, sf::Vector2i end);
 	tile* getNextTile();
 
+	void clearPath();
+
 private:
 	Grid* grid;
 	std::vector<tile*> path;

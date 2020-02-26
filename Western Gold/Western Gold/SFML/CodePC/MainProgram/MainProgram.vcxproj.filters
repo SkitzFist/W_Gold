@@ -61,6 +61,12 @@
     <Filter Include="Source Files\UI">
       <UniqueIdentifier>{b5b7c938-8443-48a0-a142-8b8ff3ea8d2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Enemy\Enemy States">
+      <UniqueIdentifier>{0dcbd9a7-8a1c-4a2f-a852-dc8c17dfe13e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemy\Enemy States">
+      <UniqueIdentifier>{76f20af7-6120-4c98-96c2-eda3d49a64bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -123,9 +129,6 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="PatrolState.cpp">
-      <Filter>Source Files\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="Pathfinding.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
@@ -143,6 +146,12 @@
     </ClCompile>
     <ClCompile Include="PauseState.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnmState.cpp">
+      <Filter>Source Files\Enemy\Enemy States</Filter>
+    </ClCompile>
+    <ClCompile Include="PatrollState.cpp">
+      <Filter>Source Files\Enemy\Enemy States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,12 +218,6 @@
     <ClInclude Include="Enemy.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyState.h">
-      <Filter>Header Files\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="PatrolState.h">
-      <Filter>Header Files\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="Pathfinding.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
@@ -229,6 +232,15 @@
     </ClInclude>
     <ClInclude Include="PauseState.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnmState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PatrollState.h">
+      <Filter>Header Files\Enemy\Enemy States</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyState.h">
+      <Filter>Header Files\Enemy\Enemy States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

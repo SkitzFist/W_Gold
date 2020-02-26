@@ -1,5 +1,5 @@
 #include "Enemy.h"
-#include "PatrolState.h"
+#include "PatrollState.h"
 
 //debug
 #include <iostream>
@@ -10,14 +10,30 @@ Entity(tex, rm, nrOfRays)
 	//config
 
 	//setup
-	this->grid = grid;
-	//debug
 	pathfinding = new Pathfinding(grid);
+	currentState = nullptr;
+	patrollPoints = nullptr;
+	patrollPointsLength = 0;
+	this->grid = grid;
+	dir = { 0.f, 0.f };
+	//debug
+
 }
 
 Enemy::~Enemy()
 {
+	delete currentState;
 	delete pathfinding;
+}
+
+void Enemy::update(DeltaTime delta)
+{
+	float speed = 50.f * static_cast<float>(delta.dt()); //Speed should be in entity
+	if (currentState != nullptr) {
+		currentState = currentState->update(delta);
+	}
+	moveSprite(dir, speed);
+	
 }
 
 bool Enemy::shoot()
@@ -25,52 +41,25 @@ bool Enemy::shoot()
 	return false;
 }
 
-void Enemy::update(DeltaTime delta)
-{
-	if (hasReachedTargetTile()) {
-		if (pathfinding->getNextTile() != nullptr) {
-			nextTile = pathfinding->getNextTile();
-		}
-	}
-	if (nextTile != nullptr) {
-		float speed = 2.f;
-		moveSprite(getDir(), speed);
-	}
-	
-}
-
 Pathfinding* Enemy::getPathfinding() const
 {
 	return pathfinding;
 }
 
-sf::Vector2f Enemy::getDir()
+void Enemy::engagePatrolState(sf::Vector2i points[], size_t length)
 {
-	sf::Vector2f tilePos = static_cast<sf::Vector2f>(nextTile->getWorldPos());
-	sf::Vector2f dir = {
-		tilePos.x - getPosition().x,
-		tilePos.y - getPosition().y
-	};
+	patrollPointsLength = length;
+	patrollPoints = points;
 
-	float magnitude = sqrt((dir.x * dir.x) + (dir.y + dir.y));
-	dir.x = dir.x / magnitude;
-	dir.y = dir.y / magnitude;
-
-	return dir;
+	currentState = new PatrollState(this, patrollPoints, patrollPointsLength);
 }
 
-bool Enemy::hasReachedTargetTile()
+Grid* Enemy::getGrid() const
 {
-	bool isThere = false;
-	if (nextTile == nullptr) {
-		isThere = true;
-	}
-	else {
-		tile* currentTile = grid->getTileFromWorldPos(static_cast<sf::Vector2i>(getPosition()));
-		
-		if (currentTile == nextTile) {
-			isThere = true;
-		}
-	}
-	return isThere;
+	return grid;
+}
+
+void Enemy::setDir(sf::Vector2f dir)
+{
+	this->dir = dir;
 }

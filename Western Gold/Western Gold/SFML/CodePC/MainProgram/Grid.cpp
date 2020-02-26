@@ -77,7 +77,7 @@ std::vector<tile*> Grid::getSurroundingTiles(tile* t)
 
 	for (int x = -1; x <= 1; ++x) {
 		for (int y = -1; y <= 1; ++y) {
-			if (x == 0 && y == 0) {
+			if (x == y || x == -y) {
 				continue;
 			}
 
@@ -125,7 +125,6 @@ void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 			}
 		}
 	}
-	
 }
 
 bool Grid::isInsideWorld(sf::Vector2i pos)
