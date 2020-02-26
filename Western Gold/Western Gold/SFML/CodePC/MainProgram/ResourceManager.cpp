@@ -24,7 +24,6 @@ ResourceManager::~ResourceManager()
 	delete level_test;
 	delete bullet;
 	delete gunShot;
-	
 }
 
 void ResourceManager::windowSetup(sf::RenderWindow* window)
@@ -70,9 +69,8 @@ void ResourceManager::basicSetup()
 	}
 	gunShot = new sf::SoundBuffer();
 	if (!gunShot->loadFromFile("../Sound/GunShot.wav")) {
-		cantLoad(L"Sound gunShoot");
+		cantLoad(L"soundeffect");
 	}
-
 
 	debugSetup();
 }

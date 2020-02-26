@@ -11,7 +11,6 @@ public:
 	sf::Sprite* getSprite() const;
 	bool getWannaDraw() const;
 	void setWannaDraw(bool value);
-	Ray* getRay();
 
 
 	sf::Vector2i getWorldPos() const;
@@ -42,7 +41,6 @@ private:
 	sf::Vector2i gridPos;
 
 	bool wannaDraw;
-	Ray* ray;
 	
 	int sCost;
 	int eCost;

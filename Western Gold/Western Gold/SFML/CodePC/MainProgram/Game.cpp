@@ -4,6 +4,7 @@
 #include <chrono>
 #include "SimonState.h"
 #include "JoelState.h"
+#include "MenuState.h"
 
 Game::Game() :
 	timePerFrame(sf::seconds(1.0f / 60.0f)),
@@ -37,7 +38,8 @@ void Game::handleEvent()
 		if (currentState != nullptr) {
 			currentState = currentState->handleEvent(event);
 		}
-		if (event.type == sf::Event::Closed) {
+		if (event.type == sf::Event::Closed 
+			|| currentState == nullptr) {
 			window->close();
 		}
 	}

@@ -170,6 +170,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DeltaTime.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -185,18 +186,22 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Pathfinding.cpp" />
     <ClCompile Include="PatrolState.cpp" />
+    <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SimonState.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DeltaTime.h" />
     <ClInclude Include="Enemy.h" />
@@ -212,14 +217,17 @@
     </ClInclude>
     <ClInclude Include="Level.h" />
     <ClInclude Include="Line.h" />
+    <ClInclude Include="MenuState.h" />
     <ClInclude Include="Pathfinding.h" />
     <ClInclude Include="PatrolState.h" />
+    <ClInclude Include="PauseState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SimonState.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
