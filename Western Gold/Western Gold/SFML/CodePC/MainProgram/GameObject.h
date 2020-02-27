@@ -3,6 +3,7 @@
 #include "ResourceManager.h"
 #include "SoundManager.h"
 #include "DeltaTime.h"
+#include "Animator.h"
 
 class GameObject : public sf::Drawable
 {
@@ -36,6 +37,7 @@ protected:
 	void addRotationSprite(float angle);
 	//centerOrigin private
 	Sound sound;
+	Animator animator;
 
 	ResourceManager* getRm();
 private:
@@ -44,4 +46,9 @@ private:
 	sf::Sprite* sprite;
 	int spriteColumns;
 	int spriteRows;
+public:
+	void setanimation(float timeBetween, int nrofCol, int nrOfRows, int whatRow);
+	void changeTimeBetween(float time);
+	void changeNrOfCol(int col);
+	void changeWhatRow(int row);
 };
