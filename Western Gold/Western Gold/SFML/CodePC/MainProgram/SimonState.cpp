@@ -6,15 +6,21 @@ SimonState::SimonState(ResourceManager* rm):
 	GameState(rm),
 	bull(rm),
 	lvl(rm, rm->getLevel_Test())
-	
 {
 	nrOfTiles = 8;
-	nrOfEnemies = 4;
+	nrOfEnemies = 5;
 	p = new Player(rm->getAnimationTest(), rm, nrOfTiles, testT);
+	
+	sf::Vector2i* patrollPos = new sf::Vector2i[2];
+	patrollPos[0] = { 48,48 };
+	patrollPos[1] = { 240, 48 };
+	
 	enemytest = new Enemy*[nrOfEnemies];
+	 
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 1, lvl.getGrid());
-		enemytest[i]->setPosition(150.0f * (float)i, 50.f);
+		enemytest[i]->setPosition((i+1) * 100, 48.f + (sin(i) + 1) * 100);
+		//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));
 	}
 
 
@@ -87,6 +93,7 @@ GameState* SimonState::update(DeltaTime delta)
 
 void SimonState::render(sf::RenderWindow& window) const
 {
+	lvl.drawLevel(window);
 	window.draw(*this->p);
 	for (int i = 0; i < nrOfTiles; i++) {
 		if (this->testT[i]->getWannaDraw()) {

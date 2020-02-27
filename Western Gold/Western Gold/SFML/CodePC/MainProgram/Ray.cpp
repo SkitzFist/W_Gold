@@ -84,8 +84,6 @@ void Ray::updateRay(Player* player, tile* Tile)
 bool Ray::rayHitGameObject(GameObject* gameObj)
 {
 	bool theReturn = false;
-	//why cant I do this???
-	std::cout << dir << std::endl;
 	if (dir > 270 && (gameObj->getTop() < this->line.getLineY1())) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}
@@ -143,7 +141,6 @@ bool Ray::rayHitTile2(tile* Tile)
 	float T = Tile->getSprite()->getGlobalBounds().top;
 	float L = Tile->getSprite()->getGlobalBounds().left;
 	float R = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width;
-	std::cout << dir << std::endl;
 	if (dir > 270 && (T < this->line.getLineY1())) {
 		theReturn = check(T, R, B, L);
 	}

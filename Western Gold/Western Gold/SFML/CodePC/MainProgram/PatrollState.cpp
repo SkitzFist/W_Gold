@@ -44,7 +44,7 @@ void PatrollState::move(DeltaTime time)
 		getEnm()->setDir(dir);
 	}
 	if (hasReachedTile(targetTile)) {
-		std::cout << "Target Reached" << std::endl;
+		//std::cout << "Target Reached" << std::endl;
 		dir = { 0.f,0.f };
 		getEnm()->setDir(dir);
 		//update targetTile

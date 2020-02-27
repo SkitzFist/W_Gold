@@ -174,10 +174,28 @@ bool Collision::shootCollider(Entity* whatEntityShooting)
 	}
 	else if (dynamic_cast<Player*>(whatEntityShooting) != nullptr) 
 	{
+		bool neverHitTile = true;
+		bool over = false;
 		for (int i = 0; i < nrOfEnemies; i++) {
 			if (!enemies[i]->isDead() && player->getShootRay()->rayHitGameObject(enemies[i])) {
-				enemies[i]->takeDamage();
-				theReturn = true;
+				for (int t = 0; t < nrOfTiles && !over; t++) {
+					if (player->getShootRay()->rayHitTile2(this->tiles[t])) {
+						neverHitTile = false;
+						if (getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >
+							getDistance(player->getPosition().x, player->getPosition().y, enemies[i]->getPosition().x, enemies[i]->getPosition().y))
+						{
+							enemies[i]->takeDamage();
+							theReturn = true;
+						}
+						else {
+							over = true;
+						}
+					}
+				}
+				if (neverHitTile) {
+					enemies[i]->takeDamage();
+					theReturn = true;
+				}
 			}
 		}
 	}
