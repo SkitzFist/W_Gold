@@ -17,4 +17,5 @@ public:
 private:
 	Enemy* enemy;
 	Level* level;
+	bool canStart;
 };

@@ -14,7 +14,7 @@ SimonState::SimonState(ResourceManager* rm):
 	enemytest = new Enemy*[nrOfEnemies];
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 1, lvl.getGrid());
-		enemytest[i]->setPosition(150 * i, 50);
+		enemytest[i]->setPosition(150.0f * (float)i, 50.f);
 	}
 
 

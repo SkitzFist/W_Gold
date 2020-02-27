@@ -11,6 +11,7 @@ tile::tile()
 	eCost = NULL;
 	sCost = NULL;
 	sprite = new sf::Sprite();
+
 	wannaDraw = true;
 	gridPos = { NULL, NULL };
 }
@@ -24,6 +25,7 @@ tile::tile(sf::Vector2i worldPos, bool isWalkable, sf::Vector2i gridPos, sf::Tex
 	sprite = new sf::Sprite();
 	setSprite(texture);
 	setWorldPos(static_cast<sf::Vector2f>(worldPos));
+
 	wannaDraw = true;
 	this->gridPos = gridPos;
 }
@@ -94,7 +96,6 @@ void tile::setECost(int value)
 {
 	eCost = value;
 }
-
 
 bool tile::getWannaDraw() const
 {
