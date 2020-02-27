@@ -10,6 +10,7 @@ GameObject::GameObject(sf::Texture* texture, ResourceManager* rm, int spriteColu
 	centerOrigin();
 	this->spriteColumns = spriteColumns;
 	this->spriteRows = spriteRows;
+
 }
 
 GameObject::~GameObject()
@@ -138,4 +139,27 @@ void GameObject::moveSprite(sf::Vector2f dir, float speed)
 void GameObject::moveSprite(float velX, float velY)
 {
 	sprite->move(velX, velY);
+}
+
+void GameObject::setanimation(float timeBetween, int nrofCol, int nrOfRows, int whatRow)
+{
+	animator.setAnimation(this->sprite, timeBetween, nrofCol, nrOfRows, whatRow);
+	this->spriteColumns = nrofCol;
+	this->spriteRows = nrOfRows;
+	centerOrigin();
+}
+
+void GameObject::changeTimeBetween(float time)
+{
+	animator.changeTimeBetween(time);
+}
+
+void GameObject::changeNrOfCol(int col)
+{
+	animator.changeNrOfCols(col);
+}
+
+void GameObject::changeWhatRow(int row)
+{
+	animator.changeRow(row);
 }

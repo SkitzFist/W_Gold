@@ -10,7 +10,6 @@ Entity::Entity(sf::Texture *tex, ResourceManager *rm, int nrOfRays):
 	}
 	this->ShootRay = new Ray(this->getRotation());
 	this->nrOfRays = nrOfRays;
-	
 }
 
 Entity::~Entity()

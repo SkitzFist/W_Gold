@@ -25,7 +25,7 @@ ResourceManager::~ResourceManager()
 	delete bullet;
 	delete gunShot;
 	delete enemy;
-	
+	delete AnimationTest;
 }
 
 void ResourceManager::windowSetup(sf::RenderWindow* window)
@@ -56,6 +56,11 @@ void ResourceManager::basicSetup()
 	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
 		cantLoad(L"Font");
 	}
+	AnimationTest = new sf::Texture();
+	if (!AnimationTest->loadFromFile("../Textures/animationTest.png")) {
+		cantLoad(L"animationtest");
+	}
+
 	gunShot = new sf::SoundBuffer();
 	if (!gunShot->loadFromFile("../Sound/GunShot.wav")) {
 		cantLoad(L"gun sound");
@@ -118,6 +123,11 @@ sf::Texture* ResourceManager::getEnemy()
 sf::SoundBuffer* ResourceManager::getass()
 {
 	return ass;
+}
+
+sf::Texture* ResourceManager::getAnimationTest()
+{
+	return this->AnimationTest;
 }
 
 sf::Texture* ResourceManager::getCharacter()

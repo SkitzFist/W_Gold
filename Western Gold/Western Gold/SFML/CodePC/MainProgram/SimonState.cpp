@@ -10,7 +10,7 @@ SimonState::SimonState(ResourceManager* rm):
 {
 	nrOfTiles = 8;
 	nrOfEnemies = 4;
-	p = new Player(rm->getCharacter(), rm, nrOfTiles, testT);
+	p = new Player(rm->getAnimationTest(), rm, nrOfTiles, testT);
 	enemytest = new Enemy*[nrOfEnemies];
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 1, lvl.getGrid());

@@ -26,11 +26,10 @@ public:
 	void setSpriteScalePx(float sizeX, float sizeY);
 	sf::Vector2f getCenterOfSprite()const;
 	void moveSprite(float velX, float velY);
+	void moveSprite(sf::Vector2f dir, float speed);
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 protected:
-	//why protected?
-	void moveSprite(sf::Vector2f dir, float speed);
 	
 	void setRotatioSprite(float angle);
 	void rotateSprite(float angle);

@@ -8,17 +8,11 @@
 Pathfinding::Pathfinding(Grid* grid) {
 	this->grid = grid;
 
-	std::vector<tile*> vec;
-	for (int i = 0; i < 5; ++i) {
-		tile* t = new tile();
-		t->setECost(i);
-		vec.push_back(t);
-	}
 }
 
 Pathfinding::~Pathfinding()
 {
-	path.clear();
+	path.erase(path.begin(), path.end());
 }
 
 void Pathfinding::findPath(sf::Vector2i start, sf::Vector2i end)
@@ -91,10 +85,15 @@ tile* Pathfinding::getNextTile()
 	return t;
 }
 
+void Pathfinding::clearPath()
+{
+	path.clear();
+}
+
 void Pathfinding::retracePath(tile* startTile, tile* endTile) {
 	path.clear();
 	tile* currentTile = endTile;
-	sf::Texture* texture = new sf::Texture();
+	sf::Texture* texture = new sf::Texture(); // TODO:: Remove this, only for debugging.
 	texture->loadFromFile("../Textures/tile_ok.png");
 	while (currentTile != startTile) {
 		path.push_back(currentTile);

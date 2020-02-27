@@ -56,9 +56,6 @@ Ray::~Ray()
 void Ray::updateRay(Entity* entity)
 {
 	const float PI = 3.14159f;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		std::cout << "stop" << std::endl;
-	}
 	dir = entity->getRotation();
 	this->line.setLineX1(entity->getPosition().x);
 	this->line.setLineY1(entity->getPosition().y);
