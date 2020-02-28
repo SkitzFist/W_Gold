@@ -18,11 +18,11 @@ SimonState::SimonState(ResourceManager* rm):
 	enemytest = new Enemy*[nrOfEnemies];
 	 
 	for (int i = 0; i < nrOfEnemies; i++) {
-		enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 1, lvl.getGrid());
+		enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 90, lvl.getGrid());
 		enemytest[i]->setPosition((i+1) * 100, 48.f + (sin(i) + 1) * 100);
 		//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));
 	}
-
+	delete[] patrollPos;
 
 	testT = new tile * [nrOfTiles];
 	for (int i = 0; i < nrOfTiles; i++) {
@@ -43,6 +43,7 @@ SimonState::~SimonState()
 		delete enemytest[i];
 	}
 	delete[] enemytest;
+
 }
 
 GameState* SimonState::handleEvent(const sf::Event& event)
@@ -80,12 +81,20 @@ GameState* SimonState::update(DeltaTime delta)
 			std::cout << "shoot an enemy" << std::endl;
 		}
 	}
+
 	for (int i = 0; i < nrOfTiles; i++) {
 		p->getRay(i)->updateRay(p, testT[i]);
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i]->update(delta);
 	}
+	//check to see if enemy see player
+	if (collision.shootCollider(enemytest[0])) {
+		//can see player
+		enemytest[0]->moveSprite(1,0);
+	}
+
+	
 	
 
 	return state;
@@ -94,7 +103,6 @@ GameState* SimonState::update(DeltaTime delta)
 void SimonState::render(sf::RenderWindow& window) const
 {
 	lvl.drawLevel(window);
-	window.draw(*this->p);
 	for (int i = 0; i < nrOfTiles; i++) {
 		if (this->testT[i]->getWannaDraw()) {
 			window.draw(*this->testT[i]->getSprite());
@@ -105,5 +113,5 @@ void SimonState::render(sf::RenderWindow& window) const
 	}
 	
 	window.draw(this->bull);
-	
+	window.draw(*this->p);
 }

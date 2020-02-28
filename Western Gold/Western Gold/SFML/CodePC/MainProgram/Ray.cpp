@@ -6,7 +6,7 @@
 
 void Ray::setRotation(float dir)
 {
-	this->dir = dir;
+	this->dir = dir + this->rotationOffset;
 }
 
 bool Ray::check(float T, float R, float B, float L)
@@ -47,21 +47,34 @@ Ray::Ray(float dir) :
 	line(0, 0, 0, 0)
 {
 	this->dir = 0;
+	this->rotationOffset = 0;
 }
 
 Ray::~Ray()
 {
 }
 
+void Ray::setRotationOffset(float offset, Entity* entity)
+{
+	//for enemies
+	this->rotationOffset = offset;
+	
+}
+
+float Ray::getRotationOffset() const
+{
+	return this->rotationOffset;
+}
+
 void Ray::updateRay(Entity* entity)
 {
 	const float PI = 3.14159f;
-	dir = entity->getRotation();
+	this->dir = entity->getRotation() + rotationOffset;
 	this->line.setLineX1(entity->getPosition().x);
 	this->line.setLineY1(entity->getPosition().y);
 
-	this->line.setLineX2((float)(700 * cos(dir * PI / 180 - 1.57) + line.getLineX1()));
-	this->line.setLineY2((float)(700 * sin(dir * PI / 180 - 1.57) + line.getLineY1()));
+	this->line.setLineX2((float)(200 * cos(dir * PI / 180 - 1.57) + line.getLineX1()));
+	this->line.setLineY2((float)(200 * sin(dir * PI / 180 - 1.57) + line.getLineY1()));
 	this->line.changeLine();
 
 
@@ -77,13 +90,16 @@ void Ray::updateRay(Player* player, tile* Tile)
 	this->line.setLineY2(Tile->getSprite()->getPosition().y);
 
 
-	//calcRotation();
+	calcRotation();
 	this->line.changeLine();
 }
 
 bool Ray::rayHitGameObject(GameObject* gameObj)
 {
 	bool theReturn = false;
+	while (dir < 0) {
+		dir = 360 - dir;
+	}
 	if (dir > 270 && (gameObj->getTop() < this->line.getLineY1())) {
 		theReturn = check(gameObj->getTop(), gameObj->getRight(), gameObj->getBot(), gameObj->getLeft());
 	}

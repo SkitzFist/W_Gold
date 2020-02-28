@@ -32,6 +32,7 @@ void Enemy::update(DeltaTime delta)
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 	}
+	Entity::update(delta);
 	moveSprite(dir, speed);
 	
 }
@@ -62,4 +63,9 @@ Grid* Enemy::getGrid() const
 void Enemy::setDir(sf::Vector2f dir)
 {
 	this->dir = dir;
+}
+
+bool Enemy::seePlayer()
+{
+	return false;
 }

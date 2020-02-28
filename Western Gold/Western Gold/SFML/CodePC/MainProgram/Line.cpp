@@ -26,6 +26,7 @@ void Line::changeLine()
 			sf::Vertex(sf::Vector2f(x1,y1)),
 			sf::Vertex(sf::Vector2f(x2, y2))
 		};
+		
 }
 
 float Line::getLineX1() const

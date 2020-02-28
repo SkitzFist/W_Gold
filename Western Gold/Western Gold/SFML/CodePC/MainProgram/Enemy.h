@@ -22,6 +22,7 @@ public:
 	void setDir(sf::Vector2f dir);
 
 private:
+	bool seePlayer();
 	EnmState* currentState;
 	Pathfinding* pathfinding;
 	sf::Vector2f dir;

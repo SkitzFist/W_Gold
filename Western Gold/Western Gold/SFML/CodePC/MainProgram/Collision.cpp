@@ -161,16 +161,37 @@ bool Collision::tileVisibility() {
 	
 	return theReturn;
 }
-
+//Shoot collider doesnt go trough walls
 bool Collision::shootCollider(Entity* whatEntityShooting)
 {
 	bool theReturn = false;
 	if (dynamic_cast<Enemy*>(whatEntityShooting) != nullptr) 
 	{
-			if (!player->isDead() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
-				player->takeDamage();
-				theReturn = true;
+		bool saw = false;
+		for (int i = 0; i < whatEntityShooting->getNrOfRays() && !saw; i++) {
+			bool over = false;
+			bool neverHitTile = true;
+			if (!player->isDead() && whatEntityShooting->getRays()[i]->rayHitGameObject(player)) {
+				for (int t = 0; t < nrOfTiles && !over; t++) {
+					if (whatEntityShooting->getShootRay()->rayHitTile2(this->tiles[t])) {
+						neverHitTile = false;
+						if (getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >
+							getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
+						{
+						theReturn = true;
+						saw = true;
+						}
+						else {
+							over = true;
+						}
+					}
+				}
+				if (neverHitTile) {
+					theReturn = true;
+					saw = true;
+				}
 			}
+		}
 	}
 	else if (dynamic_cast<Player*>(whatEntityShooting) != nullptr) 
 	{
