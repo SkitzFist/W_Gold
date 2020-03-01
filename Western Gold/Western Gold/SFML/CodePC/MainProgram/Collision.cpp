@@ -4,6 +4,7 @@
 
 void Collision::checkCollision()
 {
+	//tiles
 	for (int i = 0; i < nrOfTiles; i++) {
 		if (tiles[i]->getIsWalkable()) {
 			while (tiles[i]->getSprite()->getGlobalBounds().intersects(player->getBounds())) {
@@ -28,6 +29,31 @@ void Collision::checkCollision()
 			}
 		}
 	}
+
+	//gold
+	for (int i = 0; i < nrOfGold; i++) {
+		if (!gold[i]->take() && gold[i]->getBounds().intersects(player->getBounds())) {
+			if (rightSide(player, gold[i])) {
+				gold[i]->take(true);
+			}
+			else if (leftSide(player, gold[i])) {
+				gold[i]->take(true);
+			}
+			else if (topSide(player, gold[i])) {
+				gold[i]->take(true);
+			}
+			else if (botSide(player, gold[i])) {
+				gold[i]->take(true);
+			}
+			else {
+				std::cout << "error" << std::endl;
+				//debug
+				//MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
+			}
+
+		}
+	}
+	
 }
 //nope
 void Collision::checkCollisionRays(Ray raycast[], int nrOfRays)
@@ -67,9 +93,35 @@ bool Collision::rightSide(GameObject* gameObject, tile* tiles)
 	return theReturn;
 }
 
+bool Collision::rightSide(GameObject* gameObj1, GameObject* gameObj2)
+{
+	bool theReturn = false;
+	//if it kinda on the right side
+	if (gameObj1->getRight() > (gameObj2->getRight())) {
+		//om gameobject är imellan
+		if (gameObj1->getTop() > gameObj2->getTop() && gameObj1->getBot() < (gameObj2->getBot())) {
+			theReturn = true;
+		}
+		//om gameobject är över båda
+		else if (gameObj1->getTop() <= gameObj2->getTop() && gameObj1->getBot() >= (gameObj2->getBot())) {
+			theReturn = true;
+		}
+		else if (gameObj1->getTop() < gameObj2->getTop()) {
+			if (gameObj2->getTop() - gameObj1->getTop() <= gameObj1->getRight() - (gameObj2->getRight())) {
+				theReturn = true;
+			}
+		}
+		else {
+			if (gameObj1->getBot() - (gameObj2->getBot()) <= gameObj1->getRight() - (gameObj2->getRight())) {
+				theReturn = true;
+			}
+		}
+	}
+	return theReturn;
+}
+
 bool Collision::leftSide(GameObject* gameObject, tile* tiles)
 {
-
 	bool theReturn = false;
 	sf::FloatRect cTile = tiles->getSprite()->getGlobalBounds();
 	if (gameObject->getLeft() < cTile.left) {
@@ -88,6 +140,29 @@ bool Collision::leftSide(GameObject* gameObject, tile* tiles)
 				theReturn = true;
 		}
 			
+	}
+	return theReturn;
+}
+
+bool Collision::leftSide(GameObject* gameObj1, GameObject* gameObj2)
+{
+	bool theReturn = false;
+	if (gameObj1->getLeft() < gameObj2->getLeft()) {
+		if (gameObj1->getTop() > gameObj2->getTop() && gameObj1->getBot() < (gameObj2->getBot())) {
+			theReturn = true;
+		}
+		else if (gameObj1->getTop() <= gameObj2->getTop() && gameObj1->getBot() >= (gameObj2->getBot())) {
+			theReturn = true;
+		}
+		else if (gameObj1->getTop() < gameObj2->getTop()) {
+			if (gameObj2->getTop() - gameObj1->getTop() <= gameObj2->getLeft() - gameObj1->getLeft()) {
+				theReturn = true;
+			}
+		}
+		else if (gameObj1->getBot() - (gameObj2->getBot()) <= gameObj2->getLeft() - gameObj1->getLeft()) {
+			theReturn = true;
+		}
+
 	}
 	return theReturn;
 }
@@ -119,6 +194,32 @@ bool Collision::topSide(GameObject* gameObject, tile* tiles)
 	return theReturn;
 }
 
+bool Collision::topSide(GameObject* gameObj1, GameObject* gameObj2)
+{
+	bool theReturn = false;
+	if (gameObj1->getTop() < (gameObj2->getTop())) {
+		//om gameobject är imellan
+		if (gameObj1->getLeft() > gameObj2->getLeft()&& gameObj1->getRight() < (gameObj2->getRight())) {
+			theReturn = true;
+		}
+		//om gameobject är över båda
+		else if (gameObj1->getLeft() <= gameObj2->getLeft() && gameObj1->getRight() >= (gameObj2->getRight())) {
+			theReturn = true;
+		}
+		else if (gameObj1->getLeft() < gameObj2->getLeft()) {
+			if (gameObj2->getLeft() - gameObj1->getLeft() <= (gameObj2->getTop()) - gameObj1->getTop()) {
+				theReturn = true;
+			}
+		}
+		else {
+			if (gameObj1->getRight() - (gameObj2->getRight()) <= (gameObj2->getTop()) - gameObj1->getTop()) {
+				theReturn = true;
+			}
+		}
+	}
+	return theReturn;
+}
+
 bool Collision::botSide(GameObject* gameObject, tile* tiles)
 {
 	bool theReturn = false;
@@ -139,6 +240,32 @@ bool Collision::botSide(GameObject* gameObject, tile* tiles)
 		}
 		else {
 			if (gameObject->getRight() - (cTile.left + cTile.width) <= gameObject->getBot() - (cTile.top + cTile.height)) {
+				theReturn = true;
+			}
+		}
+	}
+	return theReturn;
+}
+
+bool Collision::botSide(GameObject* gameObj1, GameObject* gameObj2)
+{
+	bool theReturn = false;
+	if (gameObj1->getBot() > (gameObj2->getBot())) {
+		//om gameobject är imellan
+		if (gameObj1->getLeft() > gameObj2->getLeft()&& gameObj1->getRight() < (gameObj2->getRight())) {
+			theReturn = true;
+		}
+		//om gameobject är över båda
+		else if (gameObj1->getLeft() <= gameObj2->getLeft() && gameObj1->getRight() >= (gameObj2->getRight())) {
+			theReturn = true;
+		}
+		else if (gameObj1->getLeft() < gameObj2->getLeft()) {
+			if (gameObj2->getLeft() - gameObj1->getLeft() <= gameObj1->getBot() - (gameObj2->getBot())) {
+				theReturn = true;
+			}
+		}
+		else {
+			if (gameObj1->getRight() - (gameObj2->getRight()) <= gameObj1->getBot() - (gameObj2->getBot())) {
 				theReturn = true;
 			}
 		}
@@ -228,15 +355,15 @@ bool Collision::shootCollider(Entity* whatEntityShooting)
 	return theReturn;
 }
 
-
-
 Collision::Collision()
 {
 	tiles = nullptr;
 	player = nullptr;
 	enemies = nullptr;
+	gold = nullptr;
 	this->nrOfEnemies = 0;
 	this->nrOfTiles = 0;
+	this->nrOfGold = 0;
 }
 
 Collision::~Collision()
@@ -272,13 +399,15 @@ bool Collision::enemySeeCollider()
 	return theReturn;
 }
 
-void Collision::setUpCollision(Player* player, tile** tiles, Enemy** enemies, int nrOfTiles, int nrOfEnemies)
+void Collision::setUpCollision(Player* player, tile** tiles, Enemy** enemies, Gold** gold, int nrOfTiles, int nrOfEnemies, int nrOfGold)
 {
 	this->player = player;
 	this->tiles = tiles;
 	this->enemies = enemies;
+	this->gold = gold;
 	this->nrOfEnemies = nrOfEnemies;
 	this->nrOfTiles = nrOfTiles;
+	this->nrOfGold = nrOfGold;
 }
 
 void Collision::update()

@@ -26,6 +26,7 @@ ResourceManager::~ResourceManager()
 	delete gunShot;
 	delete enemy;
 	delete AnimationTest;
+	delete gold;
 }
 
 void ResourceManager::windowSetup(sf::RenderWindow* window)
@@ -60,7 +61,10 @@ void ResourceManager::basicSetup()
 	if (!AnimationTest->loadFromFile("../Textures/animationTest.png")) {
 		cantLoad(L"animationtest");
 	}
-
+	gold = new sf::Texture();
+	if (!gold->loadFromFile("../Textures/Gold.png")) {
+		cantLoad(L"Gold");
+	}
 	gunShot = new sf::SoundBuffer();
 	if (!gunShot->loadFromFile("../Sound/GunShot.wav")) {
 		cantLoad(L"gun sound");
@@ -138,6 +142,11 @@ sf::Texture* ResourceManager::getCharacter()
 sf::Texture* ResourceManager::getBullet()
 {
 	return this->bullet;
+}
+
+sf::Texture* ResourceManager::getGold()
+{
+	return this->gold;
 }
 
 void ResourceManager::cantLoad(LPCWSTR theerror)

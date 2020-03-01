@@ -153,6 +153,12 @@
     <ClCompile Include="PatrollState.cpp">
       <Filter>Source Files\Enemy\Enemy States</Filter>
     </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Gold.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -241,6 +247,12 @@
     </ClInclude>
     <ClInclude Include="EnemyState.h">
       <Filter>Header Files\Enemy\Enemy States</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Gold.h">
+      <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
