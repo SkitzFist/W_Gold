@@ -13,6 +13,7 @@ public:
 private:
 	tile** patrollTiles;
 	size_t patrollTilesLength;
+	int currentIndex;
 
 	tile* currentTile;
 	tile* nextTile;
@@ -23,5 +24,6 @@ private:
 	void calculatePath();
 	bool hasReachedTile(tile* t);
 	sf::Vector2f getDir();
+	tile* getNextTarget();
 };
 

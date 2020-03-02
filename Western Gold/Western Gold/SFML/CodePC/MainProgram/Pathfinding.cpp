@@ -74,6 +74,65 @@ void Pathfinding::findPath(sf::Vector2i start, sf::Vector2i end)
 	closed.clear();
 }
 
+void Pathfinding::findPath(tile* start, tile* end)
+{
+	std::vector<tile*> open;
+	std::vector<tile*> closed;
+
+	tile* startTile = start;
+	tile* endTile = end;
+
+	if (endTile == nullptr) {
+		std::cout << "NULL" << std::endl;
+	}
+
+	open.push_back(startTile);
+
+	while (open.size() > 0)
+	{
+		tile* currentTile = open[0];
+		for (int i = 0; i < open.size(); ++i) {
+			if (open[i]->getTCost() < currentTile->getTCost()
+				|| open[i]->getTCost() == currentTile->getTCost()
+				&& open[i]->getECost() < currentTile->getECost()) {
+				currentTile = open[i];
+			}
+		}
+
+		removeElementFromVector(open, currentTile);
+		closed.push_back(currentTile);
+		if (currentTile == endTile) {
+			retracePath(startTile, endTile);
+			break;
+		}
+
+		std::vector<tile*> surroundingTiles = grid->getSurroundingTiles(currentTile);
+
+
+		for (int i = 0; i < surroundingTiles.size(); ++i) {
+			if (!(surroundingTiles[i]->getIsWalkable())
+				|| isInVector(closed, surroundingTiles[i])) {
+				continue;
+			}
+
+			int newMovementCostToNeighbour = currentTile->getSCost() + getDistance(currentTile, surroundingTiles[i]);
+			if (newMovementCostToNeighbour < surroundingTiles[i]->getSCost()
+				|| !(isInVector(open, surroundingTiles[i]))) {
+				surroundingTiles[i]->setSCost(newMovementCostToNeighbour);
+				surroundingTiles[i]->setECost(getDistance(surroundingTiles[i], endTile));
+				surroundingTiles[i]->setParent(currentTile);
+
+				if (!(isInVector(open, surroundingTiles[i]))) {
+					open.push_back(surroundingTiles[i]);
+				}
+			}
+		}
+		surroundingTiles.clear();
+	}
+	open.clear();
+	closed.clear();
+}
+
 tile* Pathfinding::getNextTile()
 {
 	tile* t = nullptr;
@@ -100,7 +159,6 @@ void Pathfinding::retracePath(tile* startTile, tile* endTile) {
 		currentTile->setSprite(texture);
 		currentTile = currentTile->getParent();
 	}
-	//reverseVector(path);
 }
 
 void Pathfinding::removeElementFromVector(std::vector<tile*>& vec, tile* t)

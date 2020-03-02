@@ -28,7 +28,7 @@ Enemy::~Enemy()
 
 void Enemy::update(DeltaTime delta)
 {
-	float speed = 50.f * static_cast<float>(delta.dt()); //Speed should be in entity
+	float speed = 100.f * static_cast<float>(delta.dt()); //Speed should be in entity
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 	}

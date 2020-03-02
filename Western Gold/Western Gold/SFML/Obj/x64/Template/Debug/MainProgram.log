@@ -1,25 +1,2 @@
-﻿  Bullet.cpp
-  Collision.cpp
-  Enemy.cpp
-  EnmState.cpp
-  Entity.cpp
-  Game.cpp
-  GameObject.cpp
-  GetDistance.cpp
-  Grid.cpp
-  Level.cpp
-  Pathfinding.cpp
-  PatrollState.cpp
-  Player.cpp
-  Ray.cpp
-  SimonState.cpp
-C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(17,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(23,55): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-  tile.cpp
-  Generating Code...
-  JoelState.cpp
-  MainProgram.vcxproj -> C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe
+﻿  Pathfinding.cpp
+  MainProgram.vcxproj -> D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

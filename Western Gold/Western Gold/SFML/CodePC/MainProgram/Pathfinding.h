@@ -8,6 +8,7 @@ public:
 	Pathfinding(Grid* grid);
 	~Pathfinding();
 	void findPath(sf::Vector2i start, sf::Vector2i end);
+	void findPath(tile* start, tile* end);
 	tile* getNextTile();
 
 	void clearPath();

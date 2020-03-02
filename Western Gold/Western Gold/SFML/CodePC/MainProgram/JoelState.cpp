@@ -12,10 +12,7 @@ JoelState::JoelState(ResourceManager* rm):
 	enemy = new Enemy(getRm()->getCharacter(), getRm(), 1, level->getGrid());
 	enemy->setPosition(48.f, 48.f);
 	
-	sf::Vector2i* patrollPos = new sf::Vector2i[2];
-	patrollPos[0] = { 48,48 };
-	patrollPos[1] = {240, 272};
-	enemy->engagePatrolState(patrollPos, static_cast<size_t>(2));
+
 	canStart = false;
 }
 
@@ -43,6 +40,10 @@ GameState* JoelState::handleEvent(const sf::Event& event)
 
 	if (event.type == sf::Event::KeyReleased) {
 		if (event.key.code == sf::Keyboard::Space) {
+			sf::Vector2i* patrollPos = new sf::Vector2i[2];
+			patrollPos[0] = { 48,48 };
+			patrollPos[1] = { 240, 272 };
+			enemy->engagePatrolState(patrollPos, static_cast<size_t>(2));
 			canStart = true;
 		}
 	}
