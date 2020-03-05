@@ -63,3 +63,13 @@ void Enemy::setDir(sf::Vector2f dir)
 {
 	this->dir = dir;
 }
+
+bool Enemy::isShooting()
+{
+	return false;
+}
+
+bool Enemy::seePlayer(bool col, DeltaTime dt)
+{
+	return false;
+}

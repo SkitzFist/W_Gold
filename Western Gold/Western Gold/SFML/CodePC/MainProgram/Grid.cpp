@@ -36,10 +36,10 @@ tile* Grid::getTileFromWorldPos(sf::Vector2i pos)
 	tile* t = nullptr;
 	if (isInsideWorld(pos)) {	
 
-		float posX = pos.x;
-		float posY = pos.y;
-		float worldSizeX = worldSize.x;
-		float worldSizeY = worldSize.y ;
+		float posX = static_cast<float>(pos.x);
+		float posY = static_cast<float>(pos.y);
+		float worldSizeX = static_cast<float>(worldSize.x);
+		float worldSizeY = static_cast<float>(worldSize.y);
 		double percentX = posX / worldSizeX;
 		double percentY = posY / worldSizeY;
 		

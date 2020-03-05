@@ -54,8 +54,8 @@ private:
 	int spriteColumns;
 	int spriteRows;
 public:
-	void setanimation(float timeBetween, int nrofCol, int nrOfRows, int whatRow);
-	void changeTimeBetween(float time);
-	void changeNrOfCol(int col);
-	void changeWhatRow(int row);
+	//void setanimation(float timeBetween, int nrofCol, int nrOfRows, int whatRow);
+	//void changeTimeBetween(float time);
+	//void changeNrOfCol(int col);
+	//void changeWhatRow(int row);
 };

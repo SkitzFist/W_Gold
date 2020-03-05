@@ -10,7 +10,7 @@ Entity::Entity(sf::Texture *tex, ResourceManager *rm, int nrOfRays):
 		this->raycast[i] = new Ray((float)i);
 		//for enemies 
 		if (i > 1) {
-			float k = i - 45;
+			float k = static_cast<float>(i) - 45.f;
 			this->raycast[i]->setRotationOffset(k, this);
 		}
 	}
