@@ -12,7 +12,7 @@ Grid::Grid(ResourceManager* rm, sf::Image*level)
 	gridSize = {level->getSize().x, level->getSize().y};
 	worldSize = {
 		static_cast<int>(tileSize) * gridSize.x,
-		static_cast<int>(tileSize) * gridSize.y
+		static_cast<int>(tileSize) * gridSize.yS
 	};
 
 	tiles = allocateTwoDimensionalArray<tile>(gridSize.y, gridSize.x);
@@ -23,7 +23,7 @@ Grid::Grid(ResourceManager* rm, sf::Image*level)
 
 Grid::~Grid()
 {
-	deallocateTwoDimensionalArray(tiles, gridSize.x);
+	deallocateTwoDimensionalArray(tiles, gridSize.y);
 }
 
 tile** Grid::getTiles() const
@@ -80,7 +80,6 @@ std::vector<tile*> Grid::getSurroundingTiles(tile* t)
 			if (x == y || x == -y) {
 				continue;
 			}
-
 			int checkX = t->getGridPos().x + x;
 			int checkY = t->getGridPos().y + y;
 
@@ -98,8 +97,8 @@ std::vector<tile*> Grid::getSurroundingTiles(tile* t)
 
 void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 {
-	sf::Color whiteTile = { 255,255,255 };
-	sf::Color blackTile = { 0,0,0 };
+	sf::Color walkable = { 255,255,255 };
+	sf::Color notWalkable = { 0,0,0 };
 
 	sf::Vector2f pos = {-tileSize /2 ,-tileSize /2};
 	
@@ -110,14 +109,14 @@ void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 			pos.y += tileSize;
 
 			sf::Color pixelInlevel = level->getPixel(x, y);
-			if (pixelInlevel == whiteTile) {
+			if (pixelInlevel == walkable) {
 				
 				tiles[y][x].setSprite(rm->getTile_White());
 				tiles[y][x].setWorldPos(pos);
 				tiles[y][x].setIsWalkable(true);
 				tiles[y][x].setGridPos(sf::Vector2i(x, y));
 			}
-			else if (pixelInlevel == blackTile) {
+			else if (pixelInlevel == notWalkable) {
 				tiles[y][x].setSprite(rm->getTile_Black());
 				tiles[y][x].setWorldPos(pos);
 				tiles[y][x].setIsWalkable(false);

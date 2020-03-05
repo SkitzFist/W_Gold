@@ -73,3 +73,13 @@ bool Enemy::seePlayer(bool col, DeltaTime dt)
 {
 	return false;
 }
+
+sf::Vector2i* Enemy::getPatrollPoints() const
+{
+	return patrollPoints;
+}
+
+size_t Enemy::getPatrollPointsLength() const
+{
+	return patrollPointsLength;
+}

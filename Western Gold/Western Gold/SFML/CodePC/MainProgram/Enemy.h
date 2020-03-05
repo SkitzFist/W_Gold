@@ -22,6 +22,9 @@ public:
 	void setDir(sf::Vector2f dir);
 	bool isShooting();
 	bool seePlayer(bool col, DeltaTime dt);
+
+	sf::Vector2i* getPatrollPoints() const;
+	size_t getPatrollPointsLength() const;
 private:
 	//shooting
 	float timeToSeePlayer;

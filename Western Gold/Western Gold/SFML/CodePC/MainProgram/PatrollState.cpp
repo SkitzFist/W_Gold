@@ -33,6 +33,7 @@ EnmState* PatrollState::update(DeltaTime time)
 	EnmState* state = this;
 
 	move(time);
+	//Check if player spotted
 
 	return state;
 }
@@ -45,8 +46,6 @@ void PatrollState::move(DeltaTime time)
 		nextTile = getEnm()->getPathfinding()->getNextTile();
 		dir = getDir();
 		getEnm()->setDir(dir);
-	
-
 	}
 	if (hasReachedTile(targetTile)) {
 		dir = { 0.f,0.f };
