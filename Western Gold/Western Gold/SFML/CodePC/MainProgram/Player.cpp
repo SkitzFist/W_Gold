@@ -32,9 +32,7 @@ void Player::move(DeltaTime time)
 	}
 }
 
-void Player::updateRays(int nrOfTiles)
-{
-}
+
 
 bool Player::shoot()
 {
@@ -122,7 +120,6 @@ void Player::update(DeltaTime time)
 {
 	move(time);
 	rotation();
-	//this->updateRays();
 	animator.updateAnimator(time);
 	Entity::update(time);
 }
