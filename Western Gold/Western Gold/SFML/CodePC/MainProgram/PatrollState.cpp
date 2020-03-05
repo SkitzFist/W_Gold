@@ -49,7 +49,6 @@ void PatrollState::move(DeltaTime time)
 
 	}
 	if (hasReachedTile(targetTile)) {
-		std::cout << "Target Reached" << std::endl;
 		dir = { 0.f,0.f };
 		getEnm()->setDir(dir);
 		getEnm()->getPathfinding()->clearPath();
@@ -121,7 +120,6 @@ sf::Vector2f PatrollState::getDir()
 tile* PatrollState::getNextTarget()
 {
 	currentIndex = (currentIndex + 1) % static_cast<int>(patrollTilesLength);
-	std::cout << currentIndex << std::endl;
 	tile* nextTarget = patrollTiles[currentIndex];
 	return nextTarget;
 }

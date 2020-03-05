@@ -1,22 +1,2 @@
-﻿  Grid.cpp
-C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Grid.cpp(39,14): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=int
-          ]
-C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Grid.cpp(40,14): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=int
-          ]
-C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Grid.cpp(41,20): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Grid.cpp(42,20): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
+﻿  JoelState.cpp
   MainProgram.vcxproj -> C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe
