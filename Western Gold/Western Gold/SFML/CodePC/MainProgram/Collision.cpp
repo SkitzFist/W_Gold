@@ -289,33 +289,67 @@ bool Collision::tileVisibility() {
 	return theReturn;
 }
 //Shoot collider doesnt go trough walls
-bool Collision::shootCollider(Entity* whatEntityShooting)
+bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 {
 	bool theReturn = false;
-	if (dynamic_cast<Enemy*>(whatEntityShooting) != nullptr) 
+	
+	Enemy* enemy = dynamic_cast<Enemy*>(whatEntityShooting);
+	if (enemy != nullptr) 
 	{
+		bool over = false;
+		bool neverHitTile = true;
 		bool saw = false;
-		for (int i = 0; i < whatEntityShooting->getNrOfRays() && !saw; i++) {
-			bool over = false;
-			bool neverHitTile = true;
-			if (!player->isDead() && whatEntityShooting->getRays()[i]->rayHitGameObject(player)) {
-				for (int t = 0; t < nrOfTiles && !over; t++) {
-					if (whatEntityShooting->getShootRay()->rayHitTile2(this->tiles[t])) {
-						neverHitTile = false;
-						if (getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >
-							getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
+		if(!eShoot){
+			for (int i = 0; i < whatEntityShooting->getNrOfRays() && !saw; i++) {
+
+				//see
+				if (!player->isDead() && whatEntityShooting->getRays()[i]->rayHitGameObject(player))
+				{
+					for (int t = 0; t < nrOfTiles && !over; t++)
+					{
+						if (whatEntityShooting->getShootRay()->rayHitTile2(this->tiles[t]))
 						{
-						theReturn = true;
-						saw = true;
-						}
-						else {
-							over = true;
+							neverHitTile = false;
+							if (getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >
+								getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
+							{
+								theReturn = true;
+								saw = true;
+							}
+							else {
+								over = true;
+							}
 						}
 					}
+					if (neverHitTile) {
+						theReturn = true;
+						saw = true;
+					}
 				}
-				if (neverHitTile) {
-					theReturn = true;
-					saw = true;
+				//shoot
+			}
+			if (eShoot) {
+				if (!player->isDead() && enemy->isShooting() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
+					for (int t = 0; t < nrOfTiles && !over; t++) {
+						if (whatEntityShooting->getShootRay()->rayHitTile2(this->tiles[t])) {
+							neverHitTile = false;
+							if (getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >
+								getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
+							{
+								theReturn = true;
+								saw = true;
+								player->takeDamage();
+							}
+							else {
+								over = true;
+							}
+						}
+					}
+					if (neverHitTile) {
+						theReturn = true;
+						player->takeDamage();
+						saw = true;
+					}
 				}
 			}
 		}

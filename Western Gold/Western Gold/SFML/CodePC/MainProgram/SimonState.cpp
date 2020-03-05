@@ -11,7 +11,6 @@ SimonState::SimonState(ResourceManager* rm):
 	nrOfTiles = 8;
 	nrOfEnemies = 5;
 	nrOfGold = 3;
-
 	//objects initialize
 	p = new Player(rm->getAnimationTest(), rm, nrOfTiles, testT);
 	gold = new Gold * [nrOfGold];
@@ -104,10 +103,12 @@ GameState* SimonState::update(DeltaTime delta)
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i]->update(delta);
 	}
+
 	for(int i = 0; i < nrOfEnemies; i++){/*add what is under here*/ }
-	if (collision.shootCollider(enemytest[0])) {
-		//can see player
-		enemytest[0]->moveSprite(1, 1);
+	if (enemytest[0]->seePlayer(collision.shootCollider(enemytest[0]), delta)) {
+		if (enemytest[0]->isShooting()) {
+			enemytest[0]->seePlayer(collision.shootCollider(enemytest[0]), delta);
+		}
 	}
 
 	//gold

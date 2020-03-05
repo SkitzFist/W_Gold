@@ -1,2 +1,8 @@
-﻿  SimonState.cpp
+﻿  Collision.cpp
+  Enemy.cpp
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Enemy.cpp(38,32): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Enemy.cpp(101,34): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  Game.cpp
+  SimonState.cpp
+  Generating Code...
   MainProgram.vcxproj -> C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

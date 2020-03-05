@@ -20,9 +20,16 @@ public:
 	Grid* getGrid() const;
 
 	void setDir(sf::Vector2f dir);
-
+	bool isShooting();
+	bool seePlayer(bool col, DeltaTime dt);
 private:
-	bool seePlayer();
+	//shooting
+	float timeToSeePlayer;
+	float timeToShootPlayerSee;
+	float timeToNextShoot;
+	float timeBeetweenShoots;
+	bool shooting;
+
 	EnmState* currentState;
 	Pathfinding* pathfinding;
 	sf::Vector2f dir;

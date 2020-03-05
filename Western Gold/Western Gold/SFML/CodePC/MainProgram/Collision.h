@@ -35,7 +35,7 @@ public:
 	Collision();
 	virtual ~Collision();
 	bool enemySeeCollider();
-	bool shootCollider(Entity* whatEntityShooting);
+	bool shootCollider(Entity* whatEntityShooting, bool eShoot = false);
 	void setUpCollision(Player* player, tile** tiles = nullptr, Enemy** enemies = nullptr, Gold** gold = nullptr, int nrOfTiles = 0, int nrOfEnemies = 0, int nrOfGold = 0);
 	void update();
 };
