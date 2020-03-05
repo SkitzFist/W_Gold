@@ -208,7 +208,6 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DeltaTime.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyState.h" />
     <ClInclude Include="EnmState.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
