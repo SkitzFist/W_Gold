@@ -299,7 +299,7 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		bool over = false;
 		bool neverHitTile = true;
 		bool saw = false;
-		if(!eShoot){
+		if (!eShoot) {
 			for (int i = 0; i < whatEntityShooting->getNrOfRays() && !saw; i++) {
 
 				//see
@@ -326,30 +326,35 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 						saw = true;
 					}
 				}
-				//shoot
+				
 			}
-			if (eShoot) {
-				if (!player->isDead() && enemy->isShooting() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
-					for (int t = 0; t < nrOfTiles && !over; t++) {
-						if (whatEntityShooting->getShootRay()->rayHitTile2(this->tiles[t])) {
-							neverHitTile = false;
-							if (getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >
-								getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
-							{
-								theReturn = true;
-								saw = true;
-								player->takeDamage();
-							}
-							else {
-								over = true;
-							}
+		}
+		//shoot
+		if (eShoot) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+				std::cout << "stop" << std::endl;
+			}
+			if (!player->isDead() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
+				for (int t = 0; t < nrOfTiles && !over; t++) {
+					if (whatEntityShooting->getShootRay()->rayHitTile2(this->tiles[t])) {
+						neverHitTile = false;
+						if (getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >
+							getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
+						{
+							theReturn = true;
+							saw = true;
+							std::cout << "player take damage" << std::endl;
+							player->takeDamage();
+						}
+						else {
+							over = true;
 						}
 					}
-					if (neverHitTile) {
-						theReturn = true;
-						player->takeDamage();
-						saw = true;
-					}
+				}
+				if (neverHitTile) {
+					theReturn = true;
+					player->takeDamage();
+					saw = true;
 				}
 			}
 		}

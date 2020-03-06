@@ -10,7 +10,7 @@ Entity::Entity(sf::Texture *tex, ResourceManager *rm, int nrOfRays):
 		this->raycast[i] = new Ray((float)i);
 		//for enemies 
 		if (i > 1) {
-			float k = i - 45;
+			float k = static_cast<float>(i) - 45.f;
 			this->raycast[i]->setRotationOffset(k, this);
 		}
 	}
@@ -55,10 +55,12 @@ bool Entity::isDead() const
 
 void Entity::update(DeltaTime& time)
 {
-	for (int i = 0; i < nrOfRays; i++) {
-		raycast[i]->updateRay(this);
+	if (!isDead()) {
+		for (int i = 0; i < nrOfRays; i++) {
+			raycast[i]->updateRay(this);
+		}
+		ShootRay->updateRay(this);
 	}
-	ShootRay->updateRay(this);
 }
 
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const

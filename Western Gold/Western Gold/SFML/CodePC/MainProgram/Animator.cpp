@@ -26,7 +26,7 @@ void Animator::setAnimation(sf::Sprite* sprite, float timeBetween, int nrOfCol, 
 void Animator::updateAnimator(DeltaTime time)
 {
 	if (nrOfCol > 1) {
-		timeToNextFrame += time.dt();
+		timeToNextFrame += static_cast<float>(time.dt());
 		while (timeToNextFrame >= timeBetween) {
 			timeToNextFrame -= timeBetween;
 			//animate

@@ -34,26 +34,29 @@ Enemy::~Enemy()
 
 void Enemy::update(DeltaTime delta)
 {
-	if (!(timeToNextShoot <= 0)) {
-		timeToNextShoot -= delta.dt();
-	}
+	if (!isDead()) {
+		if (!(timeToNextShoot <= 0)) {
+			timeToNextShoot -= delta.dt();
+		}
 
-	float speed = 50.f * static_cast<float>(delta.dt()); //Speed should be in entity
-	if (currentState != nullptr) {
-		currentState = currentState->update(delta);
+		float speed = 100.f * static_cast<float>(delta.dt()); //Speed should be in entity
+		if (currentState != nullptr) {
+			currentState = currentState->update(delta);
+		}
+		Entity::update(delta);
+		moveSprite(dir, speed);
 	}
-	Entity::update(delta);
-	moveSprite(dir, speed);
-	
 }
 
 bool Enemy::shoot()
 {
-	if (timeToNextShoot <= 0) {
-		shooting = true;
-		timeToNextShoot = timeBeetweenShoots;
+	if (!isDead()) {
+		if (timeToNextShoot <= 0) {
+			shooting = true;
+			timeToNextShoot = timeBeetweenShoots;
+		}
+		return shooting;
 	}
-	return shooting;
 }
 
 Pathfinding* Enemy::getPathfinding() const
@@ -81,11 +84,15 @@ void Enemy::setDir(sf::Vector2f dir)
 
 bool Enemy::isShooting()
 {
-	//std::cout << timeToNextShoot << std::endl;
-	if (timeToNextShoot <= 0) {
-		shooting = true;
-		timeToNextShoot = timeBeetweenShoots;
-		this->sound.PlaySounds(getRm()->getGunShot());
+	if (!isDead()) {
+		if (timeToNextShoot <= 0) {
+			this->shooting = true;
+			timeToNextShoot = timeBeetweenShoots;
+			this->sound.PlaySounds(getRm()->getGunShot());
+		}
+		else {
+			this->shooting = false;
+		}
 	}
 	else {
 		shooting = false;
@@ -96,15 +103,20 @@ bool Enemy::isShooting()
 bool Enemy::seePlayer(bool col, DeltaTime dt)
 {
 	bool theReturn = false;
-	if (col) {
-		//enemy ses player
-		timeToShootPlayerSee += dt.dt();
-		if (timeToShootPlayerSee >= timeToSeePlayer) {
-			theReturn = true;
+	if (!isDead()) {
+		if (col) {
+			//enemy ses player
+			timeToShootPlayerSee += dt.dt();
+			if (timeToShootPlayerSee >= timeToSeePlayer) {
+				theReturn = true;
+			}
+		}
+		else {
+			timeToShootPlayerSee = 0;
 		}
 	}
 	else {
-		timeToShootPlayerSee = 0;
+		theReturn = false;
 	}
 	return theReturn;
 }

@@ -7,15 +7,12 @@
 JoelState::JoelState(ResourceManager* rm):
 	GameState(rm)
 {
-	level = new Level(rm, rm->getLevel_Test());
+	level = new Level(rm, rm->getLevel_Test02());
 
 	enemy = new Enemy(getRm()->getCharacter(), getRm(), 1, level->getGrid());
 	enemy->setPosition(48.f, 48.f);
 	
-	sf::Vector2i* patrollPos = new sf::Vector2i[2];
-	patrollPos[0] = { 48,48 };
-	patrollPos[1] = {240, 272};
-	enemy->engagePatrolState(patrollPos, static_cast<size_t>(2));
+
 	canStart = false;
 }
 
@@ -30,11 +27,7 @@ GameState* JoelState::handleEvent(const sf::Event& event)
 	GameState* state = this;
 
 	if (event.type == sf::Event::MouseButtonPressed) {
-		if (event.mouseButton.button == sf::Mouse::Button::Left) {
-			sf::Vector2i mousePos = sf::Mouse::getPosition(*getRm()->getWindow());
-			enemy->getPathfinding()->findPath(static_cast<sf::Vector2i>(enemy->getPosition()), mousePos);
-		}
-		else if (event.mouseButton.button == sf::Mouse::Button::Right) {
+		if (event.mouseButton.button == sf::Mouse::Button::Right) {
 			sf::Vector2i mousePos = sf::Mouse::getPosition(*getRm()->getWindow());
 			sf::Vector2i pos = level->getGrid()->getTileFromWorldPos(mousePos)->getWorldPos();
 			std::cout << pos.x << "." << pos.y << std::endl;
@@ -43,6 +36,11 @@ GameState* JoelState::handleEvent(const sf::Event& event)
 
 	if (event.type == sf::Event::KeyReleased) {
 		if (event.key.code == sf::Keyboard::Space) {
+			sf::Vector2i* patrollPos = new sf::Vector2i[3];
+			patrollPos[0] = { 48,48 };
+			patrollPos[1] = { 80, 208 };
+			patrollPos[2] = { 464, 592 };
+			enemy->engagePatrolState(patrollPos, static_cast<size_t>(3));
 			canStart = true;
 		}
 	}
