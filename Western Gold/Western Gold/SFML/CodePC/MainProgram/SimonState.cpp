@@ -98,7 +98,6 @@ GameState* SimonState::update(DeltaTime delta)
 		}
 	}
 	bull.update(delta);
-	
 	//enemy
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i]->update(delta);
@@ -107,7 +106,7 @@ GameState* SimonState::update(DeltaTime delta)
 	for(int i = 0; i < nrOfEnemies; i++){/*add what is under here*/ }
 	if (enemytest[0]->seePlayer(collision.shootCollider(enemytest[0]), delta)) {
 		if (enemytest[0]->isShooting()) {
-			enemytest[0]->seePlayer(collision.shootCollider(enemytest[0]), delta);
+			enemytest[0]->seePlayer(collision.shootCollider(enemytest[0], true), delta);
 		}
 	}
 

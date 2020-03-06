@@ -55,10 +55,12 @@ bool Entity::isDead() const
 
 void Entity::update(DeltaTime& time)
 {
-	for (int i = 0; i < nrOfRays; i++) {
-		raycast[i]->updateRay(this);
+	if (!isDead()) {
+		for (int i = 0; i < nrOfRays; i++) {
+			raycast[i]->updateRay(this);
+		}
+		ShootRay->updateRay(this);
 	}
-	ShootRay->updateRay(this);
 }
 
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -10,6 +10,12 @@ Entity(tex, rm, nrOfRays)
 	//config
 
 	//setup
+	shooting = false;
+	this->timeToSeePlayer = 0.5f;
+	this->timeBeetweenShoots = 1.5f;
+	this->timeToNextShoot = 0.f;
+	this->timeToShootPlayerSee = 0.f;
+
 	pathfinding = new Pathfinding(grid);
 	currentState = nullptr;
 	patrollPoints = nullptr;
@@ -28,17 +34,29 @@ Enemy::~Enemy()
 
 void Enemy::update(DeltaTime delta)
 {
-	float speed = 100.f * static_cast<float>(delta.dt()); //Speed should be in entity
-	if (currentState != nullptr) {
-		currentState = currentState->update(delta);
+	if (!isDead()) {
+		if (!(timeToNextShoot <= 0)) {
+			timeToNextShoot -= delta.dt();
+		}
+
+		float speed = 100.f * static_cast<float>(delta.dt()); //Speed should be in entity
+		if (currentState != nullptr) {
+			currentState = currentState->update(delta);
+		}
+		Entity::update(delta);
+		moveSprite(dir, speed);
 	}
-	moveSprite(dir, speed);
-	
 }
 
 bool Enemy::shoot()
 {
-	return false;
+	if (!isDead()) {
+		if (timeToNextShoot <= 0) {
+			shooting = true;
+			timeToNextShoot = timeBeetweenShoots;
+		}
+		return shooting;
+	}
 }
 
 Pathfinding* Enemy::getPathfinding() const
@@ -66,10 +84,39 @@ void Enemy::setDir(sf::Vector2f dir)
 
 bool Enemy::isShooting()
 {
-	return false;
+	if (!isDead()) {
+		if (timeToNextShoot <= 0) {
+			this->shooting = true;
+			timeToNextShoot = timeBeetweenShoots;
+			this->sound.PlaySounds(getRm()->getGunShot());
+		}
+		else {
+			this->shooting = false;
+		}
+	}
+	else {
+		shooting = false;
+	}
+	return shooting;
 }
 
 bool Enemy::seePlayer(bool col, DeltaTime dt)
 {
-	return false;
+	bool theReturn = false;
+	if (!isDead()) {
+		if (col) {
+			//enemy ses player
+			timeToShootPlayerSee += dt.dt();
+			if (timeToShootPlayerSee >= timeToSeePlayer) {
+				theReturn = true;
+			}
+		}
+		else {
+			timeToShootPlayerSee = 0;
+		}
+	}
+	else {
+		theReturn = false;
+	}
+	return theReturn;
 }
