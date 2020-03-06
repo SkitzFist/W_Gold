@@ -28,7 +28,7 @@ Enemy::~Enemy()
 
 void Enemy::update(DeltaTime delta)
 {
-	float speed = 100.f * static_cast<float>(delta.dt()); //Speed should be in entity
+	float speed = 100.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 	}
@@ -72,6 +72,18 @@ bool Enemy::isShooting()
 bool Enemy::seePlayer(bool col, DeltaTime dt)
 {
 	return false;
+}
+
+bool Enemy::isPlayerInSight()
+{
+	//TODO send a ray and check if it's a hit
+	return false;
+}
+
+Player* Enemy::getPlayer()
+{
+	//TODO Get player from ray?
+	return nullptr;
 }
 
 sf::Vector2i* Enemy::getPatrollPoints() const

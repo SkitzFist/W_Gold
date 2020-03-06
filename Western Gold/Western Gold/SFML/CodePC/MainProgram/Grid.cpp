@@ -12,7 +12,7 @@ Grid::Grid(ResourceManager* rm, sf::Image*level)
 	gridSize = {level->getSize().x, level->getSize().y};
 	worldSize = {
 		static_cast<int>(tileSize) * gridSize.x,
-		static_cast<int>(tileSize) * gridSize.yS
+		static_cast<int>(tileSize) * gridSize.y
 	};
 
 	tiles = allocateTwoDimensionalArray<tile>(gridSize.y, gridSize.x);

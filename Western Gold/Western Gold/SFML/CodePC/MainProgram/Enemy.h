@@ -19,9 +19,14 @@ public:
 	void engagePatrolState(sf::Vector2i points[], size_t length);
 	Grid* getGrid() const;
 
+	//Simons
 	void setDir(sf::Vector2f dir);
 	bool isShooting();
 	bool seePlayer(bool col, DeltaTime dt);
+	//Simons
+
+	bool isPlayerInSight();
+	Player* getPlayer();
 
 	sf::Vector2i* getPatrollPoints() const;
 	size_t getPatrollPointsLength() const;

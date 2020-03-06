@@ -1,5 +1,6 @@
 #include "PatrollState.h"
 #include "Enemy.h"
+#include "AttackState.h"
 
 //debug
 #include <iostream>
@@ -15,10 +16,7 @@ PatrollState::PatrollState(Enemy* enm, sf::Vector2i* patrollPoints, size_t patro
 	targetTile = nullptr;
 	currentTile = enm->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(getEnm()->getPosition()));
 	patrollTilesLength = patrollPointsLength;
-
-
 	setupPatrollTiles(patrollPoints);
-
 
 	//debug
 }
@@ -33,7 +31,11 @@ EnmState* PatrollState::update(DeltaTime time)
 	EnmState* state = this;
 
 	move(time);
-	//Check if player spotted
+
+	if (getEnm()->isPlayerInSight()) {
+		state = new AttackState(getEnm(), getEnm->getPlayer());
+		delete this;
+	}
 
 	return state;
 }
