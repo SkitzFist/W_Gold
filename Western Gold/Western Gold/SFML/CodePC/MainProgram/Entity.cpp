@@ -1,5 +1,6 @@
 #include "Entity.h"
-
+#include "Enemy.h"
+#include <iostream>
 Entity::Entity(sf::Texture *tex, ResourceManager *rm, int nrOfRays):
 	GameObject(tex, rm)
 {
@@ -7,6 +8,11 @@ Entity::Entity(sf::Texture *tex, ResourceManager *rm, int nrOfRays):
 	this->raycast = new Ray * [nrOfRays];
 	for(int i = 0; i < nrOfRays; i++){
 		this->raycast[i] = new Ray((float)i);
+		//for enemies 
+		if (i > 1) {
+			float k = static_cast<float>(i) - 45.f;
+			this->raycast[i]->setRotationOffset(k, this);
+		}
 	}
 	this->ShootRay = new Ray(this->getRotation());
 	this->nrOfRays = nrOfRays;
@@ -57,10 +63,11 @@ void Entity::update(DeltaTime& time)
 
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	for (int i = 0; i < nrOfRays; i++) {
-		target.draw(*raycast[i]);
-	}
+	
 	if (!isDead()) {
 		GameObject::draw(target, states);
+		for (int i = 0; i < nrOfRays; i++) {
+			target.draw(*raycast[i]);
+		}
 	}
 }

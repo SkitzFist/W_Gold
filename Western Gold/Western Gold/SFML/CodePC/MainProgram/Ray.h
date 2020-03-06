@@ -13,12 +13,15 @@ class Ray : public sf::Drawable{
 private:
 	float dir;
 	Line line;
+	float rotationOffset;
 	void setRotation(float dir);
 	bool check(float T, float R, float B, float L);
 	void calcRotation();
 public:
 	Ray(float dir = NULL);
 	virtual ~Ray();
+	void setRotationOffset(float offset, Entity* entity = nullptr);
+	float getRotationOffset()const;
 	void updateRay(Entity* entity);
 	void updateRay(Player *player, tile *Tile);
 	bool rayHitGameObject(GameObject* gameObj);

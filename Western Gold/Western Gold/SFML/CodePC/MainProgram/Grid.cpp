@@ -15,7 +15,7 @@ Grid::Grid(ResourceManager* rm, sf::Image*level)
 		static_cast<int>(tileSize) * gridSize.y
 	};
 
-	tiles = allocateTwoDimensionalArray<tile>(gridSize.x, gridSize.x);
+	tiles = allocateTwoDimensionalArray<tile>(gridSize.y, gridSize.x);
 	initGrid(rm,level);
 	//Debug
 	
@@ -36,10 +36,10 @@ tile* Grid::getTileFromWorldPos(sf::Vector2i pos)
 	tile* t = nullptr;
 	if (isInsideWorld(pos)) {	
 
-		float posX = pos.x * 10.f;
-		float posY = pos.y * 10.f;
-		float worldSizeX = worldSize.x * 10.f;
-		float worldSizeY = worldSize.x * 10.f;
+		float posX = static_cast<float>(pos.x);
+		float posY = static_cast<float>(pos.y);
+		float worldSizeX = static_cast<float>(worldSize.x);
+		float worldSizeY = static_cast<float>(worldSize.y);
 		double percentX = posX / worldSizeX;
 		double percentY = posY / worldSizeY;
 		
@@ -64,7 +64,7 @@ sf::Vector2u Grid::getGridSize() const
 void Grid::renderGrid(sf::RenderWindow& window) const
 {
 	for (unsigned int x = 0; x < gridSize.x; ++x) {
-		for (unsigned int y = 0; y < gridSize.x; ++y) {
+		for (unsigned int y = 0; y < gridSize.y; ++y) {
 
 			window.draw(*tiles[y][x].getSprite());
 		}
@@ -125,6 +125,20 @@ void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 			}
 		}
 	}
+	/*
+	about what we should do later
+	arr1[][];
+	arr2[][];
+	for(int x = 0; x < nrArr1x; x++){
+	for(int y = 0; y < nrArr1y; y++){
+		tiles[x][y].getSprite(arr[x][y])//in some kind of way
+		tiles[x][y].setWoldPos(gridSize.x*x, gridSize.y*y)//pos can be set up over this
+		tiles[x][y].setIsWalkable(false);
+		tiles[x][y].setGridPos(x,y);
+	}
+	}
+	//and then the same for arr2 but tiles[x][y].setIsWalkable(true);
+	*/
 }
 
 bool Grid::isInsideWorld(sf::Vector2i pos)

@@ -10,10 +10,13 @@ PatrollState::PatrollState(Enemy* enm, sf::Vector2i* patrollPoints, size_t patro
 	//config
 
 	//setup
+	currentIndex = 0;
 	nextTile = nullptr;
 	targetTile = nullptr;
 	currentTile = enm->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(getEnm()->getPosition()));
 	patrollTilesLength = patrollPointsLength;
+
+
 	setupPatrollTiles(patrollPoints);
 
 
@@ -42,15 +45,18 @@ void PatrollState::move(DeltaTime time)
 		nextTile = getEnm()->getPathfinding()->getNextTile();
 		dir = getDir();
 		getEnm()->setDir(dir);
+	
+
 	}
 	if (hasReachedTile(targetTile)) {
-		std::cout << "Target Reached" << std::endl;
 		dir = { 0.f,0.f };
 		getEnm()->setDir(dir);
-		//update targetTile
+		getEnm()->getPathfinding()->clearPath();
+		targetTile = getNextTarget();
+		getEnm()->getPathfinding()->findPath(currentTile, targetTile);
+
 	}
 	if (hasReachedTile(nextTile)) {
-		std::cout << "next" << std::endl;
 		nextTile = getEnm()->getPathfinding()->getNextTile();
 		dir = getDir();
 		getEnm()->setDir(dir);
@@ -66,6 +72,7 @@ void PatrollState::setupPatrollTiles(sf::Vector2i* patrollPoints)
 	}
 
 	//debug:
+	currentIndex = 1;
 	targetTile = patrollTiles[1];
 	calculatePath();
 }
@@ -108,4 +115,11 @@ sf::Vector2f PatrollState::getDir()
 		dist.y / magnitude
 	};
 	return dir;
+}
+
+tile* PatrollState::getNextTarget()
+{
+	currentIndex = (currentIndex + 1) % static_cast<int>(patrollTilesLength);
+	tile* nextTarget = patrollTiles[currentIndex];
+	return nextTarget;
 }

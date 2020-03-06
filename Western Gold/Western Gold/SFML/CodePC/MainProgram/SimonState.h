@@ -6,6 +6,7 @@
 #include "Line.h"
 #include "Bullet.h"
 #include "Level.h"
+#include "Gold.h"
 
 class SimonState : public GameState
 {
@@ -18,12 +19,16 @@ public:
 	virtual void render(sf::RenderWindow& window) const override;
 	
 private:
-	int nrOfEnemies;
+	//objects
 	Enemy** enemytest;
 	Player *p;
-	int nrOfTiles;
 	tile** testT;
+	Gold** gold;
 	Bullet bull;
+	//nr of objects
+	int nrOfTiles;
+	int nrOfEnemies;
+	int nrOfGold;
 
 	Level lvl;
 	Collision collision;

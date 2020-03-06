@@ -16,7 +16,6 @@ private:
 	void rotation();
 	float speed;
 	sf::RenderWindow* window;
-	void updateRays(int nrOfTiles = -1);
 public:
 	bool shoot();
 	bool tossBullet();

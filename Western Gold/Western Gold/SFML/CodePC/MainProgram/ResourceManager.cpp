@@ -22,10 +22,12 @@ ResourceManager::~ResourceManager()
 	delete tile_white;
 	delete tile_ok;
 	delete level_test;
+	delete level_test02;
 	delete bullet;
 	delete gunShot;
 	delete enemy;
 	delete AnimationTest;
+	delete gold;
 }
 
 void ResourceManager::windowSetup(sf::RenderWindow* window)
@@ -60,7 +62,10 @@ void ResourceManager::basicSetup()
 	if (!AnimationTest->loadFromFile("../Textures/animationTest.png")) {
 		cantLoad(L"animationtest");
 	}
-
+	gold = new sf::Texture();
+	if (!gold->loadFromFile("../Textures/Gold.png")) {
+		cantLoad(L"Gold");
+	}
 	gunShot = new sf::SoundBuffer();
 	if (!gunShot->loadFromFile("../Sound/GunShot.wav")) {
 		cantLoad(L"gun sound");
@@ -110,6 +115,11 @@ sf::Image* ResourceManager::getLevel_Test()
 	return level_test;
 }
 
+sf::Image* ResourceManager::getLevel_Test02()
+{
+	return level_test02;
+}
+
 sf::SoundBuffer* ResourceManager::getGunShot()
 {
 	return this->gunShot;
@@ -140,6 +150,11 @@ sf::Texture* ResourceManager::getBullet()
 	return this->bullet;
 }
 
+sf::Texture* ResourceManager::getGold()
+{
+	return this->gold;
+}
+
 void ResourceManager::cantLoad(LPCWSTR theerror)
 {
 	MessageBox(nullptr, theerror, L"ERROR", MB_ICONWARNING | MB_OK);
@@ -162,6 +177,10 @@ void ResourceManager::debugSetup()
 	level_test = new sf::Image();
 	if (!level_test->loadFromFile("../Levels/level_test.png")) {
 		cantLoad(L"level_test.png");
+	}
+	level_test02 = new sf::Image();
+	if (!level_test02->loadFromFile("../Levels/level_test02.png")) {
+		cantLoad(L"level_test02.png");
 	}
 
 }

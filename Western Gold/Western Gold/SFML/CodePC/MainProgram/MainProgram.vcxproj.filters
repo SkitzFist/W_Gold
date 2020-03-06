@@ -153,6 +153,9 @@
     <ClCompile Include="PatrollState.cpp">
       <Filter>Source Files\Enemy\Enemy States</Filter>
     </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -233,13 +236,13 @@
     <ClInclude Include="PauseState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EnmState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PatrollState.h">
       <Filter>Header Files\Enemy\Enemy States</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyState.h">
+    <ClInclude Include="Animator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnmState.h">
       <Filter>Header Files\Enemy\Enemy States</Filter>
     </ClInclude>
   </ItemGroup>

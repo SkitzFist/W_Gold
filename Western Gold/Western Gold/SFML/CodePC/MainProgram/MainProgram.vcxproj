@@ -181,6 +181,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GetDistance.cpp" />
+    <ClCompile Include="Gold.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="JoelState.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -208,13 +209,13 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DeltaTime.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyState.h" />
     <ClInclude Include="EnmState.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GetDistance.h" />
+    <ClInclude Include="Gold.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="JoelState.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
