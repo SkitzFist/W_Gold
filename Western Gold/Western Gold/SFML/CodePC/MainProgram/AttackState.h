@@ -18,8 +18,12 @@ private:
 
 	void shoot();
 	bool canShoot();
-	float getDistance();
+	float getDistance(sf::Vector2f a, sf::Vector2f b);
 	sf::Vector2f getDir();
 
+	void move(DeltaTime time);
+	tile* targetTile;
+	tile* currentTile;
+	tile* nextTile;
 };
 

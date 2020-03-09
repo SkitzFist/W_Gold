@@ -9,6 +9,9 @@ AttackState::AttackState(Enemy* enemy, Player* player):
 	shootDistance = 20.f; //prob needs a lot of tweaking
 	timesBetweenShots = 1.5f; //prob needs a lot of tweaking
 	//setup
+	targetTile = nullptr;
+	nextTile = nullptr;
+	currentTile = enemy->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(enemy->getPosition()));
 	this->player = player;
 	shootingTimer = timesBetweenShots;
 
@@ -41,19 +44,18 @@ void AttackState::shoot()
 bool AttackState::canShoot()
 {
 	bool rv = false;
-	if (getDistance() < shootDistance
+	if (getDistance(getEnm()->getPosition(), player->getPosition()) < shootDistance
 		&& getEnm()->isPlayerInSight()
 		&& shootingTimer <= 0) {
 		rv = true;
-	
 	}
 	return rv;
 }
 
-float AttackState::getDistance()
+float AttackState::getDistance(sf::Vector2f a, sf::Vector2f b)
 {
-	float xDist = (player->getPosition().x - getEnm()->getPosition().x);
-	float yDist = (player->getPosition().y - getEnm()->getPosition().y);
+	float xDist = (b.x - a.x);
+	float yDist = (b.y - a.y);
 	float dist = abs(sqrt((xDist * xDist) + (yDist * yDist)));
 	return dist;
 }
@@ -70,4 +72,9 @@ sf::Vector2f AttackState::getDir()
 	};
 
 	return dir;
+}
+
+void AttackState::move(DeltaTime time)
+{
+
 }

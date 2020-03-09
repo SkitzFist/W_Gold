@@ -1,4 +1,36 @@
-﻿  AttackState.cpp
-  PatrollState.cpp
+﻿  Animator.cpp
+  AttackState.cpp
+  Bullet.cpp
+  Button.cpp
+  Collision.cpp
+  DeltaTime.cpp
+  Enemy.cpp
+  EnmState.cpp
+  Entity.cpp
+  Game.cpp
+  GameObject.cpp
+  GameState.cpp
+  GetDistance.cpp
+  Gold.cpp
+  Grid.cpp
+  Level.cpp
+  Line.cpp
+  main.cpp
+  MenuState.cpp
+  Pathfinding.cpp
   Generating Code...
-  MainProgram.vcxproj -> C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe
+  Compiling...
+  PatrollState.cpp
+  PauseState.cpp
+  Player.cpp
+  PlayState.cpp
+  Ray.cpp
+  ResourceManager.cpp
+  SimonState.cpp
+  SoundManager.cpp
+  Text.cpp
+  tile.cpp
+  Generating Code...
+  JoelState.cpp
+  LINK : D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\..\Bin\x64\TemplateD.exe not found or not built by the last incremental link; performing full link
+  MainProgram.vcxproj -> D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe
