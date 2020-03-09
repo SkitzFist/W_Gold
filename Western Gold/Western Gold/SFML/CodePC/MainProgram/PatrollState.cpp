@@ -19,6 +19,7 @@ PatrollState::PatrollState(Enemy* enm, sf::Vector2i* patrollPoints, size_t patro
 	setupPatrollTiles(patrollPoints);
 
 	//debug
+
 }
 
 PatrollState::~PatrollState()
@@ -29,11 +30,10 @@ PatrollState::~PatrollState()
 EnmState* PatrollState::update(DeltaTime time)
 {
 	EnmState* state = this;
-
 	move(time);
 
 	if (getEnm()->isPlayerInSight()) {
-		state = new AttackState(getEnm(), getEnm->getPlayer());
+		state = new AttackState(getEnm(), getEnm()->getPlayer());
 		delete this;
 	}
 
@@ -55,7 +55,6 @@ void PatrollState::move(DeltaTime time)
 		getEnm()->getPathfinding()->clearPath();
 		targetTile = getNextTarget();
 		getEnm()->getPathfinding()->findPath(currentTile, targetTile);
-
 	}
 	if (hasReachedTile(nextTile)) {
 		nextTile = getEnm()->getPathfinding()->getNextTile();
@@ -67,7 +66,6 @@ void PatrollState::move(DeltaTime time)
 void PatrollState::setupPatrollTiles(sf::Vector2i* patrollPoints)
 {
 	patrollTiles = new tile*[patrollTilesLength];
-
 	for (size_t i = 0; i < patrollTilesLength; ++i) {
 		patrollTiles[i] = getEnm()->getGrid()->getTileFromWorldPos(patrollPoints[i]);
 	}

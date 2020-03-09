@@ -18,13 +18,14 @@ AttackState::AttackState(Enemy* enemy, Player* player):
 EnmState* AttackState::update(DeltaTime time)
 {
 	EnmState* state = this;
-	shootingTimer -= static_cast<float>(time.dt);
+	shootingTimer -= static_cast<float>(time.dt());
 
 	//move();
 	
 	if (canShoot()) {
 		//shoot();
-		
+
+		shootingTimer = timesBetweenShots;
 	}
 
 	//changeState();
@@ -34,17 +35,17 @@ EnmState* AttackState::update(DeltaTime time)
 
 void AttackState::shoot()
 {
-	//Bullet* bullet = new Bullet(dir?);
+	//TODO raycasting
 }
 
 bool AttackState::canShoot()
 {
 	bool rv = false;
 	if (getDistance() < shootDistance
-		&& getEnm()->isPlayerInSight
+		&& getEnm()->isPlayerInSight()
 		&& shootingTimer <= 0) {
 		rv = true;
-		shootingTimer = timesBetweenShots;
+	
 	}
 	return rv;
 }
