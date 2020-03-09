@@ -10,14 +10,18 @@ JoelState::JoelState(ResourceManager* rm):
 	level = new Level(rm, rm->getLevel_Test03());
 
 	int nrOfTiles = (level->getGrid()->getGridSize().x * level->getGrid()->getGridSize().y);
-	player = new Player(rm->getCharacter(), rm, nrOfTiles, level->getGrid()->getTiles());
+	player = new Player(rm->getCharacter(), rm, nrOfTiles, 1);
 	bullet = new Bullet(rm);
 	
 	enemy = new Enemy(getRm()->getEnemy(), getRm(), 1, level->getGrid(), player);
 	enemy->setPosition(48.f, 48.f);
 	
+	enemies = new Enemy * [1];
+	enemies[0] = enemy;
+
+	
 	col = new Collision();
-	col->setUpCollision(player, );
+	col->setUpCollision(player, level->getTiles(), enemies, nullptr, nrOfTiles, 1, 0);
 	canStart = false;
 }
 

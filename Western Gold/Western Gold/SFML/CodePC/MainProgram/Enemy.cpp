@@ -1,6 +1,6 @@
 #include "Enemy.h"
 #include "PatrollState.h"
-
+#include "Collision.h"
 //debug
 #include <iostream>
 
@@ -8,7 +8,7 @@ Enemy::Enemy(sf::Texture* tex, ResourceManager* rm, int nrOfRays, Grid* grid, Pl
 Entity(tex, rm, nrOfRays)
 {
 	//config
-
+	rotationSpeed = 100.f;
 	//setup
 	this->player = player;
 	pathfinding = new Pathfinding(grid);
@@ -30,12 +30,13 @@ Enemy::~Enemy()
 
 void Enemy::update(DeltaTime delta)
 {
+	Entity::update(delta);
+	rotateTowards(player, delta);
 	float speed = 100.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 	}
 	moveSprite(dir, speed);
-	
 }
 
 bool Enemy::shoot()
@@ -71,7 +72,6 @@ bool Enemy::isShooting()
 	return false;
 }
 
-
 void Enemy::setIsPlayerInSight(Collision& col)
 {
 	if (col.shootCollider(this, false)) {
@@ -106,4 +106,18 @@ size_t Enemy::getPatrollPointsLength() const
 Player* Enemy::getPlayer() const
 {
 	return player;
+}
+
+void Enemy::rotateTowards(GameObject* gameObj, DeltaTime dt)
+{
+	sf::Vector2f bc = this->getPosition() - gameObj->getPosition();
+	float v = atan2f(bc.x, bc.y);
+	v = (((float)((int)(((v * 180.0f) / 3.14f + 180.0f + this->getRotation()) * 10) % 3600)) / 10);
+	if (v > 180) {
+		this->addRotationSprite(-rotationSpeed * (float)dt.dt());
+	}
+	else {
+		this->addRotationSprite(rotationSpeed * (float)dt.dt());
+	}
+
 }

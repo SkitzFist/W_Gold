@@ -111,7 +111,7 @@ void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 			sf::Color pixelInlevel = level->getPixel(x, y);
 			if (pixelInlevel == walkable) {
 				
-				tiles[y][x].setSprite(rm->getTile_White());
+				tiles[y][x].setSprite(rm->getTile_Ok());
 				tiles[y][x].setWorldPos(pos);
 				tiles[y][x].setIsWalkable(true);
 				tiles[y][x].setGridPos(sf::Vector2i(x, y));

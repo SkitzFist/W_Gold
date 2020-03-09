@@ -17,7 +17,6 @@ private:
 	int nrOfEnemies;
 
 	void checkCollision();
-	void checkCollisionRays(Ray raycast[], int nrOfRays = 0);
 	//if gameobject is on the right side of tiles
 	bool rightSide(GameObject*	gameObject, tile* tiles);
 	bool rightSide(GameObject*  gameObj1, GameObject* gameObj2);

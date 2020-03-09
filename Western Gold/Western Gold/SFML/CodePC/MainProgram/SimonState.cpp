@@ -11,41 +11,41 @@ SimonState::SimonState(ResourceManager* rm):
 {
 
 
-	//nrOfObjects
-	nrOfTiles = 8;
-	nrOfEnemies = 5;
-	nrOfGold = 3;
+	////nrOfObjects
+	//nrOfTiles = 8;
+	//nrOfEnemies = 5;
+	//nrOfGold = 3;
 
-	//objects initialize
-	p = new Player(rm->getAnimationTest(), rm, nrOfTiles, nrOfEnemies);
-	gold = new Gold * [nrOfGold];
-	testT = new tile * [nrOfTiles];
-	enemytest = new Enemy * [nrOfEnemies];
-	
-	//things needed to create some objects
-	sf::Vector2i* patrollPos = new sf::Vector2i[2];
-	patrollPos[0] = { 48,48 };
-	patrollPos[1] = { 240, 48 };
+	////objects initialize
+	//p = new Player(rm->getAnimationTest(), rm, nrOfTiles, nrOfEnemies);
+	//gold = new Gold * [nrOfGold];
+	//testT = new tile * [nrOfTiles];
+	//enemytest = new Enemy * [nrOfEnemies];
+	//
+	////things needed to create some objects
+	//sf::Vector2i* patrollPos = new sf::Vector2i[2];
+	//patrollPos[0] = { 48,48 };
+	//patrollPos[1] = { 240, 48 };
 
-	//create objects
-	for (int i = 0; i < nrOfGold; i++) {
-		gold[i] = new Gold(rm, (float)(i+1) * 100.0f, 300.0f + (float)i * 100.0f);
-	}
-	for (int i = 0; i < nrOfEnemies; i++) {
-		enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 90, lvl.getGrid());
-		enemytest[i]->setPosition((float)(i+1) * 100.f, 48.f + (float)(sin(i) + 1) * 100.f);
-		//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));
-	}
-	for (int i = 0; i < nrOfTiles; i++) {
-		testT[i] = new tile(sf::Vector2i((int)(100.f * (float)(i + 1)), (int)(200.f + (float)(i * 25.0f) * (float)(sin(i) + 1)) + 100), true, sf::Vector2i(10,10), rm->getCharacter());
-	}
-	//setup collision
-	collision.setUpCollision(p, testT, enemytest, gold, nrOfTiles, nrOfEnemies, nrOfGold);
+	////create objects
+	//for (int i = 0; i < nrOfGold; i++) {
+	//	gold[i] = new Gold(rm, (float)(i+1) * 100.0f, 300.0f + (float)i * 100.0f);
+	//}
+	//for (int i = 0; i < nrOfEnemies; i++) {
+	//	enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 90, lvl.getGrid());
+	//	enemytest[i]->setPosition((float)(i+1) * 100.f, 48.f + (float)(sin(i) + 1) * 100.f);
+	//	//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));
+	//}
+	//for (int i = 0; i < nrOfTiles; i++) {
+	//	testT[i] = new tile(sf::Vector2i((int)(100.f * (float)(i + 1)), (int)(200.f + (float)(i * 25.0f) * (float)(sin(i) + 1)) + 100), true, sf::Vector2i(10,10), rm->getCharacter());
+	//}
+	////setup collision
+	//collision.setUpCollision(p, testT, enemytest, gold, nrOfTiles, nrOfEnemies, nrOfGold);
 
-	
+	//
 
-	//other
-	delete[] patrollPos;
+	////other
+	//delete[] patrollPos;
 }
 
 SimonState::~SimonState()
@@ -79,63 +79,63 @@ GameState* SimonState::handleEvent(const sf::Event& event)
 GameState* SimonState::update(DeltaTime delta)
 {
 	GameState* state = this;
-	//tiles
-	for (int i = 0; i < nrOfTiles; i++) {
-		testT[i]->setWannaDraw(true);
-	}
-	for (int i = 0; i < nrOfEnemies; i++) {
-		enemytest[i]->setWannaDraw(true);
-	}
-	for (int i = 0; i < nrOfTiles; i++) {
-		p->getTileRay(i)->updateRay(p, testT[i]);
-	}
-	for (int i = 0; i < nrOfEnemies; i++) {
-		p->getEnemyRay(i)->updateRay(p, enemytest[i]);
-	}
+	////tiles
+	//for (int i = 0; i < nrOfTiles; i++) {
+	//	testT[i]->setWannaDraw(true);
+	//}
+	//for (int i = 0; i < nrOfEnemies; i++) {
+	//	enemytest[i]->setWannaDraw(true);
+	//}
+	//for (int i = 0; i < nrOfTiles; i++) {
+	//	p->getTileRay(i)->updateRay(p, testT[i]);
+	//}
+	//for (int i = 0; i < nrOfEnemies; i++) {
+	//	p->getEnemyRay(i)->updateRay(p, enemytest[i]);
+	//}
 
-	//player
-	p->update(delta);
-	if (p->tossBullet()) {
-		bool gotaBullet = false;
-		for (int i = 0; i < 6 && !gotaBullet; i++) {
-			if (bull.getBulletState() == 0) {
-				bull.throwBullet(delta, *p);
-				gotaBullet = true;
-			}
-		}
-	}
-	if (p->shoot()) {
-		//check what he shot
-		if (collision.shootCollider(p)) {
-			std::cout << "shoot an enemy" << std::endl;
-		}
-	}
-	bull.update(delta);
-	//enemy
-	for (int i = 0; i < nrOfEnemies; i++) {
-		enemytest[i]->update(delta);
-	}
+	////player
+	//p->update(delta);
+	//if (p->tossBullet()) {
+	//	bool gotaBullet = false;
+	//	for (int i = 0; i < 6 && !gotaBullet; i++) {
+	//		if (bull.getBulletState() == 0) {
+	//			bull.throwBullet(delta, *p);
+	//			gotaBullet = true;
+	//		}
+	//	}
+	//}
+	//if (p->shoot()) {
+	//	//check what he shot
+	//	if (collision.shootCollider(p)) {
+	//		std::cout << "shoot an enemy" << std::endl;
+	//	}
+	//}
+	//bull.update(delta);
+	////enemy
+	//for (int i = 0; i < nrOfEnemies; i++) {
+	//	enemytest[i]->update(delta);
+	//}
 
-	for(int i = 0; i < nrOfEnemies; i++){
-		if (enemytest[i]->seePlayer(collision.shootCollider(enemytest[i]), delta)) {
-			enemytest[i]->rotateTowards(p, delta);
-			if (enemytest[i]->isShooting()) {
-				enemytest[i]->seePlayer(collision.shootCollider(enemytest[i], true), delta);
-			}
-		}
-	}
-	
+	//for(int i = 0; i < nrOfEnemies; i++){
+	//	if (enemytest[i]->seePlayer(collision.shootCollider(enemytest[i]), delta)) {
+	//		enemytest[i]->rotateTowards(p, delta);
+	//		if (enemytest[i]->isShooting()) {
+	//			enemytest[i]->seePlayer(collision.shootCollider(enemytest[i], true), delta);
+	//		}
+	//	}
+	//}
+	//
 
-	//gold
-	for (int i = 0; i < nrOfGold; i++) {
-		gold[i]->update(delta);
-	}
+	////gold
+	//for (int i = 0; i < nrOfGold; i++) {
+	//	gold[i]->update(delta);
+	//}
 
-	//other
-	camera.setCenter(p->getPosition());
-	collision.update();
+	////other
+	//camera.setCenter(p->getPosition());
+	//collision.update();
 
-	ui.updateUI(p->getPosition());
+	//ui.updateUI(p->getPosition());
 
 	return state;
 }

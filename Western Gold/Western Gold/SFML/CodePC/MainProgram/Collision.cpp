@@ -55,15 +55,6 @@ void Collision::checkCollision()
 	}
 	
 }
-//nope
-void Collision::checkCollisionRays(Ray raycast[], int nrOfRays)
-{
-	for (int r = 0; r < nrOfRays; r++) {
-		for (int t = 0; t < nrOfTiles; t++) {
-			
-		}
-	}
-}
 
 bool Collision::rightSide(GameObject* gameObject, tile* tiles)
 {
@@ -316,7 +307,7 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 				//see
 				if (!player->isDead() && whatEntityShooting->getRays()[i]->rayHitGameObject(player))
 				{
-					for (int t = 0; t < nrOfTiles && !over; t++)
+ 					for (int t = 0; t < nrOfTiles && !over; t++)
 					{
 						if (whatEntityShooting->getShootRay()->rayHitTile2(this->tiles[t]))
 						{
@@ -343,9 +334,9 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		}
 		//shoot
 		if (eShoot) {
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+	/*		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 				std::cout << "stop" << std::endl;
-			}
+			}*/
 			if (!player->isDead() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
 				for (int t = 0; t < nrOfTiles && !over; t++) {
 					if (whatEntityShooting->getShootRay()->rayHitTile2(this->tiles[t])) {
@@ -369,7 +360,9 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 					saw = true;
 				}
 			}
+
 		}
+
 	}
 	else if (dynamic_cast<Player*>(whatEntityShooting) != nullptr) 
 	{

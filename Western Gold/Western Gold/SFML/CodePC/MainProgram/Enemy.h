@@ -3,8 +3,9 @@
 #include "EnmState.h"
 #include "Pathfinding.h"
 #include "Grid.h"
-#include "Collision.h"
 
+
+class Collision;
 class Enemy :
 	public Entity
 {
@@ -20,8 +21,9 @@ public:
 	void engagePatrolState(sf::Vector2i points[], size_t length);
 	Grid* getGrid() const;
 	
-	void setIsPlayerInSight(Collision &col);
+	void setIsPlayerInSight(Collision& col);
 	bool getIsPlayerInSight();
+	void rotateTowards(GameObject* gameObj, DeltaTime dt);
 	Player* getPlayer();
 
 	sf::Vector2i* getPatrollPoints() const;
@@ -34,6 +36,7 @@ public:
 private:
 	Player* player;
 	bool isPlayerInSight;
+	float rotationSpeed;
 
 	EnmState* currentState;
 	Pathfinding* pathfinding;
