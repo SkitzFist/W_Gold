@@ -159,8 +159,8 @@
     <ClCompile Include="Gold.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="AttackState.cpp">
+      <Filter>Source Files\Enemy\Enemy States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,8 +254,8 @@
     <ClInclude Include="Gold.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Header Files\UI</Filter>
+    <ClInclude Include="AttackState.h">
+      <Filter>Header Files\Enemy\Enemy States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,6 +3,9 @@
 #include "Enemy.h"
 #include "Level.h"
 #include "Pathfinding.h"
+#include "Player.h"
+#include "Bullet.h"
+#include "Collision.h"
 
 class JoelState : public GameState
 {
@@ -17,5 +20,8 @@ public:
 private:
 	Enemy* enemy;
 	Level* level;
+	Player* player;
+	Collision* col;
+	Bullet* bullet;
 	bool canStart;
 };
