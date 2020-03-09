@@ -4,25 +4,20 @@
 //debug
 #include <iostream>
 
-Enemy::Enemy(sf::Texture* tex, ResourceManager* rm, int nrOfRays, Grid* grid):
+Enemy::Enemy(sf::Texture* tex, ResourceManager* rm, int nrOfRays, Grid* grid, Player* player):
 Entity(tex, rm, nrOfRays)
 {
 	//config
 
 	//setup
-	shooting = false;
-	this->timeToSeePlayer = 0.5f;
-	this->timeBeetweenShoots = 1.5f;
-	this->timeToNextShoot = 0.f;
-	this->timeToShootPlayerSee = 0.f;
-	this->rotationSpeed = 100.0f;
-
+	this->player = player;
 	pathfinding = new Pathfinding(grid);
 	currentState = nullptr;
 	patrollPoints = nullptr;
 	patrollPointsLength = 0;
 	this->grid = grid;
 	dir = { 0.f, 0.f };
+	isPlayerInSight = false;
 	//debug
 
 }
@@ -35,32 +30,17 @@ Enemy::~Enemy()
 
 void Enemy::update(DeltaTime delta)
 {
-	if (!isDead()) {
-		if (!(timeToNextShoot <= 0)) {
-			timeToNextShoot -= (float)delta.dt();
-		}
-		float speed = 100.f * static_cast<float>(delta.dt()); //Speed should be in entity
-		if (currentState != nullptr) {
-			currentState = currentState->update(delta);
-		}
-		Entity::update(delta);
-		moveSprite(dir, speed);
+	float speed = 100.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
+	if (currentState != nullptr) {
+		currentState = currentState->update(delta);
 	}
+	moveSprite(dir, speed);
+	
 }
 
 bool Enemy::shoot()
 {
-	if (!isDead()) {
-		if (timeToNextShoot <= 0) {
-			shooting = true;
-			timeToNextShoot = timeBeetweenShoots;
-			//must create a line from enemy and out(ass a shot)
-		}
-		else {
-			shooting = false;
-		}
-	}
-	return shooting;
+	return false;
 }
 
 Pathfinding* Enemy::getPathfinding() const
@@ -88,53 +68,42 @@ void Enemy::setDir(sf::Vector2f dir)
 
 bool Enemy::isShooting()
 {
-	if (!isDead()) {
-		if (timeToNextShoot <= 0) {
-			this->shooting = true;
-			timeToNextShoot = timeBeetweenShoots;
-			this->sound.PlaySounds(getRm()->getGunShot());
-		}
-		else {
-			this->shooting = false;
-		}
-	}
-	else {
-		shooting = false;
-	}
-	return shooting;
+	return false;
 }
 
-bool Enemy::seePlayer(bool col, DeltaTime dt)
+
+void Enemy::setIsPlayerInSight(Collision& col)
 {
-	bool theReturn = false;
-	if (!isDead()) {
-		if (col) {
-			//enemy ses player
-			timeToShootPlayerSee += (float)dt.dt();
-			if (timeToShootPlayerSee >= timeToSeePlayer) {
-				theReturn = true;
-			}
-		}
-		else {
-			timeToShootPlayerSee = 0;
-		}
+	if (col.shootCollider(this, false)) {
+		isPlayerInSight = true;
 	}
 	else {
-		theReturn = false;
+		false;
 	}
-	return theReturn;
 }
 
-void Enemy::rotateTowards(GameObject* gameObj, DeltaTime dt)
+bool Enemy::getIsPlayerInSight()
 {
-	sf::Vector2f bc = this->getPosition() - gameObj->getPosition();
-	float v = atan2f(bc.x, bc.y);
-	v = (((float)((int)(((v * 180.0f) / 3.14f + 180.0f + this->getRotation()) * 10)%3600)) / 10);
-	if (v > 180) {
-		this->addRotationSprite(-rotationSpeed * (float)dt.dt());
-	}
-	else {
-		this->addRotationSprite(rotationSpeed * (float)dt.dt());
-	}
+	return isPlayerInSight;
+}
 
+Player* Enemy::getPlayer()
+{
+	//TODO skicka in i konstruktorn
+	return nullptr;
+}
+
+sf::Vector2i* Enemy::getPatrollPoints() const
+{
+	return patrollPoints;
+}
+
+size_t Enemy::getPatrollPointsLength() const
+{
+	return patrollPointsLength;
+}
+
+Player* Enemy::getPlayer() const
+{
+	return player;
 }

@@ -23,8 +23,7 @@ void Bullet::fly(DeltaTime time)
 
 			bulletAt = bulletState::GROUND;
 		}
-		
-
+	
 	}
 }
 

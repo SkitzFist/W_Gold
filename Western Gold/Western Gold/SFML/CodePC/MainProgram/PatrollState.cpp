@@ -1,5 +1,6 @@
 #include "PatrollState.h"
 #include "Enemy.h"
+#include "AttackState.h"
 
 //debug
 #include <iostream>
@@ -15,12 +16,10 @@ PatrollState::PatrollState(Enemy* enm, sf::Vector2i* patrollPoints, size_t patro
 	targetTile = nullptr;
 	currentTile = enm->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(getEnm()->getPosition()));
 	patrollTilesLength = patrollPointsLength;
-
-
 	setupPatrollTiles(patrollPoints);
 
-
 	//debug
+
 }
 
 PatrollState::~PatrollState()
@@ -31,8 +30,12 @@ PatrollState::~PatrollState()
 EnmState* PatrollState::update(DeltaTime time)
 {
 	EnmState* state = this;
-
 	move(time);
+
+	if (getEnm()->getIsPlayerInSight()) {
+		state = new AttackState(getEnm(), getEnm()->getPlayer());
+		delete this;
+	}
 
 	return state;
 }
@@ -45,8 +48,6 @@ void PatrollState::move(DeltaTime time)
 		nextTile = getEnm()->getPathfinding()->getNextTile();
 		dir = getDir();
 		getEnm()->setDir(dir);
-	
-
 	}
 	if (hasReachedTile(targetTile)) {
 		dir = { 0.f,0.f };
@@ -54,7 +55,6 @@ void PatrollState::move(DeltaTime time)
 		getEnm()->getPathfinding()->clearPath();
 		targetTile = getNextTarget();
 		getEnm()->getPathfinding()->findPath(currentTile, targetTile);
-
 	}
 	if (hasReachedTile(nextTile)) {
 		nextTile = getEnm()->getPathfinding()->getNextTile();
@@ -66,7 +66,6 @@ void PatrollState::move(DeltaTime time)
 void PatrollState::setupPatrollTiles(sf::Vector2i* patrollPoints)
 {
 	patrollTiles = new tile*[patrollTilesLength];
-
 	for (size_t i = 0; i < patrollTilesLength; ++i) {
 		patrollTiles[i] = getEnm()->getGrid()->getTileFromWorldPos(patrollPoints[i]);
 	}

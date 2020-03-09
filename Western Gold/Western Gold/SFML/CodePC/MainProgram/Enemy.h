@@ -3,12 +3,13 @@
 #include "EnmState.h"
 #include "Pathfinding.h"
 #include "Grid.h"
+#include "Collision.h"
 
 class Enemy :
 	public Entity
 {
 public:
-	Enemy(sf::Texture* tex, ResourceManager* rm, int nrOfRays, Grid* grid);
+	Enemy(sf::Texture* tex, ResourceManager* rm, int nrOfRays, Grid* grid, Player* player);
 	~Enemy();
 
 	// Inherited via Entity
@@ -18,27 +19,26 @@ public:
 	Pathfinding* getPathfinding() const;
 	void engagePatrolState(sf::Vector2i points[], size_t length);
 	Grid* getGrid() const;
+	
+	void setIsPlayerInSight(Collision &col);
+	bool getIsPlayerInSight();
+	Player* getPlayer();
 
+	sf::Vector2i* getPatrollPoints() const;
+	size_t getPatrollPointsLength() const;
+
+	Player* getPlayer() const;
 	void setDir(sf::Vector2f dir);
 	bool isShooting();
-	bool seePlayer(bool col, DeltaTime dt);
-	void rotateTowards(GameObject *gameObj, DeltaTime dt);
-private:
-	//shooting
-	float timeToSeePlayer;
-	float timeToShootPlayerSee;
-	float timeToNextShoot;
-	float timeBeetweenShoots;
-	bool shooting;
 
-	float rotationSpeed;
+private:
+	Player* player;
+	bool isPlayerInSight;
 
 	EnmState* currentState;
 	Pathfinding* pathfinding;
 	sf::Vector2f dir;
-
 	Grid* grid;
-
 	sf::Vector2i* patrollPoints;
 	size_t patrollPointsLength;
 };

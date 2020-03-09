@@ -4,6 +4,10 @@
 Entity::Entity(sf::Texture *tex, ResourceManager *rm, int nrOfRays):
 	GameObject(tex, rm)
 {
+	//Joel
+	this->rm = rm;
+	//joel
+
 	this->Dead = false;
 	this->raycast = new Ray * [nrOfRays];
 	for(int i = 0; i < nrOfRays; i++){
@@ -72,4 +76,9 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 			target.draw(*raycast[i]);
 		}
 	}
+}
+
+ResourceManager* Entity::getRm() const
+{
+	return rm;
 }
