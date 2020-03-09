@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "PatrollState.h"
+#include "Collision.h"
 
 //debug
 #include <iostream>
@@ -34,6 +35,7 @@ void Enemy::update(DeltaTime delta)
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 	}
+	Entity::update(delta);
 	moveSprite(dir, speed);
 	
 }
@@ -70,6 +72,8 @@ bool Enemy::isShooting()
 {
 	return false;
 }
+
+
 
 
 void Enemy::setIsPlayerInSight(Collision& col)

@@ -3,8 +3,8 @@
 #include "EnmState.h"
 #include "Pathfinding.h"
 #include "Grid.h"
-#include "Collision.h"
 
+class Collision;
 class Enemy :
 	public Entity
 {

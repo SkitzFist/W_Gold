@@ -5,27 +5,28 @@
 void Collision::checkCollision()
 {
 	//tiles
-	for (int i = 0; i < nrOfTiles; i++) {
-		if (tiles[i]->getIsWalkable()) {
-			while (tiles[i]->getSprite()->getGlobalBounds().intersects(player->getBounds())) {
-				if (rightSide(player, tiles[i])) {
-					player->moveSprite(1, 0);
+	for (int x = 0; x < grid->getGridSize().x; x++) {
+		for (int y = 0; y < grid->getGridSize().y; y++) {
+			if (grid->getTiles()[y][x].getIsWalkable()) {
+				while (grid->getTiles()[y][x].getSprite()->getGlobalBounds().intersects(player->getBounds())) {
+					if (rightSide(player, &grid->getTiles()[y][x])) {
+						player->moveSprite(1, 0);
+					}
+					else if (leftSide(player, &grid->getTiles()[y][x])) {
+						player->moveSprite(-1, 0);
+					}
+					else if (topSide(player, &grid->getTiles()[y][x])) {
+						player->moveSprite(0, -1);
+					}
+					else if (botSide(player, &grid->getTiles()[y][x])) {
+						player->moveSprite(0, 1);
+					}
+					else {
+						std::cout << "error" << std::endl;
+						//debug
+						//MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
+					}
 				}
-				else if (leftSide(player, tiles[i])) {
-					player->moveSprite(-1, 0);
-				}
-				else if (topSide(player, tiles[i])) {
-					player->moveSprite(0, -1);
-				}
-				else if (botSide(player, tiles[i])) {
-					player->moveSprite(0, 1);
-				}
-				else {
-					std::cout << "error" << std::endl;
-					//debug
-					//MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
-				}
-
 			}
 		}
 	}
@@ -64,7 +65,7 @@ void Collision::checkCollisionRays(Ray raycast[], int nrOfRays)
 		}
 	}
 }
-
+#pragma region someFunctions
 bool Collision::rightSide(GameObject* gameObject, tile* tiles)
 {
 	bool theReturn = false;
@@ -272,6 +273,7 @@ bool Collision::botSide(GameObject* gameObj1, GameObject* gameObj2)
 	}
 	return theReturn;
 }
+#pragma endregion
 
 bool Collision::tileVisibility() {
 	//tiles
@@ -279,20 +281,22 @@ bool Collision::tileVisibility() {
 	for (int x = 0; x < nrOfTiles; x++) {
 		for (int i = 0; i < nrOfTiles; i++) {
 			if (x != i) {
-				if (player->getTileRay(x)->rayHitTile(tiles[i])) {
-					tiles[x]->setWannaDraw(false);
-					theReturn = false;
-				}
+				//if (player->getTileRay(x)->rayHitTile(tiles[i])) {
+				//	tiles[x]->setWannaDraw(false);
+				//	theReturn = false;
+				//}
 			}
 		}
 	}
 	//and enemies
-	for (int x = 0; x < nrOfEnemies; x++) {
-		if (!enemies[x]->isDead()) {
-			for (int i = 0; i < nrOfTiles; i++) {
-				if (player->getEnemyRay(x)->rayHitTile(tiles[i])) {
-					enemies[x]->setWannaDraw(false);
-					theReturn = false;
+	for (int e = 0; e < nrOfEnemies; e++) {
+		if (!enemies[e]->isDead()) {
+			for (int x = 0; x < grid->getGridSize().x; x++) {
+				for (int y = 0; y < grid->getGridSize().y; y++) {
+					if (player->getEnemyRay(e)->rayHitTile(&grid->getTiles()[y][x])) {
+						enemies[e]->setWannaDraw(false);
+						theReturn = false;
+					}
 				}
 			}
 		}
@@ -316,19 +320,22 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 				//see
 				if (!player->isDead() && whatEntityShooting->getRays()[i]->rayHitGameObject(player))
 				{
-					for (int t = 0; t < nrOfTiles && !over; t++)
+					for (int x = 0; x < grid->getGridSize().x && !over; x++)
 					{
-						if (whatEntityShooting->getShootRay()->rayHitTile2(this->tiles[t]))
-						{
-							neverHitTile = false;
-							if (getDistance(whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >=
-								getDistance(whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y, player->getPosition().x, player->getPosition().y))
+						for (int y = 0; y < grid->getGridSize().y; y++) {
+
+							if (whatEntityShooting->getShootRay()->rayHitTile2(&grid->getTiles()[y][x]))
 							{
-								theReturn = true;
-								saw = true;
-							}
-							else {
-								over = true;
+								neverHitTile = false;
+								if (getDistance(whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >=
+									getDistance(whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y, player->getPosition().x, player->getPosition().y))
+								{
+									theReturn = true;
+									saw = true;
+								}
+								else {
+									over = true;
+								}
 							}
 						}
 					}
@@ -347,19 +354,21 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 				std::cout << "stop" << std::endl;
 			}
 			if (!player->isDead() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
-				for (int t = 0; t < nrOfTiles && !over; t++) {
-					if (whatEntityShooting->getShootRay()->rayHitTile2(this->tiles[t])) {
-						neverHitTile = false;
-						if (getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >
-							getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
-						{
-							theReturn = true;
-							saw = true;
-							std::cout << "player take damage" << std::endl;
-							player->takeDamage();
-						}
-						else {
-							over = true;
+				for (int x = 0; x < grid->getGridSize().x && !over; x++) {
+					for (int y = 0; y < grid->getGridSize().y; y++) {
+						if (whatEntityShooting->getShootRay()->rayHitTile2(&this->grid->getTiles()[y][x])) {
+							neverHitTile = false;
+							if (getDistance(player->getPosition().x, player->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >
+								getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
+							{
+								theReturn = true;
+								saw = true;
+								std::cout << "player take damage" << std::endl;
+								player->takeDamage();
+							}
+							else {
+								over = true;
+							}
 						}
 					}
 				}
@@ -377,17 +386,19 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		bool over = false;
 		for (int i = 0; i < nrOfEnemies; i++) {
 			if (!enemies[i]->isDead() && player->getShootRay()->rayHitGameObject(enemies[i])) {
-				for (int t = 0; t < nrOfTiles && !over; t++) {
-					if (player->getShootRay()->rayHitTile2(this->tiles[t])) {
-						neverHitTile = false;
-						if (getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >
-							getDistance(player->getPosition().x, player->getPosition().y, enemies[i]->getPosition().x, enemies[i]->getPosition().y))
-						{
-							enemies[i]->takeDamage();
-							theReturn = true;
-						}
-						else {
-							over = true;
+				for (int x = 0; x < grid->getGridSize().x && !over; x++) {
+					for (int y = 0; y < grid->getGridSize().y; y++) {
+						if (player->getShootRay()->rayHitTile2(&this->grid->getTiles()[y][x])) {
+							neverHitTile = false;
+							if (getDistance(player->getPosition().x, player->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >
+								getDistance(player->getPosition().x, player->getPosition().y, enemies[i]->getPosition().x, enemies[i]->getPosition().y))
+							{
+								enemies[i]->takeDamage();
+								theReturn = true;
+							}
+							else {
+								over = true;
+							}
 						}
 					}
 				}
@@ -408,7 +419,7 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 
 Collision::Collision()
 {
-	tiles = nullptr;
+	grid = nullptr;
 	player = nullptr;
 	enemies = nullptr;
 	gold = nullptr;
@@ -431,12 +442,14 @@ bool Collision::enemySeeCollider()
 		for (int r = 0; r < enemies[i]->getNrOfRays(); r++) {
 			if (enemies[i]->getRays()[r]->rayHitGameObject(player)) {
 				//check so enemies dont see to far?
-				for (int t = 0; t < nrOfTiles; t++) {
-					if (enemies[i]->getRays()[r]->rayHitTile2(tiles[t])) {
-						theReturn = true;
-					}
-					else {
-						theReturn = true;
+				for (int x = 0; x < grid->getGridSize().x; x++) {
+					for (int y = 0; y < grid->getGridSize().y; y++) {
+						if (enemies[i]->getRays()[r]->rayHitTile2(&grid->getTiles()[y][x])) {
+							theReturn = true;
+						}
+						else {
+							theReturn = true;
+						}
 					}
 				}
 			}
@@ -445,14 +458,13 @@ bool Collision::enemySeeCollider()
 	return theReturn;
 }
 
-void Collision::setUpCollision(Player* player, tile** tiles, Enemy** enemies, Gold** gold, int nrOfTiles, int nrOfEnemies, int nrOfGold)
+void Collision::setUpCollision(Player* player, Grid * grid, Enemy** enemies, Gold** gold, int nrOfEnemies, int nrOfGold)
 {
 	this->player = player;
-	this->tiles = tiles;
+	this->grid = grid;
 	this->enemies = enemies;
 	this->gold = gold;
 	this->nrOfEnemies = nrOfEnemies;
-	this->nrOfTiles = nrOfTiles;
 	this->nrOfGold = nrOfGold;
 }
 
