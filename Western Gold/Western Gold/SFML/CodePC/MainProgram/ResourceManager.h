@@ -26,6 +26,7 @@ public:
 #pragma region Levels
 	sf::Image* getLevel_Test();
 	sf::Image* getLevel_Test02();
+	sf::Image* getLevel_Test03();
 #pragma endregion
 
 #pragma region objects
@@ -61,6 +62,7 @@ private:
 #pragma region Levels
 	sf::Image* level_test;
 	sf::Image* level_test02;
+	sf::Image* level_test03;
 #pragma endregion
 
 #pragma region objects

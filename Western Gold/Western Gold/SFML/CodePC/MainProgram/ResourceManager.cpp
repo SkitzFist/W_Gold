@@ -23,6 +23,7 @@ ResourceManager::~ResourceManager()
 	delete tile_ok;
 	delete level_test;
 	delete level_test02;
+	delete level_test03;
 	delete bullet;
 	delete gunShot;
 	delete enemy;
@@ -120,6 +121,11 @@ sf::Image* ResourceManager::getLevel_Test02()
 	return level_test02;
 }
 
+sf::Image* ResourceManager::getLevel_Test03()
+{
+	return level_test03;
+}
+
 sf::SoundBuffer* ResourceManager::getGunShot()
 {
 	return this->gunShot;
@@ -182,5 +188,8 @@ void ResourceManager::debugSetup()
 	if (!level_test02->loadFromFile("../Levels/level_test02.png")) {
 		cantLoad(L"level_test02.png");
 	}
-
+	level_test03 = new sf::Image();
+	if (!level_test03->loadFromFile("../Levels/level_test03.png")) {
+		cantLoad(L"level_test03.png");
+	}
 }

@@ -4,18 +4,20 @@
 //debug
 #include <iostream>
 
-Enemy::Enemy(sf::Texture* tex, ResourceManager* rm, int nrOfRays, Grid* grid):
+Enemy::Enemy(sf::Texture* tex, ResourceManager* rm, int nrOfRays, Grid* grid, Player* player):
 Entity(tex, rm, nrOfRays)
 {
 	//config
 
 	//setup
+	this->player = player;
 	pathfinding = new Pathfinding(grid);
 	currentState = nullptr;
 	patrollPoints = nullptr;
 	patrollPointsLength = 0;
 	this->grid = grid;
 	dir = { 0.f, 0.f };
+	isPlayerInSight = false;
 	//debug
 
 }
@@ -69,20 +71,25 @@ bool Enemy::isShooting()
 	return false;
 }
 
-bool Enemy::seePlayer(bool col, DeltaTime dt)
+
+void Enemy::setIsPlayerInSight(Collision& col)
 {
-	return false;
+	if (col.shootCollider(this, false)) {
+		isPlayerInSight = true;
+	}
+	else {
+		false;
+	}
 }
 
-bool Enemy::isPlayerInSight()
+bool Enemy::getIsPlayerInSight()
 {
-	//TODO send a ray and check if it's a hit
-	return false;
+	return isPlayerInSight;
 }
 
 Player* Enemy::getPlayer()
 {
-	//TODO Get player from ray?
+	//TODO skicka in i konstruktorn
 	return nullptr;
 }
 
@@ -94,4 +101,9 @@ sf::Vector2i* Enemy::getPatrollPoints() const
 size_t Enemy::getPatrollPointsLength() const
 {
 	return patrollPointsLength;
+}
+
+Player* Enemy::getPlayer() const
+{
+	return player;
 }

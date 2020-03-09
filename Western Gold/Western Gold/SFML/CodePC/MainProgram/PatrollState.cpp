@@ -32,7 +32,7 @@ EnmState* PatrollState::update(DeltaTime time)
 	EnmState* state = this;
 	move(time);
 
-	if (getEnm()->isPlayerInSight()) {
+	if (getEnm()->getIsPlayerInSight()) {
 		state = new AttackState(getEnm(), getEnm()->getPlayer());
 		delete this;
 	}
