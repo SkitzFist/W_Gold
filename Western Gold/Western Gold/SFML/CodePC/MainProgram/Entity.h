@@ -8,6 +8,7 @@ private:
 	Ray **raycast;
 	Ray* ShootRay;
 	int nrOfRays;
+	ResourceManager* rm;
 public:
 	Entity(sf::Texture *tex, ResourceManager *rm , int nrOfRays);
 	virtual ~Entity();
@@ -21,5 +22,8 @@ public:
 	void update(DeltaTime &time);
 	virtual bool shoot() = 0;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+	//joel
+	ResourceManager* getRm() const;
 	
 };

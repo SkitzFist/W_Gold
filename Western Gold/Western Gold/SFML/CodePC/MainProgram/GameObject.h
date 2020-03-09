@@ -33,6 +33,8 @@ public:
 	void changeTimeBetween(float time);
 	void changeNrOfCol(int col);
 	void changeWhatRow(int row);
+	void setWannaDraw(bool wannadraw);
+	bool getWannaDraw()const;
 
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -53,9 +55,6 @@ private:
 	sf::Sprite* sprite;
 	int spriteColumns;
 	int spriteRows;
-public:
-	//void setanimation(float timeBetween, int nrofCol, int nrOfRows, int whatRow);
-	//void changeTimeBetween(float time);
-	//void changeNrOfCol(int col);
-	//void changeWhatRow(int row);
+	
+	bool wannaDraw;
 };

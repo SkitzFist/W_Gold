@@ -156,6 +156,12 @@
     <ClCompile Include="Animator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Gold.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackState.cpp">
+      <Filter>Source Files\Enemy\Enemy States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -243,6 +249,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EnmState.h">
+      <Filter>Header Files\Enemy\Enemy States</Filter>
+    </ClInclude>
+    <ClInclude Include="Gold.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackState.h">
       <Filter>Header Files\Enemy\Enemy States</Filter>
     </ClInclude>
   </ItemGroup>

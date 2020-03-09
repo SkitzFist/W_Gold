@@ -23,11 +23,13 @@ ResourceManager::~ResourceManager()
 	delete tile_ok;
 	delete level_test;
 	delete level_test02;
+	delete level_test03;
 	delete bullet;
 	delete gunShot;
 	delete enemy;
 	delete AnimationTest;
 	delete gold;
+	delete cylinder;
 }
 
 void ResourceManager::windowSetup(sf::RenderWindow* window)
@@ -54,6 +56,7 @@ int ResourceManager::getWindowHeight() const
 
 void ResourceManager::basicSetup()
 {
+	
 	basicFont = new sf::Font();
 	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
 		cantLoad(L"Font");
@@ -61,6 +64,10 @@ void ResourceManager::basicSetup()
 	AnimationTest = new sf::Texture();
 	if (!AnimationTest->loadFromFile("../Textures/animationTest.png")) {
 		cantLoad(L"animationtest");
+	}
+	cylinder = new sf::Texture();
+	if (!cylinder->loadFromFile("../Textures/cylinder.png")) {
+		cantLoad(L"cylinder");
 	}
 	gold = new sf::Texture();
 	if (!gold->loadFromFile("../Textures/Gold.png")) {
@@ -120,6 +127,11 @@ sf::Image* ResourceManager::getLevel_Test02()
 	return level_test02;
 }
 
+sf::Image* ResourceManager::getLevel_Test03()
+{
+	return level_test03;
+}
+
 sf::SoundBuffer* ResourceManager::getGunShot()
 {
 	return this->gunShot;
@@ -155,6 +167,11 @@ sf::Texture* ResourceManager::getGold()
 	return this->gold;
 }
 
+sf::Texture* ResourceManager::getCylinder()
+{
+	return this->cylinder;
+}
+
 void ResourceManager::cantLoad(LPCWSTR theerror)
 {
 	MessageBox(nullptr, theerror, L"ERROR", MB_ICONWARNING | MB_OK);
@@ -182,5 +199,8 @@ void ResourceManager::debugSetup()
 	if (!level_test02->loadFromFile("../Levels/level_test02.png")) {
 		cantLoad(L"level_test02.png");
 	}
-
+	level_test03 = new sf::Image();
+	if (!level_test03->loadFromFile("../Levels/level_test03.png")) {
+		cantLoad(L"level_test03.png");
+	}
 }

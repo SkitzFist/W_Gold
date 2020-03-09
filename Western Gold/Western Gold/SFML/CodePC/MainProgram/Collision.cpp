@@ -274,18 +274,29 @@ bool Collision::botSide(GameObject* gameObj1, GameObject* gameObj2)
 }
 
 bool Collision::tileVisibility() {
+	//tiles
 	bool theReturn = true;
 	for (int x = 0; x < nrOfTiles; x++) {
 		for (int i = 0; i < nrOfTiles; i++) {
 			if (x != i) {
-				if (player->getRay(x)->rayHitTile(tiles[i])) {
+				if (player->getTileRay(x)->rayHitTile(tiles[i])) {
 					tiles[x]->setWannaDraw(false);
 					theReturn = false;
 				}
 			}
 		}
 	}
-	
+	//and enemies
+	for (int x = 0; x < nrOfEnemies; x++) {
+		if (!enemies[x]->isDead()) {
+			for (int i = 0; i < nrOfTiles; i++) {
+				if (player->getEnemyRay(x)->rayHitTile(tiles[i])) {
+					enemies[x]->setWannaDraw(false);
+					theReturn = false;
+				}
+			}
+		}
+	}
 	return theReturn;
 }
 //Shoot collider doesnt go trough walls
@@ -310,8 +321,8 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 						if (whatEntityShooting->getShootRay()->rayHitTile2(this->tiles[t]))
 						{
 							neverHitTile = false;
-							if (getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >
-								getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
+							if (getDistance(whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >=
+								getDistance(whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y, player->getPosition().x, player->getPosition().y))
 							{
 								theReturn = true;
 								saw = true;
@@ -326,7 +337,8 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 						saw = true;
 					}
 				}
-				
+				//getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >
+				//getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
 			}
 		}
 		//shoot
@@ -421,12 +433,7 @@ bool Collision::enemySeeCollider()
 				//check so enemies dont see to far?
 				for (int t = 0; t < nrOfTiles; t++) {
 					if (enemies[i]->getRays()[r]->rayHitTile2(tiles[t])) {
-						//if (getDistance(player, enemies[i]) < 
-						//	getDistance(enemies[i]->getPosition().x, enemies[i]->getPosition().y, tiles[i]->getSprite()->getPosition().x, tiles[i]->getSprite()->getPosition().y)) 
-						//{
-							theReturn = true;
-							//enemy.seePlayer(true);
-						//}
+						theReturn = true;
 					}
 					else {
 						theReturn = true;

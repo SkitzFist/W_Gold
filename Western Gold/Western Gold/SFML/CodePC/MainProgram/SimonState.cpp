@@ -1,18 +1,23 @@
 #include "SimonState.h"
 #include <iostream>
 #include "Line.h"
+#include "UI.h"
 
 SimonState::SimonState(ResourceManager* rm):
 	GameState(rm),
 	bull(rm),
-	lvl(rm, rm->getLevel_Test())
+	lvl(rm, rm->getLevel_Test()),
+	ui(rm)
 {
+
+
 	//nrOfObjects
 	nrOfTiles = 8;
 	nrOfEnemies = 5;
 	nrOfGold = 3;
+
 	//objects initialize
-	p = new Player(rm->getAnimationTest(), rm, nrOfTiles, testT);
+	p = new Player(rm->getAnimationTest(), rm, nrOfTiles, nrOfEnemies);
 	gold = new Gold * [nrOfGold];
 	testT = new tile * [nrOfTiles];
 	enemytest = new Enemy * [nrOfEnemies];
@@ -32,10 +37,12 @@ SimonState::SimonState(ResourceManager* rm):
 		//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));
 	}
 	for (int i = 0; i < nrOfTiles; i++) {
-		testT[i] = new tile(sf::Vector2i((int)(100.f * (float)(i + 1)), (int)(200.f + (float)(i * 25.0f) * (float)(sin(i) + 1))), true, sf::Vector2i(10,10), rm->getCharacter());
+		testT[i] = new tile(sf::Vector2i((int)(100.f * (float)(i + 1)), (int)(200.f + (float)(i * 25.0f) * (float)(sin(i) + 1)) + 100), true, sf::Vector2i(10,10), rm->getCharacter());
 	}
 	//setup collision
 	collision.setUpCollision(p, testT, enemytest, gold, nrOfTiles, nrOfEnemies, nrOfGold);
+
+	
 
 	//other
 	delete[] patrollPos;
@@ -76,8 +83,14 @@ GameState* SimonState::update(DeltaTime delta)
 	for (int i = 0; i < nrOfTiles; i++) {
 		testT[i]->setWannaDraw(true);
 	}
+	for (int i = 0; i < nrOfEnemies; i++) {
+		enemytest[i]->setWannaDraw(true);
+	}
 	for (int i = 0; i < nrOfTiles; i++) {
-		p->getRay(i)->updateRay(p, testT[i]);
+		p->getTileRay(i)->updateRay(p, testT[i]);
+	}
+	for (int i = 0; i < nrOfEnemies; i++) {
+		p->getEnemyRay(i)->updateRay(p, enemytest[i]);
 	}
 
 	//player
@@ -103,12 +116,15 @@ GameState* SimonState::update(DeltaTime delta)
 		enemytest[i]->update(delta);
 	}
 
-	for(int i = 0; i < nrOfEnemies; i++){/*add what is under here*/ }
-	if (enemytest[0]->seePlayer(collision.shootCollider(enemytest[0]), delta)) {
-		if (enemytest[0]->isShooting()) {
-			enemytest[0]->seePlayer(collision.shootCollider(enemytest[0], true), delta);
+	for(int i = 0; i < nrOfEnemies; i++){
+		if (enemytest[i]->seePlayer(collision.shootCollider(enemytest[i]), delta)) {
+			enemytest[i]->rotateTowards(p, delta);
+			if (enemytest[i]->isShooting()) {
+				enemytest[i]->seePlayer(collision.shootCollider(enemytest[i], true), delta);
+			}
 		}
 	}
+	
 
 	//gold
 	for (int i = 0; i < nrOfGold; i++) {
@@ -116,14 +132,17 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 
 	//other
-	
+	camera.setCenter(p->getPosition());
 	collision.update();
+
+	ui.updateUI(p->getPosition());
 
 	return state;
 }
 
 void SimonState::render(sf::RenderWindow& window) const
 {
+	window.setView(camera);
 	lvl.drawLevel(window);
 	for (int i = 0; i < nrOfTiles; i++) {
 		if (this->testT[i]->getWannaDraw()) {
@@ -140,4 +159,5 @@ void SimonState::render(sf::RenderWindow& window) const
 	}
 	window.draw(this->bull);
 	window.draw(*this->p);
+	window.draw(this->ui);
 }

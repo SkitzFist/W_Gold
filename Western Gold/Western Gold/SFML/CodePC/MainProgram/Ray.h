@@ -24,6 +24,7 @@ public:
 	float getRotationOffset()const;
 	void updateRay(Entity* entity);
 	void updateRay(Player *player, tile *Tile);
+	void updateRay(GameObject *gameObj1, GameObject *gameObj2);
 	bool rayHitGameObject(GameObject* gameObj);
 	bool rayHitTile(tile *Tile);
 	bool rayHitTile2(tile* Tile);

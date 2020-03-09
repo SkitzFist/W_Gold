@@ -10,8 +10,9 @@ private:
 	bool tossing;
 
 	Ray** rayTile;
-	tile **tiles;
 	int nrOfTiles;
+	Ray** enemyRays;
+	int nrOfEnemies;
 
 	void rotation();
 	float speed;
@@ -19,8 +20,9 @@ private:
 public:
 	bool shoot();
 	bool tossBullet();
-	Ray *getRay(int nr);
-	Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, tile** tiles);
+	Ray *getTileRay(int nr);
+	Ray* getEnemyRay(int nr);
+	Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEnemies);
 	virtual~Player();
 	void update(DeltaTime time);
 	//debug
