@@ -9,6 +9,8 @@ Grid::Grid(ResourceManager* rm, sf::Image*level)
 	//Config
 	tileSize = static_cast<float>(rm->getTile_White()->getSize().x);
 	//Setup
+	nrOfWalkableTiles = 0;
+	nrOfNotWalkableTiles = 0;
 	gridSize = {level->getSize().x, level->getSize().y};
 	worldSize = {
 		static_cast<int>(tileSize) * gridSize.x,
@@ -95,6 +97,16 @@ std::vector<tile*> Grid::getSurroundingTiles(tile* t)
 	return neighbours;
 }
 
+int Grid::getNrOfWalkableTiles() const
+{
+	return nrOfWalkableTiles;
+}
+
+int Grid::getNrOfNotWalkableTiles() const
+{
+	return nrOfNotWalkableTiles;
+}
+
 void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 {
 	sf::Color walkable = { 255,255,255 };
@@ -110,13 +122,14 @@ void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 
 			sf::Color pixelInlevel = level->getPixel(x, y);
 			if (pixelInlevel == walkable) {
-				
+				++nrOfWalkableTiles;
 				tiles[y][x].setSprite(rm->getTile_Ok());
 				tiles[y][x].setWorldPos(pos);
 				tiles[y][x].setIsWalkable(true);
 				tiles[y][x].setGridPos(sf::Vector2i(x, y));
 			}
 			else if (pixelInlevel == notWalkable) {
+				++nrOfNotWalkableTiles;
 				tiles[y][x].setSprite(rm->getTile_Black());
 				tiles[y][x].setWorldPos(pos);
 				tiles[y][x].setIsWalkable(false);
