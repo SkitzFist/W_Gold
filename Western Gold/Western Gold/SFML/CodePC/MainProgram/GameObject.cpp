@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include <iostream>
 
 const float PI = 3.14159f;
 
@@ -10,7 +11,7 @@ GameObject::GameObject(sf::Texture* texture, ResourceManager* rm, int spriteColu
 	centerOrigin();
 	this->spriteColumns = spriteColumns;
 	this->spriteRows = spriteRows;
-
+	this->wannaDraw = true;
 }
 
 GameObject::~GameObject()
@@ -128,7 +129,9 @@ ResourceManager* GameObject::getRm()
 
 void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(*sprite);
+	if (this->wannaDraw) {
+		target.draw(*sprite);
+	}
 }
 
 void GameObject::moveSprite(sf::Vector2f dir, float speed)
@@ -162,4 +165,14 @@ void GameObject::changeNrOfCol(int col)
 void GameObject::changeWhatRow(int row)
 {
 	animator.changeRow(row);
+}
+
+void GameObject::setWannaDraw(bool wannadraw)
+{
+	this->wannaDraw = wannadraw;
+}
+
+bool GameObject::getWannaDraw() const
+{
+	return this->wannaDraw;
 }

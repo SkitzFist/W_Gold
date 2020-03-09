@@ -28,10 +28,11 @@ public:
 	sf::Image* getLevel_Test02();
 #pragma endregion
 
-#pragma region objects
+#pragma region objects + UI
 	sf::Texture* getCharacter();
 	sf::Texture* getBullet();
 	sf::Texture* getGold();
+	sf::Texture* getCylinder();
 #pragma endregion
 
 #pragma region Sound
@@ -63,10 +64,11 @@ private:
 	sf::Image* level_test02;
 #pragma endregion
 
-#pragma region objects
+#pragma region objects + UI
 	sf::Texture* character;
 	sf::Texture* bullet;
 	sf::Texture* gold;
+	sf::Texture* cylinder;
 #pragma endregion
 
 #pragma region Sound

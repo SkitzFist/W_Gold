@@ -22,6 +22,7 @@ public:
 	void setDir(sf::Vector2f dir);
 	bool isShooting();
 	bool seePlayer(bool col, DeltaTime dt);
+	void rotateTowards(GameObject *gameObj, DeltaTime dt);
 private:
 	//shooting
 	float timeToSeePlayer;
@@ -29,6 +30,8 @@ private:
 	float timeToNextShoot;
 	float timeBeetweenShoots;
 	bool shooting;
+
+	float rotationSpeed;
 
 	EnmState* currentState;
 	Pathfinding* pathfinding;

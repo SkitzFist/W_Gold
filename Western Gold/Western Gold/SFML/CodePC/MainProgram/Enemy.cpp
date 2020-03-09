@@ -15,6 +15,7 @@ Entity(tex, rm, nrOfRays)
 	this->timeBeetweenShoots = 1.5f;
 	this->timeToNextShoot = 0.f;
 	this->timeToShootPlayerSee = 0.f;
+	this->rotationSpeed = 100.0f;
 
 	pathfinding = new Pathfinding(grid);
 	currentState = nullptr;
@@ -36,9 +37,8 @@ void Enemy::update(DeltaTime delta)
 {
 	if (!isDead()) {
 		if (!(timeToNextShoot <= 0)) {
-			timeToNextShoot -= delta.dt();
+			timeToNextShoot -= (float)delta.dt();
 		}
-
 		float speed = 100.f * static_cast<float>(delta.dt()); //Speed should be in entity
 		if (currentState != nullptr) {
 			currentState = currentState->update(delta);
@@ -54,9 +54,13 @@ bool Enemy::shoot()
 		if (timeToNextShoot <= 0) {
 			shooting = true;
 			timeToNextShoot = timeBeetweenShoots;
+			//must create a line from enemy and out(ass a shot)
 		}
-		return shooting;
+		else {
+			shooting = false;
+		}
 	}
+	return shooting;
 }
 
 Pathfinding* Enemy::getPathfinding() const
@@ -106,7 +110,7 @@ bool Enemy::seePlayer(bool col, DeltaTime dt)
 	if (!isDead()) {
 		if (col) {
 			//enemy ses player
-			timeToShootPlayerSee += dt.dt();
+			timeToShootPlayerSee += (float)dt.dt();
 			if (timeToShootPlayerSee >= timeToSeePlayer) {
 				theReturn = true;
 			}
@@ -119,4 +123,18 @@ bool Enemy::seePlayer(bool col, DeltaTime dt)
 		theReturn = false;
 	}
 	return theReturn;
+}
+
+void Enemy::rotateTowards(GameObject* gameObj, DeltaTime dt)
+{
+	sf::Vector2f bc = this->getPosition() - gameObj->getPosition();
+	float v = atan2f(bc.x, bc.y);
+	v = (((float)((int)(((v * 180.0f) / 3.14f + 180.0f + this->getRotation()) * 10)%3600)) / 10);
+	if (v > 180) {
+		this->addRotationSprite(-rotationSpeed * (float)dt.dt());
+	}
+	else {
+		this->addRotationSprite(rotationSpeed * (float)dt.dt());
+	}
+
 }

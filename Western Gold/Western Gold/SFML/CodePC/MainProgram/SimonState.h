@@ -7,6 +7,7 @@
 #include "Bullet.h"
 #include "Level.h"
 #include "Gold.h"
+#include "UI.h"
 
 class SimonState : public GameState
 {
@@ -19,6 +20,11 @@ public:
 	virtual void render(sf::RenderWindow& window) const override;
 	
 private:
+	//camera
+	sf::View camera;
+
+	UI ui;
+
 	//objects
 	Enemy** enemytest;
 	Player *p;

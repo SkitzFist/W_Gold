@@ -201,6 +201,7 @@
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="tile.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animator.h" />
@@ -234,6 +235,7 @@
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="tile.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

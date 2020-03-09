@@ -94,6 +94,19 @@ void Ray::updateRay(Player* player, tile* Tile)
 	this->line.changeLine();
 }
 
+void Ray::updateRay(GameObject* gameObj1, GameObject* gameObj2)
+{
+	this->line.setLineX1(gameObj1->getPosition().x);
+	this->line.setLineY1(gameObj1->getPosition().y);
+
+	this->line.setLineX2(gameObj2->getPosition().x);
+	this->line.setLineY2(gameObj2->getPosition().y);
+
+
+	calcRotation();
+	this->line.changeLine();
+}
+
 bool Ray::rayHitGameObject(GameObject* gameObj)
 {
 	bool theReturn = false;

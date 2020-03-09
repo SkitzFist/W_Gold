@@ -76,19 +76,25 @@ bool Player::tossBullet()
 	return theReturn;
 }
 
-Ray* Player::getRay(int nr)
+Ray* Player::getTileRay(int nr)
 {
 	return rayTile[nr];
 }
 
+Ray* Player::getEnemyRay(int nr)
+{
+	return enemyRays[nr];
+}
+
 void Player::rotation()
 {
-	sf::Vector2i mPos = sf::Mouse::getPosition(*this->window);
+	sf::Vector2i pixelPos = sf::Mouse::getPosition(*window);
+	sf::Vector2f mPos = window->mapPixelToCoords(pixelPos);
 	float tanv = atan2f((mPos.y - this->getPosition().y) , (mPos.x - this->getPosition().x));
 	this->rotateSprite(tanv);
 }
 
-Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, tile** tiles):
+Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEnemies):
 	Entity(tex,rm/*add col and row later*/,1)
 {
 	nrOfShoots = 6;
@@ -99,8 +105,13 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, tile** tile
 	for (int i = 0; i < nrOfTiles; i++) {
 		rayTile[i] = new Ray();
 	}
-	this->tiles = tiles;
 	this->nrOfTiles = nrOfTiles;
+
+	enemyRays = new Ray * [nrOfEnemies];
+	for (int i = 0; i < nrOfEnemies; i++) {
+		enemyRays[i] = new Ray();
+	}
+	this->nrOfEnemies = nrOfEnemies;
 
 	this->window = rm->getWindow();
 	speed = 100;
@@ -130,5 +141,8 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	//debug
 	for (int i = 0; i < nrOfTiles; i++) {
 		target.draw(*this->rayTile[i]);
+	}
+	for (int i = 0; i < nrOfEnemies; i++) {
+		target.draw(*this->enemyRays[i]);
 	}
 }

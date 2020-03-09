@@ -28,6 +28,7 @@ ResourceManager::~ResourceManager()
 	delete enemy;
 	delete AnimationTest;
 	delete gold;
+	delete cylinder;
 }
 
 void ResourceManager::windowSetup(sf::RenderWindow* window)
@@ -54,6 +55,7 @@ int ResourceManager::getWindowHeight() const
 
 void ResourceManager::basicSetup()
 {
+	
 	basicFont = new sf::Font();
 	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
 		cantLoad(L"Font");
@@ -61,6 +63,10 @@ void ResourceManager::basicSetup()
 	AnimationTest = new sf::Texture();
 	if (!AnimationTest->loadFromFile("../Textures/animationTest.png")) {
 		cantLoad(L"animationtest");
+	}
+	cylinder = new sf::Texture();
+	if (!cylinder->loadFromFile("../Textures/cylinder.png")) {
+		cantLoad(L"cylinder");
 	}
 	gold = new sf::Texture();
 	if (!gold->loadFromFile("../Textures/Gold.png")) {
@@ -153,6 +159,11 @@ sf::Texture* ResourceManager::getBullet()
 sf::Texture* ResourceManager::getGold()
 {
 	return this->gold;
+}
+
+sf::Texture* ResourceManager::getCylinder()
+{
+	return this->cylinder;
 }
 
 void ResourceManager::cantLoad(LPCWSTR theerror)
