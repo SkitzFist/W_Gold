@@ -34,6 +34,7 @@ private:
 	Bullet bull;
 	//nr of objects
 	int nrOfWalkableTiles;
+	int nrOfNonWalkableTiles;
 	int nrOfEnemies;
 	int nrOfGold;
 
