@@ -28,11 +28,12 @@ private:
 	//objects
 	Enemy** enemytest;
 	Player *p;
-	tile** testT;
+	tile** notWalkableT;
+	tile** WalkableT;
 	Gold** gold;
 	Bullet bull;
 	//nr of objects
-	int nrOfTiles;
+	int nrOfWalkableTiles;
 	int nrOfEnemies;
 	int nrOfGold;
 

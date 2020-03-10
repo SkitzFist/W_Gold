@@ -17,7 +17,7 @@ Game::Game() :
 	rm = new ResourceManager();
 	rm->windowSetup(window);
 
-	currentState = new JoelState(rm);
+	currentState = new SimonState(rm);
 
 	//debug
 }
@@ -58,7 +58,7 @@ void Game::run()
 void Game::update()
 {
 	elapsedTimeSinceLastUpdate += clock.restart();
-	while (elapsedTimeSinceLastUpdate >= timePerFrame) {
+	if (elapsedTimeSinceLastUpdate >= timePerFrame) {
 
 		this->time.restartClock();
 		if (currentState != nullptr) {
@@ -71,7 +71,7 @@ void Game::update()
 
 void Game::render()
 {
-	window->clear(sf::Color::Blue);
+	window->clear(sf::Color::Magenta);
 	if (currentState != nullptr) {
 		currentState->render(*window);
 	}
