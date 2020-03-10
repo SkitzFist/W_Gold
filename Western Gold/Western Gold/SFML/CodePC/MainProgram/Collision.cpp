@@ -57,14 +57,7 @@ void Collision::checkCollision()
 	
 }
 //nope
-void Collision::checkCollisionRays(Ray raycast[], int nrOfRays)
-{
-	for (int r = 0; r < nrOfRays; r++) {
-		for (int t = 0; t < nrOfTiles; t++) {
-			
-		}
-	}
-}
+
 #pragma region someFunctions
 bool Collision::rightSide(GameObject* gameObject, tile* tiles)
 {
