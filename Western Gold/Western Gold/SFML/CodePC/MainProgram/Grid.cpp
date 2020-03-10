@@ -67,8 +67,9 @@ void Grid::renderGrid(sf::RenderWindow& window) const
 {
 	for (unsigned int x = 0; x < gridSize.x; ++x) {
 		for (unsigned int y = 0; y < gridSize.y; ++y) {
-
-			window.draw(*tiles[y][x].getSprite());
+			//if (tiles[y][x].getWannaDraw()) {
+				window.draw(*tiles[y][x].getSprite());
+			//}
 		}
 	}
 }

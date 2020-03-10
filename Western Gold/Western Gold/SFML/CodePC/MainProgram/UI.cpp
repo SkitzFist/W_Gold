@@ -4,8 +4,8 @@
 UI::UI(ResourceManager *rm):
 	exit(rm->getBasicFont(), "X", sf::Vector2f(0,0))
 {
-	exitButtonPos.x = (rm->getWindowWidth() / 2) - 20;
-	exitButtonPos.y = -(rm->getWindowHeight()) + 220;
+	exitButtonPos.x = (float)(rm->getWindowWidth() / 2) - 20.f;
+	exitButtonPos.y = -(float)(rm->getWindowHeight()) + 220.f;
 	nrOfShots = 6;
 	cylinder.setTexture(*rm->getCylinder());
 	cylinder.setScale(1.5f, 1.5f);

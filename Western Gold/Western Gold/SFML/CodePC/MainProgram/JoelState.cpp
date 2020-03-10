@@ -21,7 +21,7 @@ JoelState::JoelState(ResourceManager* rm):
 
 	
 	col = new Collision();
-	col->setUpCollision(player, level->getTiles(), enemies, nullptr, nrOfTiles, 1, 0);
+	col->setUpCollision(player, level->getGrid(), enemies, nullptr, nrOfTiles, 1);
 	canStart = false;
 }
 
