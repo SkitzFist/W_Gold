@@ -16,8 +16,12 @@ JoelState::JoelState(ResourceManager* rm):
 	enemy = new Enemy(getRm()->getEnemy(), getRm(), 1, level->getGrid(), player);
 	enemy->setPosition(48.f, 48.f);
 	
+	enemies = new Enemy * [1];
+	enemies[0] = enemy;
+
+	
 	col = new Collision();
-	col->setUpCollision(player);
+	col->setUpCollision(player, level->getTiles(), enemies, nullptr, nrOfTiles, 1, 0);
 	canStart = false;
 }
 
