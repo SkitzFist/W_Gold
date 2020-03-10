@@ -12,7 +12,7 @@ SimonState::SimonState(ResourceManager* rm):
 	//nrOfObjects
 	nrOfWalkableTiles = lvl.getGrid()->getNrOfWalkableTiles();
 	nrOfNonWalkableTiles = lvl.getGrid()->getNrOfNotWalkableTiles();
-	nrOfEnemies = 5;
+	nrOfEnemies = 1;
 	nrOfGold = 3;
 	
 	//objects initialize
@@ -34,19 +34,15 @@ SimonState::SimonState(ResourceManager* rm):
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 90, lvl.getGrid(), p);
-		enemytest[i]->setPosition((float)(i+1) * -50.f, 48.f + (float)(sin(i) + 1) * 100.f);
+		enemytest[i]->setPosition(100,100);
 		//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));
 	}
 	//Tiles
 	int n = 0; 
 	int n2 = 0;
-	for (int x = 0; x < lvl.getGrid()->getGridSize().x; x++) {
-		for (int y = 0; y < lvl.getGrid()->getGridSize().y; y++) {
-			if (lvl.getGrid()->getTiles()[y][x].getIsWalkable()) {
-				WalkableT[n] = &lvl.getGrid()->getTiles()[y][x];
-				n++;
-			}
-			else {
+	for (int y = 0; y < lvl.getGrid()->getGridSize().y; y++) {
+		for (int x = 0; x < lvl.getGrid()->getGridSize().x; x++) {
+			if (!lvl.getGrid()->getTiles()[y][x].getIsWalkable()) {
 				notWalkableT[n2] = &lvl.getGrid()->getTiles()[y][x];
 				n2++;
 			}
@@ -95,7 +91,7 @@ GameState* SimonState::update(DeltaTime delta)
 	GameState* state = this;
 	//tiles
 	for (int i = 0; i < lvl.getGrid()->getNrOfNotWalkableTiles(); i++) {
-		this->notWalkableT[i]->setWannaDraw(false);
+		this->notWalkableT[i]->setWannaDraw(true);
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i]->setWannaDraw(true);
@@ -131,7 +127,7 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 	
 	for(int i = 0; i < nrOfEnemies; i++){
-		//if (enemytest[i]->set)) {
+		//if (enemytest[i])) {
 		//
 		//}
 		//if (enemytest[i]->seePlayer(collision.shootCollider(enemytest[i]), delta)) {
@@ -151,7 +147,7 @@ GameState* SimonState::update(DeltaTime delta)
 	//other
 	camera.setCenter(p->getPosition());
 
-	//collision.update();
+	collision.update();
 	
 	ui.updateUI(p->getPosition());
 	

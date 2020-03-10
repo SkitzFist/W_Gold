@@ -1,4 +1,12 @@
-﻿  SimonState.cpp
+﻿  Collision.cpp
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(8,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(9,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(360,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(361,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(471,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(472,21): warning C4018: '<': signed/unsigned mismatch
+  SimonState.cpp
 C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(43,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(44,21): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   MainProgram.vcxproj -> C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

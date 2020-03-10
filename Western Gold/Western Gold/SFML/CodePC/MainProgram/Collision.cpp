@@ -271,15 +271,19 @@ bool Collision::botSide(GameObject* gameObj1, GameObject* gameObj2)
 bool Collision::tileVisibility() {
 	//tiles
 	bool theReturn = true;
-	for (int o = 0; o < grid->getNrOfWalkableTiles(); o++)
+	for (int o = 0; o < grid->getNrOfNotWalkableTiles(); o++)
 	{
-		for (int i = 0; i < grid->getNrOfWalkableTiles(); i++)
+		for (int i = 0; i < grid->getNrOfNotWalkableTiles(); i++)
 		{
-			//if (player->getTileRay(o)->rayHitTile(&walkableTiles[i]))
-			//{
-			//	walkableTiles[i].setWannaDraw(false);
-			//	theReturn = false;
-			//}
+			if (i != o) {
+				//notWalkableTiles[49]->setWannaDraw(false);
+				//notWalkableTiles[20]->setWannaDraw(false);
+				if (player->getTileRay(o)->rayHitTile(notWalkableTiles[i]))
+				{
+					//notWalkableTiles[o]->setWannaDraw(false);
+					theReturn = false;
+				}
+			}
 		}
 	}
 	//and enemies
@@ -287,15 +291,14 @@ bool Collision::tileVisibility() {
 	{
 		if (!enemies[e]->isDead()) 
 		{
-			for (int x = 0; x < grid->getGridSize().x; x++) 
+			bool seeEnemy = true;
+			for (int i = 0; i < grid->getNrOfNotWalkableTiles() && seeEnemy ; i++)
 			{
-				for (int y = 0; y < grid->getGridSize().y; y++) 
+				if (player->getEnemyRay(e)->rayHitTile(notWalkableTiles[i]))
 				{
-					if (player->getEnemyRay(e)->rayHitTile(&grid->getTiles()[y][x])) 
-					{
-						enemies[e]->setWannaDraw(false);
-						theReturn = false;
-					}
+					enemies[e]->setWannaDraw(false);
+					theReturn = false;
+					seeEnemy = true;
 				}
 			}
 		}
@@ -313,20 +316,19 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		bool over = false;
 		bool neverHitTile = true;
 		bool saw = false;
+		//see
 		if (!eShoot) {
 			for (int i = 0; i < whatEntityShooting->getNrOfRays() && !saw; i++) {
 
 				//see
 				if (!player->isDead() && whatEntityShooting->getRays()[i]->rayHitGameObject(player))
 				{
-					for (int x = 0; x < grid->getGridSize().x && !over; x++)
+					for (int x = 0; x < grid->getNrOfNotWalkableTiles() && !over; x++)
 					{
-						for (int y = 0; y < grid->getGridSize().y; y++) {
-
-							if (whatEntityShooting->getShootRay()->rayHitTile2(&grid->getTiles()[y][x]))
+							if (whatEntityShooting->getShootRay()->rayHitTile2(this->notWalkableTiles[x]))
 							{
 								neverHitTile = false;
-								if (getDistance(whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >=
+								if (getDistance(whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y, (float)notWalkableTiles[x]->getWorldPos().x, (float)notWalkableTiles[x]->getWorldPos().y) >=
 									getDistance(whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y, player->getPosition().x, player->getPosition().y))
 								{
 									theReturn = true;
@@ -336,7 +338,6 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 									over = true;
 								}
 							}
-						}
 					}
 					if (neverHitTile) {
 						theReturn = true;
@@ -349,9 +350,7 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		}
 		//shoot
 		if (eShoot) {
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-				std::cout << "stop" << std::endl;
-			}
+
 			if (!player->isDead() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
 				for (int x = 0; x < grid->getGridSize().x && !over; x++) {
 					for (int y = 0; y < grid->getGridSize().y; y++) {
@@ -455,6 +454,7 @@ bool Collision::enemySeeCollider()
 			}
 		}
 	}
+
 	return theReturn;
 }
 
@@ -462,16 +462,17 @@ void Collision::setUpCollision(Player* player, Grid * grid, Enemy** enemies, Gol
 {
 	this->player = player;
 	this->grid = grid;
+	int i = 0;
 	notWalkableTiles = new tile*[grid->getNrOfNotWalkableTiles()];
-	//for (int i = 0; i < grid->getNrOfNotWalkableTiles(); i++) {
-	//	for (int y = 0; y < grid->getGridSize().y; y++) {
-	//		for (int x = 0; x < grid->getGridSize().x; x++) {
-	//			if (grid->getTiles()[y][x].getIsWalkable()) {
-	//				notWalkableTiles[i] = &grid->getTiles()[1][1];
-	//			}
-	//		}
-	//	}
-	//}
+	for (int y = 0; y < grid->getGridSize().y; y++) {
+		for (int x = 0; x < grid->getGridSize().x; x++) {
+			if (!grid->getTiles()[y][x].getIsWalkable()) 
+			{
+				notWalkableTiles[i] = &grid->getTiles()[y][x];
+				i++;
+			}
+		}
+	}
 	this->enemies = enemies;
 	this->gold = gold;
 	this->nrOfEnemies = nrOfEnemies;
