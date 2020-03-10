@@ -72,7 +72,7 @@ void PatrollState::setupPatrollTiles(sf::Vector2i* patrollPoints)
 
 	//debug:
 	currentIndex = 1;
-	targetTile = patrollTiles[1];
+	targetTile = patrollTiles[currentIndex];
 	calculatePath();
 }
 

@@ -1,2 +1,25 @@
-﻿  JoelState.cpp
+﻿  AttackState.cpp
+  Collision.cpp
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(8,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(9,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(290,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(292,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(322,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(324,25): warning C4018: '<': signed/unsigned mismatch
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(356,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(357,24): warning C4018: '<': signed/unsigned mismatch
+  Enemy.cpp
+  Entity.cpp
+  Game.cpp
+  Grid.cpp
+  Level.cpp
+  Pathfinding.cpp
+  PatrollState.cpp
+  Ray.cpp
+  SeachState.cpp
+  SimonState.cpp
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(42,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(43,21): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  JoelState.cpp
   MainProgram.vcxproj -> C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

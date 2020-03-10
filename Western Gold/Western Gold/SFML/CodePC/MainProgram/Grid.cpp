@@ -108,6 +108,11 @@ int Grid::getNrOfNotWalkableTiles() const
 	return nrOfNotWalkableTiles;
 }
 
+float Grid::getTileSize() const
+{
+	return tileSize;
+}
+
 void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 {
 	sf::Color walkable = { 255,255,255 };

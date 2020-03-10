@@ -73,9 +73,6 @@ bool Enemy::isShooting()
 	return false;
 }
 
-
-
-
 void Enemy::setIsPlayerInSight(Collision& col)
 {
 	if (col.shootCollider(this, false)) {

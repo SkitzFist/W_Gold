@@ -13,10 +13,17 @@ private:
 	tile* targetTile;
 	tile* nextTile;
 
+	int maxSearchDistance;
+	float maximumSearchTime;
+	float minimumSearchTime;
+	float searchTime;
+	float searchTimer;
+
 	void move();
 	void calculatePath();
 	sf::Vector2f getDir();
 	bool hasReachedTile(tile* t);
 	tile* getNextTarget();
+	int randomInt(int min, int max);
+	float randomFloat(float min, float max);
 };
-
