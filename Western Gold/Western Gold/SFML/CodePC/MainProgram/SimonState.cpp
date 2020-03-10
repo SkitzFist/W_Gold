@@ -71,7 +71,7 @@ GameState* SimonState::handleEvent(const sf::Event& event)
 {
 	GameState* state = this;
 
-
+	//ass
 	return state;
 }
 
