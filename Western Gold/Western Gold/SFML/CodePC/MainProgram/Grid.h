@@ -17,6 +17,8 @@ public:
 	//debug
 	void renderGrid(sf::RenderWindow& window) const;
 	std::vector<tile*> getSurroundingTiles(tile* t);
+	int getNrOfWalkableTiles() const;
+	int getNrOfNotWalkableTiles() const;
 
 private:
 	tile** tiles;
@@ -24,6 +26,8 @@ private:
 	sf::Vector2u worldSize;
 	float tileSize;
 
+	int nrOfWalkableTiles;
+	int nrOfNotWalkableTiles;
 	void initGrid(ResourceManager* rm, sf::Image* level);
 	bool isInsideWorld(sf::Vector2i pos);
 };
