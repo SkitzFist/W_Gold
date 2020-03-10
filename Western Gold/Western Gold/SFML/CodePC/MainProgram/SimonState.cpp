@@ -11,6 +11,7 @@ SimonState::SimonState(ResourceManager* rm):
 {
 	//nrOfObjects
 	nrOfWalkableTiles = lvl.getGrid()->getNrOfWalkableTiles();
+	nrOfNonWalkableTiles = lvl.getGrid()->getNrOfNotWalkableTiles();
 	nrOfEnemies = 5;
 	nrOfGold = 3;
 	
@@ -41,8 +42,8 @@ SimonState::SimonState(ResourceManager* rm):
 	int n2 = 0;
 	for (int x = 0; x < lvl.getGrid()->getGridSize().x; x++) {
 		for (int y = 0; y < lvl.getGrid()->getGridSize().y; y++) {
-			if (!lvl.getGrid()->getTiles()[y][x].getIsWalkable()) {
-				//WalkableT[n] = &lvl.getGrid()->getTiles()[y][x];
+			if (lvl.getGrid()->getTiles()[y][x].getIsWalkable()) {
+				WalkableT[n] = &lvl.getGrid()->getTiles()[y][x];
 				n++;
 			}
 			else {
@@ -94,18 +95,13 @@ GameState* SimonState::update(DeltaTime delta)
 	GameState* state = this;
 	//tiles
 	for (int i = 0; i < lvl.getGrid()->getNrOfNotWalkableTiles(); i++) {
-		//notWalkableT[i].setWannaDraw(false);
+		this->notWalkableT[i]->setWannaDraw(false);
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i]->setWannaDraw(true);
 	}
-	for (int i = 0; i < nrOfWalkableTiles; i++) {
-		//p->getTileRay(i)->updateRay(p, notWalkableT[1]);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		std::cout << "tile0 grid x pos " << notWalkableT[0]->getGridPos().x << "tile grid y " << notWalkableT[0]->getGridPos().y << std::endl;
-		std::cout << "tile1 grid x pos " << notWalkableT[1]->getGridPos().x << "tile grid y " << notWalkableT[1]->getGridPos().y << std::endl;
-		std::cout << "stop" << std::endl;
+	for (int i = 0; i < nrOfNonWalkableTiles; i++) {
+		p->getTileRay(i)->updateRay(p, notWalkableT[i]);
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		p->getEnemyRay(i)->updateRay(p, enemytest[i]);
@@ -131,7 +127,7 @@ GameState* SimonState::update(DeltaTime delta)
 	bull.update(delta);
 	//enemy
 	for (int i = 0; i < nrOfEnemies; i++) {
-		//enemytest[i]->update(delta);
+		enemytest[i]->update(delta);
 	}
 	
 	for(int i = 0; i < nrOfEnemies; i++){
@@ -149,7 +145,7 @@ GameState* SimonState::update(DeltaTime delta)
 	
 	//gold
 	for (int i = 0; i < nrOfGold; i++) {
-		//gold[i]->update(delta);
+		gold[i]->update(delta);
 	}
 	
 	//other

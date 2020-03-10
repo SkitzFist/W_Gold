@@ -28,7 +28,7 @@ void UI::updateUI(sf::Vector2f playerPos)
 void UI::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	for (int i = 0; i < nrOfShots; i++) {
-		target.draw(shots[i]);
+		//target.draw(shots[i]);
 	}
 	target.draw(cylinder);
 	target.draw(exit);
