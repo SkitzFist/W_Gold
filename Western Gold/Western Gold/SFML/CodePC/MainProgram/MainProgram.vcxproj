@@ -198,6 +198,7 @@
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="SeachState.cpp" />
     <ClCompile Include="SimonState.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Text.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="SeachState.h" />
     <ClInclude Include="SimonState.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Text.h" />

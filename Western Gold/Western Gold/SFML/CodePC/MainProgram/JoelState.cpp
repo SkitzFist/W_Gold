@@ -11,7 +11,7 @@ JoelState::JoelState(ResourceManager* rm):
 
 	int nrOfTiles = (level->getGrid()->getGridSize().x * level->getGrid()->getGridSize().y);
 	player = new Player(rm->getCharacter(), rm, nrOfTiles, 1);
-	bullet = new Bullet(rm);
+
 	
 	enemy = new Enemy(getRm()->getEnemy(), getRm(), 1, level->getGrid(), player);
 	enemy->setPosition(48.f, 48.f);
@@ -19,9 +19,7 @@ JoelState::JoelState(ResourceManager* rm):
 	enemies = new Enemy * [1];
 	enemies[0] = enemy;
 
-	
-	col = new Collision();
-	col->setUpCollision(player, level->getTiles(), enemies, nullptr, nrOfTiles, 1, 0);
+
 	canStart = false;
 }
 
@@ -29,8 +27,8 @@ JoelState::~JoelState()
 {
 	delete enemy;
 	delete level;
-	delete bullet;
-	delete col;
+
+
 }
 
 GameState* JoelState::handleEvent(const sf::Event& event)
@@ -62,24 +60,9 @@ GameState* JoelState::handleEvent(const sf::Event& event)
 GameState* JoelState::update(DeltaTime time)
 {
 	GameState* state = this;
-	player->update(time);
-	if (player->tossBullet()) {
-		bool gotaBullet = false;
-		for (int i = 0; i < 6 && !gotaBullet; i++) {
-			if (bullet->getBulletState() == 0) {
-				bullet->throwBullet(time, *player);
-				gotaBullet = true;
-			}
-		}
-	}
-	if (player->shoot()) {
-		//check what he shot
-		if (col->shootCollider(player)) {
-			std::cout << "shoot an enemy" << std::endl;
-		}
-	}
+
 	if (canStart) {
-		enemy->setIsPlayerInSight(*col);
+		//enemy->setIsPlayerInSight(*col);
 		enemy->update(time);
 	}
 

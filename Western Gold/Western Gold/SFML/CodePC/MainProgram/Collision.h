@@ -12,6 +12,7 @@ private:
 	Gold** gold;
 	Enemy** enemies;
 	Grid* grid;
+	tile** notWalkableTiles;
 	int nrOfGold;
 	int nrOfTiles;
 	int nrOfEnemies;

@@ -7,7 +7,7 @@ void Collision::checkCollision()
 	//tiles
 	for (int x = 0; x < grid->getGridSize().x; x++) {
 		for (int y = 0; y < grid->getGridSize().y; y++) {
-			if (grid->getTiles()[y][x].getIsWalkable()) {
+			if (!grid->getTiles()[y][x].getIsWalkable()) {
 				while (grid->getTiles()[y][x].getSprite()->getGlobalBounds().intersects(player->getBounds())) {
 					if (rightSide(player, &grid->getTiles()[y][x])) {
 						player->moveSprite(1, 0);
@@ -57,14 +57,7 @@ void Collision::checkCollision()
 	
 }
 //nope
-void Collision::checkCollisionRays(Ray raycast[], int nrOfRays)
-{
-	for (int r = 0; r < nrOfRays; r++) {
-		for (int t = 0; t < nrOfTiles; t++) {
-			
-		}
-	}
-}
+
 #pragma region someFunctions
 bool Collision::rightSide(GameObject* gameObject, tile* tiles)
 {
@@ -278,22 +271,28 @@ bool Collision::botSide(GameObject* gameObj1, GameObject* gameObj2)
 bool Collision::tileVisibility() {
 	//tiles
 	bool theReturn = true;
-	for (int x = 0; x < nrOfTiles; x++) {
-		for (int i = 0; i < nrOfTiles; i++) {
-			if (x != i) {
-				//if (player->getTileRay(x)->rayHitTile(tiles[i])) {
-				//	tiles[x]->setWannaDraw(false);
-				//	theReturn = false;
-				//}
-			}
+	for (int o = 0; o < grid->getNrOfWalkableTiles(); o++)
+	{
+		for (int i = 0; i < grid->getNrOfWalkableTiles(); i++)
+		{
+			//if (player->getTileRay(o)->rayHitTile(&walkableTiles[i]))
+			//{
+			//	walkableTiles[i].setWannaDraw(false);
+			//	theReturn = false;
+			//}
 		}
 	}
 	//and enemies
-	for (int e = 0; e < nrOfEnemies; e++) {
-		if (!enemies[e]->isDead()) {
-			for (int x = 0; x < grid->getGridSize().x; x++) {
-				for (int y = 0; y < grid->getGridSize().y; y++) {
-					if (player->getEnemyRay(e)->rayHitTile(&grid->getTiles()[y][x])) {
+	for (int e = 0; e < nrOfEnemies; e++) 
+	{
+		if (!enemies[e]->isDead()) 
+		{
+			for (int x = 0; x < grid->getGridSize().x; x++) 
+			{
+				for (int y = 0; y < grid->getGridSize().y; y++) 
+				{
+					if (player->getEnemyRay(e)->rayHitTile(&grid->getTiles()[y][x])) 
+					{
 						enemies[e]->setWannaDraw(false);
 						theReturn = false;
 					}
@@ -386,8 +385,8 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		bool over = false;
 		for (int i = 0; i < nrOfEnemies; i++) {
 			if (!enemies[i]->isDead() && player->getShootRay()->rayHitGameObject(enemies[i])) {
-				for (int x = 0; x < grid->getGridSize().x && !over; x++) {
-					for (int y = 0; y < grid->getGridSize().y; y++) {
+				for (int x = 0; x < (float)grid->getGridSize().x && !over; x++) {
+					for (int y = 0; y < (float)grid->getGridSize().y; y++) {
 						if (player->getShootRay()->rayHitTile2(&this->grid->getTiles()[y][x])) {
 							neverHitTile = false;
 							if (getDistance(player->getPosition().x, player->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >
@@ -423,6 +422,7 @@ Collision::Collision()
 	player = nullptr;
 	enemies = nullptr;
 	gold = nullptr;
+	this->notWalkableTiles = nullptr;
 	this->nrOfEnemies = 0;
 	this->nrOfTiles = 0;
 	this->nrOfGold = 0;
@@ -442,8 +442,8 @@ bool Collision::enemySeeCollider()
 		for (int r = 0; r < enemies[i]->getNrOfRays(); r++) {
 			if (enemies[i]->getRays()[r]->rayHitGameObject(player)) {
 				//check so enemies dont see to far?
-				for (int x = 0; x < grid->getGridSize().x; x++) {
-					for (int y = 0; y < grid->getGridSize().y; y++) {
+				for (int x = 0; x < (int)grid->getGridSize().x; x++) {
+					for (int y = 0; y < (int)grid->getGridSize().y; y++) {
 						if (enemies[i]->getRays()[r]->rayHitTile2(&grid->getTiles()[y][x])) {
 							theReturn = true;
 						}
@@ -462,6 +462,16 @@ void Collision::setUpCollision(Player* player, Grid * grid, Enemy** enemies, Gol
 {
 	this->player = player;
 	this->grid = grid;
+	notWalkableTiles = new tile*[grid->getNrOfNotWalkableTiles()];
+	//for (int i = 0; i < grid->getNrOfNotWalkableTiles(); i++) {
+	//	for (int y = 0; y < grid->getGridSize().y; y++) {
+	//		for (int x = 0; x < grid->getGridSize().x; x++) {
+	//			if (grid->getTiles()[y][x].getIsWalkable()) {
+	//				notWalkableTiles[i] = &grid->getTiles()[1][1];
+	//			}
+	//		}
+	//	}
+	//}
 	this->enemies = enemies;
 	this->gold = gold;
 	this->nrOfEnemies = nrOfEnemies;

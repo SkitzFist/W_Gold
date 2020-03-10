@@ -10,14 +10,16 @@ SimonState::SimonState(ResourceManager* rm):
 	ui(rm)
 {
 	//nrOfObjects
-	nrOfTiles = 8;
+	nrOfWalkableTiles = lvl.getGrid()->getNrOfWalkableTiles();
 	nrOfEnemies = 5;
 	nrOfGold = 3;
 	
 	//objects initialize
-	p = new Player(rm->getAnimationTest(), rm, nrOfTiles, nrOfEnemies);
+	p = new Player(rm->getAnimationTest(), rm, lvl.getGrid()->getNrOfWalkableTiles(), nrOfEnemies);
+	p->setPosition(100, 100);
 	gold = new Gold * [nrOfGold];
-	testT = new tile * [nrOfTiles];
+	WalkableT = new tile*[lvl.getGrid()->getNrOfWalkableTiles()];
+	notWalkableT = new tile*[lvl.getGrid()->getNrOfNotWalkableTiles()];
 	enemytest = new Enemy * [nrOfEnemies];
 	
 	//things needed to create some objects
@@ -31,11 +33,23 @@ SimonState::SimonState(ResourceManager* rm):
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 90, lvl.getGrid(), p);
-		enemytest[i]->setPosition((float)(i+1) * 100.f, 48.f + (float)(sin(i) + 1) * 100.f);
+		enemytest[i]->setPosition((float)(i+1) * -50.f, 48.f + (float)(sin(i) + 1) * 100.f);
 		//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));
 	}
-	for (int i = 0; i < nrOfTiles; i++) {
-		testT[i] = new tile(sf::Vector2i((int)(100.f * (float)(i + 1)), (int)(200.f + (float)(i * 25.0f) * (float)(sin(i) + 1)) + 100), true, sf::Vector2i(10,10), rm->getCharacter());
+	//Tiles
+	int n = 0; 
+	int n2 = 0;
+	for (int x = 0; x < lvl.getGrid()->getGridSize().x; x++) {
+		for (int y = 0; y < lvl.getGrid()->getGridSize().y; y++) {
+			if (!lvl.getGrid()->getTiles()[y][x].getIsWalkable()) {
+				//WalkableT[n] = &lvl.getGrid()->getTiles()[y][x];
+				n++;
+			}
+			else {
+				notWalkableT[n2] = &lvl.getGrid()->getTiles()[y][x];
+				n2++;
+			}
+		}
 	}
 	int pb = (lvl.getGrid()->getGridSize().x) * (lvl.getGrid()->getGridSize().y);
 	//setup collision
@@ -51,10 +65,10 @@ SimonState::~SimonState()
 {
 	delete p;
 
-	for (int i = 0; i < nrOfTiles; i++) {
-		delete testT[i];
-	}
-	delete[] testT;
+	//for (int i = 0; i < nrOfWalkable; i++) {
+	//	delete testT[i];
+	//}
+	//delete[] testT;
 
 	for (int i = 0; i < nrOfEnemies; i++) {
 		delete enemytest[i];
@@ -71,7 +85,7 @@ GameState* SimonState::handleEvent(const sf::Event& event)
 {
 	GameState* state = this;
 
-
+	//ass
 	return state;
 }
 
@@ -79,14 +93,19 @@ GameState* SimonState::update(DeltaTime delta)
 {
 	GameState* state = this;
 	//tiles
-	for (int i = 0; i < nrOfTiles; i++) {
-		testT[i]->setWannaDraw(true);
+	for (int i = 0; i < lvl.getGrid()->getNrOfNotWalkableTiles(); i++) {
+		//notWalkableT[i].setWannaDraw(false);
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i]->setWannaDraw(true);
 	}
-	for (int i = 0; i < nrOfTiles; i++) {
-		p->getTileRay(i)->updateRay(p, testT[i]);
+	for (int i = 0; i < nrOfWalkableTiles; i++) {
+		//p->getTileRay(i)->updateRay(p, notWalkableT[1]);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		std::cout << "tile0 grid x pos " << notWalkableT[0]->getGridPos().x << "tile grid y " << notWalkableT[0]->getGridPos().y << std::endl;
+		std::cout << "tile1 grid x pos " << notWalkableT[1]->getGridPos().x << "tile grid y " << notWalkableT[1]->getGridPos().y << std::endl;
+		std::cout << "stop" << std::endl;
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		p->getEnemyRay(i)->updateRay(p, enemytest[i]);
@@ -112,7 +131,7 @@ GameState* SimonState::update(DeltaTime delta)
 	bull.update(delta);
 	//enemy
 	for (int i = 0; i < nrOfEnemies; i++) {
-		enemytest[i]->update(delta);
+		//enemytest[i]->update(delta);
 	}
 	
 	for(int i = 0; i < nrOfEnemies; i++){
@@ -130,13 +149,13 @@ GameState* SimonState::update(DeltaTime delta)
 	
 	//gold
 	for (int i = 0; i < nrOfGold; i++) {
-		gold[i]->update(delta);
+		//gold[i]->update(delta);
 	}
 	
 	//other
 	camera.setCenter(p->getPosition());
 
-	collision.update();
+	//collision.update();
 	
 	ui.updateUI(p->getPosition());
 	
@@ -147,11 +166,6 @@ void SimonState::render(sf::RenderWindow& window) const
 {
 	window.setView(camera);
 	lvl.drawLevel(window);
-	for (int i = 0; i < nrOfTiles; i++) {
-		if (this->testT[i]->getWannaDraw()) {
-			window.draw(*this->testT[i]->getSprite());
-		}
-	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		window.draw(*this->enemytest[i]);
 	}
