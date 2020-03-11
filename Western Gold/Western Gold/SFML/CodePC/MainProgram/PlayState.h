@@ -1,5 +1,6 @@
 #pragma once
 #include "GameState.h"
+#include "Level.h"
 class PlayState :
 	public GameState
 {
@@ -8,13 +9,12 @@ public:
 	virtual ~PlayState();
 
 	// Inherited via GameState
-	virtual GameState * handleEvent(const sf::Event & event) override;
-	virtual GameState * update(DeltaTime delta) override;
+	virtual GameState* handleEvent(const sf::Event& event) override;
+	virtual GameState* update(DeltaTime delta) override;
 	virtual void render(sf::RenderWindow& window) const override;
 
 
-	//debug
-	void setupText();
-	sf::Text text;
-};
+private:
+	Level level;
 
+};

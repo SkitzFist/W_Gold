@@ -31,6 +31,7 @@ public:
 	sf::Image* getLevel_Test();
 	sf::Image* getLevel_Test02();
 	sf::Image* getLevel_Test03();
+	sf::Image* getLevel_01(); 
 #pragma endregion
 
 #pragma region objects + UI

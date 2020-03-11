@@ -171,6 +171,11 @@ sf::Image* ResourceManager::getLevel_Test03()
 	return level_test03;
 }
 
+sf::Image* ResourceManager::getLevel_01()
+{
+	return level_01;
+}
+
 sf::SoundBuffer* ResourceManager::getGunShot()
 {
 	return this->gunShot;

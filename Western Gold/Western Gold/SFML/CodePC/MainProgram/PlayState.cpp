@@ -3,14 +3,15 @@
 
 
 PlayState::PlayState(ResourceManager* rm):
-	GameState(rm)
+	GameState(rm),
+	level(rm, rm->getLevel_01())
 {
 	//config
 
 	//setup
 
 	//debug
-	setupText();
+
 }
 
 
@@ -34,17 +35,8 @@ GameState * PlayState::update(DeltaTime delta)
 
 void PlayState::render(sf::RenderWindow&  window) const
 {
+	level.drawLevel(window);
+
 
 	//debug
-	window.draw(text);
-}
-
-void PlayState::setupText()
-{
-	text.setFont(*getRm()->getBasicFont());
-	sf::Vector2f pos{
-		getRm()->getWindowWidth() / 2.f,
-		getRm()->getWindowHeight() / 2.f
-	};
-	text.setPosition(pos);
 }
