@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "Level.h"
 #include "EnemyHandler.h"
+#include "Player.h"
 
 class PlayState :
 	public GameState
@@ -17,6 +18,7 @@ public:
 
 
 private:
-	Level level;
+	Level* level;
+	Player* player;
 	EnemyHandler enemyHandler;
 };

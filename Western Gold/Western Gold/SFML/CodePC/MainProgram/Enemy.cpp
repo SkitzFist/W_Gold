@@ -34,10 +34,9 @@ void Enemy::update(DeltaTime delta)
 	float speed = 100.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
+		Entity::update(delta);
+		moveSprite(dir, speed);
 	}
-	Entity::update(delta);
-	moveSprite(dir, speed);
-	
 }
 
 bool Enemy::shoot()

@@ -9,6 +9,7 @@ public:
 	void update(DeltaTime time);
 	int getNrOf() const;
 	Enemy** getEnemies()const;
+	void add(Enemy* enemy);
 private:
 	Enemy** enemies;
 	int nrOf;
@@ -16,6 +17,5 @@ private:
 
 	void expandArr();
 	void removeAt(int i);
-	void add(Enemy* enemy);
 };
 

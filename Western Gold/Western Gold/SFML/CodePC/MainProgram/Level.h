@@ -12,10 +12,11 @@ public:
 	Grid* getGrid() const;
 	tile** getTiles() const;
 	void drawLevel(sf::RenderWindow &window) const;
+	void placeEnemies(Player* player, EnemyHandler& handler);
 	
 private:
 	Grid* grid;
 	ResourceManager* rm;
-
+	void engageEnemyPatrollPoints(sf::Vector2i& points, int nrOf, EnemyHandler& handler, Player* player);
 };
 

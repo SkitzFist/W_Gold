@@ -169,7 +169,7 @@
       <Filter>Source Files\Enemy\Enemy States</Filter>
     </ClCompile>
     <ClCompile Include="EnemyHandler.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -273,7 +273,7 @@
       <Filter>Header Files\Enemy\Enemy States</Filter>
     </ClInclude>
     <ClInclude Include="EnemyHandler.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
