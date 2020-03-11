@@ -36,7 +36,9 @@ GameState * PlayState::update(DeltaTime delta)
 void PlayState::render(sf::RenderWindow&  window) const
 {
 	level.drawLevel(window);
-
+	for (int i = 0; i < enemyHandler.getNrOf(); ++i) {
+		window.draw(*enemyHandler.getEnemies()[i]);
+	}
 
 	//debug
 }

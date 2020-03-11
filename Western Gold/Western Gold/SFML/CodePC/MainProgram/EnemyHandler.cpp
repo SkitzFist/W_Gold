@@ -21,14 +21,24 @@ EnemyHandler::~EnemyHandler()
 
 void EnemyHandler::update(DeltaTime time)
 {
-	for (int i = 0; i < nrOf; ++i) {
-		enemies[i]->update(time);
+	for (int i = 0; i < nrOf; ++i) {		
+		if (enemies[i]->isDead()) {
+			removeAt(i);
+		}
+		else {
+			enemies[i]->update(time);
+		}
 	}
 }
 
 int EnemyHandler::getNrOf() const
 {
 	return nrOf;
+}
+
+Enemy** EnemyHandler::getEnemies() const
+{
+	return enemies;
 }
 
 void EnemyHandler::expandArr()

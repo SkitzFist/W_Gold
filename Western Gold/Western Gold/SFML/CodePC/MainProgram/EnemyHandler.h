@@ -8,6 +8,7 @@ public:
 	~EnemyHandler();
 	void update(DeltaTime time);
 	int getNrOf() const;
+	Enemy** getEnemies()const;
 private:
 	Enemy** enemies;
 	int nrOf;

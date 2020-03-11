@@ -1,6 +1,8 @@
 #pragma once
 #include "GameState.h"
 #include "Level.h"
+#include "EnemyHandler.h"
+
 class PlayState :
 	public GameState
 {
@@ -16,5 +18,5 @@ public:
 
 private:
 	Level level;
-
+	EnemyHandler enemyHandler;
 };
