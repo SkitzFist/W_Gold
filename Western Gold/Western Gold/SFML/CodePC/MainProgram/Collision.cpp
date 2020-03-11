@@ -280,7 +280,7 @@ bool Collision::tileVisibility() {
 				//notWalkableTiles[20]->setWannaDraw(false);
 				if (player->getTileRay(o)->rayHitTile(notWalkableTiles[i]))
 				{
-					//notWalkableTiles[o]->setWannaDraw(false);
+					notWalkableTiles[o]->setWannaDraw(false);
 					theReturn = false;
 				}
 			}
@@ -432,10 +432,10 @@ Collision::~Collision()
 
 }
 
-bool Collision::enemySeeCollider()
+bool Collision::enemySeeCollider(Enemy enemy)
 {
 	bool theReturn = false;
-	//i = enemies, r = enemy rays, t = tiles;
+	/*//i = enemies, r = enemy rays, t = tiles;
 	//see first if enemys ray hit player, then see if there is a wall beetween
 	for (int i = 0; i < nrOfEnemies; i++) {
 		for (int r = 0; r < enemies[i]->getNrOfRays(); r++) {
@@ -453,7 +453,23 @@ bool Collision::enemySeeCollider()
 				}
 			}
 		}
+	}*/
+	for (int i = 0; i < enemy.getNrOfRays(); i++) {
+		float distance = getDistance(player, &enemy);
+		float maxDistance = 800;
+		//enemy.getBounds().top
+		//float B = enemy.getBounds().top + enemy.getBounds().height;
+		//float T = enemy.getBounds().top - Tile->getSprite()->getGlobalBounds().height / 2.f;
+		//float L = Tile->getSprite()->getGlobalBounds().left - Tile->getSprite()->getGlobalBounds().width / 2.f;
+		//float R = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width / 2.f;
+		//
+		//float k = (float)((this->line.getLineY1() - this->line.getLineY2()) / (this->line.getLineX1() - this->line.getLineX2()));
+		//float m = (float)(this->line.getLineY1() - (k * this->line.getLineX1()));
+		//for (int see = 0; see < distance && see < maxDistance; see += 5) {
+		//
+		//}
 	}
+
 
 	return theReturn;
 }

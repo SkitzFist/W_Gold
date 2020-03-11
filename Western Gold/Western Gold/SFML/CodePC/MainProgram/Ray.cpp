@@ -131,10 +131,10 @@ bool Ray::rayHitGameObject(GameObject* gameObj)
 bool Ray::rayHitTile(tile* Tile)
 {
 	bool theReturn = false;
-	float B = Tile->getSprite()->getGlobalBounds().top + Tile->getSprite()->getGlobalBounds().height /2.f;
-	float T = Tile->getSprite()->getGlobalBounds().top - Tile->getSprite()->getGlobalBounds().height / 2.f;
-	float L = Tile->getSprite()->getGlobalBounds().left - Tile->getSprite()->getGlobalBounds().width / 2.f;
-	float R = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width / 2.f;
+	float B = Tile->getSprite()->getGlobalBounds().top + Tile->getSprite()->getGlobalBounds().height;
+	float T = Tile->getSprite()->getGlobalBounds().top;
+	float L = Tile->getSprite()->getGlobalBounds().left;
+	float R = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width;
 
 	float k = (float)((this->line.getLineY1() - this->line.getLineY2()) / (this->line.getLineX1() - this->line.getLineX2()));
 	float m = (float)(this->line.getLineY1() - (k * this->line.getLineX1()));
