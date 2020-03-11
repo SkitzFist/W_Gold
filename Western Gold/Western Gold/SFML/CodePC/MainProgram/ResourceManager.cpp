@@ -21,9 +21,13 @@ ResourceManager::~ResourceManager()
 	delete tile_black;
 	delete tile_white;
 	delete tile_ok;
+	delete tile_sand;
+	delete tile_floor;
+	delete tile_wall;
 	delete level_test;
 	delete level_test02;
 	delete level_test03;
+	delete level_01;
 	delete bullet;
 	delete gunShot;
 	delete enemy;
@@ -42,6 +46,26 @@ void ResourceManager::windowSetup(sf::RenderWindow* window)
 sf::RenderWindow* ResourceManager::getWindow()
 {
 	return window;
+}
+
+void ResourceManager::loadTilesAndLevels()
+{
+	tile_sand = new sf::Texture();
+	if (!(tile_sand->loadFromFile("../Textures/tile_sand.png"))) {
+		cantLoad(L"can't load: tile_sand.png");
+	}
+	tile_floor = new sf::Texture();
+	if (!(tile_floor->loadFromFile("../Textures/tile_floor.png"))) {
+		cantLoad(L"can't load: tile_floor.png");
+	}
+	tile_wall = new sf::Texture();
+	if (!(tile_wall->loadFromFile("../Textures/tile_wall.png"))) {
+		cantLoad(L"can't load: tile_wall.png");
+	}
+	level_01 = new sf::Image();
+	if (!(level_01->loadFromFile("../Levels/level_01.png"))) {
+		cantLoad(L"can't load: level_01.png");
+	}
 }
 
 int ResourceManager::getWindowWidth() const
@@ -115,6 +139,21 @@ sf::Texture* ResourceManager::getTile_Black()
 sf::Texture* ResourceManager::getTile_Ok()
 {
 	return tile_ok;
+}
+
+sf::Texture* ResourceManager::getTile_floor()
+{
+	return tile_floor;
+}
+
+sf::Texture* ResourceManager::getTile_Sand()
+{
+	return tile_sand;
+}
+
+sf::Texture* ResourceManager::getTile_Wall()
+{
+	return tile_wall;
 }
 
 sf::Image* ResourceManager::getLevel_Test()
