@@ -452,13 +452,13 @@ bool Collision::enemySeeCollider(Enemy enemy)
 		
 		float k = (float)((enemy.getRays()[i]->returnThisLine().getLineY1() - enemy.getRays()[i]->returnThisLine().getLineY2()) / (enemy.getRays()[i]->returnThisLine().getLineX1() - enemy.getRays()[i]->returnThisLine().getLineX2()));
 		float m = (float)(enemy.getRays()[i]->returnThisLine().getLineY1() - (k * enemy.getRays()[i]->returnThisLine().getLineX1()));
-		//for (int see = 0; see < distance && see < maxDistance; see += ) 
-		//{
-		//	//see = x;
-		//	//y = k*x+m
-		//	//grid->getTileFromWorldPos(sf::Vector2i(10,10))->setWannaDraw(false);
-		//
-		//}
+		for (int see = 0; see < distance && see < maxDistance; see += grid.getTileSize()) 
+		{
+			//see = x;
+			//y = k*x+m
+			//grid->getTileFromWorldPos(sf::Vector2i(10,10))->setWannaDraw(false);
+		
+		}
 	}
 
 

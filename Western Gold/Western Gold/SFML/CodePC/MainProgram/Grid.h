@@ -20,6 +20,7 @@ public:
 	int getNrOfWalkableTiles() const;
 	int getNrOfNotWalkableTiles() const;
 
+	//float getTileSize()const;
 private:
 	tile** tiles;
 	sf::Vector2u gridSize;
