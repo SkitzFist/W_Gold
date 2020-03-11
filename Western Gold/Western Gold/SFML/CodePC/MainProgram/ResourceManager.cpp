@@ -146,12 +146,12 @@ sf::Texture* ResourceManager::getTile_floor()
 	return tile_floor;
 }
 
-sf::Texture* ResourceManager::getTile_Sand()
+sf::Texture* ResourceManager::getTile_sand()
 {
 	return tile_sand;
 }
 
-sf::Texture* ResourceManager::getTile_Wall()
+sf::Texture* ResourceManager::getTile_wall()
 {
 	return tile_wall;
 }

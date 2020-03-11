@@ -23,8 +23,8 @@ public:
 	sf::Texture* getTile_Black();
 	sf::Texture* getTile_Ok();
 	sf::Texture* getTile_floor();
-	sf::Texture* getTile_Sand();
-	sf::Texture* getTile_Wall();
+	sf::Texture* getTile_sand();
+	sf::Texture* getTile_wall();
 #pragma endregion
 
 #pragma region Levels
