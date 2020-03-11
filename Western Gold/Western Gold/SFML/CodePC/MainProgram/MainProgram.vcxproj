@@ -176,6 +176,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DeltaTime.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyHandler.cpp" />
     <ClCompile Include="EnmState.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DeltaTime.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyHandler.h" />
     <ClInclude Include="EnmState.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />

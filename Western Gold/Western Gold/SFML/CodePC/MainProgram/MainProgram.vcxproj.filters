@@ -168,6 +168,9 @@
     <ClCompile Include="SeachState.cpp">
       <Filter>Source Files\Enemy\Enemy States</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -268,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="SeachState.h">
       <Filter>Header Files\Enemy\Enemy States</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyHandler.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
