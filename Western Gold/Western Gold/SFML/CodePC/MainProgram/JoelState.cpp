@@ -1,5 +1,4 @@
 #include "JoelState.h"
-
 //debug
 #include <iostream>
 #include <vector>
@@ -45,11 +44,10 @@ GameState* JoelState::handleEvent(const sf::Event& event)
 
 	if (event.type == sf::Event::KeyReleased) {
 		if (event.key.code == sf::Keyboard::Space) {
-			sf::Vector2i* patrollPos = new sf::Vector2i[3];
-			patrollPos[0] = { 48,48 };
-			patrollPos[1] = { 80, 208 };
-			patrollPos[2] = { 464, 592 };
-			enemy->engagePatrolState(patrollPos, static_cast<size_t>(3));
+			sf::Vector2i* patrollPos = new sf::Vector2i[2];
+			patrollPos[0] = { 240,112 };
+			patrollPos[1] = { 752, 112 };
+			enemy->engagePatrolState(patrollPos, static_cast<size_t>(2));
 			canStart = true;
 		}
 	}

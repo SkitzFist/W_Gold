@@ -8,6 +8,7 @@ Grid::Grid(ResourceManager* rm, sf::Image*level)
 {
 	//Config
 	tileSize = static_cast<float>(rm->getTile_White()->getSize().x);
+
 	//Setup
 	nrOfWalkableTiles = 0;
 	nrOfNotWalkableTiles = 0;
@@ -106,6 +107,11 @@ int Grid::getNrOfWalkableTiles() const
 int Grid::getNrOfNotWalkableTiles() const
 {
 	return nrOfNotWalkableTiles;
+}
+
+float Grid::getTileSize() const
+{
+	return tileSize;
 }
 
 void Grid::initGrid(ResourceManager* rm,sf::Image* level)

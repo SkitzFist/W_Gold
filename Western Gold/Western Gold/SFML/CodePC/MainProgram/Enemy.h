@@ -31,6 +31,8 @@ public:
 	void setDir(sf::Vector2f dir);
 	bool isShooting();
 
+	//debug
+
 private:
 	Player* player;
 	bool isPlayerInSight;
