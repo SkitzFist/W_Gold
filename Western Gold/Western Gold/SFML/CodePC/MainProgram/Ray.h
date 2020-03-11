@@ -20,6 +20,7 @@ private:
 public:
 	Ray(float dir = NULL);
 	virtual ~Ray();
+	Line returnThisLine()const;
 	void setRotationOffset(float offset, Entity* entity = nullptr);
 	float getRotationOffset()const;
 	void updateRay(Entity* entity);

@@ -271,21 +271,7 @@ bool Collision::botSide(GameObject* gameObj1, GameObject* gameObj2)
 bool Collision::tileVisibility() {
 	//tiles
 	bool theReturn = true;
-	for (int o = 0; o < grid->getNrOfNotWalkableTiles(); o++)
-	{
-		for (int i = 0; i < grid->getNrOfNotWalkableTiles(); i++)
-		{
-			if (i != o) {
-				//notWalkableTiles[49]->setWannaDraw(false);
-				//notWalkableTiles[20]->setWannaDraw(false);
-				if (player->getTileRay(o)->rayHitTile(notWalkableTiles[i]))
-				{
-					notWalkableTiles[o]->setWannaDraw(false);
-					theReturn = false;
-				}
-			}
-		}
-	}
+
 	//and enemies
 	for (int e = 0; e < nrOfEnemies; e++) 
 	{
@@ -431,6 +417,7 @@ Collision::~Collision()
 {
 
 }
+
 
 bool Collision::enemySeeCollider(Enemy enemy)
 {
@@ -457,15 +444,19 @@ bool Collision::enemySeeCollider(Enemy enemy)
 	for (int i = 0; i < enemy.getNrOfRays(); i++) {
 		float distance = getDistance(player, &enemy);
 		float maxDistance = 800;
-		//enemy.getBounds().top
-		//float B = enemy.getBounds().top + enemy.getBounds().height;
-		//float T = enemy.getBounds().top - Tile->getSprite()->getGlobalBounds().height / 2.f;
-		//float L = Tile->getSprite()->getGlobalBounds().left - Tile->getSprite()->getGlobalBounds().width / 2.f;
-		//float R = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width / 2.f;
-		//
-		//float k = (float)((this->line.getLineY1() - this->line.getLineY2()) / (this->line.getLineX1() - this->line.getLineX2()));
-		//float m = (float)(this->line.getLineY1() - (k * this->line.getLineX1()));
-		//for (int see = 0; see < distance && see < maxDistance; see += 5) {
+		//enemy.getBounds().top;
+		float B = enemy.getBounds().top + enemy.getBounds().height;
+		float T = enemy.getBounds().top;
+		float L = enemy.getBounds().left;
+		float R = enemy.getBounds().left + enemy.getBounds().width;
+		
+		float k = (float)((enemy.getRays()[i]->returnThisLine().getLineY1() - enemy.getRays()[i]->returnThisLine().getLineY2()) / (enemy.getRays()[i]->returnThisLine().getLineX1() - enemy.getRays()[i]->returnThisLine().getLineX2()));
+		float m = (float)(enemy.getRays()[i]->returnThisLine().getLineY1() - (k * enemy.getRays()[i]->returnThisLine().getLineX1()));
+		//for (int see = 0; see < distance && see < maxDistance; see += ) 
+		//{
+		//	//see = x;
+		//	//y = k*x+m
+		//	//grid->getTileFromWorldPos(sf::Vector2i(10,10))->setWannaDraw(false);
 		//
 		//}
 	}
@@ -500,5 +491,5 @@ void Collision::update()
 	//check collision
 	checkCollision();
 	tileVisibility();
-
+	//grid->getTileFromWorldPos(sf::Vector2i(60, 60))->setWannaDraw(false);
 }

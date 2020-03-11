@@ -54,6 +54,11 @@ Ray::~Ray()
 {
 }
 
+Line Ray::returnThisLine() const
+{
+	return this->line;
+}
+
 void Ray::setRotationOffset(float offset, Entity* entity)
 {
 	//for enemies
