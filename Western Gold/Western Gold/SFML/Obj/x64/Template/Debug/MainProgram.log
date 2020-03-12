@@ -3,4 +3,5 @@ C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainPro
 C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(41,21): warning C4018: '<': signed/unsigned mismatch
 C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(105,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(108,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  MainProgram.vcxproj -> C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe
+PlayState.obj : error LNK2019: unresolved external symbol "public: __cdecl Player::Player(class sf::Texture *,class ResourceManager *,int,int)" (??0Player@@QEAA@PEAVTexture@sf@@PEAVResourceManager@@HH@Z) referenced in function "public: __cdecl PlayState::PlayState(class ResourceManager *)" (??0PlayState@@QEAA@PEAVResourceManager@@@Z)
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\..\Bin\x64\TemplateD.exe : fatal error LNK1120: 1 unresolved externals
