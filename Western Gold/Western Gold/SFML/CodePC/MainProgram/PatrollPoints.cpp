@@ -26,8 +26,12 @@ void PatrollPoints::add(sf::Vector2i point)
 sf::Vector2i PatrollPoints::getNextPoint()
 {
 	currentIndex = (currentIndex + 1) % size;
-	std::cout << currentIndex << std::endl;
 	return points[currentIndex];
+}
+
+sf::Vector2i* PatrollPoints::getPoints() const
+{
+	return points;
 }
 
 void PatrollPoints::print()

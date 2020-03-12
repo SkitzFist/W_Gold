@@ -114,7 +114,7 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEne
 	this->nrOfEnemies = nrOfEnemies;
 
 	this->window = rm->getWindow();
-	speed = 100;
+	speed = 500.f;
 
 	this->setanimation(0.05f, 24, 1, 0);
 }

@@ -21,4 +21,5 @@ private:
 	Level* level;
 	Player* player;
 	EnemyHandler enemyHandler;
+	sf::View camera;
 };

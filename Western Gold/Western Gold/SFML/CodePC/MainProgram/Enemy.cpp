@@ -72,7 +72,7 @@ bool Enemy::isShooting()
 
 void Enemy::setIsPlayerInSight(Collision& col)
 {
-	if (col.shootCollider(this, false)) {
+	if (col.enemySeeCollider(this)) {
 		isPlayerInSight = true;
 	}
 	else {
