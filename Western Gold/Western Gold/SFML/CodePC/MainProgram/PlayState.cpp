@@ -27,25 +27,26 @@ PlayState::~PlayState()
 GameState * PlayState::handleEvent(const sf::Event & event)
 {
 	GameState* state = this;
-
 	return state;
 }
 
 GameState * PlayState::update(DeltaTime delta)
 {
 	GameState* state = this;
-
-	//enemyHandler.update(delta);
-
+	player->update(delta);
+	camera.setCenter(player->getPosition());
+	enemyHandler.update(delta);
+	
 	return state;
 }
 
 void PlayState::render(sf::RenderWindow&  window) const
 {
+	window.setView(camera);
 	level->drawLevel(window);
-	//for (int i = 0; i < enemyHandler.getNrOf(); ++i) {
-	//	window.draw(*enemyHandler.getEnemies()[i]);
-	//}
+	for (int i = 0; i < enemyHandler.getNrOf(); ++i) {
+		window.draw(*enemyHandler.getEnemies()[i]);
+	}
 
 	//debug
 }

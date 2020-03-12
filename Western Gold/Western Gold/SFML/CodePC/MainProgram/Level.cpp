@@ -2,8 +2,6 @@
 #include <string>
 #include "Level.h"
 
-//debug
-#include <iostream>
 Level::Level(ResourceManager* rm, sf::Image* level)
 {
 	//config
@@ -46,24 +44,28 @@ void Level::placeEnemies(Player* player, EnemyHandler& handler)
 	if (file.is_open()) {
 		file.getline(buf, 10);
 		nrOFEnemies = std::stoi(buf);
-		std::cout << nrOFEnemies << std::endl;
-
 		for (int i = 0; i < nrOFEnemies; ++i) {
 			file.getline(buf, 10);
 			int nrOfPatrollPoints = std::stoi(buf);
 			PatrollPoints* points = new PatrollPoints(nrOfPatrollPoints);
-			for (int y = 0; y < nrOfPatrollPoints; ++y) {
+			for (int k = 0; k < nrOfPatrollPoints; ++k) {
 				sf::Vector2i point;
+				int x;
+				int y;
 				file.getline(buf, 10, ' ');
-				point.x = std::stoi(buf);
+				x = std::stoi(buf);
 				file.getline(buf, 10);
-				point.y = std::stoi(buf);
+				y = std::stoi(buf);
+
+				point = grid->getTiles()[y][x].getWorldPos();
 				points->add(point);
-				std::cout << point.x << "." << point.y << std::endl;
 			}
+			Enemy* enm = new Enemy(rm, 45, grid, player);
+			enm->setPosition(static_cast<sf::Vector2f>(points->getPoints()[0]));
+			enm->setPatrollPoints(points);
+			handler.add(enm);
 			file.getline(buf, 10);
 		}
-		
 	}
 
 

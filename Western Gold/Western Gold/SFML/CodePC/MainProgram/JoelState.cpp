@@ -60,7 +60,7 @@ GameState* JoelState::update(DeltaTime time)
 	GameState* state = this;
 
 	if (canStart) {
-		//enemy->setIsPlayerInSight(*col);
+		
 		enemy->update(time);
 	}
 
