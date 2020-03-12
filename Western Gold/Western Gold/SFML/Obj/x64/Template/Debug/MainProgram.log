@@ -1,8 +1,10 @@
-﻿  Collision.cpp
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(8,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(9,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(355,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(356,24): warning C4018: '<': signed/unsigned mismatch
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(485,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(486,21): warning C4018: '<': signed/unsigned mismatch
+﻿  Grid.cpp
+  Line.cpp
+  Pathfinding.cpp
+  SimonState.cpp
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(40,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(41,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(99,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(102,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
   MainProgram.vcxproj -> C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

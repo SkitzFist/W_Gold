@@ -19,7 +19,7 @@ public:
 	std::vector<tile*> getSurroundingTiles(tile* t);
 	int getNrOfWalkableTiles() const;
 	int getNrOfNotWalkableTiles() const;
-	float getTileSize() const;
+	float getTileSize()const;
 private:
 	tile** tiles;
 	sf::Vector2u gridSize;

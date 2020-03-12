@@ -125,6 +125,11 @@ Player::~Player()
 		delete rayTile[i];
 	}
 	delete[] rayTile;
+
+	for (int i = 0; i < nrOfEnemies; i++) {
+		delete enemyRays[i];
+	}
+	delete[] enemyRays;
 }
 
 void Player::update(DeltaTime time)

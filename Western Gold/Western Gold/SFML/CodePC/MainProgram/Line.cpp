@@ -14,9 +14,7 @@ Line::Line(float x1, float y1, float x2, float y2)
 
 Line::~Line()
 {
-	if (this->line != nullptr) {
 		delete line;
-	}
 }
 
 void Line::changeLine()
