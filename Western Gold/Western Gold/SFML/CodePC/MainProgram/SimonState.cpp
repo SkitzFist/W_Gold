@@ -6,7 +6,7 @@
 SimonState::SimonState(ResourceManager* rm):
 	GameState(rm),
 	bull(rm),
-	lvl(rm, rm->getLevel_Test03()),
+	lvl(rm, rm->getLevel_01()),
 	ui(rm)
 {
 	//nrOfObjects
@@ -29,7 +29,7 @@ SimonState::SimonState(ResourceManager* rm):
 		gold[i] = new Gold(rm, (float)(i+1) * 100.0f, 300.0f + (float)i * 100.0f);
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
-		enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 90, lvl.getGrid(), p);
+		enemytest[i] = new Enemy(getRm(), 90, lvl.getGrid(), p);
 		enemytest[i]->setPosition(200,200);
 		enemytest[i]->setRotatioSprite(2);
 		//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));

@@ -11,11 +11,13 @@ Game::Game() :
 	elapsedTimeSinceLastUpdate(sf::Time::Zero)
 {
 	//config
-	window = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Western Gold");
+	sf::ContextSettings settings(0U, 0U, 16U);
+	window = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Western Gold", 7U, settings);
 
 	//setup
 	rm = new ResourceManager();
 	rm->windowSetup(window);
+	rm->loadTilesAndLevels();
 
 	currentState = new SimonState(rm);
 

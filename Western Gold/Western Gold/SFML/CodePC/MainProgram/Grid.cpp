@@ -8,6 +8,7 @@ Grid::Grid(ResourceManager* rm, sf::Image*level)
 {
 	//Config
 	tileSize = static_cast<float>(rm->getTile_White()->getSize().x);
+
 	//Setup
 	nrOfWalkableTiles = 0;
 	nrOfNotWalkableTiles = 0;
@@ -115,8 +116,9 @@ float Grid::getTileSize() const
 
 void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 {
-	sf::Color walkable = { 255,255,255 };
-	sf::Color notWalkable = { 0,0,0 };
+	sf::Color floor = { 118,85,4 };
+	sf::Color sand = { 154,156,72 };
+	sf::Color wall = { 0,0,0 };
 
 	sf::Vector2f pos = {-tileSize /2 ,-tileSize /2};
 	
@@ -127,16 +129,23 @@ void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 			pos.y += tileSize;
 
 			sf::Color pixelInlevel = level->getPixel(x, y);
-			if (pixelInlevel == walkable) {
+			if (pixelInlevel == sand) {
 				++nrOfWalkableTiles;
-				tiles[y][x].setSprite(rm->getTile_Ok());
+				tiles[y][x].setSprite(rm->getTile_sand());
 				tiles[y][x].setWorldPos(pos);
 				tiles[y][x].setIsWalkable(true);
 				tiles[y][x].setGridPos(sf::Vector2i(x, y));
 			}
-			else if (pixelInlevel == notWalkable) {
+			else if (pixelInlevel == floor) {
+				++nrOfWalkableTiles;
+				tiles[y][x].setSprite(rm->getTile_floor());
+				tiles[y][x].setWorldPos(pos);
+				tiles[y][x].setIsWalkable(true);
+				tiles[y][x].setGridPos(sf::Vector2i(x, y));
+			}
+			else if (pixelInlevel == wall) {
 				++nrOfNotWalkableTiles;
-				tiles[y][x].setSprite(rm->getTile_Black());
+				tiles[y][x].setSprite(rm->getTile_wall());
 				tiles[y][x].setWorldPos(pos);
 				tiles[y][x].setIsWalkable(false);
 				tiles[y][x].setGridPos(sf::Vector2i(x, y));
