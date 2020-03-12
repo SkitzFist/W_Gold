@@ -5,17 +5,16 @@
 //debug
 #include <iostream>
 
-Enemy::Enemy(sf::Texture* tex, ResourceManager* rm, int nrOfRays, Grid* grid, Player* player):
-Entity(tex, rm, nrOfRays)
+Enemy::Enemy(ResourceManager* rm, int nrOfRays, Grid* grid, Player* player):
+Entity(rm->getEnemy(), rm, nrOfRays)
 {
 	//config
-
+	
 	//setup
+	patroll = nullptr;
 	this->player = player;
 	pathfinding = new Pathfinding(grid);
 	currentState = nullptr;
-	patrollPoints = nullptr;
-	patrollPointsLength = 0;
 	this->grid = grid;
 	dir = { 0.f, 0.f };
 	isPlayerInSight = false;
@@ -25,8 +24,9 @@ Entity(tex, rm, nrOfRays)
 
 Enemy::~Enemy()
 {
-	delete currentState;
+	delete patroll;
 	delete pathfinding;
+	delete currentState;
 }
 
 void Enemy::update(DeltaTime delta)
@@ -49,12 +49,10 @@ Pathfinding* Enemy::getPathfinding() const
 	return pathfinding;
 }
 
-void Enemy::engagePatrolState(sf::Vector2i points[], size_t length)
+void Enemy::setPatrollPoints(PatrollPoints* patroll)
 {
-	patrollPointsLength = length;
-	patrollPoints = points;
-
-	currentState = new PatrollState(this, patrollPoints, patrollPointsLength);
+	this->patroll = patroll;
+	currentState = new PatrollState(this);
 }
 
 Grid* Enemy::getGrid() const
@@ -93,15 +91,11 @@ Player* Enemy::getPlayer()
 	return nullptr;
 }
 
-sf::Vector2i* Enemy::getPatrollPoints() const
+PatrollPoints* Enemy::getPatroll()
 {
-	return patrollPoints;
+	return patroll;
 }
 
-size_t Enemy::getPatrollPointsLength() const
-{
-	return patrollPointsLength;
-}
 
 Player* Enemy::getPlayer() const
 {

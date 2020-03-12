@@ -206,14 +206,14 @@ void Level::placeEnemies(Player* player, EnemyHandler& handler)
 
 void Level::engageEnemyPatrollPoints(sf::Vector2i& points, int nrOf, EnemyHandler& handler, Player* player)
 {
-	sf::Vector2i* patrollPoints = new sf::Vector2i;
-	for (int i = 0; i < nrOf; ++i) {
-		tile* t = &getGrid()->getTiles()[points.y][points.x];
-		patrollPoints[i] = t->getWorldPos();
-	}
-	Enemy* newEnemy = new Enemy(rm->getEnemy(), rm, 90, grid, player);
-	newEnemy->setPosition(static_cast<sf::Vector2f>(patrollPoints[0]));
-	newEnemy->engagePatrolState(patrollPoints, static_cast<size_t>(nrOf));
-	handler.add(newEnemy);
+	//sf::Vector2i* patrollPoints = new sf::Vector2i;
+	//for (int i = 0; i < nrOf; ++i) {
+	//	tile* t = &getGrid()->getTiles()[points.y][points.x];
+	//	patrollPoints[i] = t->getWorldPos();
+	//}
+	//Enemy* newEnemy = new Enemy(rm->getEnemy(), rm, 90, grid, player);
+	//newEnemy->setPosition(static_cast<sf::Vector2f>(patrollPoints[0]));
+	//newEnemy->setPatrollPoints(patrollPoints, static_cast<size_t>(nrOf));
+	//handler.add(newEnemy);
 
 }

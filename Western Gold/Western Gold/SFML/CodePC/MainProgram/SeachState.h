@@ -9,9 +9,6 @@ public:
 	virtual EnmState* update(DeltaTime time) override;
 
 private:
-	tile* currentTile;
-	tile* targetTile;
-	tile* nextTile;
 
 	int maxSearchDistance;
 	float maximumSearchTime;
@@ -20,10 +17,7 @@ private:
 	float searchTimer;
 
 	void move();
-	void calculatePath();
-	sf::Vector2f getDir();
-	bool hasReachedTile(tile* t);
-	tile* getNextTarget();
+	void setNextTarget();
 	int randomInt(int min, int max);
 	float randomFloat(float min, float max);
 };

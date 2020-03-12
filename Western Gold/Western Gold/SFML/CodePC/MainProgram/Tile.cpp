@@ -11,7 +11,7 @@ tile::tile()
 	eCost = NULL;
 	sCost = NULL;
 	sprite = new sf::Sprite();
-
+	parent = nullptr;
 	wannaDraw = true;
 	gridPos = { NULL, NULL };
 }

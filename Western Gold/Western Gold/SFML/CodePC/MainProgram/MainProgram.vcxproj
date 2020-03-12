@@ -193,6 +193,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Pathfinding.cpp" />
+    <ClCompile Include="PatrollPoints.cpp" />
     <ClCompile Include="PatrollState.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Line.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Pathfinding.h" />
+    <ClInclude Include="PatrollPoints.h" />
     <ClInclude Include="PatrollState.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="Player.h" />

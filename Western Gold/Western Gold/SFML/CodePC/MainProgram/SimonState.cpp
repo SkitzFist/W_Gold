@@ -33,7 +33,7 @@ SimonState::SimonState(ResourceManager* rm):
 		gold[i] = new Gold(rm, (float)(i+1) * 100.0f, 300.0f + (float)i * 100.0f);
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
-		enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 90, lvl.getGrid(), p);
+		enemytest[i] = new Enemy(getRm(), 90, lvl.getGrid(), p);
 		enemytest[i]->setPosition(100,100);
 		//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));
 	}

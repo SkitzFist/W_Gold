@@ -152,11 +152,8 @@ void Pathfinding::clearPath()
 void Pathfinding::retracePath(tile* startTile, tile* endTile) {
 	path.clear();
 	tile* currentTile = endTile;
-	//sf::Texture* texture = new sf::Texture(); // TODO:: Remove this, only for debugging.
-	//texture->loadFromFile("../Textures/tile_ok.png");
 	while (currentTile != startTile) {
 		path.push_back(currentTile);
-		/*currentTile->setSprite(texture);*/
 		currentTile = currentTile->getParent();
 	}
 }
