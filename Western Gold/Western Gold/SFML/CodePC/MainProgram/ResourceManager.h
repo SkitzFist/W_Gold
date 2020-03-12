@@ -12,6 +12,7 @@ public:
 	int getWindowWidth() const;
 	int getWindowHeight() const;
 	sf::RenderWindow* getWindow();
+	void loadTilesAndLevels();
 
 #pragma region Fonts
 	sf::Font* getBasicFont();
@@ -21,12 +22,16 @@ public:
 	sf::Texture* getTile_White();
 	sf::Texture* getTile_Black();
 	sf::Texture* getTile_Ok();
+	sf::Texture* getTile_floor();
+	sf::Texture* getTile_sand();
+	sf::Texture* getTile_wall();
 #pragma endregion
 
 #pragma region Levels
 	sf::Image* getLevel_Test();
 	sf::Image* getLevel_Test02();
 	sf::Image* getLevel_Test03();
+	sf::Image* getLevel_01(); 
 #pragma endregion
 
 #pragma region objects + UI
@@ -58,12 +63,16 @@ private:
 	sf::Texture* tile_white;
 	sf::Texture* tile_black;
 	sf::Texture* tile_ok;
+	sf::Texture* tile_sand;
+	sf::Texture* tile_floor;
+	sf::Texture* tile_wall;
 #pragma endregion 
 
 #pragma region Levels
 	sf::Image* level_test;
 	sf::Image* level_test02;
 	sf::Image* level_test03;
+	sf::Image* level_01;
 #pragma endregion
 
 #pragma region objects + UI
