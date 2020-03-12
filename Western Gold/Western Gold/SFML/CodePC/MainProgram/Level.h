@@ -17,6 +17,5 @@ public:
 private:
 	Grid* grid;
 	ResourceManager* rm;
-	void engageEnemyPatrollPoints(sf::Vector2i& points, int nrOf, EnemyHandler& handler, Player* player);
 };
 

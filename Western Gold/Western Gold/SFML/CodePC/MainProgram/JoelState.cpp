@@ -18,7 +18,6 @@ JoelState::JoelState(ResourceManager* rm):
 	enemies = new Enemy*[1];
 	enemies[0] = enemy;
 
-
 	canStart = false;
 }
 

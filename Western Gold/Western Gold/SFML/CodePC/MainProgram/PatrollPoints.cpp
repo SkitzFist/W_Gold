@@ -29,3 +29,10 @@ sf::Vector2i PatrollPoints::getNextPoint()
 	std::cout << currentIndex << std::endl;
 	return points[currentIndex];
 }
+
+void PatrollPoints::print()
+{
+	for (int i = 0; i < size; ++i) {
+		std::cout << points[i].x << "." << points[i].y << std::endl;
+	}
+}

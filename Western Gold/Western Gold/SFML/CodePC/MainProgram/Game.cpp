@@ -18,7 +18,7 @@ Game::Game() :
 	rm->windowSetup(window);
 	rm->loadTilesAndLevels();
 
-	currentState = new JoelState(rm);
+	currentState = new MenuState(rm);
 
 	//debug
 }

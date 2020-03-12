@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+//debug
+#include <string>
 class PatrollPoints
 {
 public:
@@ -7,6 +9,8 @@ public:
 	~PatrollPoints();
 	void add(sf::Vector2i point);
 	sf::Vector2i getNextPoint();
+
+	void print();
 
 private:
 	sf::Vector2i* points;
