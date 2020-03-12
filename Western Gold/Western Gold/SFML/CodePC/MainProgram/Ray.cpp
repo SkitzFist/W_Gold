@@ -54,6 +54,11 @@ Ray::~Ray()
 {
 }
 
+Line &Ray::returnThisLine()
+{
+	return this->line;
+}
+
 void Ray::setRotationOffset(float offset, Entity* entity)
 {
 	//for enemies
@@ -66,6 +71,11 @@ float Ray::getRotationOffset() const
 	return this->rotationOffset;
 }
 
+float Ray::getRotation() const
+{
+	return this->dir;
+}
+
 void Ray::updateRay(Entity* entity)
 {
 	const float PI = 3.14159f;
@@ -73,8 +83,8 @@ void Ray::updateRay(Entity* entity)
 	this->line.setLineX1(entity->getPosition().x);
 	this->line.setLineY1(entity->getPosition().y);
 
-	this->line.setLineX2((float)(200 * cos(dir * PI / 180 - 1.57) + line.getLineX1()));
-	this->line.setLineY2((float)(200 * sin(dir * PI / 180 - 1.57) + line.getLineY1()));
+	this->line.setLineX2((float)(200 * cos(dir * PI / 180.f - 1.57f) + line.getLineX1()));
+	this->line.setLineY2((float)(200 * sin(dir * PI / 180.f - 1.57f) + line.getLineY1()));
 	this->line.changeLine();
 
 
@@ -131,10 +141,10 @@ bool Ray::rayHitGameObject(GameObject* gameObj)
 bool Ray::rayHitTile(tile* Tile)
 {
 	bool theReturn = false;
-	float B = Tile->getSprite()->getGlobalBounds().top + Tile->getSprite()->getGlobalBounds().height /2.f;
-	float T = Tile->getSprite()->getGlobalBounds().top - Tile->getSprite()->getGlobalBounds().height / 2.f;
-	float L = Tile->getSprite()->getGlobalBounds().left - Tile->getSprite()->getGlobalBounds().width / 2.f;
-	float R = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width / 2.f;
+	float B = Tile->getSprite()->getGlobalBounds().top + Tile->getSprite()->getGlobalBounds().height;
+	float T = Tile->getSprite()->getGlobalBounds().top;
+	float L = Tile->getSprite()->getGlobalBounds().left;
+	float R = Tile->getSprite()->getGlobalBounds().left + Tile->getSprite()->getGlobalBounds().width;
 
 	float k = (float)((this->line.getLineY1() - this->line.getLineY2()) / (this->line.getLineX1() - this->line.getLineX2()));
 	float m = (float)(this->line.getLineY1() - (k * this->line.getLineX1()));

@@ -1,24 +1,22 @@
 #include "JoelState.h"
-
 //debug
 #include <iostream>
 #include <vector>
+#include "PatrollPoints.h"
 
 JoelState::JoelState(ResourceManager* rm):
 	GameState(rm)
 {
-	level = new Level(rm, rm->getLevel_Test03());
+	level = new Level(rm, rm->getLevel_01());
 
 	int nrOfTiles = (level->getGrid()->getGridSize().x * level->getGrid()->getGridSize().y);
 	player = new Player(rm->getCharacter(), rm, nrOfTiles, 1);
-
 	
-	enemy = new Enemy(getRm()->getEnemy(), getRm(), 1, level->getGrid(), player);
+	enemy = new Enemy(getRm(), 1, level->getGrid(), player);
 	enemy->setPosition(48.f, 48.f);
 	
-	enemies = new Enemy * [1];
+	enemies = new Enemy*[1];
 	enemies[0] = enemy;
-
 
 	canStart = false;
 }
@@ -26,9 +24,8 @@ JoelState::JoelState(ResourceManager* rm):
 JoelState::~JoelState()
 {
 	delete enemy;
+	delete player;
 	delete level;
-
-
 }
 
 GameState* JoelState::handleEvent(const sf::Event& event)
@@ -45,11 +42,12 @@ GameState* JoelState::handleEvent(const sf::Event& event)
 
 	if (event.type == sf::Event::KeyReleased) {
 		if (event.key.code == sf::Keyboard::Space) {
-			sf::Vector2i* patrollPos = new sf::Vector2i[3];
-			patrollPos[0] = { 48,48 };
-			patrollPos[1] = { 80, 208 };
-			patrollPos[2] = { 464, 592 };
-			enemy->engagePatrolState(patrollPos, static_cast<size_t>(3));
+			PatrollPoints* patroll = new PatrollPoints(4);
+			patroll->add(sf::Vector2i(48,48));
+			patroll->add(sf::Vector2i(816,48));
+			patroll->add(sf::Vector2i(816, 144));
+			patroll->add(sf::Vector2i(48,144));
+			enemy->setPatrollPoints(patroll);
 			canStart = true;
 		}
 	}

@@ -16,8 +16,9 @@ Game::Game() :
 	//setup
 	rm = new ResourceManager();
 	rm->windowSetup(window);
+	rm->loadTilesAndLevels();
 
-	currentState = new SimonState(rm);
+	currentState = new MenuState(rm);
 
 	//debug
 }

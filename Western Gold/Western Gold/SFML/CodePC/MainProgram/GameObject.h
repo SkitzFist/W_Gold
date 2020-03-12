@@ -35,14 +35,15 @@ public:
 	void changeWhatRow(int row);
 	void setWannaDraw(bool wannadraw);
 	bool getWannaDraw()const;
+	void setRotatioSprite(float angle);
+	void rotateSprite(float angle);
+	void addRotationSprite(float angle);
 
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 protected:
 	
-	void setRotatioSprite(float angle);
-	void rotateSprite(float angle);
-	void addRotationSprite(float angle);
+
 	//centerOrigin private
 	Sound sound;
 	Animator animator;

@@ -271,31 +271,20 @@ bool Collision::botSide(GameObject* gameObj1, GameObject* gameObj2)
 bool Collision::tileVisibility() {
 	//tiles
 	bool theReturn = true;
-	for (int o = 0; o < grid->getNrOfWalkableTiles(); o++)
-	{
-		for (int i = 0; i < grid->getNrOfWalkableTiles(); i++)
-		{
-			//if (player->getTileRay(o)->rayHitTile(&walkableTiles[i]))
-			//{
-			//	walkableTiles[i].setWannaDraw(false);
-			//	theReturn = false;
-			//}
-		}
-	}
+
 	//and enemies
 	for (int e = 0; e < nrOfEnemies; e++) 
 	{
 		if (!enemies[e]->isDead()) 
 		{
-			for (int x = 0; x < grid->getGridSize().x; x++) 
+			bool seeEnemy = true;
+			for (int i = 0; i < grid->getNrOfNotWalkableTiles() && seeEnemy ; i++)
 			{
-				for (int y = 0; y < grid->getGridSize().y; y++) 
+				if (player->getEnemyRay(e)->rayHitTile(notWalkableTiles[i]))
 				{
-					if (player->getEnemyRay(e)->rayHitTile(&grid->getTiles()[y][x])) 
-					{
-						enemies[e]->setWannaDraw(false);
-						theReturn = false;
-					}
+					enemies[e]->setWannaDraw(false);
+					theReturn = false;
+					seeEnemy = true;
 				}
 			}
 		}
@@ -313,69 +302,30 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		bool over = false;
 		bool neverHitTile = true;
 		bool saw = false;
-		if (!eShoot) {
-			for (int i = 0; i < whatEntityShooting->getNrOfRays() && !saw; i++) {
-
-				//see
-				if (!player->isDead() && whatEntityShooting->getRays()[i]->rayHitGameObject(player))
-				{
-					for (int x = 0; x < grid->getGridSize().x && !over; x++)
-					{
-						for (int y = 0; y < grid->getGridSize().y; y++) {
-
-							if (whatEntityShooting->getShootRay()->rayHitTile2(&grid->getTiles()[y][x]))
-							{
-								neverHitTile = false;
-								if (getDistance(whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >=
-									getDistance(whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y, player->getPosition().x, player->getPosition().y))
-								{
-									theReturn = true;
-									saw = true;
-								}
-								else {
-									over = true;
-								}
-							}
+		//see
+		if (!player->isDead() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
+			for (int x = 0; x < grid->getGridSize().x && !over; x++) {
+				for (int y = 0; y < grid->getGridSize().y; y++) {
+					if (whatEntityShooting->getShootRay()->rayHitTile2(&this->grid->getTiles()[y][x])) {
+						neverHitTile = false;
+						if (getDistance(player->getPosition().x, player->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >
+							getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
+						{
+							theReturn = true;
+							saw = true;
+							std::cout << "player take damage" << std::endl;
+							player->takeDamage();
 						}
-					}
-					if (neverHitTile) {
-						theReturn = true;
-						saw = true;
-					}
-				}
-				//getDistance(player->getPosition().x, player->getPosition().y, (float)tiles[t]->getWorldPos().x, (float)tiles[t]->getWorldPos().y) >
-				//getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
-			}
-		}
-		//shoot
-		if (eShoot) {
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-				std::cout << "stop" << std::endl;
-			}
-			if (!player->isDead() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
-				for (int x = 0; x < grid->getGridSize().x && !over; x++) {
-					for (int y = 0; y < grid->getGridSize().y; y++) {
-						if (whatEntityShooting->getShootRay()->rayHitTile2(&this->grid->getTiles()[y][x])) {
-							neverHitTile = false;
-							if (getDistance(player->getPosition().x, player->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >
-								getDistance(player->getPosition().x, player->getPosition().y, whatEntityShooting->getPosition().x, whatEntityShooting->getPosition().y))
-							{
-								theReturn = true;
-								saw = true;
-								std::cout << "player take damage" << std::endl;
-								player->takeDamage();
-							}
-							else {
-								over = true;
-							}
+						else {
+							over = true;
 						}
 					}
 				}
-				if (neverHitTile) {
-					theReturn = true;
-					player->takeDamage();
-					saw = true;
-				}
+			}
+			if (neverHitTile) {
+				theReturn = true;
+				player->takeDamage();
+				saw = true;
 			}
 		}
 	}
@@ -430,31 +380,46 @@ Collision::Collision()
 
 Collision::~Collision()
 {
-
+	delete[] notWalkableTiles;
 }
+
 
-bool Collision::enemySeeCollider()
+bool Collision::enemySeeCollider(Enemy* enemy)
 {
 	bool theReturn = false;
-	//i = enemies, r = enemy rays, t = tiles;
-	//see first if enemys ray hit player, then see if there is a wall beetween
-	for (int i = 0; i < nrOfEnemies; i++) {
-		for (int r = 0; r < enemies[i]->getNrOfRays(); r++) {
-			if (enemies[i]->getRays()[r]->rayHitGameObject(player)) {
-				//check so enemies dont see to far?
-				for (int x = 0; x < (int)grid->getGridSize().x; x++) {
-					for (int y = 0; y < (int)grid->getGridSize().y; y++) {
-						if (enemies[i]->getRays()[r]->rayHitTile2(&grid->getTiles()[y][x])) {
-							theReturn = true;
-						}
-						else {
-							theReturn = true;
-						}
-					}
+	int howFastLook = 1;
+	for (int i = 0; i < enemy->getNrOfRays(); i++) {
+		float distance = getDistance(player, enemy);
+		float maxDistance = 500;
+		float k = (float)((enemy->getRays()[i]->returnThisLine().getLineY1() - enemy->getRays()[i]->returnThisLine().getLineY2()) / (enemy->getRays()[i]->returnThisLine().getLineX1() - enemy->getRays()[i]->returnThisLine().getLineX2()));
+		float m = (float)(enemy->getRays()[i]->returnThisLine().getLineY1() - (k * enemy->getRays()[i]->returnThisLine().getLineX1()));
+		int p = 1;
+		int rayRoation = ((int)enemy->getRays()[i]->getRotation() % 360);
+		bool foundWall = false;
+		for (int see = 0; see < maxDistance && !foundWall; see += howFastLook)
+		{
+			int y = sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().y;
+			int x = cos((rayRoation *(3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().x;
+			tile* seetile = nullptr;
+			seetile = grid->getTileFromWorldPos(sf::Vector2i(x, y));
+			if (x > player->getBounds().left && x < player->getBounds().left + player->getBounds().width &&
+				y > player->getBounds().top  && y < player->getBounds().top + player->getBounds().height) 
+			{
+				theReturn = true;
+			}
+			if (seetile != nullptr) {
+				//see things
+				if (!seetile->getIsWalkable()) {
+					foundWall = true;
 				}
+
 			}
 		}
+		
 	}
+
+
+
 	return theReturn;
 }
 
@@ -462,16 +427,17 @@ void Collision::setUpCollision(Player* player, Grid * grid, Enemy** enemies, Gol
 {
 	this->player = player;
 	this->grid = grid;
+	int i = 0;
 	notWalkableTiles = new tile*[grid->getNrOfNotWalkableTiles()];
-	//for (int i = 0; i < grid->getNrOfNotWalkableTiles(); i++) {
-	//	for (int y = 0; y < grid->getGridSize().y; y++) {
-	//		for (int x = 0; x < grid->getGridSize().x; x++) {
-	//			if (grid->getTiles()[y][x].getIsWalkable()) {
-	//				notWalkableTiles[i] = &grid->getTiles()[1][1];
-	//			}
-	//		}
-	//	}
-	//}
+	for (int y = 0; y < grid->getGridSize().y; y++) {
+		for (int x = 0; x < grid->getGridSize().x; x++) {
+			if (!grid->getTiles()[y][x].getIsWalkable()) 
+			{
+				notWalkableTiles[i] = &grid->getTiles()[y][x];
+				i++;
+			}
+		}
+	}
 	this->enemies = enemies;
 	this->gold = gold;
 	this->nrOfEnemies = nrOfEnemies;
@@ -483,5 +449,5 @@ void Collision::update()
 	//check collision
 	checkCollision();
 	tileVisibility();
-
+	//grid->getTileFromWorldPos(sf::Vector2i(60, 60))->setWannaDraw(false);
 }
