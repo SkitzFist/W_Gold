@@ -277,6 +277,7 @@ bool Collision::tileVisibility() {
 		bool seeGold = true;
 		for (int i = 0; i < grid->getNrOfNotWalkableTiles() && seeGold; i++)
 		{
+			//ass
 			
 			if (player->getGoldRay(g)->rayHitTile(notWalkableTiles[i]))
 			{
