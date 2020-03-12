@@ -38,8 +38,8 @@ SimonState::SimonState(ResourceManager* rm):
 	//Tiles
 	int n = 0; 
 	int n2 = 0;
-	for (int y = 0; y < lvl.getGrid()->getGridSize().y; y++) {
-		for (int x = 0; x < lvl.getGrid()->getGridSize().x; x++) {
+	for (unsigned int y = 0; y < lvl.getGrid()->getGridSize().y; y++) {
+		for (unsigned int x = 0; x < lvl.getGrid()->getGridSize().x; x++) {
 			if (!lvl.getGrid()->getTiles()[y][x].getIsWalkable()) {
 				notWalkableT[n2] = &lvl.getGrid()->getTiles()[y][x];
 				n2++;
@@ -103,10 +103,10 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		enemytest[0]->addRotationSprite(100 * delta.dt());
+		enemytest[0]->addRotationSprite(static_cast<float>(100.f * delta.dt()));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		enemytest[0]->addRotationSprite(-100 * delta.dt());
+		enemytest[0]->addRotationSprite(static_cast<float>(-100 * delta.dt()));
 	}
 
 	//player
@@ -145,7 +145,7 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 	
 	//other
-	camera.setCenter((int)p->getPosition().x ,(int)p->getPosition().y);
+	camera.setCenter(p->getPosition().x ,p->getPosition().y);
 
 	collision.update();
 	

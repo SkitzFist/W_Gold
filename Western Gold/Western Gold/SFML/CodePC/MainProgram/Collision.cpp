@@ -5,8 +5,8 @@
 void Collision::checkCollision()
 {
 	//tiles
-	for (int x = 0; x < grid->getGridSize().x; x++) {
-		for (int y = 0; y < grid->getGridSize().y; y++) {
+	for (unsigned int x = 0; x < grid->getGridSize().x; x++) {
+		for (unsigned int y = 0; y < grid->getGridSize().y; y++) {
 			if (!grid->getTiles()[y][x].getIsWalkable()) {
 				while (grid->getTiles()[y][x].getSprite()->getGlobalBounds().intersects(player->getBounds())) {
 					if (rightSide(player, &grid->getTiles()[y][x])) {
@@ -321,8 +321,8 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		bool saw = false;
 		//shoot
 		if (!player->isDead() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
-			for (int x = 0; x < grid->getGridSize().x && !over; x++) {
-				for (int y = 0; y < grid->getGridSize().y; y++) {
+			for (unsigned int x = 0; x < grid->getGridSize().x && !over; x++) {
+				for (unsigned int y = 0; y < grid->getGridSize().y; y++) {
 					if (whatEntityShooting->getShootRay()->rayHitTile2(&this->grid->getTiles()[y][x])) {
 						neverHitTile = false;
 						if (getDistance(player->getPosition().x, player->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >
@@ -419,8 +419,8 @@ bool Collision::enemySeeCollider(Enemy* enemy)
 				bool foundWall = false;
 				for (int see = 0; see < maxDistance && !foundWall; see += howFastLook)
 				{
-					int y = sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().y;
-					int x = cos((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().x;
+					int y = static_cast<int>(sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().y);
+					int x = static_cast<int>(cos((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().x);
 					tile* seetile = nullptr;
 					seetile = grid->getTileFromWorldPos(sf::Vector2i(x, y));
 					if (x > player->getBounds().left&& x < player->getBounds().left + player->getBounds().width &&
@@ -448,8 +448,8 @@ void Collision::setUpCollision(Player* player, Grid * grid, Enemy** enemies, Gol
 	this->grid = grid;
 	int i = 0;
 	notWalkableTiles = new tile*[grid->getNrOfNotWalkableTiles()];
-	for (int y = 0; y < grid->getGridSize().y; y++) {
-		for (int x = 0; x < grid->getGridSize().x; x++) {
+	for (unsigned int y = 0; y < grid->getGridSize().y; y++) {
+		for (unsigned int x = 0; x < grid->getGridSize().x; x++) {
 			if (!grid->getTiles()[y][x].getIsWalkable()) 
 			{
 				notWalkableTiles[i] = &grid->getTiles()[y][x];
