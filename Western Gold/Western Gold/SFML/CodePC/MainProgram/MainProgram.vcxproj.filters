@@ -153,9 +153,6 @@
     <ClCompile Include="AttackState.cpp">
       <Filter>Source Files\Enemy\Enemy States</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SeachState.cpp">
       <Filter>Source Files\Enemy\Enemy States</Filter>
     </ClCompile>
@@ -173,6 +170,12 @@
     </ClCompile>
     <ClCompile Include="PatrollPoints.cpp">
       <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="InsideWindow.cpp">
+      <Filter>Source Files\OtherFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,9 +266,6 @@
     <ClInclude Include="AttackState.h">
       <Filter>Header Files\Enemy\Enemy States</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SeachState.h">
       <Filter>Header Files\Enemy\Enemy States</Filter>
     </ClInclude>
@@ -280,6 +280,12 @@
     </ClInclude>
     <ClInclude Include="PatrollPoints.h">
       <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="InsideWindow.h">
+      <Filter>Header Files\OtherFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

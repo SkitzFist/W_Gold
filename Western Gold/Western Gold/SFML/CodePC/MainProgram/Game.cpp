@@ -12,15 +12,15 @@ Game::Game() :
 {
 	//config
 	sf::ContextSettings settings(0U, 0U, 16U);
-	window = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Western Gold", 7U, settings);
-
+	auto f = sf::VideoMode::getDesktopMode();
+	window = new sf::RenderWindow();
+	window->create(f, "Western Gold", 7U, settings);
 	//setup
 	rm = new ResourceManager();
 	rm->windowSetup(window);
 	rm->loadTilesAndLevels();
 
 	currentState = new SimonState(rm);
-
 	//debug
 }
 
@@ -59,15 +59,15 @@ void Game::run()
 
 void Game::update()
 {
-	elapsedTimeSinceLastUpdate += clock.restart();
-	if (elapsedTimeSinceLastUpdate >= timePerFrame) {
+	//elapsedTimeSinceLastUpdate += clock.restart();
+	//if (elapsedTimeSinceLastUpdate >= timePerFrame) {
 
 		this->time.restartClock();
 		if (currentState != nullptr) {
 			currentState = currentState->update(time);
 		}
-		elapsedTimeSinceLastUpdate -= timePerFrame;
-	}
+		//elapsedTimeSinceLastUpdate -= timePerFrame;
+	//}
 }
 
 

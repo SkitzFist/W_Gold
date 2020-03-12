@@ -11,7 +11,7 @@ PlayState::PlayState(ResourceManager* rm) :
 	level = new Level(rm, rm->getLevel_01());
 	player = new Player(rm->getCharacter(), rm,
 		level->getGrid()->getGridSize().x * level->getGrid()->getGridSize().y,
-		18);
+		18, 0);
 	level->placeEnemies(player, enemyHandler);
 	//debug
 

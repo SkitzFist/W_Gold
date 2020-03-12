@@ -8,7 +8,7 @@ ResourceManager::ResourceManager()
 
 	//setup
 	basicSetup();
-
+	this->view = nullptr;
 	//debug
 }
 
@@ -46,6 +46,16 @@ void ResourceManager::windowSetup(sf::RenderWindow* window)
 sf::RenderWindow* ResourceManager::getWindow()
 {
 	return window;
+}
+
+sf::View* ResourceManager::getView() const
+{
+	return this->view;
+}
+
+void ResourceManager::setView(sf::View* camera)
+{
+	this->view = camera;
 }
 
 void ResourceManager::loadTilesAndLevels()

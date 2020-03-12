@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "GetDistance.h"
 #include "Gold.h"
+#include "InsideWindow.h"
 
 class Collision {
 private:
@@ -16,7 +17,7 @@ private:
 	int nrOfGold;
 	int nrOfTiles;
 	int nrOfEnemies;
-
+	ResourceManager* rm;
 	void checkCollision();
 	//if gameobject is on the right side of tiles
 	bool rightSide(GameObject*	gameObject, tile* tiles);
@@ -32,7 +33,7 @@ private:
 	//if player shoot/enemy shoot player
 	
 public:
-	Collision();
+	Collision(ResourceManager* rm);
 	virtual ~Collision();
 	bool enemySeeCollider(Enemy* enemy);
 	bool shootCollider(Entity* whatEntityShooting, bool eShoot = false);

@@ -9,7 +9,7 @@ Enemy::Enemy(ResourceManager* rm, int nrOfRays, Grid* grid, Player* player):
 Entity(rm->getEnemy(), rm, nrOfRays)
 {
 	//config
-	
+	seeDistance = 300;
 	//setup
 	patroll = nullptr;
 	this->player = player;
@@ -68,6 +68,11 @@ void Enemy::setDir(sf::Vector2f dir)
 bool Enemy::isShooting()
 {
 	return false;
+}
+
+int Enemy::getSeeDistance() const
+{
+	return this->seeDistance;
 }
 
 void Enemy::setIsPlayerInSight(Collision& col)

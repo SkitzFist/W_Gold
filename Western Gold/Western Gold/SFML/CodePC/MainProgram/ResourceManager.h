@@ -12,6 +12,8 @@ public:
 	int getWindowWidth() const;
 	int getWindowHeight() const;
 	sf::RenderWindow* getWindow();
+	sf::View* getView()const;
+	void setView(sf::View* camera);
 	void loadTilesAndLevels();
 
 #pragma region Fonts
@@ -54,6 +56,7 @@ private:
 	int windowWidth;
 	int windowHeight;
 	sf::RenderWindow* window;
+	sf::View *view;
 
 #pragma region Fonts
 	sf::Font* basicFont;

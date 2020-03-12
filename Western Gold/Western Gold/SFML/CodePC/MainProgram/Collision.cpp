@@ -295,11 +295,13 @@ bool Collision::tileVisibility() {
 			bool seeEnemy = true;
 			for (int i = 0; i < grid->getNrOfNotWalkableTiles() && seeEnemy ; i++)
 			{
-				if (player->getEnemyRay(e)->rayHitTile(notWalkableTiles[i]))
-				{
-					enemies[e]->setWannaDraw(false);
-					theReturn = false;
-					seeEnemy = true;
+				if (insideWindow(notWalkableTiles[i], rm->getView())) {
+					if (player->getEnemyRay(e)->rayHitTile(notWalkableTiles[i]))
+					{
+						enemies[e]->setWannaDraw(false);
+						theReturn = false;
+						seeEnemy = true;
+					}
 				}
 			}
 		}
@@ -317,7 +319,7 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		bool over = false;
 		bool neverHitTile = true;
 		bool saw = false;
-		//see
+		//shoot
 		if (!player->isDead() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
 			for (int x = 0; x < grid->getGridSize().x && !over; x++) {
 				for (int y = 0; y < grid->getGridSize().y; y++) {
@@ -349,26 +351,28 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		bool neverHitTile = true;
 		bool over = false;
 		for (int i = 0; i < nrOfEnemies; i++) {
-			if (!enemies[i]->isDead() && player->getShootRay()->rayHitGameObject(enemies[i])) {
-				for (int x = 0; x < (float)grid->getGridSize().x && !over; x++) {
-					for (int y = 0; y < (float)grid->getGridSize().y; y++) {
-						if (player->getShootRay()->rayHitTile2(&this->grid->getTiles()[y][x])) {
-							neverHitTile = false;
-							if (getDistance(player->getPosition().x, player->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >
-								getDistance(player->getPosition().x, player->getPosition().y, enemies[i]->getPosition().x, enemies[i]->getPosition().y))
-							{
-								enemies[i]->takeDamage();
-								theReturn = true;
-							}
-							else {
-								over = true;
+			if (insideWindow(enemies[i], rm->getView())) {
+				if (!enemies[i]->isDead() && player->getShootRay()->rayHitGameObject(enemies[i])) {
+					for (int x = 0; x < (float)grid->getGridSize().x && !over; x++) {
+						for (int y = 0; y < (float)grid->getGridSize().y; y++) {
+							if (player->getShootRay()->rayHitTile2(&this->grid->getTiles()[y][x])) {
+								neverHitTile = false;
+								if (getDistance(player->getPosition().x, player->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >
+									getDistance(player->getPosition().x, player->getPosition().y, enemies[i]->getPosition().x, enemies[i]->getPosition().y))
+								{
+									enemies[i]->takeDamage();
+									theReturn = true;
+								}
+								else {
+									//over = true;
+								}
 							}
 						}
 					}
-				}
-				if (neverHitTile) {
-					enemies[i]->takeDamage();
-					theReturn = true;
+					if (neverHitTile) {
+						enemies[i]->takeDamage();
+						theReturn = true;
+					}
 				}
 			}
 		}
@@ -381,8 +385,9 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 	return theReturn;
 }
 
-Collision::Collision()
+Collision::Collision(ResourceManager* rm)
 {
+	this->rm = rm;
 	grid = nullptr;
 	player = nullptr;
 	enemies = nullptr;
@@ -402,39 +407,38 @@ Collision::~Collision()
 bool Collision::enemySeeCollider(Enemy* enemy)
 {
 	bool theReturn = false;
-	int howFastLook = 1;
-	for (int i = 0; i < enemy->getNrOfRays(); i++) {
-		float distance = getDistance(player, enemy);
-		float maxDistance = 500;
-		float k = (float)((enemy->getRays()[i]->returnThisLine().getLineY1() - enemy->getRays()[i]->returnThisLine().getLineY2()) / (enemy->getRays()[i]->returnThisLine().getLineX1() - enemy->getRays()[i]->returnThisLine().getLineX2()));
-		float m = (float)(enemy->getRays()[i]->returnThisLine().getLineY1() - (k * enemy->getRays()[i]->returnThisLine().getLineX1()));
-		int p = 1;
-		int rayRoation = ((int)enemy->getRays()[i]->getRotation() % 360);
-		bool foundWall = false;
-		for (int see = 0; see < maxDistance && !foundWall; see += howFastLook)
-		{
-			int y = sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().y;
-			int x = cos((rayRoation *(3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().x;
-			tile* seetile = nullptr;
-			seetile = grid->getTileFromWorldPos(sf::Vector2i(x, y));
-			if (x > player->getBounds().left && x < player->getBounds().left + player->getBounds().width &&
-				y > player->getBounds().top  && y < player->getBounds().top + player->getBounds().height) 
-			{
-				theReturn = true;
-			}
-			if (seetile != nullptr) {
-				//see things
-				if (!seetile->getIsWalkable()) {
-					foundWall = true;
+	int howFastLook = 2;
+	if (insideWindow(enemy, rm->getView())) {
+		for (int i = 0; i < enemy->getNrOfRays(); i++) {
+			float distance = getDistance(player, enemy);
+				float maxDistance = enemy->getSeeDistance();
+				float k = (float)((enemy->getRays()[i]->returnThisLine().getLineY1() - enemy->getRays()[i]->returnThisLine().getLineY2()) / (enemy->getRays()[i]->returnThisLine().getLineX1() - enemy->getRays()[i]->returnThisLine().getLineX2()));
+				float m = (float)(enemy->getRays()[i]->returnThisLine().getLineY1() - (k * enemy->getRays()[i]->returnThisLine().getLineX1()));
+				int p = 1;
+				int rayRoation = ((int)enemy->getRays()[i]->getRotation() % 360);
+				bool foundWall = false;
+				for (int see = 0; see < maxDistance && !foundWall; see += howFastLook)
+				{
+					int y = sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().y;
+					int x = cos((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().x;
+					tile* seetile = nullptr;
+					seetile = grid->getTileFromWorldPos(sf::Vector2i(x, y));
+					if (x > player->getBounds().left&& x < player->getBounds().left + player->getBounds().width &&
+						y > player->getBounds().top&& y < player->getBounds().top + player->getBounds().height)
+					{
+						theReturn = true;
+					}
+					if (seetile != nullptr) {
+						//see things
+						if (!seetile->getIsWalkable()) {
+							foundWall = true;
+						}
+
+					}
 				}
 
-			}
 		}
-		
 	}
-
-
-
 	return theReturn;
 }
 

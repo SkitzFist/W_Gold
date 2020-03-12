@@ -7,7 +7,8 @@ SimonState::SimonState(ResourceManager* rm):
 	GameState(rm),
 	bull(rm),
 	lvl(rm, rm->getLevel_01()),
-	ui(rm)
+	ui(rm),
+	collision(rm)
 {
 	//nrOfObjects
 	nrOfWalkableTiles = lvl.getGrid()->getNrOfWalkableTiles();
@@ -29,7 +30,7 @@ SimonState::SimonState(ResourceManager* rm):
 		gold[i] = new Gold(rm, (float)(i+1) * 100.0f, 300.0f + (float)i * 100.0f);
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
-		enemytest[i] = new Enemy(getRm(), 90, lvl.getGrid(), p);
+		enemytest[i] = new Enemy(getRm(), 45, lvl.getGrid(), p);
 		enemytest[i]->setPosition(200,200);
 		enemytest[i]->setRotatioSprite(2);
 		//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));
@@ -49,7 +50,7 @@ SimonState::SimonState(ResourceManager* rm):
 	//setup collision
 	collision.setUpCollision(p, lvl.getGrid(), enemytest, gold, nrOfEnemies, nrOfGold);
 	
-	
+	rm->setView(&camera);
 	
 }
 
@@ -128,22 +129,13 @@ GameState* SimonState::update(DeltaTime delta)
 	bull.update(delta);
 	//enemy
 	for (int i = 0; i < nrOfEnemies; i++) {
-		enemytest[i]->update(delta);
+		//enemytest[i]->update(delta);
 	}
 	
 	for(int i = 0; i < nrOfEnemies; i++){
 		if (collision.enemySeeCollider(enemytest[i])) {
 			std::cout << "see player" << std::endl;
 		}
-		//if (enemytest[i])) {
-		//
-		//}
-		//if (enemytest[i]->seePlayer(collision.shootCollider(enemytest[i]), delta)) {
-		//	enemytest[i]->rotateTowards(p, delta);
-		//	if (enemytest[i]->isShooting()) {
-		//		enemytest[i]->seePlayer(collision.shootCollider(enemytest[i], true), delta);
-		//	}
-		//}
 	}
 	
 	
@@ -153,11 +145,11 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 	
 	//other
-	camera.setCenter(p->getPosition());
+	camera.setCenter((int)p->getPosition().x ,(int)p->getPosition().y);
 
 	collision.update();
 	
-	ui.updateUI(p->getPosition());
+	ui.updateUI(p->getPosition(), delta);
 	
 	return state;
 }
