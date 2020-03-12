@@ -10,6 +10,7 @@ public:
 	void add(sf::Vector2i point);
 	sf::Vector2i getNextPoint();
 
+	//debug
 	void print();
 
 private:

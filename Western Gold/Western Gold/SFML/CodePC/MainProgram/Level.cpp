@@ -47,23 +47,23 @@ void Level::placeEnemies(Player* player, EnemyHandler& handler)
 		file.getline(buf, 10);
 		nrOFEnemies = std::stoi(buf);
 		std::cout << nrOFEnemies << std::endl;
-		while (!(file.eof()))
-		{
-			file.getline(buf, 10, ' ');
-			int size = std::stoi(buf);
-			std::cout << size << std::endl;
-			Enemy* enm = new Enemy(rm, 90, grid, player);
-			PatrollPoints* points = new PatrollPoints(size);
-			for (int i = 0; i < size; ++i) {
+
+		for (int i = 0; i < nrOFEnemies; ++i) {
+			file.getline(buf, 10);
+			int nrOfPatrollPoints = std::stoi(buf);
+			PatrollPoints* points = new PatrollPoints(nrOfPatrollPoints);
+			for (int y = 0; y < nrOfPatrollPoints; ++y) {
+				sf::Vector2i point;
+				file.getline(buf, 10, ' ');
+				point.x = std::stoi(buf);
 				file.getline(buf, 10);
-				int x = std::stoi(buf);
-				file.getline(buf, 10);
-				int y = std::stoi(buf);
-				std::cout << x << "." << y << std::endl;
-				sf::Vector2i point = { x, y };
+				point.y = std::stoi(buf);
 				points->add(point);
+				std::cout << point.x << "." << point.y << std::endl;
 			}
+			file.getline(buf, 10);
 		}
+		
 	}
 
 
