@@ -16,7 +16,7 @@ SimonState::SimonState(ResourceManager* rm):
 	nrOfGold = 3;
 	
 	//objects initialize
-	p = new Player(rm->getAnimationTest(), rm, lvl.getGrid()->getNrOfWalkableTiles(), nrOfEnemies);
+	p = new Player(rm->getAnimationTest(), rm, lvl.getGrid()->getNrOfWalkableTiles(), nrOfEnemies, nrOfGold);
 	p->setPosition(100, 100);
 	gold = new Gold * [nrOfGold];
 	WalkableT = new tile*[lvl.getGrid()->getNrOfWalkableTiles()];
@@ -90,11 +90,15 @@ GameState* SimonState::update(DeltaTime delta)
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i]->setWannaDraw(true);
 	}
-	for (int i = 0; i < nrOfNonWalkableTiles; i++) {
-		p->getTileRay(i)->updateRay(p, notWalkableT[i]);
+	for (int i = 0; i < nrOfGold; i++) {
+
+		gold[i]->setWannaDraw(true);
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		p->getEnemyRay(i)->updateRay(p, enemytest[i]);
+	}
+	for (int i = 0; i < nrOfGold; i++) {
+		p->getGoldRay(i)->updateRay(p, gold[i]);
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {

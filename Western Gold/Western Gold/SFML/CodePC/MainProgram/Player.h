@@ -12,6 +12,8 @@ private:
 	Ray** rayTile;
 	int nrOfTiles;
 	Ray** enemyRays;
+	Ray** goldRays;
+	int nrOfGold;
 	int nrOfEnemies;
 
 	void rotation();
@@ -22,7 +24,8 @@ public:
 	bool tossBullet();
 	Ray *getTileRay(int nr);
 	Ray* getEnemyRay(int nr);
-	Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEnemies);
+	Ray* getGoldRay(int nr);
+	Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEnemies, int nrOfGold);
 	virtual~Player();
 	void update(DeltaTime time);
 	//debug

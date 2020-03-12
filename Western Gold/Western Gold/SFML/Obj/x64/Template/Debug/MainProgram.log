@@ -1,10 +1,6 @@
-﻿  Grid.cpp
-  Line.cpp
-  Pathfinding.cpp
-  SimonState.cpp
+﻿  SimonState.cpp
 C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(40,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(41,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(99,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(102,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(105,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(108,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   MainProgram.vcxproj -> C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

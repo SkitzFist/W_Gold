@@ -272,6 +272,20 @@ bool Collision::tileVisibility() {
 	//tiles
 	bool theReturn = true;
 
+	//gold
+	for (int g = 0; g < nrOfGold; g++) {
+		bool seeGold = true;
+		for (int i = 0; i < grid->getNrOfNotWalkableTiles() && seeGold; i++)
+		{
+			
+			if (player->getGoldRay(g)->rayHitTile(notWalkableTiles[i]))
+			{
+				gold[g]->setWannaDraw(false);
+				theReturn = false;
+				seeGold = false;
+			}
+		}
+	}
 	//and enemies
 	for (int e = 0; e < nrOfEnemies; e++) 
 	{

@@ -10,7 +10,7 @@ JoelState::JoelState(ResourceManager* rm):
 	level = new Level(rm, rm->getLevel_Test03());
 
 	int nrOfTiles = (level->getGrid()->getGridSize().x * level->getGrid()->getGridSize().y);
-	player = new Player(rm->getCharacter(), rm, nrOfTiles, 1);
+	player = new Player(rm->getCharacter(), rm, nrOfTiles, 1, 0);
 
 	
 	enemy = new Enemy(getRm()->getEnemy(), getRm(), 1, level->getGrid(), player);
