@@ -76,10 +76,11 @@ bool Player::tossBullet()
 	return theReturn;
 }
 
-Ray* Player::getTileRay(int nr)
-{
-	return rayTile[nr];
-}
+//Ray* Player::getTileRay(int nr)
+//{
+//	//return rayTile[nr];
+//}
+
 
 Ray* Player::getEnemyRay(int nr)
 {
@@ -101,11 +102,11 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEne
 	shooting = false;
 	tossing = false;
 
-	rayTile = new Ray * [nrOfTiles];
-	for (int i = 0; i < nrOfTiles; i++) {
-		rayTile[i] = new Ray();
-	}
-	this->nrOfTiles = nrOfTiles;
+	//rayTile = new Ray * [nrOfTiles];
+	//for (int i = 0; i < nrOfTiles; i++) {
+	//	rayTile[i] = new Ray();
+	//}
+	//this->nrOfTiles = nrOfTiles;
 
 	enemyRays = new Ray * [nrOfEnemies];
 	for (int i = 0; i < nrOfEnemies; i++) {
@@ -121,10 +122,10 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEne
 
 Player::~Player()
 {
-	for (int i = 0; i < nrOfTiles; i++) {
-		delete rayTile[i];
-	}
-	delete[] rayTile;
+	//for (int i = 0; i < nrOfTiles; i++) {
+	//	delete rayTile[i];
+	//}
+	//delete[] rayTile;
 
 	for (int i = 0; i < nrOfEnemies; i++) {
 		delete enemyRays[i];
@@ -144,9 +145,9 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	Entity::draw(target, states);
 	//debug
-	for (int i = 0; i < nrOfTiles; i++) {
-		target.draw(*this->rayTile[i]);
-	}
+	//for (int i = 0; i < nrOfTiles; i++) {
+	//	target.draw(*this->rayTile[i]);
+	//}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		target.draw(*this->enemyRays[i]);
 	}

@@ -9,18 +9,17 @@ private:
 	bool shooting;
 	bool tossing;
 
-	Ray** rayTile;
-	int nrOfTiles;
+	//Ray** rayTile;
+	//int nrOfTiles;
 	Ray** enemyRays;
 	int nrOfEnemies;
-
 	void rotation();
 	float speed;
 	sf::RenderWindow* window;
 public:
 	bool shoot();
 	bool tossBullet();
-	Ray *getTileRay(int nr);
+	//Ray *getTileRay(int nr);
 	Ray* getEnemyRay(int nr);
 	Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEnemies);
 	virtual~Player();
