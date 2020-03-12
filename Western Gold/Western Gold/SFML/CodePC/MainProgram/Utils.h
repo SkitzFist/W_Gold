@@ -6,6 +6,7 @@
 		for (size_t i = 0; i < x; ++i) {
 			arr[i] = new T[y];
 		}
+	
 		return arr;
 	}
 

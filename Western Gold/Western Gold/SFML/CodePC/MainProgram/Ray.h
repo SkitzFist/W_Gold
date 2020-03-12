@@ -20,9 +20,10 @@ private:
 public:
 	Ray(float dir = NULL);
 	virtual ~Ray();
-	Line returnThisLine()const;
+	Line &returnThisLine();
 	void setRotationOffset(float offset, Entity* entity = nullptr);
 	float getRotationOffset()const;
+	float getRotation()const;
 	void updateRay(Entity* entity);
 	void updateRay(Player *player, tile *Tile);
 	void updateRay(GameObject *gameObj1, GameObject *gameObj2);

@@ -23,10 +23,6 @@ SimonState::SimonState(ResourceManager* rm):
 	notWalkableT = new tile*[lvl.getGrid()->getNrOfNotWalkableTiles()];
 	enemytest = new Enemy * [nrOfEnemies];
 	
-	//things needed to create some objects
-	sf::Vector2i* patrollPos = new sf::Vector2i[2];
-	patrollPos[0] = { 48,48 };
-	patrollPos[1] = { 240, 48 };
 	
 	//create objects
 	for (int i = 0; i < nrOfGold; i++) {
@@ -34,7 +30,8 @@ SimonState::SimonState(ResourceManager* rm):
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i] = new Enemy(getRm()->getEnemy(), getRm(), 90, lvl.getGrid(), p);
-		enemytest[i]->setPosition(100,100);
+		enemytest[i]->setPosition(200,200);
+		enemytest[i]->setRotatioSprite(2);
 		//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));
 	}
 	//Tiles
@@ -54,18 +51,11 @@ SimonState::SimonState(ResourceManager* rm):
 	
 	
 	
-	//other
-	delete[] patrollPos;
 }
 
 SimonState::~SimonState()
 {
 	delete p;
-
-	//for (int i = 0; i < nrOfWalkable; i++) {
-	//	delete testT[i];
-	//}
-	//delete[] testT;
 
 	for (int i = 0; i < nrOfEnemies; i++) {
 		delete enemytest[i];
@@ -76,6 +66,10 @@ SimonState::~SimonState()
 		delete gold[i];
 	}
 	delete[] gold;
+
+	delete[] WalkableT;
+	delete[] notWalkableT;
+	
 }
 
 GameState* SimonState::handleEvent(const sf::Event& event)
@@ -103,6 +97,13 @@ GameState* SimonState::update(DeltaTime delta)
 		p->getEnemyRay(i)->updateRay(p, enemytest[i]);
 	}
 	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		enemytest[0]->addRotationSprite(100 * delta.dt());
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		enemytest[0]->addRotationSprite(-100 * delta.dt());
+	}
+
 	//player
 	p->update(delta);
 	if (p->tossBullet()) {
@@ -127,6 +128,9 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 	
 	for(int i = 0; i < nrOfEnemies; i++){
+		if (collision.enemySeeCollider(enemytest[i])) {
+			std::cout << "see player" << std::endl;
+		}
 		//if (enemytest[i])) {
 		//
 		//}
