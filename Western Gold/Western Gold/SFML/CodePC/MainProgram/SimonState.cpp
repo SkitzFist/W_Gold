@@ -3,9 +3,9 @@
 #include "Line.h"
 #include "UI.h"
 
-SimonState::SimonState(ResourceManager* rm):
+SimonState::SimonState(ResourceManager* rm)
+	:
 	GameState(rm),
-	bull(rm),
 	lvl(rm, rm->getLevel_01()),
 	ui(rm),
 	collision(rm)
@@ -15,6 +15,7 @@ SimonState::SimonState(ResourceManager* rm):
 	nrOfNonWalkableTiles = lvl.getGrid()->getNrOfNotWalkableTiles();
 	nrOfEnemies = 1;
 	nrOfGold = 3;
+	nrOfBullets = 6;
 	
 	//objects initialize
 	p = new Player(rm->getAnimationTest(), rm, lvl.getGrid()->getNrOfWalkableTiles(), nrOfEnemies, nrOfGold);
@@ -23,7 +24,7 @@ SimonState::SimonState(ResourceManager* rm):
 	WalkableT = new tile*[lvl.getGrid()->getNrOfWalkableTiles()];
 	notWalkableT = new tile*[lvl.getGrid()->getNrOfNotWalkableTiles()];
 	enemytest = new Enemy * [nrOfEnemies];
-	
+	bull = new Bullet*[6];
 	
 	//create objects
 	for (int i = 0; i < nrOfGold; i++) {
@@ -38,17 +39,21 @@ SimonState::SimonState(ResourceManager* rm):
 	//Tiles
 	int n = 0; 
 	int n2 = 0;
-	for (unsigned int y = 0; y < lvl.getGrid()->getGridSize().y; y++) {
-		for (unsigned int x = 0; x < lvl.getGrid()->getGridSize().x; x++) {
+	for (int y = 0; y < (int)lvl.getGrid()->getGridSize().y; y++) {
+		for (int x = 0; x < (int)lvl.getGrid()->getGridSize().x; x++) {
 			if (!lvl.getGrid()->getTiles()[y][x].getIsWalkable()) {
 				notWalkableT[n2] = &lvl.getGrid()->getTiles()[y][x];
 				n2++;
 			}
 		}
 	}
-	int pb = (lvl.getGrid()->getGridSize().x) * (lvl.getGrid()->getGridSize().y);
+	//bullet
+	for (int i = 0; i < nrOfBullets; i++) {
+		bull[i] = new Bullet(rm);
+	}
+	
 	//setup collision
-	collision.setUpCollision(p, lvl.getGrid(), enemytest, gold, nrOfEnemies, nrOfGold);
+	collision.setUpCollision(p, lvl.getGrid(), enemytest, gold, bull, nrOfEnemies, nrOfGold, nrOfBullets);
 	
 	rm->setView(&camera);
 	
@@ -57,19 +62,23 @@ SimonState::SimonState(ResourceManager* rm):
 SimonState::~SimonState()
 {
 	delete p;
-
+	
 	for (int i = 0; i < nrOfEnemies; i++) {
 		delete enemytest[i];
 	}
 	delete[] enemytest;
-
+	
 	for (int i = 0; i < nrOfGold; i++) {
 		delete gold[i];
 	}
 	delete[] gold;
-
+	
 	delete[] WalkableT;
 	delete[] notWalkableT;
+	for (int i = 0; i < nrOfBullets; i++) {
+		delete bull[i];
+	}
+	delete[] bull;
 	
 }
 
@@ -92,7 +101,7 @@ GameState* SimonState::update(DeltaTime delta)
 		enemytest[i]->setWannaDraw(true);
 	}
 	for (int i = 0; i < nrOfGold; i++) {
-
+	
 		gold[i]->setWannaDraw(true);
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
@@ -103,20 +112,20 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		enemytest[0]->addRotationSprite(static_cast<float>(100.f * delta.dt()));
+		enemytest[0]->addRotationSprite(100.f * (float)delta.dt());
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		enemytest[0]->addRotationSprite(static_cast<float>(-100 * delta.dt()));
+		enemytest[0]->addRotationSprite(-100.f * (float)delta.dt());
 	}
-
+	
 	//player
 	p->update(delta);
 	if (p->tossBullet()) {
-		bool gotaBullet = false;
-		for (int i = 0; i < 6 && !gotaBullet; i++) {
-			if (bull.getBulletState() == 0) {
-				bull.throwBullet(delta, *p);
-				gotaBullet = true;
+		bool toss = false;
+		for (int i = 0; i < 6 && !toss; i++) {
+			if (bull[i]->getBulletState() == bulletState::PLAYER) {
+				toss = true;
+				bull[i]->throwBullet(*p);
 			}
 		}
 	}
@@ -126,10 +135,12 @@ GameState* SimonState::update(DeltaTime delta)
 			std::cout << "shoot an enemy" << std::endl;
 		}
 	}
-	bull.update(delta);
+	for (int i = 0; i < nrOfBullets; i++) {
+		bull[i]->update(delta, p);
+	}
 	//enemy
 	for (int i = 0; i < nrOfEnemies; i++) {
-		//enemytest[i]->update(delta);
+		enemytest[i]->update(delta);
 	}
 	
 	for(int i = 0; i < nrOfEnemies; i++){
@@ -145,11 +156,11 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 	
 	//other
-	camera.setCenter(p->getPosition().x ,p->getPosition().y);
-
+	camera.setCenter((float)(int)p->getPosition().x ,(float)(int)p->getPosition().y);
+	
 	collision.update();
 	
-	ui.updateUI(p->getPosition(), delta);
+	ui.updateUI(p, delta);
 	
 	return state;
 }
@@ -166,7 +177,9 @@ void SimonState::render(sf::RenderWindow& window) const
 			window.draw(*this->gold[i]);
 		}
 	}
-	window.draw(this->bull);
+	for (int i = 0; i < nrOfBullets; i++) {
+		window.draw(*this->bull[i]);
+	}
 	window.draw(*this->p);
 	window.draw(this->ui);
 }

@@ -47,6 +47,7 @@ bool Player::shoot()
 		}
 		else {
 			//klick
+			this->sound.PlaySounds(getRm()->getKlingSound());
 		}
 		
 	}
@@ -74,6 +75,16 @@ bool Player::tossBullet()
 	}
 	
 	return theReturn;
+}
+
+void Player::gotBullet()
+{
+	this->nrOfShoots++;
+}
+
+int Player::nrOfShotsLeft() const
+{
+	return nrOfShoots;
 }
 
 //Ray* Player::getTileRay(int nr)
@@ -107,11 +118,6 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEne
 	shooting = false;
 	tossing = false;
 
-	//rayTile = new Ray * [nrOfTiles];
-	//for (int i = 0; i < nrOfTiles; i++) {
-	//	rayTile[i] = new Ray();
-	//}
-	//this->nrOfTiles = nrOfTiles;
 
 	goldRays = new Ray * [nrOfGold];
 	for (int i = 0; i < nrOfGold; i++) {
@@ -137,6 +143,10 @@ Player::~Player()
 	//	delete rayTile[i];
 	//}
 	//delete[] rayTile;
+	for (int i = 0; i < nrOfGold; i++) {
+		delete goldRays[i];
+	}
+	delete[] goldRays;
 
 	for (int i = 0; i < nrOfEnemies; i++) {
 		delete enemyRays[i];

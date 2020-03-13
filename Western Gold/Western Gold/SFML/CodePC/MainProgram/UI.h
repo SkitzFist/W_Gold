@@ -3,6 +3,10 @@
 #include "Text.h"
 #include "ResourceManager.h"
 #include "DeltaTime.h"
+#include "Player.h"
+#include <sstream>
+#include <iostream>
+#include <iomanip>//setprecision
 
 class UI : public sf::Drawable 
 {
@@ -20,10 +24,14 @@ private:
 
 	sf::Sprite *shots;
 	sf::Text text;
+
+	sf::Text time;
+
 	int nrOfShots;
 public:
 
 	UI(ResourceManager* rm);
-	void updateUI(sf::Vector2f playerPos, DeltaTime time);
+	virtual ~UI();
+	void updateUI(Player *player, DeltaTime time);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

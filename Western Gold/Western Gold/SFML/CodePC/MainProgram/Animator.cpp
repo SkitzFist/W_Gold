@@ -17,10 +17,7 @@ void Animator::setAnimation(sf::Sprite* sprite, float timeBetween, int nrOfCol, 
 	this->nrOfRows = nrOfRows;
 	this->timeBetween = timeBetween;
 	this->timeToNextFrame = timeBetween;
-	this->rect = sf::IntRect(0, 
-		whatRow * (int)(sprite->getGlobalBounds().height / nrOfRows), 
-		(int)(sprite->getGlobalBounds().width / nrOfCol), 
-		(int)(sprite->getGlobalBounds().height / nrOfRows));
+	this->rect = sf::IntRect(0, whatRow * ((int)sprite->getGlobalBounds().height / nrOfRows), (int)(sprite->getGlobalBounds().width / nrOfCol), (int)(sprite->getGlobalBounds().height / nrOfRows));
 	this->whatRow = whatRow;
 	this->nrOfCol = nrOfCol;
 }
