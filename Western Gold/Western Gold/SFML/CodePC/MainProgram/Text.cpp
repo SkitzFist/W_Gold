@@ -19,6 +19,16 @@ Text::~Text()
 	delete text;
 }
 
+void Text::setText(std::string string)
+{
+	text->setString(string);
+}
+
+void Text::setText(double value)
+{
+	text->setString(std::to_string(value));
+}
+
 void Text::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(*text);

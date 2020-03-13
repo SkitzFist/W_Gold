@@ -21,6 +21,8 @@ private:
 	GameState* currentState;
 	DeltaTime time;
 
+	//debug
+
 private:
 	void update();
 	void handleEvent();

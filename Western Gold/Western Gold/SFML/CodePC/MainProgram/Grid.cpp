@@ -64,6 +64,7 @@ sf::Vector2u Grid::getGridSize() const
 	return gridSize;
 }
 
+<<<<<<< HEAD
 void Grid::renderGrid(sf::RenderWindow& window) const
 {
 	
@@ -76,6 +77,8 @@ void Grid::renderGrid(sf::RenderWindow& window) const
 	}
 }
 
+=======
+>>>>>>> Joel
 std::vector<tile*> Grid::getSurroundingTiles(tile* t)
 {
 	std::vector<tile*> neighbours;
@@ -113,6 +116,16 @@ int Grid::getNrOfNotWalkableTiles() const
 float Grid::getTileSize() const
 {
 	return tileSize;
+}
+
+tile* Grid::getTileFromIndex(int x, int y)
+{
+	tile* t = nullptr;
+	if (x > 0 && x < gridSize.x
+		&& y > 0 && y < gridSize.y) {
+		t = &tiles[y][x];
+	}
+	return t;
 }
 
 void Grid::initGrid(ResourceManager* rm,sf::Image* level)
