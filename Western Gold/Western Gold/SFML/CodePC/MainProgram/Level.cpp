@@ -14,7 +14,7 @@ Level::Level(ResourceManager* rm, sf::Image* level)
 	grid = new Grid(rm, level);
 	this->rm = rm;
 	//debug
-	nrOfTilesOnScreen = 2600;
+	nrOfTilesOnScreen = 1500;
 	nrOfDrawTiles = 0;
 	drawTiles = new tile * [nrOfTilesOnScreen];
 }
@@ -171,7 +171,7 @@ void Level::findDrawTiles(Player* player)
 	dir = { -1, 0 };
 	addTiles(current, dir, childDir, nrOFTiles, 1); // left;
 
-	//std::cout << nrOfDrawTiles << std::endl;
+	std::cout << nrOfDrawTiles << std::endl;
 }
 
 void Level::experimentalDrawLevel(sf::RenderWindow& window) const

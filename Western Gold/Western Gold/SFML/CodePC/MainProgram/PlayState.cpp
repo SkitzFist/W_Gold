@@ -39,7 +39,7 @@ GameState * PlayState::update(DeltaTime delta)
 	GameState* state = this;
 	player->update(delta);
 	camera.setCenter(player->getPosition());
-	enemyHandler.update(delta);
+	//enemyHandler.update(delta);
 
 	//level->findDrawTiles(player);
 
@@ -57,9 +57,10 @@ void PlayState::render(sf::RenderWindow&  window) const
 	level->drawLevel(window, player);
 
 	//level->experimentalDrawLevel(window);
-	for (int i = 0; i < enemyHandler.getNrOf(); ++i) {
-		window.draw(*enemyHandler.getEnemies()[i]);
-	}
+
+	//for (int i = 0; i < enemyHandler.getNrOf(); ++i) {
+	//	window.draw(*enemyHandler.getEnemies()[i]);
+	//}
 
 	window.draw(*fpsText);
 	//debug
