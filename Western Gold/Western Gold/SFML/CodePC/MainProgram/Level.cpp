@@ -54,7 +54,7 @@ void Level::drawLevel(sf::RenderWindow& window, Player* player) const
 
 void Level::placeEnemies(Player* player, EnemyHandler& handler)
 {
-	std::ifstream file("../Levels/level_01.txt");
+	std::ifstream file("../Levels/level_01_enemies.txt");
 
 	char del = '-';
 	int nrOFEnemies = 0;
