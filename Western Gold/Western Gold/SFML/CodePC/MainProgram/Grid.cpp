@@ -114,6 +114,35 @@ tile* Grid::getTileFromIndex(int x, int y)
 	return t;
 }
 
+sf::Vector2f Grid::getWorldPosFromIndex(int x, int y)
+{
+	tile* t = nullptr;
+	if (isInsideWorld(sf::Vector2i(x,y))) {
+
+		float posX = static_cast<float>(x);
+		float posY = static_cast<float>(y);
+		float worldSizeX = static_cast<float>(worldSize.x);
+		float worldSizeY = static_cast<float>(worldSize.y);
+		double percentX = posX / worldSizeX;
+		double percentY = posY / worldSizeY;
+
+		int x = static_cast<int>(gridSize.x * percentX);
+		int y = static_cast<int>(gridSize.y * percentY);
+
+		if (x >= 0
+			&& x < (int)gridSize.x
+			&& y >= 0
+			&& y < (int)gridSize.y) {
+			t = &tiles[y][x];
+		}
+	}
+	sf::Vector2f worldPos = {
+		static_cast<float>(t->getWorldPos().x),
+		static_cast<float>(t->getWorldPos().y)
+	};
+	return worldPos;
+}
+
 void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 {
 	sf::Color floor = { 118,85,4 };

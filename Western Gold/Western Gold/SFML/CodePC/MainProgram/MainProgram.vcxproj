@@ -184,6 +184,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GetDistance.cpp" />
     <ClCompile Include="Gold.cpp" />
+    <ClCompile Include="GoldHandler.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="InsideWindow.cpp" />
     <ClCompile Include="JoelState.cpp">
@@ -224,6 +225,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GetDistance.h" />
     <ClInclude Include="Gold.h" />
+    <ClInclude Include="GoldHandler.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="InsideWindow.h" />
     <ClInclude Include="JoelState.h">

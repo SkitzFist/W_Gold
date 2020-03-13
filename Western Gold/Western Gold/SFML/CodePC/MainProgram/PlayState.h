@@ -20,8 +20,9 @@ private:
 	Level* level;
 	Player* player;
 	EnemyHandler enemyHandler;
+	GoldHandler goldHandler;
 	sf::View camera;
 	double currentTime;
 	Text* fpsText;
-
+	bool canStart;
 };
