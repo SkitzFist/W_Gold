@@ -185,6 +185,7 @@
     <ClCompile Include="GetDistance.cpp" />
     <ClCompile Include="Gold.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="InsideWindow.cpp" />
     <ClCompile Include="JoelState.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -224,6 +225,7 @@
     <ClInclude Include="GetDistance.h" />
     <ClInclude Include="Gold.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="InsideWindow.h" />
     <ClInclude Include="JoelState.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>

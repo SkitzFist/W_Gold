@@ -30,13 +30,14 @@ public:
 	Player* getPlayer() const;
 	void setDir(sf::Vector2f dir);
 	bool isShooting();
-
+	int getSeeDistance()const;
 	//debug
 
 private:
 	Player* player;
 	bool isPlayerInSight;
 
+	int seeDistance;
 	EnmState* currentState;
 	Pathfinding* pathfinding;
 	sf::Vector2f dir;

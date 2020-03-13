@@ -3,35 +3,117 @@
 #include <math.h>
 
 void Collision::checkCollision()
-{
-	//tiles
-	for (int x = 0; x < grid->getGridSize().x; x++) {
-		for (int y = 0; y < grid->getGridSize().y; y++) {
-			if (!grid->getTiles()[y][x].getIsWalkable()) {
-				while (grid->getTiles()[y][x].getSprite()->getGlobalBounds().intersects(player->getBounds())) {
-					if (rightSide(player, &grid->getTiles()[y][x])) {
-						player->moveSprite(1, 0);
-					}
-					else if (leftSide(player, &grid->getTiles()[y][x])) {
-						player->moveSprite(-1, 0);
-					}
-					else if (topSide(player, &grid->getTiles()[y][x])) {
-						player->moveSprite(0, -1);
-					}
-					else if (botSide(player, &grid->getTiles()[y][x])) {
-						player->moveSprite(0, 1);
-					}
-					else {
-						std::cout << "error" << std::endl;
-						//debug
-						//MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
+{	
+	for (int i = 0; i < nrOfBullets; i++) {
+		//check for player picking it up
+		if (bull[i]->getBulletState() == bulletState::GROUND) {
+			if (player->getBounds().intersects(bull[i]->getBounds())) {
+				if (rightSide(player, bull[i])) {
+					bull[i]->setBulletState(bulletState::PLAYER);
+					player->gotBullet();
+				}
+				else if (leftSide(player, bull[i])) {
+					bull[i]->setBulletState(bulletState::PLAYER);
+					player->gotBullet();
+				}
+				else if (topSide(player, bull[i])) {
+					bull[i]->setBulletState(bulletState::PLAYER);
+					player->gotBullet();
+				}
+				else if (botSide(player, bull[i])) {
+					bull[i]->setBulletState(bulletState::PLAYER);
+					player->gotBullet();
+				}
+				else {
+					std::cout << "error" << std::endl;
+					//debug
+					//MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
+				}
+			}
+		}
+		else if (bull[i]->getBulletState() == bulletState::FLYING) {
+			//make so bullet isnt flying through walls
+			sf::Vector2i IBullPos((int)bull[i]->getPosition().x, (int)bull[i]->getPosition().y);
+			if (grid->getTileFromWorldPos(IBullPos) != nullptr) {
+				int BPosy = grid->getTileFromWorldPos(IBullPos)->getGridPos().y;
+				if (BPosy < 3) {
+					BPosy = 3;
+				}	
+				int BPosx = grid->getTileFromWorldPos(IBullPos)->getGridPos().x;
+				if (BPosx < 3) {
+					BPosx = 3;
+				}
+				for (int x = BPosx - 3; x < BPosx + 3; x++) {
+					for (int y = BPosy - 3; y < BPosy + 3; y++) {
+						if (!grid->getTiles()[y][x].getIsWalkable()) {
+							if (grid->getTiles()[y][x].getSprite()->getGlobalBounds().intersects(bull[i]->getBounds())) {
+								bull[i]->setBulletState(bulletState::MADE_SOUND);
+							}
+						}
 					}
 				}
 			}
 		}
 	}
+	/*for (int i = 0; i < grid->getNrOfNotWalkableTiles(); i++) {
+		while (this->notWalkableTiles[i]->getSprite()->getGlobalBounds().intersects(player->getBounds())) {
+			if (rightSide(player, this->notWalkableTiles[i])) {
+				player->moveSprite(1, 0);
+			}
+			else if (leftSide(player, this->notWalkableTiles[i])) {
+				player->moveSprite(-1, 0);
+			}
+			else if (topSide(player, this->notWalkableTiles[i])) {
+				player->moveSprite(0, -1);
+			}
+			else if (botSide(player, this->notWalkableTiles[i])) {
+				player->moveSprite(0, 1);
+			}
+			else {
+				std::cout << "error" << std::endl;
+				//debug
+				//MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
+			}
+		}
+	}*/
+	//just look at the 3 that around you
+	sf::Vector2i IPlayerPos((int)player->getPosition().x, (int)player->getPosition().y);
+	if (grid->getTileFromWorldPos(IPlayerPos) != nullptr) {
+		int PPosy = grid->getTileFromWorldPos(IPlayerPos)->getGridPos().y;
+		if (PPosy < 3) {
+			PPosy = 3;
+		}
+		int PPosx = grid->getTileFromWorldPos(IPlayerPos)->getGridPos().x;
+		if (PPosx < 3) {
+			PPosx = 3;
+		}
 
-	//gold
+		for (int x = PPosx - 3; x < PPosx + 3; x++) {
+			for (int y = PPosy - 3; y < PPosy + 3; y++) {
+				if (!grid->getTiles()[y][x].getIsWalkable()) {
+					while (player->getBounds().intersects(grid->getTiles()[y][x].getSprite()->getGlobalBounds())) {
+						if (rightSide(player, &grid->getTiles()[y][x])) {
+							player->moveSprite(1, 0);
+						}
+						else if (leftSide(player, &grid->getTiles()[y][x])) {
+							player->moveSprite(-1, 0);
+						}
+						else if (topSide(player, &grid->getTiles()[y][x])) {
+							player->moveSprite(0, -1);
+						}
+						else if (botSide(player, &grid->getTiles()[y][x])) {
+							player->moveSprite(0, 1);
+						}
+						else {
+							std::cout << "error" << std::endl;
+							//debug
+							//MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
+						}
+					}
+				}
+			}
+		}
+	}
 	for (int i = 0; i < nrOfGold; i++) {
 		if (!gold[i]->take() && gold[i]->getBounds().intersects(player->getBounds())) {
 			if (rightSide(player, gold[i])) {
@@ -54,6 +136,7 @@ void Collision::checkCollision()
 
 		}
 	}
+
 	
 }
 //nope
@@ -272,6 +355,21 @@ bool Collision::tileVisibility() {
 	//tiles
 	bool theReturn = true;
 
+	//gold
+	for (int g = 0; g < nrOfGold; g++) {
+		if (!gold[g]->take()) {
+			bool seeGold = true;
+			for (int i = 0; i < grid->getNrOfNotWalkableTiles() && seeGold; i++)
+			{
+				if (player->getGoldRay(g)->rayHitTile(notWalkableTiles[i]))
+				{
+					gold[g]->setWannaDraw(false);
+					theReturn = false;
+					seeGold = false;
+				}
+			}
+		}
+	}
 	//and enemies
 	for (int e = 0; e < nrOfEnemies; e++) 
 	{
@@ -280,11 +378,13 @@ bool Collision::tileVisibility() {
 			bool seeEnemy = true;
 			for (int i = 0; i < grid->getNrOfNotWalkableTiles() && seeEnemy ; i++)
 			{
-				if (player->getEnemyRay(e)->rayHitTile(notWalkableTiles[i]))
-				{
-					enemies[e]->setWannaDraw(false);
-					theReturn = false;
-					seeEnemy = true;
+				if (insideWindow(notWalkableTiles[i], rm->getView())) {
+					if (player->getEnemyRay(e)->rayHitTile(notWalkableTiles[i]))
+					{
+						enemies[e]->setWannaDraw(false);
+						theReturn = false;
+						seeEnemy = true;
+					}
 				}
 			}
 		}
@@ -302,10 +402,10 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		bool over = false;
 		bool neverHitTile = true;
 		bool saw = false;
-		//see
+		//shoot
 		if (!player->isDead() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
-			for (int x = 0; x < grid->getGridSize().x && !over; x++) {
-				for (int y = 0; y < grid->getGridSize().y; y++) {
+			for (int x = 0; x < (int)grid->getGridSize().x && !over; x++) {
+				for (int y = 0; y < (int)grid->getGridSize().y; y++) {
 					if (whatEntityShooting->getShootRay()->rayHitTile2(&this->grid->getTiles()[y][x])) {
 						neverHitTile = false;
 						if (getDistance(player->getPosition().x, player->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >
@@ -334,26 +434,21 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		bool neverHitTile = true;
 		bool over = false;
 		for (int i = 0; i < nrOfEnemies; i++) {
-			if (!enemies[i]->isDead() && player->getShootRay()->rayHitGameObject(enemies[i])) {
-				for (int x = 0; x < (float)grid->getGridSize().x && !over; x++) {
-					for (int y = 0; y < (float)grid->getGridSize().y; y++) {
-						if (player->getShootRay()->rayHitTile2(&this->grid->getTiles()[y][x])) {
-							neverHitTile = false;
-							if (getDistance(player->getPosition().x, player->getPosition().y, (float)grid->getTiles()[y][x].getWorldPos().x, (float)grid->getTiles()[y][x].getWorldPos().y) >
-								getDistance(player->getPosition().x, player->getPosition().y, enemies[i]->getPosition().x, enemies[i]->getPosition().y))
+			if (insideWindow(enemies[i], rm->getView())) {
+				if (!enemies[i]->isDead() && player->getShootRay()->rayHitGameObject(enemies[i])) {
+					for (int t = 0; t < grid->getNrOfNotWalkableTiles(); t++) {
+						if (player->getShootRay()->rayHitTile2(notWalkableTiles[t])) {
+							if (getDistance(player->getPosition().x, player->getPosition().y, (float)notWalkableTiles[t]->getWorldPos().x, (float)notWalkableTiles[t]->getWorldPos().y) <
+								getDistance(player->getPosition().x, player->getPosition().y, enemies[i]->getPosition().x, enemies[i]->getPosition().y)) 
 							{
-								enemies[i]->takeDamage();
-								theReturn = true;
-							}
-							else {
+								neverHitTile = false;
 								over = true;
 							}
 						}
 					}
-				}
-				if (neverHitTile) {
-					enemies[i]->takeDamage();
-					theReturn = true;
+					if (neverHitTile) {
+						enemies[i]->takeDamage();
+					}
 				}
 			}
 		}
@@ -366,16 +461,19 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 	return theReturn;
 }
 
-Collision::Collision()
+Collision::Collision(ResourceManager* rm)
 {
-	grid = nullptr;
-	player = nullptr;
-	enemies = nullptr;
-	gold = nullptr;
+	this->rm = rm;
+	this->bull = nullptr;
+	this->grid = nullptr;
+	this->player = nullptr;
+	this->enemies = nullptr;
+	this->gold = nullptr;
 	this->notWalkableTiles = nullptr;
 	this->nrOfEnemies = 0;
 	this->nrOfTiles = 0;
 	this->nrOfGold = 0;
+	this->nrOfBullets = 0;
 }
 
 Collision::~Collision()
@@ -387,50 +485,50 @@ Collision::~Collision()
 bool Collision::enemySeeCollider(Enemy* enemy)
 {
 	bool theReturn = false;
-	int howFastLook = 1;
-	for (int i = 0; i < enemy->getNrOfRays(); i++) {
-		float distance = getDistance(player, enemy);
-		float maxDistance = 500;
-		float k = (float)((enemy->getRays()[i]->returnThisLine().getLineY1() - enemy->getRays()[i]->returnThisLine().getLineY2()) / (enemy->getRays()[i]->returnThisLine().getLineX1() - enemy->getRays()[i]->returnThisLine().getLineX2()));
-		float m = (float)(enemy->getRays()[i]->returnThisLine().getLineY1() - (k * enemy->getRays()[i]->returnThisLine().getLineX1()));
-		int p = 1;
-		int rayRoation = ((int)enemy->getRays()[i]->getRotation() % 360);
-		bool foundWall = false;
-		for (int see = 0; see < maxDistance && !foundWall; see += howFastLook)
-		{
-			int y = sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().y;
-			int x = cos((rayRoation *(3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().x;
-			tile* seetile = nullptr;
-			seetile = grid->getTileFromWorldPos(sf::Vector2i(x, y));
-			if (x > player->getBounds().left && x < player->getBounds().left + player->getBounds().width &&
-				y > player->getBounds().top  && y < player->getBounds().top + player->getBounds().height) 
-			{
-				theReturn = true;
-			}
-			if (seetile != nullptr) {
-				//see things
-				if (!seetile->getIsWalkable()) {
-					foundWall = true;
+	int howFastLook = 2;
+	if (insideWindow(enemy, rm->getView()) && !enemy->isDead()) {
+		for (int i = 0; i < enemy->getNrOfRays(); i++) {
+			double distance = (double)getDistance(player, enemy);
+				int maxDistance = enemy->getSeeDistance();
+				float k = (float)((enemy->getRays()[i]->returnThisLine().getLineY1() - enemy->getRays()[i]->returnThisLine().getLineY2()) / (enemy->getRays()[i]->returnThisLine().getLineX1() - enemy->getRays()[i]->returnThisLine().getLineX2()));
+				float m = (float)(enemy->getRays()[i]->returnThisLine().getLineY1() - (k * enemy->getRays()[i]->returnThisLine().getLineX1()));
+				int p = 1;
+				int rayRoation = ((int)enemy->getRays()[i]->getRotation() % 360);
+				bool foundWall = false;
+				for (int see = 0; see < maxDistance && !foundWall; see += howFastLook)
+				{
+					int x = (int)cos((rayRoation * (3.14f / 180.f) - 1.57f)) * see + (int)enemy->getPosition().x;
+					int y = (int)sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + (int)enemy->getPosition().y;
+					tile* seetile = nullptr;
+					seetile = grid->getTileFromWorldPos(sf::Vector2i(x, y));
+					if (x > player->getBounds().left&& x < player->getBounds().left + player->getBounds().width &&
+						y > player->getBounds().top&& y < player->getBounds().top + player->getBounds().height)
+					{
+						theReturn = true;
+					}
+					if (seetile != nullptr) {
+						//see things
+						if (!seetile->getIsWalkable()) {
+							foundWall = true;
+						}
+
+					}
 				}
 
-			}
 		}
-		
 	}
-
-
-
 	return theReturn;
 }
 
-void Collision::setUpCollision(Player* player, Grid * grid, Enemy** enemies, Gold** gold, int nrOfEnemies, int nrOfGold)
+void Collision::setUpCollision(Player* player, Grid * grid, Enemy** enemies, Gold** gold, Bullet **bull, int nrOfEnemies, int nrOfGold, int nrOfBullets)
 {
+	this->bull = bull;
 	this->player = player;
 	this->grid = grid;
 	int i = 0;
 	notWalkableTiles = new tile*[grid->getNrOfNotWalkableTiles()];
-	for (int y = 0; y < grid->getGridSize().y; y++) {
-		for (int x = 0; x < grid->getGridSize().x; x++) {
+	for (int y = 0; y < (int)grid->getGridSize().y; y++) {
+		for (int x = 0; x < (int)grid->getGridSize().x; x++) {
 			if (!grid->getTiles()[y][x].getIsWalkable()) 
 			{
 				notWalkableTiles[i] = &grid->getTiles()[y][x];
@@ -442,6 +540,7 @@ void Collision::setUpCollision(Player* player, Grid * grid, Enemy** enemies, Gol
 	this->gold = gold;
 	this->nrOfEnemies = nrOfEnemies;
 	this->nrOfGold = nrOfGold;
+	this->nrOfBullets = nrOfBullets;
 }
 
 void Collision::update()
@@ -449,5 +548,4 @@ void Collision::update()
 	//check collision
 	checkCollision();
 	tileVisibility();
-	//grid->getTileFromWorldPos(sf::Vector2i(60, 60))->setWannaDraw(false);
 }

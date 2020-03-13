@@ -31,12 +31,13 @@ private:
 	tile** notWalkableT;
 	tile** WalkableT;
 	Gold** gold;
-	Bullet bull;
+	Bullet** bull;
 	//nr of objects
 	int nrOfWalkableTiles;
 	int nrOfNonWalkableTiles;
 	int nrOfEnemies;
 	int nrOfGold;
+	int nrOfBullets;
 
 	Level lvl;
 	Collision collision;

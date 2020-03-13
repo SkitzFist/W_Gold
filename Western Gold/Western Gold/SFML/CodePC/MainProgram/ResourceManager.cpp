@@ -8,16 +8,24 @@ ResourceManager::ResourceManager()
 
 	//setup
 	basicSetup();
-
+	this->view = nullptr;
 	//debug
 }
 
 
 ResourceManager::~ResourceManager()
 {
-	delete basicFont;
-	delete character;
+	//sound
+	delete klingSound;
+	delete gunShot;
 	delete ass;
+	//texture
+	delete enemy;
+	delete AnimationTest;
+	delete gold;
+	delete cylinder;
+	delete UIBullet;
+	delete character;
 	delete tile_black;
 	delete tile_white;
 	delete tile_ok;
@@ -29,11 +37,8 @@ ResourceManager::~ResourceManager()
 	delete level_test03;
 	delete level_01;
 	delete bullet;
-	delete gunShot;
-	delete enemy;
-	delete AnimationTest;
-	delete gold;
-	delete cylinder;
+	//fonts
+	delete basicFont;
 }
 
 void ResourceManager::windowSetup(sf::RenderWindow* window)
@@ -46,6 +51,16 @@ void ResourceManager::windowSetup(sf::RenderWindow* window)
 sf::RenderWindow* ResourceManager::getWindow()
 {
 	return window;
+}
+
+sf::View* ResourceManager::getView() const
+{
+	return this->view;
+}
+
+void ResourceManager::setView(sf::View* camera)
+{
+	this->view = camera;
 }
 
 void ResourceManager::loadTilesAndLevels()
@@ -80,10 +95,15 @@ int ResourceManager::getWindowHeight() const
 
 void ResourceManager::basicSetup()
 {
-	
+	//fonts
 	basicFont = new sf::Font();
 	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
 		cantLoad(L"Font");
+	}
+	//objects
+	UIBullet = new sf::Texture();
+	if (!UIBullet->loadFromFile("../Textures/UIBullet.png")) {
+		cantLoad(L"UI Bullet");
 	}
 	AnimationTest = new sf::Texture();
 	if (!AnimationTest->loadFromFile("../Textures/animationTest.png")) {
@@ -97,10 +117,6 @@ void ResourceManager::basicSetup()
 	if (!gold->loadFromFile("../Textures/Gold.png")) {
 		cantLoad(L"Gold");
 	}
-	gunShot = new sf::SoundBuffer();
-	if (!gunShot->loadFromFile("../Sound/GunShot.wav")) {
-		cantLoad(L"gun sound");
-	}
 	character = new sf::Texture();
 	if (!character->loadFromFile("../Textures/hat.png")) {
 		cantLoad(L"hat");
@@ -109,15 +125,24 @@ void ResourceManager::basicSetup()
 	if (!bullet->loadFromFile("../Textures/Bullet.png")) {
 		cantLoad(L"bullet");
 	}
-	ass = new sf::SoundBuffer();
-	if (!ass->loadFromFile("../Sound/THX_Sound_Effect.wav")) {
-		cantLoad(L"soundeffect");
-	} 
 	enemy = new sf::Texture();
 	if (!enemy->loadFromFile("../Textures/hat2.png")) {
 		cantLoad(L"enemy");
 	}
-
+	//sound
+	gunShot = new sf::SoundBuffer();
+	if (!gunShot->loadFromFile("../Sound/GunShot.wav")) {
+		cantLoad(L"gun sound");
+	}
+	klingSound = new sf::SoundBuffer();
+	if (!klingSound->loadFromFile("../Sound/klingSound.wav")) {
+		cantLoad(L"klingSound");
+	}
+	//debug
+	ass = new sf::SoundBuffer();
+	if (!ass->loadFromFile("../Sound/THX_Sound_Effect.wav")) {
+		cantLoad(L"soundeffect");
+	}
 	debugSetup();
 }
 
@@ -181,6 +206,11 @@ sf::SoundBuffer* ResourceManager::getGunShot()
 	return this->gunShot;
 }
 
+sf::SoundBuffer* ResourceManager::getKlingSound()
+{
+	return klingSound;
+}
+
 sf::Texture* ResourceManager::getEnemy()
 {
 	return enemy;
@@ -204,6 +234,11 @@ sf::Texture* ResourceManager::getCharacter()
 sf::Texture* ResourceManager::getBullet()
 {
 	return this->bullet;
+}
+
+sf::Texture* ResourceManager::getUIBullet()
+{
+	return UIBullet;
 }
 
 sf::Texture* ResourceManager::getGold()

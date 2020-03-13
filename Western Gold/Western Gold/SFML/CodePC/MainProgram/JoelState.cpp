@@ -10,7 +10,7 @@ JoelState::JoelState(ResourceManager* rm):
 	level = new Level(rm, rm->getLevel_01());
 
 	int nrOfTiles = (level->getGrid()->getGridSize().x * level->getGrid()->getGridSize().y);
-	player = new Player(rm->getCharacter(), rm, nrOfTiles, 1);
+	player = new Player(rm->getCharacter(), rm, nrOfTiles, 1, 0);
 	
 	enemy = new Enemy(getRm(), 1, level->getGrid(), player);
 	enemy->setPosition(48.f, 48.f);
@@ -60,7 +60,7 @@ GameState* JoelState::update(DeltaTime time)
 	GameState* state = this;
 
 	if (canStart) {
-		//enemy->setIsPlayerInSight(*col);
+		
 		enemy->update(time);
 	}
 

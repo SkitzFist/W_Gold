@@ -3,7 +3,7 @@
 #include "Level.h"
 #include "EnemyHandler.h"
 #include "Player.h"
-
+#include "Text.h"
 class PlayState :
 	public GameState
 {
@@ -16,9 +16,12 @@ public:
 	virtual GameState* update(DeltaTime delta) override;
 	virtual void render(sf::RenderWindow& window) const override;
 
-
 private:
 	Level* level;
 	Player* player;
 	EnemyHandler enemyHandler;
+	sf::View camera;
+	double currentTime;
+	Text* fpsText;
+
 };

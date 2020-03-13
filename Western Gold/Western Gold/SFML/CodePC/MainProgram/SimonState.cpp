@@ -3,33 +3,35 @@
 #include "Line.h"
 #include "UI.h"
 
-SimonState::SimonState(ResourceManager* rm):
+SimonState::SimonState(ResourceManager* rm)
+	:
 	GameState(rm),
-	bull(rm),
 	lvl(rm, rm->getLevel_01()),
-	ui(rm)
+	ui(rm),
+	collision(rm)
 {
 	//nrOfObjects
 	nrOfWalkableTiles = lvl.getGrid()->getNrOfWalkableTiles();
 	nrOfNonWalkableTiles = lvl.getGrid()->getNrOfNotWalkableTiles();
 	nrOfEnemies = 1;
 	nrOfGold = 3;
+	nrOfBullets = 6;
 	
 	//objects initialize
-	p = new Player(rm->getAnimationTest(), rm, lvl.getGrid()->getNrOfWalkableTiles(), nrOfEnemies);
+	p = new Player(rm->getAnimationTest(), rm, lvl.getGrid()->getNrOfWalkableTiles(), nrOfEnemies, nrOfGold);
 	p->setPosition(100, 100);
 	gold = new Gold * [nrOfGold];
 	WalkableT = new tile*[lvl.getGrid()->getNrOfWalkableTiles()];
 	notWalkableT = new tile*[lvl.getGrid()->getNrOfNotWalkableTiles()];
 	enemytest = new Enemy * [nrOfEnemies];
-	
+	bull = new Bullet*[6];
 	
 	//create objects
 	for (int i = 0; i < nrOfGold; i++) {
 		gold[i] = new Gold(rm, (float)(i+1) * 100.0f, 300.0f + (float)i * 100.0f);
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
-		enemytest[i] = new Enemy(getRm(), 90, lvl.getGrid(), p);
+		enemytest[i] = new Enemy(getRm(), 45, lvl.getGrid(), p);
 		enemytest[i]->setPosition(200,200);
 		enemytest[i]->setRotatioSprite(2);
 		//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));
@@ -37,38 +39,46 @@ SimonState::SimonState(ResourceManager* rm):
 	//Tiles
 	int n = 0; 
 	int n2 = 0;
-	for (int y = 0; y < lvl.getGrid()->getGridSize().y; y++) {
-		for (int x = 0; x < lvl.getGrid()->getGridSize().x; x++) {
+	for (int y = 0; y < (int)lvl.getGrid()->getGridSize().y; y++) {
+		for (int x = 0; x < (int)lvl.getGrid()->getGridSize().x; x++) {
 			if (!lvl.getGrid()->getTiles()[y][x].getIsWalkable()) {
 				notWalkableT[n2] = &lvl.getGrid()->getTiles()[y][x];
 				n2++;
 			}
 		}
 	}
-	int pb = (lvl.getGrid()->getGridSize().x) * (lvl.getGrid()->getGridSize().y);
+	//bullet
+	for (int i = 0; i < nrOfBullets; i++) {
+		bull[i] = new Bullet(rm);
+	}
+	
 	//setup collision
-	collision.setUpCollision(p, lvl.getGrid(), enemytest, gold, nrOfEnemies, nrOfGold);
+	collision.setUpCollision(p, lvl.getGrid(), enemytest, gold, bull, nrOfEnemies, nrOfGold, nrOfBullets);
 	
-	
+	rm->setView(&camera);
 	
 }
 
 SimonState::~SimonState()
 {
 	delete p;
-
+	
 	for (int i = 0; i < nrOfEnemies; i++) {
 		delete enemytest[i];
 	}
 	delete[] enemytest;
-
+	
 	for (int i = 0; i < nrOfGold; i++) {
 		delete gold[i];
 	}
 	delete[] gold;
-
+	
 	delete[] WalkableT;
 	delete[] notWalkableT;
+	for (int i = 0; i < nrOfBullets; i++) {
+		delete bull[i];
+	}
+	delete[] bull;
 	
 }
 
@@ -90,28 +100,32 @@ GameState* SimonState::update(DeltaTime delta)
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i]->setWannaDraw(true);
 	}
-	//for (int i = 0; i < nrOfNonWalkableTiles; i++) {
-	//	p->getTileRay(i)->updateRay(p, notWalkableT[i]);
-	//}
+	for (int i = 0; i < nrOfGold; i++) {
+	
+		gold[i]->setWannaDraw(true);
+	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		p->getEnemyRay(i)->updateRay(p, enemytest[i]);
 	}
+	for (int i = 0; i < nrOfGold; i++) {
+		p->getGoldRay(i)->updateRay(p, gold[i]);
+	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		enemytest[0]->addRotationSprite(100 * delta.dt());
+		enemytest[0]->addRotationSprite(100.f * (float)delta.dt());
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		enemytest[0]->addRotationSprite(-100 * delta.dt());
+		enemytest[0]->addRotationSprite(-100.f * (float)delta.dt());
 	}
-
+	
 	//player
 	p->update(delta);
 	if (p->tossBullet()) {
-		bool gotaBullet = false;
-		for (int i = 0; i < 6 && !gotaBullet; i++) {
-			if (bull.getBulletState() == 0) {
-				bull.throwBullet(delta, *p);
-				gotaBullet = true;
+		bool toss = false;
+		for (int i = 0; i < 6 && !toss; i++) {
+			if (bull[i]->getBulletState() == bulletState::PLAYER) {
+				toss = true;
+				bull[i]->throwBullet(*p);
 			}
 		}
 	}
@@ -121,7 +135,9 @@ GameState* SimonState::update(DeltaTime delta)
 			std::cout << "shoot an enemy" << std::endl;
 		}
 	}
-	bull.update(delta);
+	for (int i = 0; i < nrOfBullets; i++) {
+		bull[i]->update(delta, p);
+	}
 	//enemy
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i]->update(delta);
@@ -131,15 +147,6 @@ GameState* SimonState::update(DeltaTime delta)
 		if (collision.enemySeeCollider(enemytest[i])) {
 			std::cout << "see player" << std::endl;
 		}
-		//if (enemytest[i])) {
-		//
-		//}
-		//if (enemytest[i]->seePlayer(collision.shootCollider(enemytest[i]), delta)) {
-		//	enemytest[i]->rotateTowards(p, delta);
-		//	if (enemytest[i]->isShooting()) {
-		//		enemytest[i]->seePlayer(collision.shootCollider(enemytest[i], true), delta);
-		//	}
-		//}
 	}
 	
 	
@@ -149,11 +156,11 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 	
 	//other
-	camera.setCenter(p->getPosition());
-
+	camera.setCenter((float)(int)p->getPosition().x ,(float)(int)p->getPosition().y);
+	
 	collision.update();
 	
-	ui.updateUI(p->getPosition());
+	ui.updateUI(p, delta);
 	
 	return state;
 }
@@ -170,7 +177,9 @@ void SimonState::render(sf::RenderWindow& window) const
 			window.draw(*this->gold[i]);
 		}
 	}
-	window.draw(this->bull);
+	for (int i = 0; i < nrOfBullets; i++) {
+		window.draw(*this->bull[i]);
+	}
 	window.draw(*this->p);
 	window.draw(this->ui);
 }

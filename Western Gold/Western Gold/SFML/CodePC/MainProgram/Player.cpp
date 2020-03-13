@@ -47,6 +47,7 @@ bool Player::shoot()
 		}
 		else {
 			//klick
+			this->sound.PlaySounds(getRm()->getKlingSound());
 		}
 		
 	}
@@ -76,6 +77,16 @@ bool Player::tossBullet()
 	return theReturn;
 }
 
+void Player::gotBullet()
+{
+	this->nrOfShoots++;
+}
+
+int Player::nrOfShotsLeft() const
+{
+	return nrOfShoots;
+}
+
 //Ray* Player::getTileRay(int nr)
 //{
 //	//return rayTile[nr];
@@ -87,6 +98,11 @@ Ray* Player::getEnemyRay(int nr)
 	return enemyRays[nr];
 }
 
+Ray* Player::getGoldRay(int nr)
+{
+	return goldRays[nr];
+}
+
 void Player::rotation()
 {
 	sf::Vector2i pixelPos = sf::Mouse::getPosition(*window);
@@ -95,18 +111,19 @@ void Player::rotation()
 	this->rotateSprite(tanv);
 }
 
-Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEnemies):
+Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEnemies, int nrOfGold):
 	Entity(tex,rm/*add col and row later*/,1)
 {
 	nrOfShoots = 6;
 	shooting = false;
 	tossing = false;
 
-	//rayTile = new Ray * [nrOfTiles];
-	//for (int i = 0; i < nrOfTiles; i++) {
-	//	rayTile[i] = new Ray();
-	//}
-	//this->nrOfTiles = nrOfTiles;
+
+	goldRays = new Ray * [nrOfGold];
+	for (int i = 0; i < nrOfGold; i++) {
+		goldRays[i] = new Ray();
+	}
+	this->nrOfGold = nrOfGold;
 
 	enemyRays = new Ray * [nrOfEnemies];
 	for (int i = 0; i < nrOfEnemies; i++) {
@@ -115,7 +132,7 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEne
 	this->nrOfEnemies = nrOfEnemies;
 
 	this->window = rm->getWindow();
-	speed = 100;
+	speed = 200;
 
 	this->setanimation(0.05f, 24, 1, 0);
 }
@@ -126,6 +143,10 @@ Player::~Player()
 	//	delete rayTile[i];
 	//}
 	//delete[] rayTile;
+	for (int i = 0; i < nrOfGold; i++) {
+		delete goldRays[i];
+	}
+	delete[] goldRays;
 
 	for (int i = 0; i < nrOfEnemies; i++) {
 		delete enemyRays[i];
@@ -150,5 +171,8 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	//}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		target.draw(*this->enemyRays[i]);
+	}
+	for (int i = 0; i < nrOfGold; i++) {
+		target.draw(*this->goldRays[i]);
 	}
 }

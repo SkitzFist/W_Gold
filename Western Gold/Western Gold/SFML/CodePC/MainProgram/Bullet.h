@@ -2,23 +2,28 @@
 #include "GameObject.h"
 #include "Player.h"
 
+enum class bulletState
+{
+	PLAYER, THROW, FLYING, GROUND, MADE_SOUND
+};
 class Bullet :public GameObject{
 private:
-	enum class bulletState
-	{
-		PLAYER, THROW ,FLYING, GROUND
-	}; 
+	 
 	bulletState bulletAt;
 	float flytime;
 	float currentflytime;
 	float speed;
-	
+
 	void fly(DeltaTime time);
 	void moveDir(DeltaTime time);
+	void followOutScreen(Player* p);
 public:
-	void throwBullet(DeltaTime time, Player &player);
+	bool madeSound()const;
+	void throwBullet(Player &player);
 	Bullet(ResourceManager* rm);
 	virtual ~Bullet();
-	int getBulletState();
+	bulletState getBulletState();
+	void setBulletState(bulletState state);
+	void update(DeltaTime time, Player* p);
 	void update(DeltaTime time);
 };

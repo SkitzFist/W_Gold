@@ -65,5 +65,5 @@ void EnemyHandler::add(Enemy* enemy)
 	if (nrOf == cap) {
 		expandArr();
 	}
-	enemies[++nrOf] = enemy;
+	enemies[nrOf++] = enemy;
 }
