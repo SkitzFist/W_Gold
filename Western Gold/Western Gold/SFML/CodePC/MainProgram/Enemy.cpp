@@ -77,7 +77,7 @@ int Enemy::getSeeDistance() const
 
 void Enemy::setIsPlayerInSight(Collision& col)
 {
-	if (col.shootCollider(this, false)) {
+	if (col.enemySeeCollider(this)) {
 		isPlayerInSight = true;
 	}
 	else {

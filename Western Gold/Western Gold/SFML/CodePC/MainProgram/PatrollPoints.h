@@ -9,6 +9,7 @@ public:
 	~PatrollPoints();
 	void add(sf::Vector2i point);
 	sf::Vector2i getNextPoint();
+	sf::Vector2i* getPoints() const;
 
 	//debug
 	void print();
