@@ -39,9 +39,9 @@ GameState * PlayState::update(DeltaTime delta)
 	GameState* state = this;
 	player->update(delta);
 	camera.setCenter(player->getPosition());
-	//enemyHandler.update(delta);
+	enemyHandler.update(delta);
 
-	//level->findDrawTiles(player);
+	level->findDrawTiles(player);
 
 	currentTime = delta.dt();
 	double fps = 1.0 / (currentTime);
@@ -54,13 +54,13 @@ void PlayState::render(sf::RenderWindow&  window) const
 {
 	
 	window.setView(camera);
-	level->drawLevel(window, player);
+	//level->drawLevel(window, player);
 
-	//level->experimentalDrawLevel(window);
+	level->experimentalDrawLevel(window);
 
-	//for (int i = 0; i < enemyHandler.getNrOf(); ++i) {
-	//	window.draw(*enemyHandler.getEnemies()[i]);
-	//}
+	for (int i = 0; i < enemyHandler.getNrOf(); ++i) {
+		window.draw(*enemyHandler.getEnemies()[i]);
+	}
 
 	window.draw(*fpsText);
 	//debug

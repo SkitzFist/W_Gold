@@ -110,12 +110,8 @@ void Level::addTiles(Index current, Index dir, Index childDir, int length, int c
 	drawTiles[nrOfDrawTiles++] = t;
 
 	Index newCurrent = { t->getGridPos().x, t->getGridPos().y};
-
-	int childLength = currentLength + 2;
-	if (childLength > 0) {
-		addTileChild(newCurrent, childDir, childLength, 1);
-	}
 	
+	addTileChild(newCurrent, childDir, 17, 1);
 
 	addTiles(newCurrent, dir, childDir, length, (currentLength + 1));
 }
@@ -143,35 +139,24 @@ void Level::findDrawTiles(Player* player)
 	drawTiles[nrOfDrawTiles++] = midTile;
 	Index current = { midTile->getGridPos().x, midTile->getGridPos().y};
 	
-	Index dir = { -1, -1 };
-	Index childDir = { 1 , 0 };
-	addTiles(current, dir, childDir, nrOFTiles, 1); // top left
+	
 
-	dir = { 0, -1 };
+	Index dir = { 0, -1 };
+	Index childDir = { 1 , 0 };
 	addTiles(current, dir, childDir, nrOFTiles, 1); // top
 
-	dir = { 1, -1 };
+	dir = {1, 0 };
 	childDir = { 0, 1 };
-	addTiles(current, dir, childDir, nrOFTiles, 1); // top right
-
-	dir = { 1, 0 };
 	addTiles(current, dir, childDir, nrOFTiles, 1); // right
 
-	dir = { 1, 1 };
-	childDir = { -1,0 };
-	addTiles(current, dir, childDir, nrOFTiles, 1); // bot right
-
 	dir = { 0, 1 };
+	childDir = { -1, 0 };
 	addTiles(current, dir, childDir, nrOFTiles, 1); // bot
 
-	dir = { -1, 1 };
+	dir = {-1, 0 };
 	childDir = { 0, -1 };
-	addTiles(current, dir, childDir, nrOFTiles, 1); // bot left
-
-	dir = { -1, 0 };
 	addTiles(current, dir, childDir, nrOFTiles, 1); // left;
 
-	std::cout << nrOfDrawTiles << std::endl;
 }
 
 void Level::experimentalDrawLevel(sf::RenderWindow& window) const
@@ -180,4 +165,3 @@ void Level::experimentalDrawLevel(sf::RenderWindow& window) const
 		window.draw(*drawTiles[i]->getSprite());
 	}
 }
-
