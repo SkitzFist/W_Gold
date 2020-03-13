@@ -168,7 +168,7 @@ GameState* SimonState::update(DeltaTime delta)
 void SimonState::render(sf::RenderWindow& window) const
 {
 	window.setView(camera);
-	lvl.drawLevel(window, p);
+	lvl.drawLevel(window);
 	for (int i = 0; i < nrOfEnemies; i++) {
 		window.draw(*this->enemytest[i]);
 	}

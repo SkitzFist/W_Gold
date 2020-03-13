@@ -29,7 +29,7 @@ public:
 	~Level();
 	Grid* getGrid() const;
 	tile** getTiles() const;
-	void drawLevel(sf::RenderWindow &window, Player* player) const;
+	void drawLevel(sf::RenderWindow &window) const;
 	
 	void placeEnemies(Player* player, EnemyHandler& handler);
 	//Experimental

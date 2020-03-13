@@ -69,7 +69,7 @@ GameState* JoelState::update(DeltaTime time)
 
 void JoelState::render(sf::RenderWindow& window) const
 {
-	level->drawLevel(window, player);
+	level->drawLevel(window);
 	window.draw(*enemy);
 	window.draw(*player);
 }
