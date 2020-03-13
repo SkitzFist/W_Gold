@@ -64,17 +64,6 @@ sf::Vector2u Grid::getGridSize() const
 	return gridSize;
 }
 
-void Grid::renderGrid(sf::RenderWindow& window) const
-{
-	for (unsigned int x = 0; x < gridSize.x; ++x) {
-		for (unsigned int y = 0; y < gridSize.y; ++y) {
-			if (tiles[y][x].getWannaDraw()) {
-				window.draw(*tiles[y][x].getSprite());
-			}
-		}
-	}
-}
-
 std::vector<tile*> Grid::getSurroundingTiles(tile* t)
 {
 	std::vector<tile*> neighbours;

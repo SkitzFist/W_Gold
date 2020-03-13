@@ -1,6 +1,7 @@
 #include <fstream>
 #include <string>
 #include "Level.h"
+#include "Player.h"
 
 Level::Level(ResourceManager* rm, sf::Image* level)
 {
@@ -28,10 +29,20 @@ tile** Level::getTiles() const
 	return grid->getTiles();
 }
 
-void Level::drawLevel(sf::RenderWindow& window) const
+void Level::drawLevel(sf::RenderWindow& window, Player* player) const
 {
-	grid->renderGrid(window);
-	//renderObjects(window);
+	float epsilon = 715.f;
+	//grid->renderGrid(window);
+	for (unsigned int x = 0; x < grid->getGridSize().x; ++x) {
+		for (unsigned int y = 0; y < grid->getGridSize().y; ++y) {
+			float distance = getDistance(player->getPosition(),
+				static_cast<sf::Vector2f>(grid->getTiles()[y][x].getWorldPos()));
+
+			if (distance <= epsilon) {
+				window.draw(*grid->getTiles()[y][x].getSprite());
+			}
+		}
+	}
 }
 
 void Level::placeEnemies(Player* player, EnemyHandler& handler)
@@ -70,4 +81,12 @@ void Level::placeEnemies(Player* player, EnemyHandler& handler)
 
 
 	file.close();
+}
+
+float Level::getDistance(sf::Vector2f a, sf::Vector2f b) const
+{
+	float diffX = b.x - a.x;
+	float diffY = b.y - a.y;
+	float distance = sqrt((diffX * diffX) + (diffY * diffY));
+	return distance;
 }

@@ -11,11 +11,12 @@ public:
 	~Level();
 	Grid* getGrid() const;
 	tile** getTiles() const;
-	void drawLevel(sf::RenderWindow &window) const;
+	void drawLevel(sf::RenderWindow &window, Player* player) const;
 	void placeEnemies(Player* player, EnemyHandler& handler);
 	
 private:
 	Grid* grid;
 	ResourceManager* rm;
+	float getDistance(sf::Vector2f a, sf::Vector2f b) const;
 };
 
