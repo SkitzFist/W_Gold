@@ -59,15 +59,10 @@ void Game::run()
 
 void Game::update()
 {
-	//elapsedTimeSinceLastUpdate += clock.restart();
-	//if (elapsedTimeSinceLastUpdate >= timePerFrame) {
-
 		this->time.restartClock();
 		if (currentState != nullptr) {
 			currentState = currentState->update(time);
 		}
-		//elapsedTimeSinceLastUpdate -= timePerFrame;
-	//}
 }
 
 

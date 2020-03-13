@@ -63,7 +63,6 @@ void Level::placeEnemies(Player* player, EnemyHandler& handler)
 			}
 			file.getline(buf, 10);
 		}
-		
 	}
 
 

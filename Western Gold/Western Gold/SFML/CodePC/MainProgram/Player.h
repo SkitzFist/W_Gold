@@ -21,6 +21,8 @@ private:
 public:
 	bool shoot();
 	bool tossBullet();
+	void gotBullet();
+	int nrOfShotsLeft()const;
 	//Ray *getTileRay(int nr);
 	Ray* getEnemyRay(int nr);
 	Ray* getGoldRay(int nr);

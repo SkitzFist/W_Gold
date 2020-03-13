@@ -137,7 +137,7 @@ bool Ray::rayHitGameObject(GameObject* gameObj)
 	}
 	return theReturn;
 }
-
+//between 2 points
 bool Ray::rayHitTile(tile* Tile)
 {
 	bool theReturn = false;
@@ -172,7 +172,7 @@ bool Ray::rayHitTile(tile* Tile)
 	}
 	return theReturn;
 }
-
+//infinity
 bool Ray::rayHitTile2(tile* Tile)
 {
 	bool theReturn = false;

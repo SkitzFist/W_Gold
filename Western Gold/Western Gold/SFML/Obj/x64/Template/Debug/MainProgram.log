@@ -1,8 +1,40 @@
-﻿  SimonState.cpp
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(41,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(42,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(106,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(109,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(148,65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\SimonState.cpp(148,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Animator.cpp
+  AttackState.cpp
+  Bullet.cpp
+  Button.cpp
+  Collision.cpp
+  DeltaTime.cpp
+  Enemy.cpp
+  EnemyHandler.cpp
+  EnmState.cpp
+  Entity.cpp
+  Game.cpp
+  GameObject.cpp
+  GameState.cpp
+  GetDistance.cpp
+  Gold.cpp
+  Grid.cpp
+  InsideWindow.cpp
+  Level.cpp
+  Line.cpp
+  main.cpp
+  Generating Code...
+  Compiling...
+  MenuState.cpp
+  Pathfinding.cpp
+  PatrollPoints.cpp
+  PatrollState.cpp
+  PauseState.cpp
+  Player.cpp
+  PlayState.cpp
+  Ray.cpp
+  ResourceManager.cpp
+  SeachState.cpp
+  SimonState.cpp
+  SoundManager.cpp
+  Text.cpp
+  tile.cpp
+  UI.cpp
+  Generating Code...
+  JoelState.cpp
   MainProgram.vcxproj -> C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

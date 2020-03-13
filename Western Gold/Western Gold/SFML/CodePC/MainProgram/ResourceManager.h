@@ -39,12 +39,14 @@ public:
 #pragma region objects + UI
 	sf::Texture* getCharacter();
 	sf::Texture* getBullet();
+	sf::Texture* getUIBullet();
 	sf::Texture* getGold();
 	sf::Texture* getCylinder();
 #pragma endregion
 
 #pragma region Sound
 	sf::SoundBuffer* getGunShot();
+	sf::SoundBuffer* getKlingSound();
 #pragma endregion
 	//debug
 	sf::Texture* getEnemy();
@@ -81,12 +83,14 @@ private:
 #pragma region objects + UI
 	sf::Texture* character;
 	sf::Texture* bullet;
+	sf::Texture* UIBullet;
 	sf::Texture* gold;
 	sf::Texture* cylinder;
 #pragma endregion
 
 #pragma region Sound
 	sf::SoundBuffer* gunShot;
+	sf::SoundBuffer* klingSound;
 #pragma endregion
 
 	//debug
