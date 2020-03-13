@@ -178,6 +178,9 @@
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="GoldHandler.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -291,6 +294,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="GoldHandler.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -81,7 +81,7 @@ void Enemy::setIsPlayerInSight(Collision& col)
 		isPlayerInSight = true;
 	}
 	else {
-		false;
+		isPlayerInSight = false;
 	}
 }
 

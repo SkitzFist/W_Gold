@@ -192,6 +192,7 @@
     </ClCompile>
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Line.cpp" />
+    <ClCompile Include="LoadState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Pathfinding.cpp" />
@@ -233,6 +234,7 @@
     </ClInclude>
     <ClInclude Include="Level.h" />
     <ClInclude Include="Line.h" />
+    <ClInclude Include="LoadState.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Pathfinding.h" />
     <ClInclude Include="PatrollPoints.h" />

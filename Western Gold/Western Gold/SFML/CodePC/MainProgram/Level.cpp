@@ -105,9 +105,6 @@ void Level::placeGold(GoldHandler& handler)
 			sf::Vector2i pos = grid->getTiles()[y][x].getWorldPos();
 			Gold* gold = new Gold(rm, static_cast<float>(pos.x), static_cast<float>(pos.y));
 			handler.add(gold);
-			std::cout << "-------" << std::endl;
-			std::cout << x << "." << y << std::endl;
-			std::cout << pos.x << "." << pos.y << std::endl;
 		}
 	}
 	file.close();
