@@ -32,7 +32,20 @@ tile** Level::getTiles() const
 
 void Level::drawLevel(sf::RenderWindow& window) const
 {
-	grid->renderGrid(window);
+	//grid->renderGrid(window);
+	sf::Vector2i cameraPos = sf::Vector2i(rm->getView()->getCenter().x, rm->getView()->getCenter().y);
+	tile* middleTile = this->grid->getTileFromWorldPos(cameraPos);
+	//sf::Vector2i 
+	int offset = 17;
+	for (int x = middleTile->getGridPos().x - offset; x < middleTile->getGridPos().x + offset; x++) {
+		for (int y = middleTile->getGridPos().y - offset; y < middleTile->getGridPos().y + offset; y++) {
+			if (x > 0 && x < grid->getGridSize().x && y > 0 && y < grid->getGridSize().y) {
+				window.draw(*grid->getTiles()[y][x].getSprite());
+			}
+		}
+	}
+		
+		
 	//renderObjects(window);
 }
 

@@ -66,6 +66,7 @@ sf::Vector2u Grid::getGridSize() const
 
 void Grid::renderGrid(sf::RenderWindow& window) const
 {
+	
 	for (unsigned int x = 0; x < gridSize.x; ++x) {
 		for (unsigned int y = 0; y < gridSize.y; ++y) {
 			if (tiles[y][x].getWannaDraw()) {

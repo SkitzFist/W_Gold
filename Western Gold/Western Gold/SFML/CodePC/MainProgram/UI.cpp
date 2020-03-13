@@ -52,6 +52,7 @@ void UI::updateUI(Player *player, DeltaTime dt)
 	shots[1].setPosition(player->getPosition().x + 373, player->getPosition().y + 312);
 	shots[0].setPosition(player->getPosition().x + 373, player->getPosition().y + 284);
 	this->nrOfShots = player->nrOfShotsLeft();
+	text.setPosition(player->getPosition().x, player->getPosition().y);
 	text.setString(std::to_string(1/dt.getRawTime()));
 }
 
