@@ -21,6 +21,7 @@ private:
 	Player* player;
 	EnemyHandler enemyHandler;
 	sf::View camera;
-	Text* fpsText;
 	double currentTime;
+	Text* fpsText;
+
 };

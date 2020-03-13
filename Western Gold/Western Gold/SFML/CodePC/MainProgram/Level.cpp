@@ -3,6 +3,9 @@
 #include "Level.h"
 #include "Player.h"
 
+//debug
+#include <iostream>
+
 Level::Level(ResourceManager* rm, sf::Image* level)
 {
 	//config
@@ -11,11 +14,15 @@ Level::Level(ResourceManager* rm, sf::Image* level)
 	grid = new Grid(rm, level);
 	this->rm = rm;
 	//debug
+	nrOfTilesOnScreen = 2600;
+	nrOfDrawTiles = 0;
+	drawTiles = new tile * [nrOfTilesOnScreen];
 }
 
 Level::~Level()
 {
 	delete grid;
+	delete[] drawTiles;
 }
 
 Grid* Level::getGrid() const
@@ -90,3 +97,87 @@ float Level::getDistance(sf::Vector2f a, sf::Vector2f b) const
 	float distance = sqrt((diffX * diffX) + (diffY * diffY));
 	return distance;
 }
+
+void Level::addTiles(Index current, Index dir, Index childDir, int length, int currentLength)
+{
+	if (currentLength == length) {
+		return;
+	}
+	tile* t = grid->getTileFromIndex((current.x + dir.x), (current.y + dir.y));
+	if (t == nullptr) {
+		return;
+	}
+	drawTiles[nrOfDrawTiles++] = t;
+
+	Index newCurrent = { t->getGridPos().x, t->getGridPos().y};
+
+	int childLength = currentLength + 2;
+	if (childLength > 0) {
+		addTileChild(newCurrent, childDir, childLength, 1);
+	}
+	
+
+	addTiles(newCurrent, dir, childDir, length, (currentLength + 1));
+}
+
+void Level::addTileChild(Index current, Index dir, int length, int currentLength)
+{
+	if (currentLength == length) {
+		return;
+	}
+	tile* t = grid->getTileFromIndex((current.x + dir.x), (current.y + dir.y));
+	if (t == nullptr) {
+		return;
+	}
+	drawTiles[nrOfDrawTiles++] = t;
+	Index newCurrent = { t->getGridPos().x, t->getGridPos().y };
+	addTileChild(newCurrent, dir, length, (currentLength + 1));
+}
+
+
+void Level::findDrawTiles(Player* player)
+{
+	nrOfDrawTiles = 0;
+	int nrOFTiles = 17;
+	tile* midTile = grid->getTileFromWorldPos(static_cast<sf::Vector2i>(player->getPosition()));
+	drawTiles[nrOfDrawTiles++] = midTile;
+	Index current = { midTile->getGridPos().x, midTile->getGridPos().y};
+	
+	Index dir = { -1, -1 };
+	Index childDir = { 1 , 0 };
+	addTiles(current, dir, childDir, nrOFTiles, 1); // top left
+
+	dir = { 0, -1 };
+	addTiles(current, dir, childDir, nrOFTiles, 1); // top
+
+	dir = { 1, -1 };
+	childDir = { 0, 1 };
+	addTiles(current, dir, childDir, nrOFTiles, 1); // top right
+
+	dir = { 1, 0 };
+	addTiles(current, dir, childDir, nrOFTiles, 1); // right
+
+	dir = { 1, 1 };
+	childDir = { -1,0 };
+	addTiles(current, dir, childDir, nrOFTiles, 1); // bot right
+
+	dir = { 0, 1 };
+	addTiles(current, dir, childDir, nrOFTiles, 1); // bot
+
+	dir = { -1, 1 };
+	childDir = { 0, -1 };
+	addTiles(current, dir, childDir, nrOFTiles, 1); // bot left
+
+	dir = { -1, 0 };
+	addTiles(current, dir, childDir, nrOFTiles, 1); // left;
+
+	//std::cout << nrOfDrawTiles << std::endl;
+}
+
+void Level::experimentalDrawLevel(sf::RenderWindow& window) const
+{
+	for (int i = 0; i < nrOfDrawTiles; ++i) {
+		window.draw(*drawTiles[i]->getSprite());
+	}
+}
+

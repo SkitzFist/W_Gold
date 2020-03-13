@@ -103,6 +103,16 @@ float Grid::getTileSize() const
 	return tileSize;
 }
 
+tile* Grid::getTileFromIndex(int x, int y)
+{
+	tile* t = nullptr;
+	if (x > 0 && x < gridSize.x
+		&& y > 0 && y < gridSize.y) {
+		t = &tiles[y][x];
+	}
+	return t;
+}
+
 void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 {
 	sf::Color floor = { 118,85,4 };
