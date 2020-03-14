@@ -20,7 +20,8 @@ Game::Game() :
 	rm->windowSetup(window);
 	rm->loadTilesAndLevels(); //TODO Thread
 
-	currentState = new MenuState(rm);
+	currentState = new SimonState(rm);
+	//currentState = new PlayState(rm);
 	//debug
 }
 
@@ -70,6 +71,7 @@ void Game::update()
 
 void Game::render()
 {
+	//change this to black
 	window->clear(sf::Color::Magenta);
 	if (currentState != nullptr) {
 		currentState->render(*window);

@@ -1,2 +1,4 @@
-﻿  PauseState.cpp
+﻿  Collision.cpp
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(500,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(501,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   MainProgram.vcxproj -> C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

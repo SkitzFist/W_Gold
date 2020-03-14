@@ -373,7 +373,7 @@ bool Collision::tileVisibility() {
 	//and enemies
 	for (int e = 0; e < nrOfEnemies; e++) 
 	{
-		if (!enemies[e]->isDead()) 
+		if (!enemies[e]->isDead() && insideWindow(enemies[e],rm->getView())) 
 		{
 			bool seeEnemy = true;
 			for (int i = 0; i < grid->getNrOfNotWalkableTiles() && seeEnemy ; i++)
@@ -485,10 +485,10 @@ Collision::~Collision()
 bool Collision::enemySeeCollider(Enemy* enemy)
 {
 	bool theReturn = false;
-	int howFastLook = 2;
+	int howFastLook = 1;
 	if (insideWindow(enemy, rm->getView()) && !enemy->isDead()) {
 		for (int i = 0; i < enemy->getNrOfRays(); i++) {
-			double distance = (double)getDistance(player, enemy);
+			double distance = getDistance(player, enemy);
 				int maxDistance = enemy->getSeeDistance();
 				float k = (float)((enemy->getRays()[i]->returnThisLine().getLineY1() - enemy->getRays()[i]->returnThisLine().getLineY2()) / (enemy->getRays()[i]->returnThisLine().getLineX1() - enemy->getRays()[i]->returnThisLine().getLineX2()));
 				float m = (float)(enemy->getRays()[i]->returnThisLine().getLineY1() - (k * enemy->getRays()[i]->returnThisLine().getLineX1()));
@@ -497,12 +497,15 @@ bool Collision::enemySeeCollider(Enemy* enemy)
 				bool foundWall = false;
 				for (int see = 0; see < maxDistance && !foundWall; see += howFastLook)
 				{
-					int x = (int)cos((rayRoation * (3.14f / 180.f) - 1.57f)) * see + (int)enemy->getPosition().x;
-					int y = (int)sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + (int)enemy->getPosition().y;
+					int x = cos((rayRoation * (3.14f / 180.f) - 1.57f)) * see + (int)enemy->getPosition().x;
+					int y = sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + (int)enemy->getPosition().y;
 					tile* seetile = nullptr;
 					seetile = grid->getTileFromWorldPos(sf::Vector2i(x, y));
-					if (x > player->getBounds().left&& x < player->getBounds().left + player->getBounds().width &&
-						y > player->getBounds().top&& y < player->getBounds().top + player->getBounds().height)
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+						std::cout << "x and y " << seetile->getGridPos().x << ", " << seetile->getGridPos().y << std::endl;
+					}
+					if (x > player->getBounds().left && x < player->getBounds().left + player->getBounds().width &&
+						y > player->getBounds().top && y < player->getBounds().top + player->getBounds().height)
 					{
 						theReturn = true;
 					}

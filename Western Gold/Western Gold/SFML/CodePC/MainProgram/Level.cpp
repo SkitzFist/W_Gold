@@ -48,7 +48,9 @@ void Level::drawLevel(sf::RenderWindow& window) const
 	for (int x = middleTile->getGridPos().x - offset; x < middleTile->getGridPos().x + offset; x++) {
 		for (int y = middleTile->getGridPos().y - offset; y < middleTile->getGridPos().y + offset; y++) {
 			if (x > 0 && x < grid->getGridSize().x && y > 0 && y < grid->getGridSize().y) {
-				window.draw(*grid->getTiles()[y][x].getSprite());
+				if (grid->getTiles()[y][x].getWannaDraw()) {
+					window.draw(*grid->getTiles()[y][x].getSprite());
+				}
 			}
 		}
 	}
