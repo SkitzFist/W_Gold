@@ -5,10 +5,9 @@
 ResourceManager::ResourceManager()
 {
 	//config
-
 	//setup
-	basicSetup();
 	this->view = nullptr;
+	loadFont();
 	//debug
 }
 
@@ -18,7 +17,6 @@ ResourceManager::~ResourceManager()
 	//sound
 	delete klingSound;
 	delete gunShot;
-	delete ass;
 	//texture
 	delete enemy;
 	delete AnimationTest;
@@ -26,15 +24,9 @@ ResourceManager::~ResourceManager()
 	delete cylinder;
 	delete UIBullet;
 	delete character;
-	delete tile_black;
-	delete tile_white;
-	delete tile_ok;
 	delete tile_sand;
 	delete tile_floor;
 	delete tile_wall;
-	delete level_test;
-	delete level_test02;
-	delete level_test03;
 	delete level_01;
 	delete bullet;
 	//fonts
@@ -63,6 +55,14 @@ void ResourceManager::setView(sf::View* camera)
 	this->view = camera;
 }
 
+void ResourceManager::loadFont()
+{
+	basicFont = new sf::Font();
+	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
+		cantLoad(L"Font");
+	}
+}
+
 void ResourceManager::loadTilesAndLevels()
 {
 	tile_sand = new sf::Texture();
@@ -83,24 +83,8 @@ void ResourceManager::loadTilesAndLevels()
 	}
 }
 
-int ResourceManager::getWindowWidth() const
+void ResourceManager::loadSprites()
 {
-	return windowWidth;
-}
-
-int ResourceManager::getWindowHeight() const
-{
-	return windowHeight;
-}
-
-void ResourceManager::basicSetup()
-{
-	//fonts
-	basicFont = new sf::Font();
-	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
-		cantLoad(L"Font");
-	}
-	//objects
 	UIBullet = new sf::Texture();
 	if (!UIBullet->loadFromFile("../Textures/UIBullet.png")) {
 		cantLoad(L"UI Bullet");
@@ -129,7 +113,10 @@ void ResourceManager::basicSetup()
 	if (!enemy->loadFromFile("../Textures/hat2.png")) {
 		cantLoad(L"enemy");
 	}
-	//sound
+}
+
+void ResourceManager::loadSounds()
+{
 	gunShot = new sf::SoundBuffer();
 	if (!gunShot->loadFromFile("../Sound/GunShot.wav")) {
 		cantLoad(L"gun sound");
@@ -138,12 +125,16 @@ void ResourceManager::basicSetup()
 	if (!klingSound->loadFromFile("../Sound/klingSound.wav")) {
 		cantLoad(L"klingSound");
 	}
-	//debug
-	ass = new sf::SoundBuffer();
-	if (!ass->loadFromFile("../Sound/THX_Sound_Effect.wav")) {
-		cantLoad(L"soundeffect");
-	}
-	debugSetup();
+}
+
+int ResourceManager::getWindowWidth() const
+{
+	return windowWidth;
+}
+
+int ResourceManager::getWindowHeight() const
+{
+	return windowHeight;
 }
 
 sf::Font* ResourceManager::getBasicFont()
@@ -151,20 +142,6 @@ sf::Font* ResourceManager::getBasicFont()
 	return basicFont;
 }
 
-sf::Texture* ResourceManager::getTile_White()
-{
-	return tile_white;
-}
-
-sf::Texture* ResourceManager::getTile_Black()
-{
-	return tile_black;
-}
-
-sf::Texture* ResourceManager::getTile_Ok()
-{
-	return tile_ok;
-}
 
 sf::Texture* ResourceManager::getTile_floor()
 {
@@ -179,21 +156,6 @@ sf::Texture* ResourceManager::getTile_sand()
 sf::Texture* ResourceManager::getTile_wall()
 {
 	return tile_wall;
-}
-
-sf::Image* ResourceManager::getLevel_Test()
-{
-	return level_test;
-}
-
-sf::Image* ResourceManager::getLevel_Test02()
-{
-	return level_test02;
-}
-
-sf::Image* ResourceManager::getLevel_Test03()
-{
-	return level_test03;
 }
 
 sf::Image* ResourceManager::getLevel_01()
@@ -214,11 +176,6 @@ sf::SoundBuffer* ResourceManager::getKlingSound()
 sf::Texture* ResourceManager::getEnemy()
 {
 	return enemy;
-}
-
-sf::SoundBuffer* ResourceManager::getass()
-{
-	return ass;
 }
 
 sf::Texture* ResourceManager::getAnimationTest()
@@ -254,32 +211,4 @@ sf::Texture* ResourceManager::getCylinder()
 void ResourceManager::cantLoad(LPCWSTR theerror)
 {
 	MessageBox(nullptr, theerror, L"ERROR", MB_ICONWARNING | MB_OK);
-}
-
-void ResourceManager::debugSetup()
-{
-	tile_white = new sf::Texture();
-	if (!tile_white->loadFromFile("../Textures/tile_white.png")) {
-		cantLoad(L"white_tile.png");
-	}
-	tile_black = new sf::Texture();
-	if (!tile_black->loadFromFile("../Textures/tile_black.png")) {
-		cantLoad(L"black_tile.png");
-	}
-	tile_ok = new sf::Texture();
-	if (!tile_ok->loadFromFile("../Textures/tile_ok.png")) {
-		cantLoad(L"tile_ok.png");
-	}
-	level_test = new sf::Image();
-	if (!level_test->loadFromFile("../Levels/level_test.png")) {
-		cantLoad(L"level_test.png");
-	}
-	level_test02 = new sf::Image();
-	if (!level_test02->loadFromFile("../Levels/level_test02.png")) {
-		cantLoad(L"level_test02.png");
-	}
-	level_test03 = new sf::Image();
-	if (!level_test03->loadFromFile("../Levels/level_test03.png")) {
-		cantLoad(L"level_test03.png");
-	}
 }
