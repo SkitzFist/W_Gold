@@ -53,6 +53,8 @@ GameState * PlayState::update(DeltaTime delta)
 		goldHandler.update(delta);
 	}
 	
+	level->findDrawTiles(player);
+
 	currentTime = delta.dt();
 	double fps = 1.0 / (currentTime);
 	fpsText->setPosition(player->getPosition());
@@ -64,8 +66,8 @@ void PlayState::render(sf::RenderWindow&  window) const
 {
 	
 	window.setView(camera);
-	level->drawLevel(window);
-
+	//level->drawLevel(window);
+	level->experimentalDrawLevel(window);
 	for (int i = 0; i < goldHandler.getNrOf(); ++i) {
 		window.draw(*goldHandler.getGold()[i]);
 	}

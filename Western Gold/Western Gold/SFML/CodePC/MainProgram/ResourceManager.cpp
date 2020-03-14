@@ -5,7 +5,6 @@
 ResourceManager::ResourceManager()
 {
 	//config
-
 	//setup
 	this->view = nullptr;
 	loadFont();
@@ -142,6 +141,7 @@ sf::Font* ResourceManager::getBasicFont()
 {
 	return basicFont;
 }
+
 
 sf::Texture* ResourceManager::getTile_floor()
 {

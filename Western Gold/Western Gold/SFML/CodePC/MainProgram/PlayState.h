@@ -4,6 +4,7 @@
 #include "EnemyHandler.h"
 #include "Player.h"
 #include "Text.h"
+#include <thread>
 class PlayState :
 	public GameState
 {

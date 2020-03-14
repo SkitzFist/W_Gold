@@ -17,10 +17,7 @@ Game::Game() :
 	window->create(vMode, "Western Gold", 7U, settings);
 	//setup
 	rm = new ResourceManager();
-	rm->windowSetup(window);
-
-	rm->loadTilesAndLevels(); //TODO Thread
-
+	rm->windowSetup(window);//TODO Thread
 	currentState = new LoadState(rm);
 	//debug
 }

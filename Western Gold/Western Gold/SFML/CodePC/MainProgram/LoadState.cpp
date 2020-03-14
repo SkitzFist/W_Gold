@@ -1,7 +1,5 @@
 #include "LoadState.h"
 #include "MenuState.h"
-//debug
-#include <iostream>
 LoadState::LoadState(ResourceManager* rm) :
 	GameState(rm)
 {
@@ -11,6 +9,7 @@ LoadState::LoadState(ResourceManager* rm) :
 		static_cast<float>(rm->getWindowHeight() / 2.f)
 	};
 	//setup
+	
 	loadStatus = 0;
 	loadText.setFont(*rm->getBasicFont());
 	loadText.setCharacterSize(54);
@@ -59,20 +58,17 @@ void LoadState::loadTilesAndLevel()
 {
 	getRm()->loadTilesAndLevels();
 	this->loadStatus += 33;
-	std::cout << "Tiles finished" << std::endl;
 }
 
 void LoadState::loadSprites()
 {
 	getRm()->loadSprites();
 	loadStatus += 33;
-	std::cout << "Sprites finished" << std::endl;
 }
 
 void LoadState::loadSound()
 {
 	getRm()->loadSounds();
 	loadStatus += 33;
-	std::cout << "Sounds finished" << std::endl;
 }
 
