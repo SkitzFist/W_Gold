@@ -99,25 +99,9 @@ void Enemy::changePlayerInSight(bool Sight)
 	this->isPlayerInSight = Sight;
 }
 
-void Enemy::setIsPlayerInSight(Collision& col)
-{
-	if (col.enemySeeCollider(this)) {
-		isPlayerInSight = true;
-	}
-	else {
-		isPlayerInSight = false;
-	}
-}
-
 bool Enemy::getIsPlayerInSight()
 {
 	return isPlayerInSight;
-}
-
-Player* Enemy::getPlayer()
-{
-	//TODO skicka in i konstruktorn
-	return player;
 }
 
 PatrollPoints* Enemy::getPatroll()

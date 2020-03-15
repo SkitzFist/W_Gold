@@ -502,10 +502,10 @@ bool Collision::enemySeeCollider(Enemy* enemy)
 				bool foundWall = false;
 				for (int see = 0; see < maxDistance && !foundWall; see += howFastLook)
 				{
-					int x = cos((rayRoation * (3.14f / 180.f) - 1.57f)) * see + (int)enemy->getPosition().x;
-					int y = sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + (int)enemy->getPosition().y;
+					double x = cos((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().x;
+					double y = sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().y;
 					tile* seetile = nullptr;
-					seetile = grid->getTileFromWorldPos(sf::Vector2i(x, y));
+					seetile = grid->getTileFromWorldPos(sf::Vector2i((int)x, (int)y));
 					if (x > player->getBounds().left&& x < player->getBounds().left + player->getBounds().width &&
 						y > player->getBounds().top&& y < player->getBounds().top + player->getBounds().height)
 					{

@@ -37,6 +37,7 @@ public:
 	bool getWannaDraw()const;
 	void setRotatioSprite(float angle);
 	void rotateSprite(float angle);
+	void rotateTowards(GameObject* obj);
 	void addRotationSprite(float angle);
 
 	// Inherited via Drawable

@@ -21,9 +21,7 @@ public:
 	void setPatrollPoints(PatrollPoints* patroll);
 	Grid* getGrid() const;
 	
-	void setIsPlayerInSight(Collision &col);
 	bool getIsPlayerInSight();
-	Player* getPlayer();
 
 	PatrollPoints* getPatroll();
 
