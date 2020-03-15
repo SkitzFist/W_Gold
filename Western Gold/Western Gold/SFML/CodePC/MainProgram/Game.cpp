@@ -1,10 +1,10 @@
 #include "Game.h"
 #include "PlayState.h"
 #include <thread>
-#include <chrono>
 #include "SimonState.h"
 #include "JoelState.h"
 #include "MenuState.h"
+#include "LoadState.h"
 
 Game::Game() :
 	timePerFrame(sf::seconds(1.0f / 60.0f)),
@@ -18,9 +18,7 @@ Game::Game() :
 	//setup
 	rm = new ResourceManager();
 	rm->windowSetup(window);
-	rm->loadTilesAndLevels(); //TODO Thread
-
-	currentState = new MenuState(rm);
+	currentState = new LoadState(rm);
 	//debug
 }
 

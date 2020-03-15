@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Line.h"
 #include "UI.h"
+#include <thread>
 
 SimonState::SimonState(ResourceManager* rm)
 	:
@@ -18,7 +19,8 @@ SimonState::SimonState(ResourceManager* rm)
 	nrOfBullets = 6;
 	
 	//objects initialize
-	p = new Player(rm->getAnimationTest(), rm, lvl.getGrid()->getNrOfWalkableTiles(), nrOfEnemies, nrOfGold);
+	p = new Player(rm->getAnimationTest(), rm, nrOfEnemies, nrOfGold);
+	p->setEnemyRays(nrOfEnemies);
 	p->setPosition(100, 100);
 	gold = new Gold * [nrOfGold];
 	WalkableT = new tile*[lvl.getGrid()->getNrOfWalkableTiles()];
@@ -32,7 +34,7 @@ SimonState::SimonState(ResourceManager* rm)
 	}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		enemytest[i] = new Enemy(getRm(), 45, lvl.getGrid(), p);
-		enemytest[i]->setPosition(200,200);
+		enemytest[i]->setPosition(500,550);
 		enemytest[i]->setRotatioSprite(2);
 		//enemytest[i]->engagePatrolState(patrollPos, static_cast<size_t>(2));
 	}
@@ -53,7 +55,8 @@ SimonState::SimonState(ResourceManager* rm)
 	}
 	
 	//setup collision
-	collision.setUpCollision(p, lvl.getGrid(), enemytest, gold, bull, nrOfEnemies, nrOfGold, nrOfBullets);
+	//take in enemy handler
+	//collision.setUpCollision(p, lvl.getGrid(), enemytest, gold, bull, nrOfEnemies, nrOfGold, nrOfBullets);
 	
 	rm->setView(&camera);
 	
@@ -144,6 +147,9 @@ GameState* SimonState::update(DeltaTime delta)
 	}
 	
 	for(int i = 0; i < nrOfEnemies; i++){
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			std::cout << "stop" << std::endl;
+		}
 		if (collision.enemySeeCollider(enemytest[i])) {
 			std::cout << "see player" << std::endl;
 		}
@@ -169,13 +175,14 @@ void SimonState::render(sf::RenderWindow& window) const
 {
 	window.setView(camera);
 	lvl.drawLevel(window);
-	for (int i = 0; i < nrOfEnemies; i++) {
-		window.draw(*this->enemytest[i]);
-	}
+	
 	for (int i = 0; i < nrOfGold; i++) {
 		if (!gold[i]->take()) {
 			window.draw(*this->gold[i]);
 		}
+	}
+	for (int i = 0; i < nrOfEnemies; i++) {
+		window.draw(*this->enemytest[i]);
 	}
 	for (int i = 0; i < nrOfBullets; i++) {
 		window.draw(*this->bull[i]);

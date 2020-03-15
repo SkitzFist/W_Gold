@@ -31,12 +31,12 @@ Enemy::~Enemy()
 
 void Enemy::update(DeltaTime delta)
 {
-	float speed = 100.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
+	float speed = 50.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
-		Entity::update(delta);
 		moveSprite(dir, speed);
 	}
+	Entity::update(delta);
 }
 
 bool Enemy::shoot()
@@ -81,7 +81,7 @@ void Enemy::setIsPlayerInSight(Collision& col)
 		isPlayerInSight = true;
 	}
 	else {
-		false;
+		isPlayerInSight = false;
 	}
 }
 
@@ -93,7 +93,7 @@ bool Enemy::getIsPlayerInSight()
 Player* Enemy::getPlayer()
 {
 	//TODO skicka in i konstruktorn
-	return nullptr;
+	return player;
 }
 
 PatrollPoints* Enemy::getPatroll()

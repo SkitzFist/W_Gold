@@ -34,6 +34,15 @@ void Player::move(DeltaTime time)
 
 
 
+void Player::setEnemyRays(int nrOfEnemies)
+{
+	enemyRays = new Ray * [nrOfEnemies];
+	for (int i = 0; i < nrOfEnemies; i++) {
+		enemyRays[i] = new Ray();
+	}
+	this->nrOfEnemies = nrOfEnemies;
+}
+
 bool Player::shoot()
 {
 	bool theReturn = false;
@@ -87,11 +96,6 @@ int Player::nrOfShotsLeft() const
 	return nrOfShoots;
 }
 
-//Ray* Player::getTileRay(int nr)
-//{
-//	//return rayTile[nr];
-//}
-
 
 Ray* Player::getEnemyRay(int nr)
 {
@@ -111,7 +115,7 @@ void Player::rotation()
 	this->rotateSprite(tanv);
 }
 
-Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEnemies, int nrOfGold):
+Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies, int nrOfGold):
 	Entity(tex,rm/*add col and row later*/,1)
 {
 	nrOfShoots = 6;
@@ -125,11 +129,8 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEne
 	}
 	this->nrOfGold = nrOfGold;
 
-	enemyRays = new Ray * [nrOfEnemies];
-	for (int i = 0; i < nrOfEnemies; i++) {
-		enemyRays[i] = new Ray();
-	}
-	this->nrOfEnemies = nrOfEnemies;
+	enemyRays = nullptr;
+	this->nrOfEnemies = 0;
 
 	this->window = rm->getWindow();
 	speed = 200;
@@ -139,10 +140,6 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEne
 
 Player::~Player()
 {
-	//for (int i = 0; i < nrOfTiles; i++) {
-	//	delete rayTile[i];
-	//}
-	//delete[] rayTile;
 	for (int i = 0; i < nrOfGold; i++) {
 		delete goldRays[i];
 	}
@@ -166,9 +163,6 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	Entity::draw(target, states);
 	//debug
-	//for (int i = 0; i < nrOfTiles; i++) {
-	//	target.draw(*this->rayTile[i]);
-	//}
 	for (int i = 0; i < nrOfEnemies; i++) {
 		target.draw(*this->enemyRays[i]);
 	}

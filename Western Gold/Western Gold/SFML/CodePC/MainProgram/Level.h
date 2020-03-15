@@ -3,6 +3,7 @@
 #include "Grid.h"
 #include "ResourceManager.h"
 #include "EnemyHandler.h"
+#include "GoldHandler.h"
 
 struct Index
 {
@@ -32,6 +33,7 @@ public:
 	void drawLevel(sf::RenderWindow &window) const;
 	
 	void placeEnemies(Player* player, EnemyHandler& handler);
+	void placeGold(GoldHandler& handler);
 	//Experimental
 	void findDrawTiles(Player* player);
 	void experimentalDrawLevel(sf::RenderWindow& window) const;

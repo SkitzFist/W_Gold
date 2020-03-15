@@ -19,6 +19,7 @@ private:
 	float speed;
 	sf::RenderWindow* window;
 public:
+	void setEnemyRays(int nrOfEnemies);
 	bool shoot();
 	bool tossBullet();
 	void gotBullet();
@@ -26,7 +27,7 @@ public:
 	//Ray *getTileRay(int nr);
 	Ray* getEnemyRay(int nr);
 	Ray* getGoldRay(int nr);
-	Player(sf::Texture* tex, ResourceManager* rm, int nrOfTiles, int nrOfEnemies, int nrOfGold);
+	Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies, int nrOfGold);
 	virtual~Player();
 	void update(DeltaTime time);
 	//debug
