@@ -485,7 +485,7 @@ Collision::~Collision()
 bool Collision::enemySeeCollider(Enemy* enemy)
 {
 	bool theReturn = false;
-	int howFastLook = 1;
+	int howFastLook = 5;
 	if (insideWindow(enemy, rm->getView()) && !enemy->isDead()) {
 		for (int i = 0; i < enemy->getNrOfRays(); i++) {
 			double distance = getDistance(player, enemy);
@@ -517,7 +517,6 @@ bool Collision::enemySeeCollider(Enemy* enemy)
 
 					}
 				}
-
 		}
 	}
 	return theReturn;

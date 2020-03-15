@@ -9,7 +9,7 @@ Enemy::Enemy(ResourceManager* rm, int nrOfRays, Grid* grid, Player* player):
 Entity(rm->getEnemy(), rm, nrOfRays)
 {
 	//config
-	seeDistance = 500;
+	seeDistance = 300;
 	//setup
 	patroll = nullptr;
 	this->player = player;
@@ -93,7 +93,7 @@ bool Enemy::getIsPlayerInSight()
 Player* Enemy::getPlayer()
 {
 	//TODO skicka in i konstruktorn
-	return nullptr;
+	return player;
 }
 
 PatrollPoints* Enemy::getPatroll()
