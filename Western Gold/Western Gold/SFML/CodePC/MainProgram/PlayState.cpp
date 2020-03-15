@@ -27,7 +27,7 @@ PlayState::PlayState(ResourceManager* rm) :
 	for (int i = 0; i < nrOfBullets; i++) {
 		bullets[i] = new Bullet(rm);
 	}
-
+	
 	collision.setUpCollision(
 		player,
 		level->getGrid(),
