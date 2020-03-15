@@ -101,9 +101,18 @@ GameState * PlayState::update(DeltaTime delta)
 				if (bullets[i]->getBulletState() == bulletState::PLAYER) {
 					toss = true;
 					bullets[i]->throwBullet(*player);
+					
 				}
 			}
 		}
+
+		for (int i = 0; i < 6; ++i) {
+			if (bullets[i]->getBulletState() == bulletState::MADE_SOUND) {
+				std::cout << "Search State" << std::endl;
+				enemyHandler.activateSearchState(bullets[i]->getPosition());
+			}
+		}
+		
 		
 		//collision
 		collision.update();

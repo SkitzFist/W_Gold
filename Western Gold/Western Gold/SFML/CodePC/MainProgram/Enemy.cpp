@@ -1,9 +1,7 @@
 #include "Enemy.h"
 #include "PatrollState.h"
+#include "SeachState.h"
 #include "Collision.h"
-
-//debug
-#include <iostream>
 
 Enemy::Enemy(ResourceManager* rm, int nrOfRays, Grid* grid, Player* player):
 Entity(rm->getEnemy(), rm, nrOfRays)
@@ -18,6 +16,7 @@ Entity(rm->getEnemy(), rm, nrOfRays)
 	this->grid = grid;
 	dir = { 0.f, 0.f };
 	isPlayerInSight = false;
+	shootingSound = new Sound();
 	//debug
 
 }
@@ -42,6 +41,11 @@ void Enemy::update(DeltaTime delta)
 bool Enemy::shoot()
 {
 	return false;
+}
+
+void Enemy::engageSearch(sf::Vector2f pos)
+{
+	currentState = new SeachState(this, pos);
 }
 
 Pathfinding* Enemy::getPathfinding() const
@@ -93,6 +97,11 @@ void Enemy::setCollision(Collision& collision)
 Collision* Enemy::getCollision()
 {
 	return collision;
+}
+
+Sound* Enemy::getSound() const
+{
+	return shootingSound;
 }
 
 bool Enemy::getIsPlayerInSight()

@@ -413,7 +413,6 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 						{
 							theReturn = true;
 							saw = true;
-							std::cout << "player take damage" << std::endl;
 							player->takeDamage();
 						}
 						else {
