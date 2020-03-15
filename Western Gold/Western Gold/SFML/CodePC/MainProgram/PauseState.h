@@ -2,12 +2,7 @@
 #include "GameState.h"
 #include "Button.h"
 #include "Text.h"
-
-enum class CurrentButton
-{
-	resume = 0,
-	exit = 1
-};
+#include "ButtonStates.h"
 
 class PauseState:
 	public GameState

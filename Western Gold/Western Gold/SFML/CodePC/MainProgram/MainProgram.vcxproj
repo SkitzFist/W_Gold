@@ -193,7 +193,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="LoadState.cpp" />
-    <ClCompile Include="LoseState.cpp" />
+    <ClCompile Include="WinState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Pathfinding.cpp" />
@@ -216,6 +216,7 @@
     <ClInclude Include="AttackState.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonStates.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DeltaTime.h" />
     <ClInclude Include="Enemy.h" />
@@ -236,7 +237,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="LoadState.h" />
-    <ClInclude Include="LoseState.h" />
+    <ClInclude Include="WinState.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Pathfinding.h" />
     <ClInclude Include="PatrollPoints.h" />
