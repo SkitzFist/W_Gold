@@ -10,6 +10,7 @@ public:
 	int getNrOf() const;
 	Enemy** getEnemies()const;
 	void add(Enemy* enemy);
+	void setCollision(Collision& col);
 private:
 	Enemy** enemies;
 	int nrOf;

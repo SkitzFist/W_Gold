@@ -67,3 +67,10 @@ void EnemyHandler::add(Enemy* enemy)
 	}
 	enemies[nrOf++] = enemy;
 }
+
+void EnemyHandler::setCollision(Collision& col)
+{
+	for (int i = 0; i < nrOf; ++i) {
+		enemies[i]->setCollision(col);
+	}
+}

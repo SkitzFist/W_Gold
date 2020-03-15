@@ -7,6 +7,7 @@
 #include <sstream>
 #include <iostream>
 #include <iomanip>//setprecision
+#include "Gold.h"
 
 class UI : public sf::Drawable 
 {
@@ -26,6 +27,9 @@ private:
 	sf::Text text;
 
 	sf::Text time;
+
+	sf::Text nrOfGold;
+	Gold gold;
 
 	int nrOfShots;
 public:

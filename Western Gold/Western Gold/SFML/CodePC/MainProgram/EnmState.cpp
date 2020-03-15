@@ -88,3 +88,22 @@ void EnmState::calculatePath()
 		getEnm()->getPathfinding()->findPath(currentTile->getWorldPos(), targetTile->getWorldPos());
 	}
 }
+
+void EnmState::rotate()
+{
+
+	float angle = 0;
+	if (getEnm()->getDir().x > 0.5) {
+		angle = 90;
+	}
+	else if (getEnm()->getDir().x < -0.5) {
+		angle = 270;
+	}
+	else if (getEnm()->getDir().y > 0.5) {
+		angle = 180;
+	}
+	else if (getEnm()->getDir().y < -0.5) {
+		angle = 0;
+	}
+	getEnm()->setRotatioSprite(angle);
+}

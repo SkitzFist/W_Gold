@@ -3,7 +3,8 @@
 
 
 UI::UI(ResourceManager *rm):
-	exit(rm->getBasicFont(), "X", sf::Vector2f(0,0))
+	exit(rm->getBasicFont(), "X", sf::Vector2f(0,0)),
+	gold(rm,0,0)
 
 {
 	exitButtonPos.x =  470.f;
@@ -21,12 +22,17 @@ UI::UI(ResourceManager *rm):
 	time.setFont(*rm->getBasicFont());
 	
 	time.setCharacterSize(40);
-	time.setFillColor(sf::Color::White);
+	time.setFillColor(sf::Color::Black);
 	text.setFont(*rm->getBasicFont());
 	text.setPosition(10, 10);
 	text.setCharacterSize(40);
-	text.setFillColor(sf::Color::Green);
 	text.setString("00");
+
+	nrOfGold.setCharacterSize(40);
+	nrOfGold.setFillColor(sf::Color::Black);
+	nrOfGold.setFont(*rm->getBasicFont());
+	nrOfGold.setCharacterSize(40);
+	
 }
 
 UI::~UI()
@@ -38,8 +44,12 @@ void UI::updateUI(Player *player, DeltaTime dt)
 {
 	cylinder.setPosition(player->getPosition() + cylinderPos);
 	exit.setPosition(player->getPosition().x + exitButtonPos.x, player->getPosition().y + exitButtonPos.y);
-	time.setPosition(player->getPosition().x + -470, player->getPosition().y - 470);
-	
+	time.setPosition(player->getPosition().x + -470, player->getPosition().y - 390);
+	gold.setPosition(player->getPosition().x + -400, player->getPosition().y - 460);
+	gold.update(dt);
+	nrOfGold.setString(std::to_string(player->getNrOfGold()));
+	nrOfGold.setPosition(player->getPosition().x + -470, player->getPosition().y - 480);
+
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(2) << dt.getTotalTime();
 	std::string s = stream.str();
@@ -51,6 +61,7 @@ void UI::updateUI(Player *player, DeltaTime dt)
 	shots[2].setPosition(player->getPosition().x + 398, player->getPosition().y + 327);
 	shots[1].setPosition(player->getPosition().x + 373, player->getPosition().y + 312);
 	shots[0].setPosition(player->getPosition().x + 373, player->getPosition().y + 284);
+
 	this->nrOfShots = player->nrOfShotsLeft();
 	text.setPosition(player->getPosition().x, player->getPosition().y);
 	text.setString(std::to_string(1/dt.getRawTime()));
@@ -65,4 +76,6 @@ void UI::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(cylinder);
 	target.draw(exit);
 	target.draw(text);
+	target.draw(gold);
+	target.draw(nrOfGold);
 }

@@ -105,6 +105,17 @@ int Player::nrOfShotsLeft() const
 	return nrOfShoots;
 }
 
+void Player::addNrOfGoldTaken()
+{
+	this->nrOfGoldTaken++;
+	std::cout << nrOfGoldTaken << std::endl;
+}
+
+int Player::getNrOfGold() const
+{
+	return this->nrOfGoldTaken;
+}
+
 
 Ray* Player::getEnemyRay(int nr)
 {
@@ -125,12 +136,12 @@ void Player::rotation()
 }
 
 Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies, int nrOfGold):
-	Entity(tex,rm/*add col and row later*/,1)
+	Entity(tex,rm,1)
 {
 	nrOfShoots = 6;
 	shooting = false;
 	tossing = false;
-
+	this->nrOfGoldTaken = 0;
 
 	goldRays = nullptr;
 	this->nrOfGold = 0;
@@ -139,7 +150,7 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies, int nrOfG
 	this->nrOfEnemies = 0;
 
 	this->window = rm->getWindow();
-	speed = 200;
+	speed = 400;
 
 	this->setanimation(0.05f, 24, 1, 0);
 }
