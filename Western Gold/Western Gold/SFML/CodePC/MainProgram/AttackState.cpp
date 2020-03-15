@@ -72,6 +72,7 @@ EnmState* AttackState::update(DeltaTime time)
 void AttackState::shoot()
 {
 	getEnm()->getCollision()->shootCollider(getEnm());
+	getEnm()->getSound()->PlaySounds(getEnm()->getRm()->getGunShot());
 }
 
 bool AttackState::canShoot()

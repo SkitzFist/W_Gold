@@ -3,7 +3,7 @@
 #include "EnmState.h"
 #include "Pathfinding.h"
 #include "PatrollPoints.h"
-#include "Grid.h"
+#include "SoundManager.h"
 
 class Collision;
 class Enemy :
@@ -17,14 +17,12 @@ public:
 	virtual void update(DeltaTime delta) override;
 	virtual bool shoot() override;
 
+	void engageSearch(sf::Vector2f pos);
 	Pathfinding* getPathfinding() const;
 	void setPatrollPoints(PatrollPoints* patroll);
 	Grid* getGrid() const;
-	
 	bool getIsPlayerInSight();
-
 	PatrollPoints* getPatroll();
-
 	Player* getPlayer() const;
 	void setDir(sf::Vector2f dir);
 	sf::Vector2f getDir() const;
@@ -34,6 +32,7 @@ public:
 	//debug
 	void setCollision(Collision& collision);
 	Collision* getCollision();
+	Sound* getSound() const;
 private:
 	Player* player;
 	bool isPlayerInSight;
@@ -44,5 +43,6 @@ private:
 	sf::Vector2f dir;
 	Grid* grid;
 	PatrollPoints* patroll;
+	Sound* shootingSound;
 };
 
