@@ -83,8 +83,8 @@ void Collision::checkCollision()
 		if (PPosy < 3) {
 			PPosy = 3;
 		}
-		if (PPosy > grid->getGridSize().x - 3) {
-			PPosy = grid->getGridSize().x - 3;
+		if (PPosy > (int)grid->getGridSize().x - 3) {
+			PPosy = (int)grid->getGridSize().x - 3;
 		}
 		int PPosx = grid->getTileFromWorldPos(IPlayerPos)->getGridPos().x;
 		if (PPosx < 3) {
