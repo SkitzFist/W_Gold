@@ -23,6 +23,7 @@ protected:
     void setDirTowardsNextTile();
     bool hasReachedTile(tile* t) const;
     void calculatePath();
+    void rotate();
 
 private:
     tile* targetTile;

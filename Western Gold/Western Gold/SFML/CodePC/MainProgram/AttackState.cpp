@@ -1,6 +1,7 @@
 #include "AttackState.h"
 #include "Enemy.h"
 #include "SeachState.h"
+#include "Collision.h"
 
 //debug
 #include <iostream>
@@ -10,9 +11,11 @@ AttackState::AttackState(Enemy* enemy, Player* player):
 	EnmState(enemy)
 {
 	//config
-	shootDistance = 50.f; //prob needs a lot of tweaking
+	timeBeforeChangeState = 1.2;
+	timer = 0;
+	shootDistance = 200.f; //prob needs a lot of tweaking
 	timesBetweenShots = 1.5f; //prob needs a lot of tweaking
-	playerMaxDistance = 200.f; //If player moves this distance away from tile, Calculate new path
+	playerDistanceBeforeCalcNewPath = 100.f; //If player moves this distance away from tile, Calculate new path
 	//setup
 	setTargetTile(enemy->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(player->getPosition())));
 	setNextTile(nullptr);
@@ -36,31 +39,29 @@ EnmState* AttackState::update(DeltaTime time)
 {
 	EnmState* state = this;
 	shootingTimer -= static_cast<float>(time.dt());
-
+	timer += time.dt();
 	if (getEnm()->getIsPlayerInSight()) {
-		
+		timer = 0.0;
 		float playerDistanceFromTile = 
 			getDistance(playerLastPos, player->getPosition());
 
-		if (playerDistanceFromTile > playerMaxDistance) {
-			std::cout << "Calculating new path" << std::endl;
+		if (playerDistanceFromTile > playerDistanceBeforeCalcNewPath) {
 			setNextTargetTile();
 			playerLastPos = {
 				static_cast<float>(getTargetTile()->getWorldPos().x),
 				static_cast<float>(getTargetTile()->getWorldPos().y)
 			};
 			calculatePath();
+			setNextTile(nullptr);
 		}
 		move(time);
 		if (canShoot()) {
-			//shoot();
-
+			shoot();
 			shootingTimer = timesBetweenShots;
 		}
 
 	}
-	else {
-		std::cout << "Enter Search State" << std::endl;
+	if (!getEnm()->getIsPlayerInSight() && timer >= timeBeforeChangeState){
 		state = new SeachState(getEnm(), static_cast<sf::Vector2f>(getTargetTile()->getWorldPos()));
 		delete this;
 	}
@@ -70,7 +71,7 @@ EnmState* AttackState::update(DeltaTime time)
 
 void AttackState::shoot()
 {
-	//TODO raycasting
+	getEnm()->getCollision()->shootCollider(getEnm());
 }
 
 bool AttackState::canShoot()
@@ -102,13 +103,19 @@ void AttackState::move(DeltaTime time)
 			setDirTowardsNextTile();
 		}
 		if ((getDistance(getEnm()->getPosition(), player->getPosition())) < shootDistance) {
-			std::cout << "Reached" << std::endl;
 			dir = { 0.f,0.f };
 			getEnm()->setDir(dir);
 		}
 		else if (hasReachedTile(getNextTile())) {
 			setNextTile(getEnm()->getPathfinding()->getNextTile());
-			setDirTowardsNextTile();
+			if (getNextTile() != nullptr) {
+				setDirTowardsNextTile();
+			}
+			else {
+				dir = { 0.f,0.f };
+				getEnm()->setDir(dir);
+			}
+			
 		}
 		getEnm()->rotateTowards(player);
 }

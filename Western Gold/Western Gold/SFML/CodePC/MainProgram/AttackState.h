@@ -17,7 +17,7 @@ private:
 	float timesBetweenShots;
 	float shootingTimer;
 
-	float playerMaxDistance;
+	float playerDistanceBeforeCalcNewPath;
 
 	sf::Vector2f playerLastPos;
 
@@ -27,5 +27,8 @@ private:
 
 	void move(DeltaTime time);
 	void setNextTargetTile();
+
+	double timer;
+	double timeBeforeChangeState;
 };
 
