@@ -1,8 +1,5 @@
 #include "PauseState.h"
 
-
-#include <iostream>
-
 PauseState::PauseState(ResourceManager* rm, GameState* pausedState):
 	GameState(rm)
 {
@@ -77,7 +74,6 @@ GameState* PauseState::handleEvent(const sf::Event& event)
 				break;
 			case CurrentButton::exit:
 				state = nullptr;
-				willExit = false;
 				delete pausedState;
 				delete this;
 				break;

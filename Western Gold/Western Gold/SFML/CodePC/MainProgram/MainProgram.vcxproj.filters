@@ -180,7 +180,7 @@
     <ClCompile Include="LoadState.cpp">
       <Filter>Source Files\GameState</Filter>
     </ClCompile>
-    <ClCompile Include="LoseState.cpp">
+    <ClCompile Include="WinState.cpp">
       <Filter>Source Files\GameState</Filter>
     </ClCompile>
     <ClCompile Include="PatrollPoints.cpp">
@@ -302,7 +302,10 @@
     <ClInclude Include="LoadState.h">
       <Filter>Header Files\GameState</Filter>
     </ClInclude>
-    <ClInclude Include="LoseState.h">
+    <ClInclude Include="WinState.h">
+      <Filter>Header Files\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonStates.h">
       <Filter>Header Files\GameState</Filter>
     </ClInclude>
   </ItemGroup>

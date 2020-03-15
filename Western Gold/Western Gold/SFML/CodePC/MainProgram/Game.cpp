@@ -1,10 +1,6 @@
 #include "Game.h"
-#include "PlayState.h"
-#include <thread>
-#include "SimonState.h"
-#include "JoelState.h"
-#include "MenuState.h"
 #include "LoadState.h"
+#include "WinState.h"
 
 Game::Game() :
 	timePerFrame(sf::seconds(1.0f / 60.0f)),
@@ -19,9 +15,9 @@ Game::Game() :
 	//setup
 	rm = new ResourceManager();
 	rm->windowSetup(window);
-	currentState = new LoadState(rm);
 	rm->loadMouse();
 	mouse.setTexture(*rm->getMouse());
+	currentState = new WinState(rm);
 	//debug
 }
 
