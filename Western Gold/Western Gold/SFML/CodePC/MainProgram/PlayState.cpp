@@ -1,5 +1,5 @@
 #include "PlayState.h"
-
+#include "PauseState.h"
 
 
 PlayState::PlayState(ResourceManager* rm) :
@@ -55,9 +55,12 @@ PlayState::~PlayState()
 GameState * PlayState::handleEvent(const sf::Event & event)
 {
 	GameState* state = this;
-	if (event.type == event.KeyReleased) {
-		if (event.key.code == sf::Keyboard::Space) {
-			canStart = true;
+	if (event.type == sf::Event::KeyPressed) {
+		canStart = true;
+	}
+	else if (event.type == sf::Event::KeyReleased) {
+		if (event.key.code == sf::Keyboard::Escape) {
+			state = new PauseState(getRm(), this);
 		}
 	}
 	return state;
@@ -74,57 +77,58 @@ GameState * PlayState::update(DeltaTime delta)
 			this->enemyHandler.getEnemies()[i]->setWannaDraw(true);
 		}
 		enemyHandler.update(delta);
-		//gold
-		for (int i = 0; i < goldHandler.getNrOf(); i++) {
-			if (!goldHandler.getGold()[i]->take()) {
-				player->getGoldRay(i)->updateRay(player, goldHandler.getGold()[i]);
-				goldHandler.getGold()[i]->setWannaDraw(true);
-			}
-		}
-		goldHandler.update(delta);
 
-		for (int i = 0; i < nrOfBullets; i++) {
-			bullets[i]->update(delta, player);
-		}
-		
-		
-		//player
-		player->update(delta);
-		if (player->shoot()) {
-			//check what he shot
-			collision.shootCollider(player);
-		}
-		
-		if (player->tossBullet()) {
-			bool toss = false;
-			for (int i = 0; i < 6 && !toss; i++) {
-				if (bullets[i]->getBulletState() == bulletState::PLAYER) {
-					toss = true;
-					bullets[i]->throwBullet(*player);
-					
-				}
-			}
-		}
-
-		for (int i = 0; i < 6; ++i) {
-			if (bullets[i]->getBulletState() == bulletState::MADE_SOUND) {
-				std::cout << "Search State" << std::endl;
-				enemyHandler.activateSearchState(bullets[i]->getPosition());
-			}
-		}
-		
-		
-		//collision
-		collision.update();
-		
-		for (int i = 0; i < enemyHandler.getNrOf(); i++) {
-			collision.enemySeeCollider(enemyHandler.getEnemies()[i]);
-		}
-
-		ui.updateUI(player, delta);
-
-		camera.setCenter(player->getPosition());
 	}
+
+	//gold
+	for (int i = 0; i < goldHandler.getNrOf(); i++) {
+		if (!goldHandler.getGold()[i]->take()) {
+			player->getGoldRay(i)->updateRay(player, goldHandler.getGold()[i]);
+			goldHandler.getGold()[i]->setWannaDraw(true);
+		}
+	}
+	goldHandler.update(delta);
+
+	for (int i = 0; i < nrOfBullets; i++) {
+		bullets[i]->update(delta, player);
+	}
+
+
+	//player
+	player->update(delta);
+	if (player->shoot()) {
+		//check what he shot
+		collision.shootCollider(player);
+	}
+
+	if (player->tossBullet()) {
+		bool toss = false;
+		for (int i = 0; i < 6 && !toss; i++) {
+			if (bullets[i]->getBulletState() == bulletState::PLAYER) {
+				toss = true;
+				bullets[i]->throwBullet(*player);
+
+			}
+		}
+	}
+
+	for (int i = 0; i < 6; ++i) {
+		if (bullets[i]->getBulletState() == bulletState::MADE_SOUND) {
+			enemyHandler.activateSearchState(bullets[i]->getPosition());
+		}
+	}
+
+
+	//collision
+	collision.update();
+
+	for (int i = 0; i < enemyHandler.getNrOf(); i++) {
+		collision.enemySeeCollider(enemyHandler.getEnemies()[i]);
+	}
+
+	ui.updateUI(player, delta);
+
+	camera.setCenter(player->getPosition());
 	return state;
 }
 

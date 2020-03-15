@@ -62,7 +62,6 @@ void Game::update()
 	if (currentState != nullptr) {
 		currentState = currentState->update(time);
 	}
-
 }
 
 

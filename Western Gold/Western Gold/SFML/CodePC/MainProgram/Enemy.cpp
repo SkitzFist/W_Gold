@@ -26,6 +26,7 @@ Enemy::~Enemy()
 	delete patroll;
 	delete pathfinding;
 	delete currentState;
+	delete shootingSound;
 }
 
 void Enemy::update(DeltaTime delta)

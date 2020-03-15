@@ -5,7 +5,7 @@
 
 enum class CurrentButton
 {
-	play = 0,
+	resume = 0,
 	exit = 1
 };
 
@@ -13,7 +13,7 @@ class PauseState:
 	public GameState
 {
 public:
-	PauseState(ResourceManager* rm, GameState* otherState);
+	PauseState(ResourceManager* rm, GameState* pausedState);
 	~PauseState();
 	// Inherited via GameState
 	virtual GameState* handleEvent(const sf::Event& event) override;
@@ -21,7 +21,7 @@ public:
 	virtual void render(sf::RenderWindow& window) const override;
 
 private:
-	GameState* otherState;
+	GameState* pausedState;
 	sf::RectangleShape box;
 	Button* resumeButton;
 	Button* exitButton;

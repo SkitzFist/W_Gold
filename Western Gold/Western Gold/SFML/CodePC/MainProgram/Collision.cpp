@@ -510,7 +510,6 @@ bool Collision::enemySeeCollider(Enemy* enemy)
 
 					}
 				}
-				//std::cout << "found" << foundPlayer << std::endl;
 				enemy->changePlayerInSight(foundPlayer);
 				
 			}
