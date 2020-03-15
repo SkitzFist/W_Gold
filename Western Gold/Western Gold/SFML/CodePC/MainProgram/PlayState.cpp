@@ -22,12 +22,12 @@ PlayState::PlayState(ResourceManager* rm) :
 	level->placeGold(goldHandler);
 	player->setEnemyRays(enemyHandler.getNrOf());
 	player->setGoldRays(goldHandler.getNrOf());
-
+	
 	bullets = new Bullet*[nrOfBullets];
 	for (int i = 0; i < nrOfBullets; i++) {
 		bullets[i] = new Bullet(rm);
 	}
-
+	
 	collision.setUpCollision(
 		player,
 		level->getGrid(),
@@ -82,7 +82,7 @@ GameState * PlayState::update(DeltaTime delta)
 			}
 		}
 		goldHandler.update(delta);
-
+	
 		for (int i = 0; i < nrOfBullets; i++) {
 			bullets[i]->update(delta, player);
 		}
@@ -105,7 +105,7 @@ GameState * PlayState::update(DeltaTime delta)
 				}
 			}
 		}
-
+	
 		for (int i = 0; i < 6; ++i) {
 			if (bullets[i]->getBulletState() == bulletState::MADE_SOUND) {
 				std::cout << "Search State" << std::endl;
@@ -130,9 +130,9 @@ GameState * PlayState::update(DeltaTime delta)
 		for (int i = 0; i < enemyHandler.getNrOf(); i++) {
 			collision.enemySeeCollider(enemyHandler.getEnemies()[i]);
 		}
-
+	
 		ui.updateUI(player, delta);
-
+	
 		camera.setCenter(player->getPosition());
 	}
 	return state;

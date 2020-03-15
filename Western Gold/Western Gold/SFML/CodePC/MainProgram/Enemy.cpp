@@ -7,7 +7,7 @@ Enemy::Enemy(ResourceManager* rm, int nrOfRays, Grid* grid, Player* player):
 Entity(rm->getEnemy(), rm, nrOfRays)
 {
 	//config
-	seeDistance = 500;
+	seeDistance = 400;
 	//setup
 	patroll = nullptr;
 	this->player = player;
@@ -26,11 +26,12 @@ Enemy::~Enemy()
 	delete patroll;
 	delete pathfinding;
 	delete currentState;
+	delete shootingSound;
 }
 
 void Enemy::update(DeltaTime delta)
 {
-	float speed = 50.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
+	float speed = 150.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 		moveSprite(dir, speed);

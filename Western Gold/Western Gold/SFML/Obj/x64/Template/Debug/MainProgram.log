@@ -1,4 +1,2 @@
-﻿  Collision.cpp
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(86,13): warning C4018: '>': signed/unsigned mismatch
-C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\MainProgram\Collision.cpp(93,13): warning C4018: '>': signed/unsigned mismatch
+﻿  Game.cpp
   MainProgram.vcxproj -> C:\Users\etta1\source\repos\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe
