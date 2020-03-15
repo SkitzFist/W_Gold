@@ -15,8 +15,8 @@ SeachState::SeachState(Enemy* enemy, sf::Vector2f searchPos) :
 {
 	//config
 	maxSearchDistance = 10;
-	maximumSearchTime = 30.f;
-	minimumSearchTime = 10.f;
+	maximumSearchTime = 20.f;
+	minimumSearchTime = 5.f;
 	//setup
 	searchTime = randomFloat(minimumSearchTime, maximumSearchTime);
 	searchTimer = 0.f;
@@ -40,8 +40,7 @@ EnmState* SeachState::update(DeltaTime time)
 		state = new AttackState(getEnm(), getEnm()->getPlayer());
 		delete this;
 	}
-
-	if (searchTimer >= searchTime) {
+	else if (searchTimer >= searchTime) {
 		state = new PatrollState(getEnm());
 		delete this;
 	}
@@ -66,6 +65,7 @@ void SeachState::move()
 		setNextTile(getEnm()->getPathfinding()->getNextTile());
 		setDirTowardsNextTile();;
 	}
+	rotate();
 }
 
 void SeachState::setNextTarget()

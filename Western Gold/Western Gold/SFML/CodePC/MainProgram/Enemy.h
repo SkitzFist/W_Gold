@@ -2,7 +2,6 @@
 #include "Entity.h"
 #include "EnmState.h"
 #include "Pathfinding.h"
-#include "Grid.h"
 #include "PatrollPoints.h"
 
 class Collision;
@@ -27,15 +26,17 @@ public:
 
 	Player* getPlayer() const;
 	void setDir(sf::Vector2f dir);
+	sf::Vector2f getDir() const;
 	bool isShooting();
 	int getSeeDistance()const;
 	void changePlayerInSight(bool Sight);
 	//debug
-
+	void setCollision(Collision& collision);
+	Collision* getCollision();
 private:
 	Player* player;
 	bool isPlayerInSight;
-
+	Collision* collision;
 	int seeDistance;
 	EnmState* currentState;
 	Pathfinding* pathfinding;

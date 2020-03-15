@@ -9,7 +9,7 @@ Enemy::Enemy(ResourceManager* rm, int nrOfRays, Grid* grid, Player* player):
 Entity(rm->getEnemy(), rm, nrOfRays)
 {
 	//config
-	seeDistance = 300;
+	seeDistance = 500;
 	//setup
 	patroll = nullptr;
 	this->player = player;
@@ -35,25 +35,6 @@ void Enemy::update(DeltaTime delta)
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 		moveSprite(dir, speed);
-		//float angle = 0;
-		//if (dir.x > 0.5) {
-		//	angle = 90;
-		//}
-		//if (dir.x < -0.5) {
-		//	angle = 270;
-		//}
-		//if (dir.y > 0.5) {
-		//	angle = 180;
-		//}
-		//if (dir.y < -0.5) {
-		//	angle = 0;
-		//}
-		//this->setRotatioSprite(angle);
-		//this->rotateSprite(angle);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			std::cout << "dir: " << dir.x << ", " << dir.y << std::endl;
-		}
-
 	}
 	Entity::update(delta);
 }
@@ -84,6 +65,11 @@ void Enemy::setDir(sf::Vector2f dir)
 	this->dir = dir;
 }
 
+sf::Vector2f Enemy::getDir() const
+{
+	return dir;
+}
+
 bool Enemy::isShooting()
 {
 	return false;
@@ -97,6 +83,16 @@ int Enemy::getSeeDistance() const
 void Enemy::changePlayerInSight(bool Sight)
 {
 	this->isPlayerInSight = Sight;
+}
+
+void Enemy::setCollision(Collision& collision)
+{
+	this->collision = &collision;
+}
+
+Collision* Enemy::getCollision()
+{
+	return collision;
 }
 
 bool Enemy::getIsPlayerInSight()
