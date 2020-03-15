@@ -1,7 +1,7 @@
 #pragma once
 #include "Tile.h"
 #include "Player.h"
-#include "Enemy.h"
+#include "EnemyHandler.h"
 #include "GetDistance.h"
 #include "Gold.h"
 #include "Bullet.h"
@@ -12,15 +12,18 @@ private:
 	Player* player;
 	//add a gameObject
 	Gold** gold;
-	Enemy** enemies;
 	Grid* grid;
 	Bullet** bull;
 
 	tile** notWalkableTiles;
 	int nrOfGold;
 	int nrOfTiles;
-	int nrOfEnemies;
 	int nrOfBullets;
+
+	int nrOfEnemies;
+	Enemy** enemies;
+	EnemyHandler* enemyHandler;
+
 
 	ResourceManager* rm;
 	void checkCollision();
@@ -42,6 +45,6 @@ public:
 	virtual ~Collision();
 	bool enemySeeCollider(Enemy* enemy);
 	bool shootCollider(Entity* whatEntityShooting, bool eShoot = false);
-	void setUpCollision(Player* player, Grid* grid = nullptr, Enemy** enemies = nullptr, Gold** gold = nullptr, Bullet** bull = nullptr, int nrOfEnemies = 0, int nrOfGold = 0, int nrofBullets = 0);
+	void setUpCollision(Player* player, Grid* grid = nullptr, EnemyHandler *enemyHandler = nullptr, Gold** gold = nullptr, Bullet** bull = nullptr, int nrOfGold = 0, int nrofBullets = 0);
 	void update();
 };

@@ -29,10 +29,9 @@ PlayState::PlayState(ResourceManager* rm) :
 	collision.setUpCollision(
 		player,
 		level->getGrid(),
-		enemyHandler.getEnemies(),
+		&enemyHandler,
 		nullptr,
 		bullets,
-		enemyHandler.getNrOf(),
 		0,
 		nrOfBullets
 	);
@@ -74,7 +73,10 @@ GameState * PlayState::update(DeltaTime delta)
 		//for (int i = 0; i < nrOfGold; i++) {
 		//	p->getGoldRay(i)->updateRay(p, gold[i]);
 		//}
-
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			std::cout << enemyHandler.getEnemies()[0]->getRotation() << std::endl;
+			//std::cout << ((atan2f(0 - dir.y, 0 - dir.y) * 180) / 3.14 + 90) << std::endl;
+		}
 		enemyHandler.update(delta);
 		for (int i = 0; i < enemyHandler.getNrOf(); i++) {
 			this->enemyHandler.getEnemies()[i]->setWannaDraw(true);
@@ -82,12 +84,14 @@ GameState * PlayState::update(DeltaTime delta)
 		for (int i = 0; i < nrOfBullets; i++) {
 			bullets[i]->update(delta, player);
 		}
+		
 		//player
 		player->update(delta);
 		if (player->shoot()) {
 			//check what he shot
 			collision.shootCollider(player);
 		}
+		
 		if (player->tossBullet()) {
 			bool toss = false;
 			for (int i = 0; i < 6 && !toss; i++) {
@@ -97,15 +101,13 @@ GameState * PlayState::update(DeltaTime delta)
 				}
 			}
 		}
-
 		
-
 		//collision
 		collision.update();
+		
 		for (int i = 0; i < enemyHandler.getNrOf(); i++) {
 			if (collision.enemySeeCollider(enemyHandler.getEnemies()[i])) {
-				std::cout << "I found you" << std::endl;
-				enemyHandler.getEnemies()[i]->setIsPlayerInSight(collision);
+				std::cout << "found you" << std::endl;
 			}
 		}
 

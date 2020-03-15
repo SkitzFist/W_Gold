@@ -55,7 +55,8 @@ SimonState::SimonState(ResourceManager* rm)
 	}
 	
 	//setup collision
-	collision.setUpCollision(p, lvl.getGrid(), enemytest, gold, bull, nrOfEnemies, nrOfGold, nrOfBullets);
+	//take in enemy handler
+	//collision.setUpCollision(p, lvl.getGrid(), enemytest, gold, bull, nrOfEnemies, nrOfGold, nrOfBullets);
 	
 	rm->setView(&camera);
 	

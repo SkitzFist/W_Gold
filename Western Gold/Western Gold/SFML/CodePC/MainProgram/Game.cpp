@@ -20,8 +20,8 @@ Game::Game() :
 	rm->windowSetup(window);
 	rm->loadTilesAndLevels(); //TODO Thread
 
-	currentState = new SimonState(rm);
-	//currentState = new PlayState(rm);
+	//currentState = new SimonState(rm);
+	currentState = new PlayState(rm);
 	//debug
 }
 

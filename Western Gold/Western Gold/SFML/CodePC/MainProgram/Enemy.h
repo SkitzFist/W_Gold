@@ -31,6 +31,7 @@ public:
 	void setDir(sf::Vector2f dir);
 	bool isShooting();
 	int getSeeDistance()const;
+	void changePlayerInSight(bool Sight);
 	//debug
 
 private:
