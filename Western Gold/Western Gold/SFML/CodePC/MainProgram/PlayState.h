@@ -37,6 +37,7 @@ private:
 	EnemyHandler enemyHandler;
 	GoldHandler goldHandler;
 	UI ui;
+	GoldHandler goldHandler;
 
 	sf::View camera;
 

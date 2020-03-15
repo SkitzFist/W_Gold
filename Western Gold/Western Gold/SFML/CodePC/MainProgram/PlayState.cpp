@@ -21,6 +21,7 @@ PlayState::PlayState(ResourceManager* rm) :
 	level->placeEnemies(player, enemyHandler);
 	level->placeGold(goldHandler);
 	player->setEnemyRays(enemyHandler.getNrOf());
+	player->setGoldRays(goldHandler.getNrOf());
 
 	bullets = new Bullet*[nrOfBullets];
 	for (int i = 0; i < nrOfBullets; i++) {
@@ -31,9 +32,9 @@ PlayState::PlayState(ResourceManager* rm) :
 		player,
 		level->getGrid(),
 		&enemyHandler,
-		nullptr,
+		goldHandler.getGold(),
 		bullets,
-		0,
+		goldHandler.getNrOf(),
 		nrOfBullets
 	);
 
@@ -65,26 +66,27 @@ GameState * PlayState::handleEvent(const sf::Event & event)
 GameState * PlayState::update(DeltaTime delta)
 {
 	GameState* state = this;
-	//enemy
-	if (canStart) {
 
+	if (canStart) {
+		//enemy
 		for (int i = 0; i < enemyHandler.getNrOf(); i++) {
 			player->getEnemyRay(i)->updateRay(player, enemyHandler.getEnemies()[i]);
-		}
-		//for (int i = 0; i < nrOfGold; i++) {
-		//	p->getGoldRay(i)->updateRay(p, gold[i]);
-		//}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			std::cout << enemyHandler.getEnemies()[0]->getRotation() << std::endl;
-			//std::cout << ((atan2f(0 - dir.y, 0 - dir.y) * 180) / 3.14 + 90) << std::endl;
-		}
-		enemyHandler.update(delta);
-		for (int i = 0; i < enemyHandler.getNrOf(); i++) {
 			this->enemyHandler.getEnemies()[i]->setWannaDraw(true);
 		}
+		enemyHandler.update(delta);
+		//gold
+		for (int i = 0; i < goldHandler.getNrOf(); i++) {
+			if (!goldHandler.getGold()[i]->take()) {
+				player->getGoldRay(i)->updateRay(player, goldHandler.getGold()[i]);
+				goldHandler.getGold()[i]->setWannaDraw(true);
+			}
+		}
+		goldHandler.update(delta);
+
 		for (int i = 0; i < nrOfBullets; i++) {
 			bullets[i]->update(delta, player);
 		}
+		
 		
 		//player
 		player->update(delta);
@@ -102,15 +104,13 @@ GameState * PlayState::update(DeltaTime delta)
 				}
 			}
 		}
-
-		//Gold
-		goldHandler.update(delta);
 		
 		//collision
 		collision.update();
 		
 		for (int i = 0; i < enemyHandler.getNrOf(); i++) {
 			if (collision.enemySeeCollider(enemyHandler.getEnemies()[i])) {
+				std::cout << "found you" << std::endl;
 			}
 		}
 
@@ -134,7 +134,7 @@ void PlayState::render(sf::RenderWindow&  window) const
 	for (int i = 0; i < enemyHandler.getNrOf(); ++i) {
 		window.draw(*enemyHandler.getEnemies()[i]);
 	}
-	for (int i = 0; i < goldHandler.getNrOf(); ++i){
+	for (int i = 0; i < goldHandler.getNrOf(); i++) {
 		window.draw(*goldHandler.getGold()[i]);
 	}
 	window.draw(ui);

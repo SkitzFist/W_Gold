@@ -35,6 +35,25 @@ void Enemy::update(DeltaTime delta)
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 		moveSprite(dir, speed);
+		float angle = 0;
+		if (dir.x > 0.5) {
+			angle = 90;
+		}
+		if (dir.x < -0.5) {
+			angle = 270;
+		}
+		if (dir.y > 0.5) {
+			angle = 180;
+		}
+		if (dir.y < -0.5) {
+			angle = 0;
+		}
+		this->setRotatioSprite(angle);
+		//this->rotateSprite(angle);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			std::cout << "dir: " << dir.x << ", " << dir.y << std::endl;
+		}
+
 	}
 	Entity::update(delta);
 }
@@ -65,11 +84,6 @@ void Enemy::setDir(sf::Vector2f dir)
 	this->dir = dir;
 }
 
-sf::Vector2f Enemy::getDir() const
-{
-	return dir;
-}
-
 bool Enemy::isShooting()
 {
 	return false;
@@ -82,12 +96,28 @@ int Enemy::getSeeDistance() const
 
 void Enemy::changePlayerInSight(bool Sight)
 {
-	isPlayerInSight = Sight;
+	this->isPlayerInSight = Sight;
+}
+
+void Enemy::setIsPlayerInSight(Collision& col)
+{
+	if (col.enemySeeCollider(this)) {
+		isPlayerInSight = true;
+	}
+	else {
+		isPlayerInSight = false;
+	}
 }
 
 bool Enemy::getIsPlayerInSight()
 {
 	return isPlayerInSight;
+}
+
+Player* Enemy::getPlayer()
+{
+	//TODO skicka in i konstruktorn
+	return player;
 }
 
 PatrollPoints* Enemy::getPatroll()
