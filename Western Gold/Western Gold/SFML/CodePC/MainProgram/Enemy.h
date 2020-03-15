@@ -27,7 +27,6 @@ public:
 
 	Player* getPlayer() const;
 	void setDir(sf::Vector2f dir);
-	sf::Vector2f getDir() const;
 	bool isShooting();
 	int getSeeDistance()const;
 	void changePlayerInSight(bool Sight);
