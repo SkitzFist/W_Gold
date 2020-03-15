@@ -1,5 +1,6 @@
 #include "EnmState.h"
 #include "Enemy.h"
+#include <iostream>
 
 EnmState::EnmState(Enemy* enm)
 {

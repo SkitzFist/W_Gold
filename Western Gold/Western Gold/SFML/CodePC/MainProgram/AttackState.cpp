@@ -1,20 +1,28 @@
 #include "AttackState.h"
 #include "Enemy.h"
+#include "SeachState.h"
+
+//debug
+#include <iostream>
 
 
 AttackState::AttackState(Enemy* enemy, Player* player):
 	EnmState(enemy)
 {
 	//config
-	shootDistance = 20.f; //prob needs a lot of tweaking
+	shootDistance = 50.f; //prob needs a lot of tweaking
 	timesBetweenShots = 1.5f; //prob needs a lot of tweaking
-	playerMaxDistance = 15.f; //If player moves this distance away from tile, Calculate new path
+	playerMaxDistance = 200.f; //If player moves this distance away from tile, Calculate new path
 	//setup
 	setTargetTile(enemy->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(player->getPosition())));
 	setNextTile(nullptr);
 	setCurrentTile(enemy->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(enemy->getPosition())));
 	this->player = player;
 	shootingTimer = timesBetweenShots;
+	playerLastPos = {
+		static_cast<float>(getTargetTile()->getWorldPos().x),
+		static_cast<float>(getTargetTile()->getWorldPos().y)
+	};
 
 	calculatePath();
 	//debug	
@@ -32,14 +40,18 @@ EnmState* AttackState::update(DeltaTime time)
 	if (getEnm()->getIsPlayerInSight()) {
 		
 		float playerDistanceFromTile = 
-			getDistance(static_cast<sf::Vector2f>(getTargetTile()->getWorldPos()), player->getPosition());
+			getDistance(playerLastPos, player->getPosition());
 
-		if (playerDistanceFromTile < playerMaxDistance) {
+		if (playerDistanceFromTile > playerMaxDistance) {
+			std::cout << "Calculating new path" << std::endl;
+			setNextTargetTile();
+			playerLastPos = {
+				static_cast<float>(getTargetTile()->getWorldPos().x),
+				static_cast<float>(getTargetTile()->getWorldPos().y)
+			};
 			calculatePath();
 		}
-
 		move(time);
-
 		if (canShoot()) {
 			//shoot();
 
@@ -48,10 +60,10 @@ EnmState* AttackState::update(DeltaTime time)
 
 	}
 	else {
-		//state = new SearchState(getEnm(), targetTile); Send in target tile so the enemy will search around that tile
-		//delete this
+		std::cout << "Enter Search State" << std::endl;
+		state = new SeachState(getEnm(), static_cast<sf::Vector2f>(getTargetTile()->getWorldPos()));
+		delete this;
 	}
-
 
 	return state;
 }
@@ -83,14 +95,14 @@ float AttackState::getDistance(sf::Vector2f a, sf::Vector2f b)
 
 void AttackState::move(DeltaTime time)
 {
-	if (getNextTile() == nullptr) {
 		sf::Vector2f dir;
 		setCurrentTile(getEnm()->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(getEnm()->getPosition())));
 		if (getNextTile() == nullptr) {
 			setNextTile(getEnm()->getPathfinding()->getNextTile());
 			setDirTowardsNextTile();
 		}
-		if ((getDistance(getEnm()->getPosition(), player->getPosition())) <= shootDistance) {
+		if ((getDistance(getEnm()->getPosition(), player->getPosition())) < shootDistance) {
+			std::cout << "Reached" << std::endl;
 			dir = { 0.f,0.f };
 			getEnm()->setDir(dir);
 		}
@@ -98,5 +110,11 @@ void AttackState::move(DeltaTime time)
 			setNextTile(getEnm()->getPathfinding()->getNextTile());
 			setDirTowardsNextTile();
 		}
-	}
+		getEnm()->rotateTowards(player);
+}
+
+void AttackState::setNextTargetTile()
+{
+	tile* t = getEnm()->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(player->getPosition()));
+	setTargetTile(t);
 }

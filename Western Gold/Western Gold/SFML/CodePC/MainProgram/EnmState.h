@@ -28,7 +28,7 @@ private:
     tile* targetTile;
     tile* currentTile;
     tile* nextTile;
-
+ 
     Enemy* enm;
 };
 

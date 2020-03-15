@@ -21,14 +21,13 @@ public:
 	void setPatrollPoints(PatrollPoints* patroll);
 	Grid* getGrid() const;
 	
-	void setIsPlayerInSight(Collision &col);
 	bool getIsPlayerInSight();
-	Player* getPlayer();
 
 	PatrollPoints* getPatroll();
 
 	Player* getPlayer() const;
 	void setDir(sf::Vector2f dir);
+	sf::Vector2f getDir() const;
 	bool isShooting();
 	int getSeeDistance()const;
 	void changePlayerInSight(bool Sight);

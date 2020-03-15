@@ -19,6 +19,7 @@ PlayState::PlayState(ResourceManager* rm) :
 	player = new Player(rm->getAnimationTest(), rm, enemyHandler.getNrOf(), 0);
 	player->setPosition(600.f, 600.f);
 	level->placeEnemies(player, enemyHandler);
+	level->placeGold(goldHandler);
 	player->setEnemyRays(enemyHandler.getNrOf());
 
 	bullets = new Bullet*[nrOfBullets];
@@ -101,13 +102,15 @@ GameState * PlayState::update(DeltaTime delta)
 				}
 			}
 		}
+
+		//Gold
+		goldHandler.update(delta);
 		
 		//collision
 		collision.update();
 		
 		for (int i = 0; i < enemyHandler.getNrOf(); i++) {
 			if (collision.enemySeeCollider(enemyHandler.getEnemies()[i])) {
-				std::cout << "found you" << std::endl;
 			}
 		}
 
@@ -130,6 +133,9 @@ void PlayState::render(sf::RenderWindow&  window) const
 	}
 	for (int i = 0; i < enemyHandler.getNrOf(); ++i) {
 		window.draw(*enemyHandler.getEnemies()[i]);
+	}
+	for (int i = 0; i < goldHandler.getNrOf(); ++i){
+		window.draw(*goldHandler.getGold()[i]);
 	}
 	window.draw(ui);
 	//debug

@@ -65,6 +65,11 @@ void Enemy::setDir(sf::Vector2f dir)
 	this->dir = dir;
 }
 
+sf::Vector2f Enemy::getDir() const
+{
+	return dir;
+}
+
 bool Enemy::isShooting()
 {
 	return false;
@@ -75,25 +80,14 @@ int Enemy::getSeeDistance() const
 	return this->seeDistance;
 }
 
-void Enemy::setIsPlayerInSight(Collision& col)
+void Enemy::changePlayerInSight(bool Sight)
 {
-	if (col.enemySeeCollider(this)) {
-		isPlayerInSight = true;
-	}
-	else {
-		isPlayerInSight = false;
-	}
+	isPlayerInSight = Sight;
 }
 
 bool Enemy::getIsPlayerInSight()
 {
 	return isPlayerInSight;
-}
-
-Player* Enemy::getPlayer()
-{
-	//TODO skicka in i konstruktorn
-	return player;
 }
 
 PatrollPoints* Enemy::getPatroll()
