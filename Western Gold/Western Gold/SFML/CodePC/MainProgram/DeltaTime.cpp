@@ -20,6 +20,11 @@ void DeltaTime::restartClock()
 	totalTime += (float)(dpt / slowTime);
 }
 
+void DeltaTime::restartTimer()
+{
+	this->totalTime = 0;
+}
+
 float DeltaTime::getTotalTime() const
 {
 	return totalTime;

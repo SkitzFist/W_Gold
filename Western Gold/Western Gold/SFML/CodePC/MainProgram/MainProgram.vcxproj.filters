@@ -186,6 +186,9 @@
     <ClCompile Include="PatrollPoints.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="LoseState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -306,6 +309,9 @@
       <Filter>Header Files\GameState</Filter>
     </ClInclude>
     <ClInclude Include="ButtonStates.h">
+      <Filter>Header Files\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="LoseState.h">
       <Filter>Header Files\GameState</Filter>
     </ClInclude>
   </ItemGroup>

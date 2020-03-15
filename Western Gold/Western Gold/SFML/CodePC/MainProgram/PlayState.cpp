@@ -1,6 +1,6 @@
 #include "PlayState.h"
 #include "PauseState.h"
-
+#include "LoseState.h"
 
 PlayState::PlayState(ResourceManager* rm) :
 	GameState(rm),
@@ -14,7 +14,6 @@ PlayState::PlayState(ResourceManager* rm) :
 	nrOfBullets = 6;
 
 	level = new Level(rm, rm->getLevel_01());
-	
 
 	player = new Player(rm->getCharacter(), rm, enemyHandler.getNrOf(), 0);
 	player->setPosition(100.f, 100.f);
@@ -39,6 +38,8 @@ PlayState::PlayState(ResourceManager* rm) :
 	);
 	enemyHandler.setCollision(collision);
 	rm->setView(&camera);
+	rm->getDt()->restartTimer();
+	rm->getDt()->restartClock();
 }
 
 
@@ -62,6 +63,9 @@ GameState * PlayState::handleEvent(const sf::Event & event)
 		if (event.key.code == sf::Keyboard::Escape) {
 			state = new PauseState(getRm(), this);
 		}
+		if (event.key.code == sf::Keyboard::O) {
+			state = new LoseState(getRm(), this);
+		}
 	}
 	return state;
 }
@@ -69,7 +73,6 @@ GameState * PlayState::handleEvent(const sf::Event & event)
 GameState * PlayState::update(DeltaTime delta)
 {
 	GameState* state = this;
-
 	if (canStart) {
 		//enemy
 		for (int i = 0; i < enemyHandler.getNrOf(); i++) {
@@ -129,6 +132,10 @@ GameState * PlayState::update(DeltaTime delta)
 	ui.updateUI(player, delta);
 
 	camera.setCenter(player->getPosition());
+
+	if (player->isDead()) {
+		state = new LoseState(getRm(), this);
+	}
 	return state;
 }
 

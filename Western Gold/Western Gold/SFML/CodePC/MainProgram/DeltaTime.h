@@ -11,6 +11,7 @@ private:
 public:
 	DeltaTime();
 	void restartClock();
+	void restartTimer();
 	float getTotalTime()const;
 	double dt()const;
 	void playWithTime(float slowmo);

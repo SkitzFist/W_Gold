@@ -142,6 +142,12 @@ void ResourceManager::loadMouse()
 	}
 }
 
+void ResourceManager::setDeltaTime(DeltaTime& dt)
+{
+	this->dt = &dt;
+
+}
+
 int ResourceManager::getWindowWidth() const
 {
 	return windowWidth;
@@ -191,6 +197,11 @@ sf::SoundBuffer* ResourceManager::getGunShot()
 sf::SoundBuffer* ResourceManager::getKlingSound()
 {
 	return klingSound;
+}
+
+DeltaTime* ResourceManager::getDt()
+{
+	return this->dt;
 }
 
 sf::Texture* ResourceManager::getEnemy()

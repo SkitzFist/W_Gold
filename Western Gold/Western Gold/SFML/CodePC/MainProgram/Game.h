@@ -15,9 +15,6 @@ public:
 	void run();
 
 private:
-	sf::Clock clock;
-	sf::Time elapsedTimeSinceLastUpdate;
-	sf::Time timePerFrame;
 	sf::RenderWindow* window;
 	ResourceManager* rm;
 	GameState* currentState;
