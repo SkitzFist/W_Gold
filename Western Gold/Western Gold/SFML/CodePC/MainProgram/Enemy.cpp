@@ -9,7 +9,7 @@ Enemy::Enemy(ResourceManager* rm, int nrOfRays, Grid* grid, Player* player):
 Entity(rm->getEnemy(), rm, nrOfRays)
 {
 	//config
-	seeDistance = 100;
+	seeDistance = 300;
 	//setup
 	patroll = nullptr;
 	this->player = player;
@@ -35,11 +35,6 @@ void Enemy::update(DeltaTime delta)
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 		moveSprite(dir, speed);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			std::cout << "dir" << dir.x << ", " << dir.y << std::endl;
-		}
-		GameObject::rotateSprite(atan2f( 0-dir.y, 0-dir.y));
-		
 	}
 	Entity::update(delta);
 }
@@ -80,11 +75,6 @@ int Enemy::getSeeDistance() const
 	return this->seeDistance;
 }
 
-void Enemy::changePlayerInSight(bool Sight)
-{
-	isPlayerInSight = Sight;
-}
-
 void Enemy::setIsPlayerInSight(Collision& col)
 {
 	if (col.enemySeeCollider(this)) {
@@ -103,7 +93,7 @@ bool Enemy::getIsPlayerInSight()
 Player* Enemy::getPlayer()
 {
 	//TODO skicka in i konstruktorn
-	return this->player;
+	return player;
 }
 
 PatrollPoints* Enemy::getPatroll()

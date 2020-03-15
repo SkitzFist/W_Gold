@@ -80,7 +80,7 @@ void Level::placeEnemies(Player* player, EnemyHandler& handler)
 				point = grid->getTiles()[y][x].getWorldPos();
 				points->add(point);
 			}
-			Enemy* enm = new Enemy(rm, 45, grid, player);
+			Enemy* enm = new Enemy(rm, 20, grid, player);
 			enm->setPosition(static_cast<sf::Vector2f>(points->getPoints()[0]));
 			enm->setPatrollPoints(points);
 			handler.add(enm);
