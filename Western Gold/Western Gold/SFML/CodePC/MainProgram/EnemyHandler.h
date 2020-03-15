@@ -11,6 +11,7 @@ public:
 	Enemy** getEnemies()const;
 	void add(Enemy* enemy);
 	void setCollision(Collision& col);
+	void activateSearchState(sf::Vector2f pos);
 private:
 	Enemy** enemies;
 	int nrOf;
