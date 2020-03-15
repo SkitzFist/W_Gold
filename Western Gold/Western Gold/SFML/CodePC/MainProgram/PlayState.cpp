@@ -107,7 +107,17 @@ GameState * PlayState::update(DeltaTime delta)
 		
 		//collision
 		collision.update();
-		
+		if (collision.outSide()) {
+			if (player->getNrOfGold() > 6) {
+				//win
+			}
+			else {
+				//gameOver
+			}
+		}
+		if (player->isDead()) {
+			//gameOver
+		}
 		for (int i = 0; i < enemyHandler.getNrOf(); i++) {
 			collision.enemySeeCollider(enemyHandler.getEnemies()[i]);
 		}

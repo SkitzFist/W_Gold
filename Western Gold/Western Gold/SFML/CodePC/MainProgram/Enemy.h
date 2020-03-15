@@ -3,6 +3,7 @@
 #include "EnmState.h"
 #include "Pathfinding.h"
 #include "PatrollPoints.h"
+#include "Grid.h"
 
 class Collision;
 class Enemy :

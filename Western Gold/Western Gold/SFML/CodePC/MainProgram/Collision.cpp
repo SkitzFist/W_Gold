@@ -381,6 +381,13 @@ bool Collision::tileVisibility() {
 	}
 	return theReturn;
 }
+bool Collision::outSide()
+{
+	return (player->getPosition().x < 32 * 2 || 
+		player->getPosition().x > (grid->getGridSize().x * grid->getTileSize()) - grid->getTileSize() * 2 ||
+		player->getPosition().y < 32 * 2 ||
+		player->getPosition().y > (grid->getGridSize().y * grid->getTileSize()) - grid->getTileSize() * 2);
+}
 //Shoot collider doesnt go trough walls
 bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 {
@@ -511,12 +518,12 @@ bool Collision::enemySeeCollider(Enemy* enemy)
 
 					}
 				}
-				//std::cout << "found" << foundPlayer << std::endl;
+
 				enemy->changePlayerInSight(foundPlayer);
 				
 			}
 		}
-	//}
+
 	return theReturn;
 }
 
