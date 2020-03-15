@@ -20,9 +20,9 @@ MenuState::MenuState(ResourceManager* rm):
 		static_cast<float>((rm->getWindowHeight()) / 2.f) + (3*buttonOffset)
 	};
 	//setup
-	playButton = new Button(rm->getBasicFont(), "Play", playButtonPos);
-	exitButton = new Button(rm->getBasicFont(), "Exit", exitButtonPos);
-	title = new Text(rm->getBasicFont(), "Western Gold", titlePos);
+	playButton = new Button(rm->getWesternFont(), "Play", playButtonPos);
+	exitButton = new Button(rm->getWesternFont(), "Exit", exitButtonPos);
+	title = new Text(rm->getWesternFont(), "Western Gold", titlePos);
 
 	playButton->markBox();
 	currentButton = CurrentButton::play;

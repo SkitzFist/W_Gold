@@ -22,6 +22,7 @@ public:
 
 #pragma region Fonts
 	sf::Font* getBasicFont();
+	sf::Font* getWesternFont();
 #pragma endregion
 
 #pragma region Tiles
@@ -61,6 +62,7 @@ private:
 
 #pragma region Fonts
 	sf::Font* basicFont;
+	sf::Font* WesternFont;
 #pragma endregion
 
 #pragma region Tiles

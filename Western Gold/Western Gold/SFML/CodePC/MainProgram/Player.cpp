@@ -152,7 +152,7 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies, int nrOfG
 	this->window = rm->getWindow();
 	speed = 200;
 
-	this->setanimation(0.05f, 24, 1, 0);
+	//this->setanimation(0.05f, 24, 1, 0);
 }
 
 Player::~Player()
@@ -173,7 +173,7 @@ void Player::update(DeltaTime time)
 	if (!this->isDead()) {
 		move(time);
 		rotation();
-		animator.updateAnimator(time);
+		//animator.updateAnimator(time);
 		Entity::update(time);
 	}
 }

@@ -72,9 +72,9 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	
 	if (!isDead()) {
 		GameObject::draw(target, states);
-		for (int i = 0; i < nrOfRays; i++) {
-			target.draw(*raycast[i]);
-		}
+		//for (int i = 0; i < nrOfRays; i++) {
+		//	target.draw(*raycast[i]);
+		//}
 	}
 }
 

@@ -32,6 +32,7 @@ ResourceManager::~ResourceManager()
 	delete bullet;
 	//fonts
 	delete basicFont;
+	delete WesternFont;
 }
 
 void ResourceManager::windowSetup(sf::RenderWindow* window)
@@ -61,6 +62,10 @@ void ResourceManager::loadFont()
 	basicFont = new sf::Font();
 	if (!basicFont->loadFromFile("../Fonts/segoui.ttf")) {
 		cantLoad(L"Font");
+	}
+	WesternFont = new sf::Font();
+	if (!WesternFont->loadFromFile("../Fonts/Western_Bang_Bang.otf")) {
+		cantLoad(L"westerFont");
 	}
 }
 
@@ -104,7 +109,7 @@ void ResourceManager::loadSprites()
 		cantLoad(L"Gold");
 	}
 	character = new sf::Texture();
-	if (!character->loadFromFile("../Textures/hat.png")) {
+	if (!character->loadFromFile("../Textures/player.png")) {
 		cantLoad(L"hat");
 	}
 	bullet = new sf::Texture();
@@ -150,6 +155,11 @@ int ResourceManager::getWindowHeight() const
 sf::Font* ResourceManager::getBasicFont()
 {
 	return basicFont;
+}
+
+sf::Font* ResourceManager::getWesternFont()
+{
+	return WesternFont;
 }
 
 
