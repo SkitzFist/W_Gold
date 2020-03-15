@@ -14,8 +14,8 @@ Entity::Entity(sf::Texture *tex, ResourceManager *rm, int nrOfRays):
 		this->raycast[i] = new Ray((float)i);
 		//for enemies 
 		if (i > 1) {
-			float k = static_cast<float>(i) - 10.5f;
-			this->raycast[i]->setRotationOffset(k, this);
+			float k = static_cast<float>(i) - 22.5f;
+			this->raycast[i]->setRotationOffset(k*1.3, this);
 		}
 	}
 	this->ShootRay = new Ray(this->getRotation());

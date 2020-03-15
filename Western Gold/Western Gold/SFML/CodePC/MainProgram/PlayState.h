@@ -35,6 +35,7 @@ private:
 	Collision collision;
 	EnemyHandler enemyHandler;
 	UI ui;
+	GoldHandler goldHandler;
 
 	sf::View camera;
 

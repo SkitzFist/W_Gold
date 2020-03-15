@@ -20,6 +20,7 @@ private:
 	sf::RenderWindow* window;
 public:
 	void setEnemyRays(int nrOfEnemies);
+	void setGoldRays(int nrOfGold);
 	bool shoot();
 	bool tossBullet();
 	void gotBullet();
