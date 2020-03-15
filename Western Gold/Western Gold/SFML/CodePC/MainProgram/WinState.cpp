@@ -108,7 +108,7 @@ void WinState::setUpFamilyMenu()
 	familyBox.setSize(familyBoxSize);
 	familyBox.setFillColor(sf::Color::Black);
 	familyBox.setPosition(familyBoxPos);
-	familyTitle = new Text(getRm()->getBasicFont, "Family", familyTitlePos);
+	familyTitle = new Text(getRm()->getBasicFont(), "Family", familyTitlePos);
 	familyText = new Text(getRm()->getBasicFont(), "Not available in Alpha", familyTextPos);
 }
 
