@@ -474,6 +474,8 @@ Collision::Collision(ResourceManager* rm)
 	this->nrOfTiles = 0;
 	this->nrOfGold = 0;
 	this->nrOfBullets = 0;
+
+	enemyHandler = nullptr;
 }
 
 Collision::~Collision()
@@ -484,11 +486,14 @@ Collision::~Collision()
 
 bool Collision::enemySeeCollider(Enemy* enemy)
 {
+	bool gameOver = false;
 	bool theReturn = false;
-	int howFastLook = 1;
-	if (insideWindow(enemy, rm->getView()) && !enemy->isDead()) {
-		for (int i = 0; i < enemy->getNrOfRays(); i++) {
-			double distance = getDistance(player, enemy);
+	//while (!gameOver) {
+		bool foundPlayer = false;
+		int howFastLook = 5;
+		if (insideWindow(enemy, rm->getView()) && !enemy->isDead()) {
+			for (int i = 0; i < enemy->getNrOfRays(); i++) {
+				double distance = getDistance(player, enemy);
 				int maxDistance = enemy->getSeeDistance();
 				float k = (float)((enemy->getRays()[i]->returnThisLine().getLineY1() - enemy->getRays()[i]->returnThisLine().getLineY2()) / (enemy->getRays()[i]->returnThisLine().getLineX1() - enemy->getRays()[i]->returnThisLine().getLineX2()));
 				float m = (float)(enemy->getRays()[i]->returnThisLine().getLineY1() - (k * enemy->getRays()[i]->returnThisLine().getLineX1()));
@@ -501,13 +506,12 @@ bool Collision::enemySeeCollider(Enemy* enemy)
 					int y = sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + (int)enemy->getPosition().y;
 					tile* seetile = nullptr;
 					seetile = grid->getTileFromWorldPos(sf::Vector2i(x, y));
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-						std::cout << "x and y " << seetile->getGridPos().x << ", " << seetile->getGridPos().y << std::endl;
-					}
-					if (x > player->getBounds().left && x < player->getBounds().left + player->getBounds().width &&
-						y > player->getBounds().top && y < player->getBounds().top + player->getBounds().height)
+					if (x > player->getBounds().left&& x < player->getBounds().left + player->getBounds().width &&
+						y > player->getBounds().top&& y < player->getBounds().top + player->getBounds().height)
 					{
 						theReturn = true;
+						foundPlayer = true;
+						foundWall = true;
 					}
 					if (seetile != nullptr) {
 						//see things
@@ -517,13 +521,16 @@ bool Collision::enemySeeCollider(Enemy* enemy)
 
 					}
 				}
-
+				//std::cout << "found" << foundPlayer << std::endl;
+				enemy->changePlayerInSight(foundPlayer);
+				
+			}
 		}
-	}
+	//}
 	return theReturn;
 }
 
-void Collision::setUpCollision(Player* player, Grid * grid, Enemy** enemies, Gold** gold, Bullet **bull, int nrOfEnemies, int nrOfGold, int nrOfBullets)
+void Collision::setUpCollision(Player* player, Grid * grid, EnemyHandler *enemyHandler, Gold** gold, Bullet **bull, int nrOfGold, int nrOfBullets)
 {
 	this->bull = bull;
 	this->player = player;
@@ -539,15 +546,18 @@ void Collision::setUpCollision(Player* player, Grid * grid, Enemy** enemies, Gol
 			}
 		}
 	}
-	this->enemies = enemies;
 	this->gold = gold;
-	this->nrOfEnemies = nrOfEnemies;
 	this->nrOfGold = nrOfGold;
 	this->nrOfBullets = nrOfBullets;
+
+	this->nrOfEnemies = enemyHandler->getNrOf();
+	this->enemies = enemyHandler->getEnemies();
+	this->enemyHandler = enemyHandler;
 }
 
 void Collision::update()
 {
+	this->nrOfEnemies = enemyHandler->getNrOf();
 	//check collision
 	checkCollision();
 	tileVisibility();

@@ -17,8 +17,16 @@ Game::Game() :
 	window->create(vMode, "Western Gold", 7U, settings);
 	//setup
 	rm = new ResourceManager();
+<<<<<<< HEAD
 	rm->windowSetup(window);//TODO Thread
 	currentState = new LoadState(rm);
+=======
+	rm->windowSetup(window);
+	rm->loadTilesAndLevels(); //TODO Thread
+
+	//currentState = new SimonState(rm);
+	currentState = new PlayState(rm);
+>>>>>>> SimonBranch
 	//debug
 }
 
