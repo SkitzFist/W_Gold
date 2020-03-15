@@ -150,7 +150,7 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies, int nrOfG
 	this->nrOfEnemies = 0;
 
 	this->window = rm->getWindow();
-	speed = 400;
+	speed = 200;
 
 	this->setanimation(0.05f, 24, 1, 0);
 }
@@ -170,20 +170,22 @@ Player::~Player()
 
 void Player::update(DeltaTime time)
 {
-	move(time);
-	rotation();
-	animator.updateAnimator(time);
-	Entity::update(time);
+	if (!this->isDead()) {
+		move(time);
+		rotation();
+		animator.updateAnimator(time);
+		Entity::update(time);
+	}
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	Entity::draw(target, states);
 	//debug
-	for (int i = 0; i < nrOfEnemies; i++) {
-		target.draw(*this->enemyRays[i]);
-	}
-	for (int i = 0; i < nrOfGold; i++) {
-		target.draw(*this->goldRays[i]);
-	}
+	//for (int i = 0; i < nrOfEnemies; i++) {
+	//	target.draw(*this->enemyRays[i]);
+	//}
+	//for (int i = 0; i < nrOfGold; i++) {
+	//	target.draw(*this->goldRays[i]);
+	//}
 }

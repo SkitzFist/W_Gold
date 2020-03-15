@@ -18,6 +18,7 @@ ResourceManager::~ResourceManager()
 	delete klingSound;
 	delete gunShot;
 	//texture
+	delete Mouse;
 	delete enemy;
 	delete AnimationTest;
 	delete gold;
@@ -85,6 +86,7 @@ void ResourceManager::loadTilesAndLevels()
 
 void ResourceManager::loadSprites()
 {
+	
 	UIBullet = new sf::Texture();
 	if (!UIBullet->loadFromFile("../Textures/UIBullet.png")) {
 		cantLoad(L"UI Bullet");
@@ -124,6 +126,14 @@ void ResourceManager::loadSounds()
 	klingSound = new sf::SoundBuffer();
 	if (!klingSound->loadFromFile("../Sound/klingSound.wav")) {
 		cantLoad(L"klingSound");
+	}
+}
+
+void ResourceManager::loadMouse()
+{
+	Mouse = new sf::Texture();
+	if (!Mouse->loadFromFile("../Textures/Mouse.png")) {
+		cantLoad(L"mouse");
 	}
 }
 
@@ -206,6 +216,11 @@ sf::Texture* ResourceManager::getGold()
 sf::Texture* ResourceManager::getCylinder()
 {
 	return this->cylinder;
+}
+
+sf::Texture* ResourceManager::getMouse()
+{
+	return Mouse;
 }
 
 void ResourceManager::cantLoad(LPCWSTR theerror)

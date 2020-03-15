@@ -7,6 +7,7 @@
 #include "Collision.h"
 #include "UI.h"
 #include "Bullet.h"
+#include "GoldHandler.h"
 
 class PlayState :
 	public GameState
@@ -34,8 +35,8 @@ private:
 	//other
 	Collision collision;
 	EnemyHandler enemyHandler;
-	UI ui;
 	GoldHandler goldHandler;
+	UI ui;
 
 	sf::View camera;
 

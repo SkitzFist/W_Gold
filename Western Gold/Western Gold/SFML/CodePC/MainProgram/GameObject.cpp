@@ -84,6 +84,17 @@ void GameObject::rotateSprite(float angle)
 	sprite->setRotation((angle * 180) / PI + 90);
 }
 
+void GameObject::rotateTowards(GameObject* obj)
+{
+	sf::Vector2f dist = {
+		obj->getPosition().x - getPosition().x,
+		obj->getPosition().y - getPosition().y
+	};
+
+	float angle = atan2(dist.y, dist.x);
+	rotateSprite(angle);
+}
+
 void GameObject::addRotationSprite(float angle)
 {
 	sprite->setRotation(sprite->getRotation()+ angle);

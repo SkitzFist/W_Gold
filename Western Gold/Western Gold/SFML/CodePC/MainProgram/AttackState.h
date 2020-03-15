@@ -17,12 +17,18 @@ private:
 	float timesBetweenShots;
 	float shootingTimer;
 
-	float playerMaxDistance;
+	float playerDistanceBeforeCalcNewPath;
+
+	sf::Vector2f playerLastPos;
 
 	void shoot();
 	bool canShoot();
 	float getDistance(sf::Vector2f a, sf::Vector2f b);
 
 	void move(DeltaTime time);
+	void setNextTargetTile();
+
+	double timer;
+	double timeBeforeChangeState;
 };
 

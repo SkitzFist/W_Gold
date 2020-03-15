@@ -1,4 +1,5 @@
 #include "EnemyHandler.h"
+#include "GetDistance.h"
 
 EnemyHandler::EnemyHandler()
 {
@@ -66,4 +67,23 @@ void EnemyHandler::add(Enemy* enemy)
 		expandArr();
 	}
 	enemies[nrOf++] = enemy;
+}
+
+void EnemyHandler::setCollision(Collision& col)
+{
+	for (int i = 0; i < nrOf; ++i) {
+		enemies[i]->setCollision(col);
+	}
+}
+
+void EnemyHandler::activateSearchState(sf::Vector2f pos)
+{
+	float maxDistance = 600.f;
+
+	for (int i = 0; i < nrOf; ++i) {
+		float distance = getDistance(pos.x, pos.y, enemies[i]->getPosition().x, enemies[i]->getPosition().y);
+		if (distance < maxDistance) {
+			enemies[i]->engageSearch(pos);
+		}
+	}
 }

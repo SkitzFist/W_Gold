@@ -55,6 +55,7 @@ void PatrollState::move(DeltaTime time)
 		setNextTile(getEnm()->getPathfinding()->getNextTile());
 		setDirTowardsNextTile();
 	}
+	rotate();
 }
 
 void PatrollState::setNextTarget()

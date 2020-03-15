@@ -1,15 +1,13 @@
 #include "Enemy.h"
 #include "PatrollState.h"
+#include "SeachState.h"
 #include "Collision.h"
-
-//debug
-#include <iostream>
 
 Enemy::Enemy(ResourceManager* rm, int nrOfRays, Grid* grid, Player* player):
 Entity(rm->getEnemy(), rm, nrOfRays)
 {
 	//config
-	seeDistance = 300;
+	seeDistance = 400;
 	//setup
 	patroll = nullptr;
 	this->player = player;
@@ -18,6 +16,7 @@ Entity(rm->getEnemy(), rm, nrOfRays)
 	this->grid = grid;
 	dir = { 0.f, 0.f };
 	isPlayerInSight = false;
+	shootingSound = new Sound();
 	//debug
 
 }
@@ -27,33 +26,15 @@ Enemy::~Enemy()
 	delete patroll;
 	delete pathfinding;
 	delete currentState;
+	delete shootingSound;
 }
 
 void Enemy::update(DeltaTime delta)
 {
-	float speed = 50.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
+	float speed = 150.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 		moveSprite(dir, speed);
-		//float angle = 0;
-		//if (dir.x > 0.5) {
-		//	angle = 90;
-		//}
-		//if (dir.x < -0.5) {
-		//	angle = 270;
-		//}
-		//if (dir.y > 0.5) {
-		//	angle = 180;
-		//}
-		//if (dir.y < -0.5) {
-		//	angle = 0;
-		//}
-		//this->setRotatioSprite(angle);
-		//this->rotateSprite(angle);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			std::cout << "dir: " << dir.x << ", " << dir.y << std::endl;
-		}
-
 	}
 	Entity::update(delta);
 }
@@ -61,6 +42,11 @@ void Enemy::update(DeltaTime delta)
 bool Enemy::shoot()
 {
 	return false;
+}
+
+void Enemy::engageSearch(sf::Vector2f pos)
+{
+	currentState = new SeachState(this, pos);
 }
 
 Pathfinding* Enemy::getPathfinding() const
@@ -84,6 +70,11 @@ void Enemy::setDir(sf::Vector2f dir)
 	this->dir = dir;
 }
 
+sf::Vector2f Enemy::getDir() const
+{
+	return dir;
+}
+
 bool Enemy::isShooting()
 {
 	return false;
@@ -99,25 +90,24 @@ void Enemy::changePlayerInSight(bool Sight)
 	this->isPlayerInSight = Sight;
 }
 
-void Enemy::setIsPlayerInSight(Collision& col)
+void Enemy::setCollision(Collision& collision)
 {
-	if (col.enemySeeCollider(this)) {
-		isPlayerInSight = true;
-	}
-	else {
-		isPlayerInSight = false;
-	}
+	this->collision = &collision;
+}
+
+Collision* Enemy::getCollision()
+{
+	return collision;
+}
+
+Sound* Enemy::getSound() const
+{
+	return shootingSound;
 }
 
 bool Enemy::getIsPlayerInSight()
 {
 	return isPlayerInSight;
-}
-
-Player* Enemy::getPlayer()
-{
-	//TODO skicka in i konstruktorn
-	return player;
 }
 
 PatrollPoints* Enemy::getPatroll()

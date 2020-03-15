@@ -17,17 +17,17 @@ PlayState::PlayState(ResourceManager* rm) :
 	
 
 	player = new Player(rm->getAnimationTest(), rm, enemyHandler.getNrOf(), 0);
-	player->setPosition(600.f, 600.f);
+	player->setPosition(100.f, 100.f);
 	level->placeEnemies(player, enemyHandler);
 	level->placeGold(goldHandler);
 	player->setEnemyRays(enemyHandler.getNrOf());
 	player->setGoldRays(goldHandler.getNrOf());
-
+	
 	bullets = new Bullet*[nrOfBullets];
 	for (int i = 0; i < nrOfBullets; i++) {
 		bullets[i] = new Bullet(rm);
 	}
-
+	
 	collision.setUpCollision(
 		player,
 		level->getGrid(),
@@ -37,7 +37,7 @@ PlayState::PlayState(ResourceManager* rm) :
 		goldHandler.getNrOf(),
 		nrOfBullets
 	);
-
+	enemyHandler.setCollision(collision);
 	rm->setView(&camera);
 }
 
@@ -82,7 +82,7 @@ GameState * PlayState::update(DeltaTime delta)
 			}
 		}
 		goldHandler.update(delta);
-
+	
 		for (int i = 0; i < nrOfBullets; i++) {
 			bullets[i]->update(delta, player);
 		}
@@ -101,21 +101,38 @@ GameState * PlayState::update(DeltaTime delta)
 				if (bullets[i]->getBulletState() == bulletState::PLAYER) {
 					toss = true;
 					bullets[i]->throwBullet(*player);
+					
 				}
 			}
 		}
+	
+		for (int i = 0; i < 6; ++i) {
+			if (bullets[i]->getBulletState() == bulletState::MADE_SOUND) {
+				std::cout << "Search State" << std::endl;
+				enemyHandler.activateSearchState(bullets[i]->getPosition());
+			}
+		}
+		
 		
 		//collision
 		collision.update();
-		
-		for (int i = 0; i < enemyHandler.getNrOf(); i++) {
-			if (collision.enemySeeCollider(enemyHandler.getEnemies()[i])) {
-				std::cout << "found you" << std::endl;
+		if (collision.outSide()) {
+			if (player->getNrOfGold() > 6) {
+				//win
+			}
+			else {
+				//gameOver
 			}
 		}
-
+		if (player->isDead()) {
+			//gameOver
+		}
+		for (int i = 0; i < enemyHandler.getNrOf(); i++) {
+			collision.enemySeeCollider(enemyHandler.getEnemies()[i]);
+		}
+	
 		ui.updateUI(player, delta);
-
+	
 		camera.setCenter(player->getPosition());
 	}
 	return state;

@@ -83,8 +83,8 @@ void Collision::checkCollision()
 		if (PPosy < 3) {
 			PPosy = 3;
 		}
-		if (PPosy > grid->getGridSize().x - 3) {
-			PPosy = grid->getGridSize().x - 3;
+		if (PPosy > (int)grid->getGridSize().x - 3) {
+			PPosy = (int)grid->getGridSize().x - 3;
 		}
 		int PPosx = grid->getTileFromWorldPos(IPlayerPos)->getGridPos().x;
 		if (PPosx < 3) {
@@ -381,6 +381,13 @@ bool Collision::tileVisibility() {
 	}
 	return theReturn;
 }
+bool Collision::outSide()
+{
+	return (player->getPosition().x < 32 * 2 || 
+		player->getPosition().x > (grid->getGridSize().x * grid->getTileSize()) - grid->getTileSize() * 2 ||
+		player->getPosition().y < 32 * 2 ||
+		player->getPosition().y > (grid->getGridSize().y * grid->getTileSize()) - grid->getTileSize() * 2);
+}
 //Shoot collider doesnt go trough walls
 bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 {
@@ -403,7 +410,6 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 						{
 							theReturn = true;
 							saw = true;
-							std::cout << "player take damage" << std::endl;
 							player->takeDamage();
 						}
 						else {
@@ -492,10 +498,10 @@ bool Collision::enemySeeCollider(Enemy* enemy)
 				bool foundWall = false;
 				for (int see = 0; see < maxDistance && !foundWall; see += howFastLook)
 				{
-					int x = cos((rayRoation * (3.14f / 180.f) - 1.57f)) * see + (int)enemy->getPosition().x;
-					int y = sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + (int)enemy->getPosition().y;
+					double x = cos((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().x;
+					double y = sin((rayRoation * (3.14f / 180.f) - 1.57f)) * see + enemy->getPosition().y;
 					tile* seetile = nullptr;
-					seetile = grid->getTileFromWorldPos(sf::Vector2i(x, y));
+					seetile = grid->getTileFromWorldPos(sf::Vector2i((int)x, (int)y));
 					if (x > player->getBounds().left&& x < player->getBounds().left + player->getBounds().width &&
 						y > player->getBounds().top&& y < player->getBounds().top + player->getBounds().height)
 					{
@@ -511,12 +517,12 @@ bool Collision::enemySeeCollider(Enemy* enemy)
 
 					}
 				}
-				//std::cout << "found" << foundPlayer << std::endl;
+
 				enemy->changePlayerInSight(foundPlayer);
 				
 			}
 		}
-	//}
+
 	return theReturn;
 }
 

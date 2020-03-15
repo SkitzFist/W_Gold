@@ -18,6 +18,7 @@ public:
 	void loadTilesAndLevels();
 	void loadSprites();
 	void loadSounds();
+	void loadMouse();
 
 #pragma region Fonts
 	sf::Font* getBasicFont();
@@ -40,6 +41,8 @@ public:
 	sf::Texture* getGold();
 	sf::Texture* getCylinder();
 #pragma endregion
+
+	sf::Texture* getMouse();
 
 #pragma region Sound
 	sf::SoundBuffer* getGunShot();
@@ -77,6 +80,8 @@ private:
 	sf::Texture* gold;
 	sf::Texture* cylinder;
 #pragma endregion
+
+	sf::Texture* Mouse;
 
 #pragma region Sound
 	sf::SoundBuffer* gunShot;

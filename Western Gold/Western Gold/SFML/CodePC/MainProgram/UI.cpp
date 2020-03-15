@@ -45,10 +45,10 @@ void UI::updateUI(Player *player, DeltaTime dt)
 	cylinder.setPosition(player->getPosition() + cylinderPos);
 	exit.setPosition(player->getPosition().x + exitButtonPos.x, player->getPosition().y + exitButtonPos.y);
 	time.setPosition(player->getPosition().x + -470, player->getPosition().y - 390);
-	gold.setPosition(player->getPosition().x + -400, player->getPosition().y - 460);
+	gold.setPosition(player->getPosition().x + -470, player->getPosition().y - 460);
 	gold.update(dt);
-	nrOfGold.setString(std::to_string(player->getNrOfGold()));
-	nrOfGold.setPosition(player->getPosition().x + -470, player->getPosition().y - 480);
+	nrOfGold.setString(std::to_string(player->getNrOfGold()) + "/12");
+	nrOfGold.setPosition(player->getPosition().x + -430, player->getPosition().y - 480);
 
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(2) << dt.getTotalTime();

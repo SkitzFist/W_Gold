@@ -23,12 +23,13 @@ protected:
     void setDirTowardsNextTile();
     bool hasReachedTile(tile* t) const;
     void calculatePath();
+    void rotate();
 
 private:
     tile* targetTile;
     tile* currentTile;
     tile* nextTile;
-
+ 
     Enemy* enm;
 };
 

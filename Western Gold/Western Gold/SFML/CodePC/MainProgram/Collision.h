@@ -44,6 +44,7 @@ public:
 	Collision(ResourceManager* rm);
 	virtual ~Collision();
 	bool enemySeeCollider(Enemy* enemy);
+	bool outSide();
 	bool shootCollider(Entity* whatEntityShooting, bool eShoot = false);
 	void setUpCollision(Player* player, Grid* grid = nullptr, EnemyHandler *enemyHandler = nullptr, Gold** gold = nullptr, Bullet** bull = nullptr, int nrOfGold = 0, int nrofBullets = 0);
 	void update();

@@ -23,6 +23,7 @@ private:
 	GameState* currentState;
 	DeltaTime time;
 
+	sf::Sprite mouse;
 	//debug
 
 private:
