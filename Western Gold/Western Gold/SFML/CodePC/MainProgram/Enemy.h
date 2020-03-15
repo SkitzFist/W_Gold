@@ -29,7 +29,6 @@ public:
 	bool isShooting();
 	int getSeeDistance()const;
 	void changePlayerInSight(bool Sight);
-	//debug
 	void setCollision(Collision& collision);
 	Collision* getCollision();
 	Sound* getSound() const;

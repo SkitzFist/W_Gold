@@ -14,7 +14,6 @@ public:
 	tile** getTiles() const;
 	tile* getTileFromWorldPos(sf::Vector2i pos);
 	sf::Vector2u getGridSize() const;
-	//debug
 	std::vector<tile*> getSurroundingTiles(tile* t);
 	int getNrOfWalkableTiles() const;
 	int getNrOfNotWalkableTiles() const;

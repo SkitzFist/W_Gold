@@ -26,13 +26,11 @@ void Collision::checkCollision()
 				}
 				else {
 					std::cout << "error" << std::endl;
-					//debug
-					//MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
 				}
 			}
 		}
 		else if (bull[i]->getBulletState() == bulletState::FLYING) {
-			//make so bullet isnt flying through walls
+
 			sf::Vector2i IBullPos((int)bull[i]->getPosition().x, (int)bull[i]->getPosition().y);
 			if (grid->getTileFromWorldPos(IBullPos) != nullptr) {
 				int BPosy = grid->getTileFromWorldPos(IBullPos)->getGridPos().y;
@@ -55,28 +53,7 @@ void Collision::checkCollision()
 			}
 		}
 	}
-	/*for (int i = 0; i < grid->getNrOfNotWalkableTiles(); i++) {
-		while (this->notWalkableTiles[i]->getSprite()->getGlobalBounds().intersects(player->getBounds())) {
-			if (rightSide(player, this->notWalkableTiles[i])) {
-				player->moveSprite(1, 0);
-			}
-			else if (leftSide(player, this->notWalkableTiles[i])) {
-				player->moveSprite(-1, 0);
-			}
-			else if (topSide(player, this->notWalkableTiles[i])) {
-				player->moveSprite(0, -1);
-			}
-			else if (botSide(player, this->notWalkableTiles[i])) {
-				player->moveSprite(0, 1);
-			}
-			else {
-				std::cout << "error" << std::endl;
-				//debug
-				//MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
-			}
-		}
-	}*/
-	//just look at the 3 that around you
+	
 	sf::Vector2i IPlayerPos((int)player->getPosition().x, (int)player->getPosition().y);
 	if (grid->getTileFromWorldPos(IPlayerPos) != nullptr) {
 		int PPosy = grid->getTileFromWorldPos(IPlayerPos)->getGridPos().y;
@@ -112,8 +89,6 @@ void Collision::checkCollision()
 						}
 						else {
 							std::cout << "error" << std::endl;
-							//debug
-							//MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
 						}
 					}
 				}
@@ -129,7 +104,6 @@ void Collision::checkCollision()
 
 	
 }
-//nope
 
 #pragma region someFunctions
 bool Collision::rightSide(GameObject* gameObject, tile* tiles)
@@ -342,10 +316,8 @@ bool Collision::botSide(GameObject* gameObj1, GameObject* gameObj2)
 #pragma endregion
 
 bool Collision::tileVisibility() {
-	//tiles
 	bool theReturn = true;
 
-	//gold
 	for (int g = 0; g < nrOfGold; g++) {
 		if (!gold[g]->take()) {
 			bool seeGold = true;
@@ -360,7 +332,7 @@ bool Collision::tileVisibility() {
 			}
 		}
 	}
-	//and enemies
+
 	for (int e = 0; e < nrOfEnemies; e++) 
 	{
 		if (!enemies[e]->isDead() && insideWindow(enemies[e],rm->getView())) 
@@ -388,7 +360,7 @@ bool Collision::outSide()
 		player->getPosition().y < 32 * 2 ||
 		player->getPosition().y > (grid->getGridSize().y * grid->getTileSize()) - grid->getTileSize() * 2);
 }
-//Shoot collider doesnt go trough walls
+
 bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 {
 	bool theReturn = false;
@@ -399,7 +371,7 @@ bool Collision::shootCollider(Entity* whatEntityShooting, bool eShoot)
 		bool over = false;
 		bool neverHitTile = true;
 		bool saw = false;
-		//shoot
+
 		if (!player->isDead() && whatEntityShooting->getShootRay()->rayHitGameObject(player)) {
 			for (int x = 0; x < (int)grid->getGridSize().x && !over; x++) {
 				for (int y = 0; y < (int)grid->getGridSize().y; y++) {
@@ -554,7 +526,6 @@ void Collision::setUpCollision(Player* player, Grid * grid, EnemyHandler *enemyH
 void Collision::update()
 {
 	this->nrOfEnemies = enemyHandler->getNrOf();
-	//check collision
 	checkCollision();
 	tileVisibility();
 }

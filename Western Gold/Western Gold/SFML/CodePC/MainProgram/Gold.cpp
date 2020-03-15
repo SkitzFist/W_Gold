@@ -16,7 +16,6 @@ void Gold::update(DeltaTime time)
 
 bool Gold::take(bool taken)
 {
-	//can both change and return what ever it is taken or not
 	if (taken) {
 		this->taken = taken;
 		this->setWannaDraw(false);

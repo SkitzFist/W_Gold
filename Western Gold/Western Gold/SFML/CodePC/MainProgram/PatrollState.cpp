@@ -8,12 +8,9 @@
 PatrollState::PatrollState(Enemy* enm) :
 	EnmState(enm)
 {
-	//config
-
 	//setup
 	setCurrentTile(enm->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(getEnm()->getPosition())));
 	setNextTarget();
-	//debug
 
 }
 

@@ -16,12 +16,10 @@ void Bullet::throwBullet(Player &player)
 void Bullet::fly(DeltaTime time)
 {
 	if (currentflytime < flytime) {
-		//move
 		currentflytime += (float)time.dt();
 		moveDir(time);
 	}
 	else {
-		//bullet hit ground sound
 		bulletAt = bulletState::MADE_SOUND;
 	}
 }
@@ -78,9 +76,8 @@ void Bullet::update(DeltaTime time, Player* player)
 	else if (bulletAt == bulletState::PLAYER) {
 		followOutScreen(player);
 	}
-	//when on ground be able to pick it up
 
 }
 void Bullet::update(DeltaTime time) {
-	//update needs to take in player but entity wants only time
+	
 }

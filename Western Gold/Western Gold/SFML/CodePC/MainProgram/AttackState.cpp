@@ -13,9 +13,9 @@ AttackState::AttackState(Enemy* enemy, Player* player):
 	//config
 	timeBeforeChangeState = 1.2;
 	timer = 0;
-	shootDistance = 200.f; //prob needs a lot of tweaking
-	timesBetweenShots = 1.5f; //prob needs a lot of tweaking
-	playerDistanceBeforeCalcNewPath = 100.f; //If player moves this distance away from tile, Calculate new path
+	shootDistance = 200.f; 
+	timesBetweenShots = 1.5f;
+	playerDistanceBeforeCalcNewPath = 100.f;
 	//setup
 	setTargetTile(enemy->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(player->getPosition())));
 	setNextTile(nullptr);
@@ -28,7 +28,6 @@ AttackState::AttackState(Enemy* enemy, Player* player):
 	};
 
 	calculatePath();
-	//debug	
 }
 
 AttackState::~AttackState()

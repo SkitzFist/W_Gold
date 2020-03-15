@@ -71,4 +71,3 @@ void LoadState::loadSound()
 	getRm()->loadSounds();
 	loadStatus += 33;
 }
-

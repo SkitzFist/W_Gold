@@ -1,7 +1,6 @@
 #pragma once
 #include "DeltaTime.h"
 #include "tile.h"
-#include <SFML/Graphics.hpp>
 class Enemy;
 
 class EnmState

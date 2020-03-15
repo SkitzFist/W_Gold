@@ -12,13 +12,6 @@
 class UI : public sf::Drawable 
 {
 private:
-	/*
-	Exit,
-	Cylinder
-	Shotts
-	*/
-	Button exit;
-	sf::Vector2f exitButtonPos;
 
 	sf::Sprite cylinder;
 	sf::Vector2f cylinderPos;

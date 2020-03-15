@@ -93,13 +93,7 @@
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files\GameState</Filter>
     </ClCompile>
-    <ClCompile Include="JoelState.cpp">
-      <Filter>Source Files\GameState</Filter>
-    </ClCompile>
     <ClCompile Include="PlayState.cpp">
-      <Filter>Source Files\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="SimonState.cpp">
       <Filter>Source Files\GameState</Filter>
     </ClCompile>
     <ClCompile Include="Line.cpp">
@@ -216,12 +210,6 @@
       <Filter>Header Files\GameState</Filter>
     </ClInclude>
     <ClInclude Include="PlayState.h">
-      <Filter>Header Files\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="SimonState.h">
-      <Filter>Header Files\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="JoelState.h">
       <Filter>Header Files\GameState</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">

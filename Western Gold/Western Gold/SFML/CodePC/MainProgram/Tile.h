@@ -27,11 +27,8 @@ public:
 	int getECost() const;
 	void setECost(int value);
 
-
 	tile* getParent()const;
 	void setParent(tile* parent);
-
-	
 
 private:
 

@@ -1,5 +1,4 @@
 #include "Line.h"
-#include <iostream>
 
 Line::Line(float x1, float y1, float x2, float y2)
 {

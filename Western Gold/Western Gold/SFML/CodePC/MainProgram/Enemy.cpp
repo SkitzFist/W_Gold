@@ -17,6 +17,7 @@ Entity(rm->getEnemy(), rm, nrOfRays)
 	dir = { 0.f, 0.f };
 	isPlayerInSight = false;
 	shootingSound = new Sound();
+	collision = nullptr;
 	//debug
 
 }
@@ -31,7 +32,7 @@ Enemy::~Enemy()
 
 void Enemy::update(DeltaTime delta)
 {
-	float speed = 150.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
+	float speed = 150.f * static_cast<float>(delta.dt());
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 		moveSprite(dir, speed);

@@ -7,7 +7,6 @@ private:
 public:
 	Line(float x1, float y1, float x2, float y2);
 	virtual ~Line();
-	//update the line
 	void changeLine();
 	float x1, x2, y1, y2;
 	float getLineX1()const;

@@ -23,10 +23,6 @@ void Pathfinding::findPath(sf::Vector2i start, sf::Vector2i end)
 	tile* startTile = grid->getTileFromWorldPos(start);
 	tile* endTile = grid->getTileFromWorldPos(end);
 
-	if (endTile == nullptr) {
-		std::cout << "NULL" << std::endl;
-	}
-
 	open.push_back(startTile);
 
 	while (open.size() > 0)
@@ -81,10 +77,6 @@ void Pathfinding::findPath(tile* start, tile* end)
 
 	tile* startTile = start;
 	tile* endTile = end;
-
-	if (endTile == nullptr) {
-		std::cout << "NULL" << std::endl;
-	}
 
 	open.push_back(startTile);
 

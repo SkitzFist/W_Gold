@@ -20,7 +20,6 @@ ResourceManager::~ResourceManager()
 	//texture
 	delete Mouse;
 	delete enemy;
-	delete AnimationTest;
 	delete gold;
 	delete cylinder;
 	delete UIBullet;
@@ -96,10 +95,6 @@ void ResourceManager::loadSprites()
 	if (!UIBullet->loadFromFile("../Textures/UIBullet.png")) {
 		cantLoad(L"UI Bullet");
 	}
-	AnimationTest = new sf::Texture();
-	if (!AnimationTest->loadFromFile("../Textures/animationTest.png")) {
-		cantLoad(L"animationtest");
-	}
 	cylinder = new sf::Texture();
 	if (!cylinder->loadFromFile("../Textures/cylinder.png")) {
 		cantLoad(L"cylinder");
@@ -110,7 +105,7 @@ void ResourceManager::loadSprites()
 	}
 	character = new sf::Texture();
 	if (!character->loadFromFile("../Textures/player.png")) {
-		cantLoad(L"hat");
+		cantLoad(L"player");
 	}
 	bullet = new sf::Texture();
 	if (!bullet->loadFromFile("../Textures/Bullet.png")) {
@@ -209,10 +204,6 @@ sf::Texture* ResourceManager::getEnemy()
 	return enemy;
 }
 
-sf::Texture* ResourceManager::getAnimationTest()
-{
-	return this->AnimationTest;
-}
 
 sf::Texture* ResourceManager::getCharacter()
 {

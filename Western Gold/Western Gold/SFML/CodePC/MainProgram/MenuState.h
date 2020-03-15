@@ -22,4 +22,3 @@ private:
 	Text* title;
 	void switchBox();
 };
-

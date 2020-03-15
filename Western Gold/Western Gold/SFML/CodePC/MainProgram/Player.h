@@ -9,8 +9,6 @@ private:
 	bool shooting;
 	bool tossing;
 
-	//Ray** rayTile;
-	//int nrOfTiles;
 	Ray** enemyRays;
 	Ray** goldRays;
 	int nrOfGold;
@@ -28,12 +26,11 @@ public:
 	int nrOfShotsLeft()const;
 	void addNrOfGoldTaken();
 	int getNrOfGold()const;
-	//Ray *getTileRay(int nr);
+
 	Ray* getEnemyRay(int nr);
 	Ray* getGoldRay(int nr);
 	Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies, int nrOfGold);
 	virtual~Player();
 	void update(DeltaTime time);
-	//debug
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

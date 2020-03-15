@@ -33,10 +33,3 @@ sf::Vector2i* PatrollPoints::getPoints() const
 {
 	return points;
 }
-
-void PatrollPoints::print()
-{
-	for (int i = 0; i < size; ++i) {
-		std::cout << points[i].x << "." << points[i].y << std::endl;
-	}
-}

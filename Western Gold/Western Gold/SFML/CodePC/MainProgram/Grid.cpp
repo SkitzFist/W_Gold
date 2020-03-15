@@ -20,8 +20,6 @@ Grid::Grid(ResourceManager* rm, sf::Image*level)
 
 	tiles = allocateTwoDimensionalArray<tile>(gridSize.y, gridSize.x);
 	initGrid(rm,level);
-	//Debug
-	
 }
 
 Grid::~Grid()
@@ -181,20 +179,6 @@ void Grid::initGrid(ResourceManager* rm,sf::Image* level)
 			}
 		}
 	}
-	/*
-	about what we should do later
-	arr1[][];
-	arr2[][];
-	for(int x = 0; x < nrArr1x; x++){
-	for(int y = 0; y < nrArr1y; y++){
-		tiles[x][y].getSprite(arr[x][y])//in some kind of way
-		tiles[x][y].setWoldPos(gridSize.x*x, gridSize.y*y)//pos can be set up over this
-		tiles[x][y].setIsWalkable(false);
-		tiles[x][y].setGridPos(x,y);
-	}
-	}
-	//and then the same for arr2 but tiles[x][y].setIsWalkable(true);
-	*/
 }
 
 bool Grid::isInsideWorld(sf::Vector2i pos)

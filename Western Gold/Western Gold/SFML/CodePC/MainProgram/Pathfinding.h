@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "Grid.h"
 #include <vector>
 class Pathfinding

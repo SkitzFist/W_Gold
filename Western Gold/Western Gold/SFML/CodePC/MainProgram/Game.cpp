@@ -1,9 +1,9 @@
 #include "Game.h"
 #include "LoadState.h"
-#include "WinState.h"
-#include "LoseState.h"
 
-Game::Game()
+Game::Game() :
+	timePerFrame(sf::seconds(1.0f / 60.0f)),
+	elapsedTimeSinceLastUpdate(sf::Time::Zero)
 {
 	//config
 	sf::ContextSettings settings(0U, 0U, 16U);
@@ -17,7 +17,6 @@ Game::Game()
 	rm->loadMouse();
 	mouse.setTexture(*rm->getMouse());
 	currentState = new LoadState(rm);
-	rm->setDeltaTime(time);
 	//debug
 }
 
@@ -68,7 +67,7 @@ void Game::update()
 
 void Game::render()
 {
-	window->clear(sf::Color::Black);
+	window->clear(sf::Color::Magenta);
 	if (currentState != nullptr) {
 		currentState->render(*window);
 	}

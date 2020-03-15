@@ -15,7 +15,6 @@ public:
 	void setPosition(float x, float y);
 	sf::Vector2f getPosition() const;
 	sf::FloatRect getBounds() const;
-	//easier to code with
 	float getLeft()const;
 	float getRight()const;
 	float getBot()const;
@@ -43,12 +42,8 @@ public:
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 protected:
-	
-
-	//centerOrigin private
 	Sound sound;
 	Animator animator;
-
 	ResourceManager* getRm();
 private:
 	void centerOrigin();

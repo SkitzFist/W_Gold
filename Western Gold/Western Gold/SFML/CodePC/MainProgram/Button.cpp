@@ -1,6 +1,6 @@
 #include "Button.h"
 
-Button::Button(sf::Font* font, std::string str, sf::Vector2f pos)
+Button::Button(sf::Font* font, std::string str, sf::Vector2f pos, unsigned int charSize)
 {
 	//config
 	boxOffset = 10.f;
@@ -13,7 +13,7 @@ Button::Button(sf::Font* font, std::string str, sf::Vector2f pos)
 
 	//setup
 	text.setFont(*font);
-	text.setCharacterSize(35);
+	text.setCharacterSize(charSize);
 	text.setString(str);
 	float width = text.getGlobalBounds().width;
 	float height = text.getGlobalBounds().height;
