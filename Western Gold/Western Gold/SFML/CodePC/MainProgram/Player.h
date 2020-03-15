@@ -18,6 +18,7 @@ private:
 	void rotation();
 	float speed;
 	sf::RenderWindow* window;
+	int nrOfGoldTaken;
 public:
 	void setEnemyRays(int nrOfEnemies);
 	void setGoldRays(int nrOfGold);
@@ -25,6 +26,8 @@ public:
 	bool tossBullet();
 	void gotBullet();
 	int nrOfShotsLeft()const;
+	void addNrOfGoldTaken();
+	int getNrOfGold()const;
 	//Ray *getTileRay(int nr);
 	Ray* getEnemyRay(int nr);
 	Ray* getGoldRay(int nr);

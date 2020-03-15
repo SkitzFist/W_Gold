@@ -83,9 +83,15 @@ void Collision::checkCollision()
 		if (PPosy < 3) {
 			PPosy = 3;
 		}
+		if (PPosy > grid->getGridSize().x - 3) {
+			PPosy = grid->getGridSize().x - 3;
+		}
 		int PPosx = grid->getTileFromWorldPos(IPlayerPos)->getGridPos().x;
 		if (PPosx < 3) {
 			PPosx = 3;
+		}
+		if (PPosx > grid->getGridSize().y - 3) {
+			PPosx = grid->getGridSize().y - 3;
 		}
 
 		for (int x = PPosx - 3; x < PPosx + 3; x++) {
@@ -116,24 +122,8 @@ void Collision::checkCollision()
 	}
 	for (int i = 0; i < nrOfGold; i++) {
 		if (!gold[i]->take() && gold[i]->getBounds().intersects(player->getBounds())) {
-			if (rightSide(player, gold[i])) {
-				gold[i]->take(true);
-			}
-			else if (leftSide(player, gold[i])) {
-				gold[i]->take(true);
-			}
-			else if (topSide(player, gold[i])) {
-				gold[i]->take(true);
-			}
-			else if (botSide(player, gold[i])) {
-				gold[i]->take(true);
-			}
-			else {
-				std::cout << "error" << std::endl;
-				//debug
-				//MessageBox(nullptr, L"Error With Collision", L"ERROR", MB_ICONWARNING | MB_OK);
-			}
-
+			player->addNrOfGoldTaken();
+			gold[i]->take(true);
 		}
 	}
 

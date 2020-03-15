@@ -35,20 +35,20 @@ void Enemy::update(DeltaTime delta)
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 		moveSprite(dir, speed);
-		float angle = 0;
-		if (dir.x > 0.5) {
-			angle = 90;
-		}
-		if (dir.x < -0.5) {
-			angle = 270;
-		}
-		if (dir.y > 0.5) {
-			angle = 180;
-		}
-		if (dir.y < -0.5) {
-			angle = 0;
-		}
-		this->setRotatioSprite(angle);
+		//float angle = 0;
+		//if (dir.x > 0.5) {
+		//	angle = 90;
+		//}
+		//if (dir.x < -0.5) {
+		//	angle = 270;
+		//}
+		//if (dir.y > 0.5) {
+		//	angle = 180;
+		//}
+		//if (dir.y < -0.5) {
+		//	angle = 0;
+		//}
+		//this->setRotatioSprite(angle);
 		//this->rotateSprite(angle);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 			std::cout << "dir: " << dir.x << ", " << dir.y << std::endl;
