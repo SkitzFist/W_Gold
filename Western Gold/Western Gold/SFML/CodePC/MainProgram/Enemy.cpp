@@ -9,7 +9,7 @@ Enemy::Enemy(ResourceManager* rm, int nrOfRays, Grid* grid, Player* player):
 Entity(rm->getEnemy(), rm, nrOfRays)
 {
 	//config
-	seeDistance = 100;
+	seeDistance = 300;
 	//setup
 	patroll = nullptr;
 	this->player = player;
@@ -31,15 +31,29 @@ Enemy::~Enemy()
 
 void Enemy::update(DeltaTime delta)
 {
-	float speed = 100.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
+	float speed = 50.f * static_cast<float>(delta.dt()); //TODO Speed should be in entity
 	if (currentState != nullptr) {
 		currentState = currentState->update(delta);
 		moveSprite(dir, speed);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			std::cout << "dir" << dir.x << ", " << dir.y << std::endl;
+		float angle = 0;
+		if (dir.x > 0.5) {
+			angle = 90;
 		}
-		GameObject::rotateSprite(atan2f( 0-dir.y, 0-dir.y));
-		
+		if (dir.x < -0.5) {
+			angle = 270;
+		}
+		if (dir.y > 0.5) {
+			angle = 180;
+		}
+		if (dir.y < -0.5) {
+			angle = 0;
+		}
+		this->setRotatioSprite(angle);
+		//this->rotateSprite(angle);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			std::cout << "dir: " << dir.x << ", " << dir.y << std::endl;
+		}
+
 	}
 	Entity::update(delta);
 }
@@ -82,7 +96,7 @@ int Enemy::getSeeDistance() const
 
 void Enemy::changePlayerInSight(bool Sight)
 {
-	isPlayerInSight = Sight;
+	this->isPlayerInSight = Sight;
 }
 
 void Enemy::setIsPlayerInSight(Collision& col)
@@ -103,7 +117,7 @@ bool Enemy::getIsPlayerInSight()
 Player* Enemy::getPlayer()
 {
 	//TODO skicka in i konstruktorn
-	return this->player;
+	return player;
 }
 
 PatrollPoints* Enemy::getPatroll()

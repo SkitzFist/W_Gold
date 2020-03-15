@@ -43,6 +43,15 @@ void Player::setEnemyRays(int nrOfEnemies)
 	this->nrOfEnemies = nrOfEnemies;
 }
 
+void Player::setGoldRays(int nrOfGold)
+{
+	goldRays = new Ray * [nrOfGold];
+	for (int i = 0; i < nrOfGold; i++) {
+		goldRays[i] = new Ray();
+	}
+	this->nrOfGold = nrOfGold;
+}
+
 bool Player::shoot()
 {
 	bool theReturn = false;
@@ -123,11 +132,8 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies, int nrOfG
 	tossing = false;
 
 
-	goldRays = new Ray * [nrOfGold];
-	for (int i = 0; i < nrOfGold; i++) {
-		goldRays[i] = new Ray();
-	}
-	this->nrOfGold = nrOfGold;
+	goldRays = nullptr;
+	this->nrOfGold = 0;
 
 	enemyRays = nullptr;
 	this->nrOfEnemies = 0;
