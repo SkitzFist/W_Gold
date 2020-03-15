@@ -16,7 +16,7 @@ PlayState::PlayState(ResourceManager* rm) :
 	level = new Level(rm, rm->getLevel_01());
 	
 
-	player = new Player(rm->getAnimationTest(), rm, enemyHandler.getNrOf(), 0);
+	player = new Player(rm->getCharacter(), rm, enemyHandler.getNrOf(), 0);
 	player->setPosition(100.f, 100.f);
 	level->placeEnemies(player, enemyHandler);
 	level->placeGold(goldHandler);
