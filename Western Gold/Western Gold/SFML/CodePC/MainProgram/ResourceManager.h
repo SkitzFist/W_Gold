@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <SFML/Graphics.hpp>
 #include "SoundManager.h"
+
 class ResourceManager
 {
 public:
@@ -49,9 +50,7 @@ public:
 	sf::SoundBuffer* getGunShot();
 	sf::SoundBuffer* getKlingSound();
 #pragma endregion
-	//debug
 	sf::Texture* getEnemy();
-	sf::Texture* getAnimationTest();
 	
 
 private:
@@ -90,12 +89,7 @@ private:
 	sf::SoundBuffer* klingSound;
 #pragma endregion
 
-	//debug
 	sf::Texture* enemy;
-	sf::Texture* AnimationTest;
-
-
 private:
 	void cantLoad(LPCWSTR theerror);
-	//debug
 };

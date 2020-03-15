@@ -1,5 +1,6 @@
 #include "PlayState.h"
 #include "PauseState.h"
+#include "WinState.h"
 
 
 PlayState::PlayState(ResourceManager* rm) :
@@ -118,7 +119,6 @@ GameState * PlayState::update(DeltaTime delta)
 		}
 	}
 
-
 	//collision
 	collision.update();
 
@@ -129,6 +129,14 @@ GameState * PlayState::update(DeltaTime delta)
 	ui.updateUI(player, delta);
 
 	camera.setCenter(player->getPosition());
+
+	if (collision.outSide() && player->getNrOfGold() >= NR_OF_GOLD_TO_WIN) {
+		state = new WinState(getRm(), player->getNrOfGold());
+		delete this;
+	}
+	else if (collision.outSide() && player->getNrOfGold() >= NR_OF_GOLD_TO_WIN){
+
+	}
 	return state;
 }
 

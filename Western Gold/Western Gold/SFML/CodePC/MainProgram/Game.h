@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <thread>
 #include "ResourceManager.h"
 #include "GameState.h"
 

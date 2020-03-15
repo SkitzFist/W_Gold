@@ -1,8 +1,5 @@
 #include "tile.h"
 
-//debug
-#include <iostream>
-
 tile::tile()
 {
 	sprite = nullptr;

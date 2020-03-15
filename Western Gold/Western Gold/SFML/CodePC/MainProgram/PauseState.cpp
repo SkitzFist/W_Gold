@@ -57,7 +57,7 @@ PauseState::~PauseState()
 GameState* PauseState::handleEvent(const sf::Event& event)
 {
 	GameState* state = this;
-	if (event.type == sf::Event::KeyReleased) {
+	if (event.type == sf::Event::KeyPressed) {
 		if (
 		      event.key.code == sf::Keyboard::W
 			|| event.key.code == sf::Keyboard::S

@@ -187,9 +187,6 @@
     <ClCompile Include="GoldHandler.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="InsideWindow.cpp" />
-    <ClCompile Include="JoelState.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="LoadState.cpp" />
@@ -205,7 +202,6 @@
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SeachState.cpp" />
-    <ClCompile Include="SimonState.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="tile.cpp" />
@@ -231,9 +227,6 @@
     <ClInclude Include="GoldHandler.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="InsideWindow.h" />
-    <ClInclude Include="JoelState.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="Level.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="LoadState.h" />
@@ -248,7 +241,6 @@
     <ClInclude Include="Ray.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SeachState.h" />
-    <ClInclude Include="SimonState.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="tile.h" />

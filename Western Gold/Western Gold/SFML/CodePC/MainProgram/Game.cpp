@@ -1,6 +1,5 @@
 #include "Game.h"
 #include "LoadState.h"
-#include "WinState.h"
 
 Game::Game() :
 	timePerFrame(sf::seconds(1.0f / 60.0f)),
@@ -17,7 +16,7 @@ Game::Game() :
 	rm->windowSetup(window);
 	rm->loadMouse();
 	mouse.setTexture(*rm->getMouse());
-	currentState = new WinState(rm);
+	currentState = new LoadState(rm);
 	//debug
 }
 

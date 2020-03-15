@@ -3,13 +3,10 @@
 
 EnemyHandler::EnemyHandler()
 {
-	//config
-
 	//setup
 	nrOf = 0;
 	cap = 20;
 	enemies = new Enemy * [cap] {nullptr};
-	//debug
 }
 
 EnemyHandler::~EnemyHandler()

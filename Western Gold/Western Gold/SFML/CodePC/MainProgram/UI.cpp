@@ -3,12 +3,9 @@
 
 
 UI::UI(ResourceManager *rm):
-	exit(rm->getBasicFont(), "X", sf::Vector2f(0,0)),
 	gold(rm,0,0)
 
 {
-	exitButtonPos.x =  470.f;
-	exitButtonPos.y = -470.0f;
 	nrOfShots = 6;
 	cylinder.setTexture(*rm->getCylinder());
 	cylinder.setScale(1.5f, 1.5f);
@@ -22,14 +19,15 @@ UI::UI(ResourceManager *rm):
 	time.setFont(*rm->getBasicFont());
 	
 	time.setCharacterSize(40);
-	time.setFillColor(sf::Color::Black);
+	time.setFillColor(sf::Color::White);
 	text.setFont(*rm->getBasicFont());
 	text.setPosition(10, 10);
 	text.setCharacterSize(40);
 	text.setString("00");
+	text.setFillColor(sf::Color::White);
 
 	nrOfGold.setCharacterSize(40);
-	nrOfGold.setFillColor(sf::Color::Black);
+	nrOfGold.setFillColor(sf::Color::White);
 	nrOfGold.setFont(*rm->getBasicFont());
 	nrOfGold.setCharacterSize(40);
 	
@@ -43,7 +41,6 @@ UI::~UI()
 void UI::updateUI(Player *player, DeltaTime dt)
 {
 	cylinder.setPosition(player->getPosition() + cylinderPos);
-	exit.setPosition(player->getPosition().x + exitButtonPos.x, player->getPosition().y + exitButtonPos.y);
 	time.setPosition(player->getPosition().x + -470, player->getPosition().y - 390);
 	gold.setPosition(player->getPosition().x + -470, player->getPosition().y - 460);
 	gold.update(dt);
@@ -74,7 +71,6 @@ void UI::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 	target.draw(time);
 	target.draw(cylinder);
-	target.draw(exit);
 	target.draw(text);
 	target.draw(gold);
 	target.draw(nrOfGold);

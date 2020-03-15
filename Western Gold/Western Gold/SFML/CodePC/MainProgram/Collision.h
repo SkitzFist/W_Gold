@@ -10,7 +10,6 @@
 class Collision {
 private:
 	Player* player;
-	//add a gameObject
 	Gold** gold;
 	Grid* grid;
 	Bullet** bull;
@@ -27,7 +26,6 @@ private:
 
 	ResourceManager* rm;
 	void checkCollision();
-	//if gameobject is on the right side of tiles
 	bool rightSide(GameObject*	gameObject, tile* tiles);
 	bool rightSide(GameObject*  gameObj1, GameObject* gameObj2);
 	bool leftSide(GameObject*	gameObject, tile* tiles);
@@ -36,9 +34,8 @@ private:
 	bool topSide(GameObject* gameObj1, GameObject* gameObj2);
 	bool botSide(GameObject*	gameObject, tile* tiles);
 	bool botSide(GameObject* gameObj1, GameObject* gameObj2);
-	//from tile to player
+
 	bool tileVisibility();
-	//if player shoot/enemy shoot player
 	
 public:
 	Collision(ResourceManager* rm);

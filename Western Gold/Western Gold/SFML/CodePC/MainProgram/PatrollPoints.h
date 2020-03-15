@@ -11,9 +11,6 @@ public:
 	sf::Vector2i getNextPoint();
 	sf::Vector2i* getPoints() const;
 
-	//debug
-	void print();
-
 private:
 	sf::Vector2i* points;
 	int size;

@@ -1,11 +1,14 @@
 #pragma once
 #include "GameState.h"
 #include "Text.h"
+#include "ButtonStates.h"
+#include "Button.h"
+
 class WinState:
 	public GameState
 {
 public:
-	WinState(ResourceManager* rm);
+	WinState(ResourceManager* rm, int collectedGold);
 	~WinState();
 	// Inherited via GameState
 	virtual GameState* handleEvent(const sf::Event& event) override;
@@ -27,9 +30,13 @@ private:
 
 	//Gold
 	sf::RectangleShape goldBox;
-	void setUpGold();
+	void setUpGold(int collectedGold);
+	Text* goldText;
 
 	//Buttons
 	void setUpButtons();
+	CurrentButton currentButton;
+	Button* nextButton;
+	Button* exitButton;
+	void switchButton();
 };
-

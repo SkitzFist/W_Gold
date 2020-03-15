@@ -34,20 +34,14 @@ public:
 	
 	void placeEnemies(Player* player, EnemyHandler& handler);
 	void placeGold(GoldHandler& handler);
-	//Experimental
-	void findDrawTiles(Player* player);
-	void experimentalDrawLevel(sf::RenderWindow& window) const;
+	
 private:
 	Grid* grid;
 	ResourceManager* rm;
-	float getDistance(sf::Vector2f a, sf::Vector2f b) const;
 
 	//debug
 	tile** drawTiles;
 	int nrOfDrawTiles;
 	int nrOfTilesOnScreen;
-
-	void addTiles(Index current, Index dir, Index childDir, int length, int currentLength);
-	void addTileChild(Index Current, Index dir, int length, int currentLength);
 };
 

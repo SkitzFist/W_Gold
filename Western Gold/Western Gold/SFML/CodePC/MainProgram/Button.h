@@ -5,7 +5,7 @@ class Button :
 {
 public:
 
-	Button(sf::Font* font, std::string str, sf::Vector2f pos);
+	Button(sf::Font* font, std::string str, sf::Vector2f pos, unsigned int charSize = 35);
 	~Button();
 
 	void setPosition(float x, float y);

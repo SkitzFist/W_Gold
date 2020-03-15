@@ -22,7 +22,6 @@ void Player::move(DeltaTime time)
 		yDir++;
 		movementKeys++;
 	}
-	//If player as two keys down move half speed
 	if (movementKeys > 0) {
 		float nowSpeed = speed;
 		if (movementKeys >= 2) {
@@ -59,12 +58,10 @@ bool Player::shoot()
 		shooting = true;
 		if (nrOfShoots > 0) {
 			nrOfShoots--;
-			//shoot
 			theReturn = true;
 			this->sound.PlaySounds(getRm()->getGunShot());
 		}
 		else {
-			//klick
 			this->sound.PlaySounds(getRm()->getKlingSound());
 		}
 		
@@ -83,7 +80,6 @@ bool Player::tossBullet()
 		tossing = true;
 		if (nrOfShoots > 0) {
 			nrOfShoots--;
-			//shoot
 			theReturn = true;
 		}
 	}
@@ -151,8 +147,6 @@ Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies, int nrOfG
 
 	this->window = rm->getWindow();
 	speed = 200;
-
-	//this->setanimation(0.05f, 24, 1, 0);
 }
 
 Player::~Player()
@@ -173,7 +167,6 @@ void Player::update(DeltaTime time)
 	if (!this->isDead()) {
 		move(time);
 		rotation();
-		//animator.updateAnimator(time);
 		Entity::update(time);
 	}
 }
@@ -181,11 +174,4 @@ void Player::update(DeltaTime time)
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	Entity::draw(target, states);
-	//debug
-	//for (int i = 0; i < nrOfEnemies; i++) {
-	//	target.draw(*this->enemyRays[i]);
-	//}
-	//for (int i = 0; i < nrOfGold; i++) {
-	//	target.draw(*this->goldRays[i]);
-	//}
 }

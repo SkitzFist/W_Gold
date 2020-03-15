@@ -29,6 +29,7 @@ private:
 
 	//nrOf
 	int nrOfBullets;
+	const int NR_OF_GOLD_TO_WIN = 6;
 	
 	bool canStart;
 
@@ -39,6 +40,4 @@ private:
 	UI ui;
 
 	sf::View camera;
-
-
 };

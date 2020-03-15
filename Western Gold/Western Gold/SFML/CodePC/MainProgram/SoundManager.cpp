@@ -4,7 +4,6 @@
 
 Sound::Sound()
 {
-	//this->volume = SettingsVolume();
 	this->volume = 10;
 	sound.setVolume(volume);
 	music.setVolume(volume);
@@ -68,10 +67,4 @@ void Sound::StopMusic()
 {
 	this->music.stop();
 	
-}
-
-void Sound::RestartSound()
-{
-	//this is under construction
-	//this->volume = SettingsVolume();
 }

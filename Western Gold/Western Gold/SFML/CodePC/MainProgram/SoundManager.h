@@ -15,8 +15,7 @@ public:
 	//playMusic
 	void PlayMusic(std::string FileName, float volume = -1.0f);
 	void StopMusic();
-	//In beta
-	void RestartSound();
+
 	//check if music or sound has stopped playing
 	bool IfSoundStopped()const;
 	bool IfMusicStopped()const;

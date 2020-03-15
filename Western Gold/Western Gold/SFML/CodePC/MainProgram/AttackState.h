@@ -8,6 +8,7 @@ class AttackState:
 public:
 	AttackState(Enemy* enemy, Player* player);
 	virtual ~AttackState() override;
+
 	// Inherited via EnmState
 	virtual EnmState* update(DeltaTime time) override;
 

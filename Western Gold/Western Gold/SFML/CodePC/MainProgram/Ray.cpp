@@ -61,9 +61,7 @@ Line &Ray::returnThisLine()
 
 void Ray::setRotationOffset(float offset, Entity* entity)
 {
-	//for enemies
-	this->rotationOffset = offset;
-	
+	this->rotationOffset = offset;	
 }
 
 float Ray::getRotationOffset() const

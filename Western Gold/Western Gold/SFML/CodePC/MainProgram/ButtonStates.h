@@ -4,5 +4,6 @@ enum class CurrentButton
 {
 	play = 0,
 	resume,
-	exit
+	exit,
+	next
 };

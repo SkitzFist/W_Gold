@@ -7,8 +7,6 @@
 #include "PatrollState.h"
 
 
-//debug
-#include <iostream>
 
 SeachState::SeachState(Enemy* enemy, sf::Vector2f searchPos) :
 	EnmState(enemy)
@@ -17,6 +15,7 @@ SeachState::SeachState(Enemy* enemy, sf::Vector2f searchPos) :
 	maxSearchDistance = 10;
 	maximumSearchTime = 20.f;
 	minimumSearchTime = 5.f;
+
 	//setup
 	searchTime = randomFloat(minimumSearchTime, maximumSearchTime);
 	searchTimer = 0.f;
@@ -24,10 +23,7 @@ SeachState::SeachState(Enemy* enemy, sf::Vector2f searchPos) :
 	setTargetTile(enemy->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(searchPos)));
 	setCurrentTile(enemy->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(enemy->getPosition())));
 	setNextTile(nullptr);
-
 	calculatePath();
-	//debug
-
 }
 
 EnmState* SeachState::update(DeltaTime time)
@@ -58,7 +54,7 @@ void SeachState::move()
 	if (hasReachedTile(getTargetTile())) {
 		dir = { 0.f,0.f };
 		getEnm()->setDir(dir);
-		setNextTarget(); //TODO update this
+		setNextTarget();
 		getEnm()->getPathfinding()->findPath(getCurrentTile(), getTargetTile());
 	}
 	else if (hasReachedTile(getNextTile())) {
