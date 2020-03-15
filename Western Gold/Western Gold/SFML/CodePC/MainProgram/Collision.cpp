@@ -67,8 +67,8 @@ void Collision::checkCollision()
 		if (PPosx < 3) {
 			PPosx = 3;
 		}
-		if (PPosx > grid->getGridSize().y - 3) {
-			PPosx = grid->getGridSize().y - 3;
+		if (PPosx > (int)grid->getGridSize().y - 3) {
+			PPosx = (int)grid->getGridSize().y - 3;
 		}
 
 		for (int x = PPosx - 3; x < PPosx + 3; x++) {

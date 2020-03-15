@@ -5,5 +5,6 @@ enum class CurrentButton
 	play = 0,
 	resume,
 	exit,
-	restart
+	restart,
+	next
 };

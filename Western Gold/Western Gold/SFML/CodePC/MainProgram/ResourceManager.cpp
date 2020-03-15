@@ -194,7 +194,7 @@ sf::SoundBuffer* ResourceManager::getKlingSound()
 	return klingSound;
 }
 
-DeltaTime* ResourceManager::getDt()
+DeltaTime* ResourceManager::getDt() const
 {
 	return this->dt;
 }

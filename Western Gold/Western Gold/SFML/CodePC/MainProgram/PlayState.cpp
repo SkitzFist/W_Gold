@@ -1,6 +1,7 @@
 #include "PlayState.h"
 #include "PauseState.h"
 #include "WinState.h"
+#include "LoseState.h"
 
 
 PlayState::PlayState(ResourceManager* rm) :
@@ -108,7 +109,6 @@ GameState * PlayState::update(DeltaTime delta)
 			if (bullets[i]->getBulletState() == bulletState::PLAYER) {
 				toss = true;
 				bullets[i]->throwBullet(*player);
-
 			}
 		}
 	}
@@ -134,9 +134,10 @@ GameState * PlayState::update(DeltaTime delta)
 		state = new WinState(getRm(), player->getNrOfGold());
 		delete this;
 	}
-	else if (collision.outSide() && player->getNrOfGold() >= NR_OF_GOLD_TO_WIN){
-
+	else if (collision.outSide() && player->getNrOfGold() < NR_OF_GOLD_TO_WIN){
+		state = new LoseState(getRm(), this);
 	}
+
 	return state;
 }
 
@@ -157,5 +158,4 @@ void PlayState::render(sf::RenderWindow&  window) const
 		window.draw(*goldHandler.getGold()[i]);
 	}
 	window.draw(ui);
-	//debug
 }

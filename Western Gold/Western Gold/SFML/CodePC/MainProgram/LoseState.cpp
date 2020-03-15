@@ -21,7 +21,7 @@ GameOver(rm->getWesternFont(),"GAME OVER", sf::Vector2f(rm->getView()->getCenter
 	color.a = 100;
 	backGrey.setFillColor(color);
 	backGrey.setPosition(boxPos.x - (rm->getWindowWidth() / 2), boxPos.y- (rm->getWindowHeight() / 2));
-	backGrey.setSize(sf::Vector2f(rm->getWindowWidth(), rm->getWindowHeight()));
+	backGrey.setSize(sf::Vector2f((float)rm->getWindowWidth(), (float)rm->getWindowHeight()));
 }
 
 
@@ -51,11 +51,14 @@ GameState* LoseState::handleEvent(const sf::Event& event)
 			{
 			case CurrentButton::restart:
 				state = new PlayState(getRm());
+				delete loseState;
+				loseState = nullptr;
 				delete this;
 				break;
 			case CurrentButton::exit:
 				state = new MenuState(getRm());
 				delete loseState;
+				loseState = nullptr;
 				delete this;
 				break;
 			default:

@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <SFML/Graphics.hpp>
 #include "SoundManager.h"
+#include "DeltaTime.h"
 
 class ResourceManager
 {
@@ -20,6 +21,7 @@ public:
 	void loadSprites();
 	void loadSounds();
 	void loadMouse();
+	void setDeltaTime(DeltaTime& dt);
 
 #pragma region Fonts
 	sf::Font* getBasicFont();
@@ -52,8 +54,10 @@ public:
 #pragma endregion
 	sf::Texture* getEnemy();
 	
+	DeltaTime* getDt() const;
 
 private:
+	DeltaTime* dt;
 	int windowWidth;
 	int windowHeight;
 	sf::RenderWindow* window;

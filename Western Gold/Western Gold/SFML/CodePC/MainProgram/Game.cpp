@@ -1,9 +1,7 @@
 #include "Game.h"
 #include "LoadState.h"
 
-Game::Game() :
-	timePerFrame(sf::seconds(1.0f / 60.0f)),
-	elapsedTimeSinceLastUpdate(sf::Time::Zero)
+Game::Game()
 {
 	//config
 	sf::ContextSettings settings(0U, 0U, 16U);
