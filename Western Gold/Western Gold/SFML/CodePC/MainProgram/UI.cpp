@@ -6,6 +6,7 @@ UI::UI(ResourceManager *rm):
 	gold(rm,0,0)
 
 {
+	this->rm = rm;
 	nrOfShots = 6;
 	cylinder.setTexture(*rm->getCylinder());
 	cylinder.setScale(1.5f, 1.5f);
@@ -60,7 +61,11 @@ void UI::updateUI(Player *player, DeltaTime dt)
 	shots[0].setPosition(player->getPosition().x + 373, player->getPosition().y + 284);
 
 	this->nrOfShots = player->nrOfShotsLeft();
-	text.setPosition(player->getPosition().x, player->getPosition().y);
+	sf::Vector2f textPos = {
+		player->getPosition().x + 280.f,
+		player->getPosition().y  - 500.f
+	};
+	text.setPosition(textPos);
 	text.setString(std::to_string(1/dt.getRawTime()));
 }
 

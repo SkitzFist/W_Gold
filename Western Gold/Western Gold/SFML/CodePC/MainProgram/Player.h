@@ -29,7 +29,7 @@ public:
 
 	Ray* getEnemyRay(int nr);
 	Ray* getGoldRay(int nr);
-	Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies, int nrOfGold);
+	Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies);
 	virtual~Player();
 	void update(DeltaTime time);
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

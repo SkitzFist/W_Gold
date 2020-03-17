@@ -104,7 +104,6 @@ int Player::nrOfShotsLeft() const
 void Player::addNrOfGoldTaken()
 {
 	this->nrOfGoldTaken++;
-	std::cout << nrOfGoldTaken << std::endl;
 }
 
 int Player::getNrOfGold() const
@@ -131,7 +130,7 @@ void Player::rotation()
 	this->rotateSprite(tanv);
 }
 
-Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies, int nrOfGold):
+Player::Player(sf::Texture* tex, ResourceManager* rm, int nrOfEnemies):
 	Entity(tex,rm,1)
 {
 	nrOfShoots = 6;

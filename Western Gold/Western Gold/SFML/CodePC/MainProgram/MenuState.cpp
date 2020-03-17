@@ -4,6 +4,7 @@
 MenuState::MenuState(ResourceManager* rm):
 	GameState(rm)
 {
+
 	//config
 	float titlePosOffset = 150.f;
 	sf::Vector2f titlePos = {
@@ -58,7 +59,9 @@ GameState* MenuState::handleEvent(const sf::Event& event)
 		}
 
 		if (event.key.code == sf::Keyboard::Up
-			|| event.key.code == sf::Keyboard::Down) {
+			|| event.key.code == sf::Keyboard::Down
+			|| event.key.code == sf::Keyboard::W
+			|| event.key.code == sf::Keyboard::S) {
 			switchBox();
 		}
 	}
@@ -77,6 +80,7 @@ GameState* MenuState::update(DeltaTime delta)
 
 void MenuState::render(sf::RenderWindow& window) const
 {
+	window.setView(window.getDefaultView());
 	window.draw(*playButton);
 	window.draw(*exitButton);
 	window.draw(*title);

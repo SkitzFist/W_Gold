@@ -14,6 +14,7 @@ Game::Game()
 	rm->windowSetup(window);
 	rm->loadMouse();
 	mouse.setTexture(*rm->getMouse());
+	rm->setDeltaTime(time);
 	currentState = new LoadState(rm);
 	//debug
 }
@@ -65,7 +66,7 @@ void Game::update()
 
 void Game::render()
 {
-	window->clear(sf::Color::Magenta);
+	window->clear(sf::Color::Black);
 	if (currentState != nullptr) {
 		currentState->render(*window);
 	}

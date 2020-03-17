@@ -68,6 +68,7 @@ GameState* WinState::update(DeltaTime delta)
 
 void WinState::render(sf::RenderWindow& window) const
 {
+	window.setView(window.getDefaultView());
 	window.draw(upgradeBox);
 	window.draw(goldBox);
 	window.draw(familyBox);

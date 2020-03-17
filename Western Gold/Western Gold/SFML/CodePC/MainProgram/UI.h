@@ -25,6 +25,7 @@ private:
 	Gold gold;
 
 	int nrOfShots;
+	ResourceManager* rm;
 public:
 
 	UI(ResourceManager* rm);

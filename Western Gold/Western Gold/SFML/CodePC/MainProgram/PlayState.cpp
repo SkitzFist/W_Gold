@@ -12,13 +12,11 @@ PlayState::PlayState(ResourceManager* rm) :
 	//config
 	canStart = false;
 	//setup
-	//objects
 	nrOfBullets = 6;
 
 	level = new Level(rm, rm->getLevel_01());
-	
 
-	player = new Player(rm->getCharacter(), rm, enemyHandler.getNrOf(), 0);
+	player = new Player(rm->getCharacter(), rm, enemyHandler.getNrOf());
 	player->setPosition(100.f, 100.f);
 	level->placeEnemies(player, enemyHandler);
 	level->placeGold(goldHandler);
@@ -41,6 +39,8 @@ PlayState::PlayState(ResourceManager* rm) :
 	);
 	enemyHandler.setCollision(collision);
 	rm->setView(&camera);
+	rm->getDt()->restartClock();
+	rm->getDt()->restartTimer();
 }
 
 
@@ -134,7 +134,8 @@ GameState * PlayState::update(DeltaTime delta)
 		state = new WinState(getRm(), player->getNrOfGold());
 		delete this;
 	}
-	else if (collision.outSide() && player->getNrOfGold() < NR_OF_GOLD_TO_WIN){
+	else if (collision.outSide() && player->getNrOfGold() < NR_OF_GOLD_TO_WIN 
+		|| player->isDead()){
 		state = new LoseState(getRm(), this);
 	}
 
