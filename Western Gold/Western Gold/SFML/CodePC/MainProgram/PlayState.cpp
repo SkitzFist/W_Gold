@@ -60,11 +60,13 @@ GameState * PlayState::handleEvent(const sf::Event & event)
 	if (event.type == sf::Event::KeyPressed) {
 		canStart = true;
 	}
+	
 	else if (event.type == sf::Event::KeyReleased) {
 		if (event.key.code == sf::Keyboard::Escape) {
 			state = new PauseState(getRm(), this);
 		}
 	}
+	
 	return state;
 }
 
@@ -94,7 +96,6 @@ GameState * PlayState::update(DeltaTime delta)
 	for (int i = 0; i < nrOfBullets; i++) {
 		bullets[i]->update(delta, player);
 	}
-
 
 	//player
 	player->update(delta);
@@ -144,7 +145,6 @@ GameState * PlayState::update(DeltaTime delta)
 
 void PlayState::render(sf::RenderWindow&  window) const
 {
-	
 	window.setView(camera);
 	level->drawLevel(window);
 	window.draw(*player);

@@ -13,5 +13,7 @@ public:
 private:
 	void move(DeltaTime time);
 	void setNextTarget();
+	double timer;
+	double maxTime;
 };
 

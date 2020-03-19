@@ -27,8 +27,6 @@ bool Ray::check(float T, float R, float B, float L)
 		theReturn = true;
 	}
 	
-
-
 	return theReturn;
 }
 

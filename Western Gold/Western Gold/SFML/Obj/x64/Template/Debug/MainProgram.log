@@ -1,2 +1,42 @@
-﻿  UI.cpp
-  MainProgram.vcxproj -> D:\University\Grunder i spelutveckling\Western Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe
+﻿  Animator.cpp
+  AttackState.cpp
+  Bullet.cpp
+  Button.cpp
+  Collision.cpp
+  DeltaTime.cpp
+  Enemy.cpp
+  EnemyHandler.cpp
+  EnmState.cpp
+  Entity.cpp
+  Game.cpp
+  GameObject.cpp
+  GameState.cpp
+  GetDistance.cpp
+  Gold.cpp
+  GoldHandler.cpp
+  Grid.cpp
+  InsideWindow.cpp
+  Level.cpp
+  Line.cpp
+  Generating Code...
+  Compiling...
+  LoadState.cpp
+  LoseState.cpp
+  WinState.cpp
+  main.cpp
+  MenuState.cpp
+  Pathfinding.cpp
+  PatrollPoints.cpp
+  PatrollState.cpp
+  PauseState.cpp
+  Player.cpp
+  PlayState.cpp
+  Ray.cpp
+  ResourceManager.cpp
+  SeachState.cpp
+  SoundManager.cpp
+  Text.cpp
+  tile.cpp
+  UI.cpp
+  Generating Code...
+  MainProgram.vcxproj -> C:\Users\JoPer\Documents\W_Gold\Western Gold\Western Gold\SFML\CodePC\../Bin/x64/TemplateD.exe

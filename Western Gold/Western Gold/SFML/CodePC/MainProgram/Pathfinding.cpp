@@ -22,9 +22,7 @@ void Pathfinding::findPath(sf::Vector2i start, sf::Vector2i end)
 
 	tile* startTile = grid->getTileFromWorldPos(start);
 	tile* endTile = grid->getTileFromWorldPos(end);
-
 	open.push_back(startTile);
-
 	while (open.size() > 0)
 	{
 		tile* currentTile = open[0];
@@ -35,23 +33,18 @@ void Pathfinding::findPath(sf::Vector2i start, sf::Vector2i end)
 				currentTile = open[i];
 			}
 		}
-
 		removeElementFromVector(open, currentTile);
 		closed.push_back(currentTile);
 		if (currentTile == endTile) {
 			retracePath(startTile, endTile);
 			break;
 		}
-
 		std::vector<tile*> surroundingTiles = grid->getSurroundingTiles(currentTile);
-
-
 		for (int i = 0; i < surroundingTiles.size(); ++i) {
 			if(!(surroundingTiles[i]->getIsWalkable())
 				|| isInVector(closed, surroundingTiles[i])) {
 				continue;
 			}
-
 			int newMovementCostToNeighbour = currentTile->getSCost() + getDistance(currentTile, surroundingTiles[i]);
 			if (newMovementCostToNeighbour < surroundingTiles[i]->getSCost()
 				|| !(isInVector(open, surroundingTiles[i]))) {

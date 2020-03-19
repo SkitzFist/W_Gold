@@ -11,6 +11,8 @@ PatrollState::PatrollState(Enemy* enm) :
 	//setup
 	setCurrentTile(enm->getGrid()->getTileFromWorldPos(static_cast<sf::Vector2i>(getEnm()->getPosition())));
 	setNextTarget();
+	timer = 0.0;
+	maxTime = 0.5;
 
 }
 
@@ -26,8 +28,14 @@ EnmState* PatrollState::update(DeltaTime time)
 	move(time);
 
 	if (getEnm()->getIsPlayerInSight()) {
-		state = new AttackState(getEnm(), getEnm()->getPlayer());
-		delete this;
+		timer += time.dt();
+		if (timer >= maxTime && getEnm()->getIsPlayerInSight()) {
+			state = new AttackState(getEnm(), getEnm()->getPlayer());
+			delete this;
+		}
+		else if (timer >= maxTime && getEnm()->getIsPlayerInSight()) {
+			timer = 0.0;
+		}
 	}
 
 	return state;
